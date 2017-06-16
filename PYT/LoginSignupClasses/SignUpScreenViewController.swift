@@ -10,14 +10,13 @@ import UIKit
 import IQKeyboardManager
 import MBProgressHUD
 
-class SignUpScreenViewController: UIViewController, apiClassDelegate {
+class SignUpScreenViewController: UIViewController {
 
     //Outlets of textFields
     
-    @IBOutlet var nameTf: UITextField!
+    
     @IBOutlet var emailTf: UITextField!
-    @IBOutlet var passwordTf: UITextField!
-    @IBOutlet var confirmPasswordTf: UITextField!
+    
     var allDone = Bool()
    
     
@@ -36,28 +35,16 @@ class SignUpScreenViewController: UIViewController, apiClassDelegate {
         IQKeyboardManager.shared().shouldResignOnTouchOutside=true
         IQKeyboardManager.shared().isEnableAutoToolbar=true
     
-        let CenterView = self.view.viewWithTag(111)
-        CenterView?.layer.cornerRadius=15
-        CenterView?.clipsToBounds=true
-        CenterView?.backgroundColor=UIColor .clear
         
-        
-        let signUpButton = self.view.viewWithTag(112)
-        signUpButton!.layer.cornerRadius=(signUpButton?.frame.size.height)!/2
-        
-        signUpButton!.layer.borderColor=UIColor (colorLiteralRed: 157.0/255.0, green: 194.0/255.0, blue: 134.0/255.0, alpha: 1).cgColor
-        signUpButton!.layer.borderWidth=1.0
-        signUpButton!.clipsToBounds=true
-       
-        
-
-     
-    
     }
     
     
 
     override func viewDidAppear(_ animated: Bool) {
+   
+        //apiClass.sharedInstance().delegate=self //delegate of api class
+
+        
     }
     
     
@@ -66,51 +53,14 @@ class SignUpScreenViewController: UIViewController, apiClassDelegate {
         self.view .setNeedsLayout()
          self.view.layoutIfNeeded()
         
-        //////////-------  Add Gradient color to background  --------///////////
-        
-        gradientView.backgroundColor=UIColor .white
-        
-//        
-//        let layer = CAGradientLayer()
-//        layer.frame = CGRect(x: 0, y: 0, width: self.gradientView.frame.size.width, height: self.gradientView.frame.size.height)
-//        
-//        //        layer.frame = gradientView.bounds
-//        
-//        let blueColor = UIColor(red: 0/255, green: 146/255, blue: 198/255, alpha: 1.0).CGColor as CGColorRef
-//        let purpleColor = UIColor(red: 117/255, green: 42/255, blue: 211/255, alpha: 1.0).CGColor as CGColorRef
-//        layer.colors = [purpleColor, blueColor]
-//        layer.startPoint = CGPoint(x: 0.0, y: 0.4)
-//        layer.endPoint = CGPoint(x: 0.0, y: 0.8)
-//        layer.locations = [0.30,1.0]
-//        self.gradientView.layer.addSublayer(layer)
-        
-        
-        
-        /////////------ End of gradient color -------/////////
-
-        
-        apiClass.sharedInstance().delegate=self //delegate of api class
+      
+       
         
         
        
         
-        
-        
-//        if self.view.frame.size.height<=667 {
-//            
-//            self.heightOfContantScrollView.constant=600
-//            
-//        }
-//        else
-//        {
-//            self.heightOfContantScrollView.constant=self.view.frame.size.height - 64
-//        }
-//        
-//        print("height of MainView---\(self.view.frame.size.height)")
-//        print("height of content---\(self.heightOfContantScrollView.constant)")
-        
-        
     }
+    
     override func viewWillLayoutSubviews() {
         if self.view.frame.size.height<=667 {
             
@@ -141,6 +91,7 @@ class SignUpScreenViewController: UIViewController, apiClassDelegate {
         
     
     //self.navigationController?.popViewControllerAnimated(true)
+    
     }
     
     
@@ -155,16 +106,9 @@ class SignUpScreenViewController: UIViewController, apiClassDelegate {
     
     func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool {
         
-        if textField==confirmPasswordTf
+         if textField == emailTf
         {
-            textField .addTarget(self, action: #selector(SignUpScreenViewController.textFieldDidChange(textField:)), for: .editingChanged)
-            
-           
-        }
-        
-        else if textField == emailTf
-        {
-            textField .addTarget(self, action: #selector(SignUpScreenViewController.textFieldDidChange(textField:)), for: .editingChanged)
+            textField .addTarget(self, action: #selector(SignUpScreenViewController.emailTextField(textField:)), for: .editingChanged)
             
            
         }
@@ -193,27 +137,7 @@ class SignUpScreenViewController: UIViewController, apiClassDelegate {
         
     }
     
-    
-    
-    
-    func textFieldDidChange(textField: UITextField) {
 
-        if passwordTf.text! .range(of: confirmPasswordTf.text!) != nil {
-            print("exists")
-        }
-        else{
-            if confirmPasswordTf.text == "" {
-            }
-            else{
-
-                
-            }
-            
-        }
-    
-    }
-    
-    
     
     
     
@@ -230,7 +154,7 @@ class SignUpScreenViewController: UIViewController, apiClassDelegate {
         // check all txtFields are not empty
         
         
-        if nameTf.text == "" && emailTf.text == "" && passwordTf.text == "" && confirmPasswordTf.text == "" {
+        if emailTf.text == ""  {
             
             CommonFunctionsClass.sharedInstance().showAlert(title: "Opps!", text: "Please fill all the required fields to continue.", imageName: "alertFill")
             
@@ -239,97 +163,43 @@ class SignUpScreenViewController: UIViewController, apiClassDelegate {
             
         else
         {
-            if let name:Bool = self.checkIngTextField(txtF: nameTf) { //check name field
-                if name == false {
-                   // self.nameTf.becomeFirstResponder()
+            
+            
+            if let email:Bool = self.checkIngTextField(txtF: emailTf) {
+                if email == false {
+                    // self.emailTf.becomeFirstResponder()
                     allDone=false
-                    
-                    CommonFunctionsClass.sharedInstance().showAlert(title: "Oops!", text: "Please fill Username", imageName: "alertFill")
-                   
+                    CommonFunctionsClass.sharedInstance().showAlert(title: "Opps!", text: "Please enter a valid email address.", imageName: "alertFill")
                 }
                 else
                 {
-                    if let email:Bool = self.checkIngTextField(txtF: emailTf) {
-                        if email == false {
-                           // self.emailTf.becomeFirstResponder()
-                            allDone=false
-                             CommonFunctionsClass.sharedInstance().showAlert(title: "Opps!", text: "Please enter a valid email address.", imageName: "alertFill")
-                        }
-                        else
-                        {
-                            if let pass:Bool = self.checkIngTextField(txtF: passwordTf) {
-                                if pass == false {
-                                    //self.passwordTf.becomeFirstResponder()
-                                    allDone=false
-                                     CommonFunctionsClass.sharedInstance().showAlert(title: "Oops!", text: "Please fill password.", imageName: "alertFill")
-                                }
-                                else{
-                                    if let cPass:Bool = self.checkIngTextField(txtF: confirmPasswordTf) {
-                                        if cPass == false {
-                                            //self.confirmPasswordTf.becomeFirstResponder()
-                                            allDone=false
-                                             CommonFunctionsClass.sharedInstance().showAlert(title: "Oops!", text: "The passwords you entered do not match.", imageName: "alertFill")
-                                        }
-                                        else{
-                                            if confirmPasswordTf.text==passwordTf.text {
-                                                allDone=true
-                                            }
-                                            else{
-                                               // self.confirmPasswordTf.becomeFirstResponder()
-                                                allDone=false
-                                                 CommonFunctionsClass.sharedInstance().showAlert(title: "Oops!", text: "Please fill same password", imageName: "alertFill")
-                                                
-                                            }
-                                        }
-                                        
-                                    }
-                                    
-                                }
-                            }
-                        }
-                    }
+                     emailTf.resignFirstResponder()
+                    
+                    let nxtObj = self.storyboard?.instantiateViewController(withIdentifier: "signupSetPasswordViewController") as? signupSetPasswordViewController
+                    
+                    nxtObj?.userEmail = emailTf.text! as NSString
                     
                     
+                    self.navigationController! .pushViewController(nxtObj!, animated: true)
+                        //self.dismiss(animated: true, completion: {})
                     
-                }
-                
-                
-                
-            }
-        }
-        
-        
-        
-        
-        if allDone==true {
-            
-            //device token
-           
-           let token = defaults.string(forKey: "deviceToken")!
-            print(token)
-            
-            
-            
-            let loadingNotification = MBProgressHUD.showAdded(to: self.view, animated: true)
-            loadingNotification.mode = MBProgressHUDMode.indeterminate
-            loadingNotification.label.text = "Signing Up..."
 
-            let parameterString: NSDictionary = ["name":nameTf.text!, "email": emailTf.text!, "password": passwordTf.text!, "deviceToken":["token": "", "device": "iphone"]]
+                }
+            }
             
-            //NSString(string:"username=\(nameTf.text!)&email=\(emailTf.text!)&password=\(passwordTf.text!)&deviceToken=\(token)&device=iphone") as String
-            print(parameterString)
-          
-            passwordTf.resignFirstResponder()
-            emailTf.resignFirstResponder()
-            nameTf.resignFirstResponder()
-            confirmPasswordTf.resignFirstResponder()
-           
-            apiClass.sharedInstance().postRequestSearch(parameterString: parameterString, viewController: self)// call api
             
-           
+            
+            
+            
+            
+            
+            
+            //////////////////////
         }
         
         
+        
+               
         
     }
     
@@ -343,7 +213,7 @@ class SignUpScreenViewController: UIViewController, apiClassDelegate {
     
     //MARK:- Function to check the textFields
     
-    func checkIngTextField(txtF:UITextField) -> Bool {
+    func checkIngTextField(txtF:UITextField) -> Bool! {
         let emtf = txtF
         
         
@@ -446,134 +316,118 @@ class SignUpScreenViewController: UIViewController, apiClassDelegate {
     
     
     
-    
-    //MARK:- Server response arrived here
+    //MARK:- facebook Action to get the detail and accessToken
     //MARK:-
-    func serverResponseArrived(Response:AnyObject){
-        
+    
+    
+    /*
+     function for get the access token from the facebook and get into the app
+     also will be able to hit the graph api
      
-       
-            jsonResult = NSDictionary()
-            jsonResult = Response as! NSDictionary
+    
+    @IBAction func facebookAction(_ sender: Any)
+    {
+        forgetBool = false
+        loginType = ""
+        
+        let loadingNotification = MBProgressHUD.showAdded(to: self.view, animated: true)
+        loadingNotification.mode = MBProgressHUDMode.indeterminate
+        loadingNotification.label.text = "Logging in"
         
         
-       
-        let success = jsonResult.object(forKey: "status") as! NSNumber
+        
+        // apiClass.sharedInstance().postRequestCategories("", viewController: self)//hit the api to get the categories from the web
+        
+        let fbLoginManager : FBSDKLoginManager = FBSDKLoginManager()
+        
+        //-- set permissions to facebook----/////
+        fbLoginManager.logIn(withReadPermissions: ["email","user_photos"," user_about_me", "public_profile", "user_location", "user_birthday", "user_tagged_places", "user_friends"], from: self) { (result, error) -> Void in
             
-            if success == 1
-            {
-              
-                
-                let uname = nameTf.text
-                
-                
-                defaults.set(uname, forKey: "userLoginName")
-                
-                
-                defaults.set("", forKey: "userProfilePic")
-                
-                
-                
-                //save The credentail and login to the app
-                
-                let pytUserId = ""//(jsonResult.value(forKey: "data")! as AnyObject) .value("userId") as? String ?? ""
-                
-                
-               
-                defaults.set(pytUserId, forKey: "userLoginId")
-                defaults.set(false, forKey: "social")
-                
-                let nxtObj3 = self.storyboard?.instantiateViewController(withIdentifier: "ViewController") as! ViewController
-                
-                if (nxtObj3.tabledata?.count)!<1 {
-                   
-                    
-                    
-                    //let nxtObj = self.storyboard?.instantiateViewControllerWithIdentifier("firstMainScreenViewController") as! firstMainScreenViewController
-                    
-                   // dispatch_after(DispatchTime.now(dispatch_time_t(DISPATCH_TIME_NOW), Int64(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), {() -> Void in
-                        
-                       // self.navigationController! .pushViewController(nxtObj, animated: true)
-                        self.dismiss(animated: true, completion: {})
-                   // })
-                    
-                    
-                    
-                }
-                else
+            if (error == nil){
+                let fbloginresult : FBSDKLoginManagerLoginResult = result!
+                if(fbloginresult.isCancelled)
                 {
-                    //let nxtObj = self.storyboard?.instantiateViewControllerWithIdentifier("MainTabBarViewController") as? MainTabBarViewController
                     
-                     DispatchQueue.main.async {
-                       // self.navigationController! .pushViewController(nxtObj!, animated: true)
-                        //self.dismiss(animated: true, completion: {})
+                    CommonFunctionsClass.sharedInstance().showAlert(title: "Anything wrong?", text: "You just cancelled the sign-in process.", imageName: "alertDelete")
+                    
+                    MBProgressHUD.hide(for: self.view, animated: true)
+                }
+                    
+                else if(fbloginresult.grantedPermissions.contains("email"))
+                {
+                    let token =   FBSDKAccessToken.current().tokenString as NSString // access token
+                    let token2 = FBSDKAccessToken.current().userID as NSString
+                    print(token2)
+                    print(token)
+                    
+                    self.accessToken = token as String // set access token to global for use
+                    print(self.accessToken)
+                    
+                    
+                    defaults.set(self.accessToken, forKey: "faceBookAccessToken")
+                    defaults.set("", forKey: "instagramAccessToken")
+                    
+                    
+                    self.getFBUserData(id: token2, token: token)
+                    
+                    
+                    DispatchQueue.global(qos: .background).async {
+                        
+                        //self.graphApi()
+                        fbLoginManager.logOut() // logout the facebook
+                        MBProgressHUD.hide(for: self.view, animated: true)
                     }
                     
                 }
-                
-                
-              DispatchQueue.global(qos: .background).async {
-                
-                    ////for get the count of stories added by user
-                
-                    let uId = defaults .string(forKey: "userLoginId")
-                let objt = storyCountClass()
-                //objt.postRequestForcountStory("userId=\(uId!)")
-                    let dic:NSDictionary = ["userId": uId!]
-                    objt.postRequestForcountStory(parameterString: dic)
-                    
-                                     
-                    
-                    
-                    ///For get the user's all data
-                    
-                   DispatchQueue.global(qos: .background).async {
-                        //let objt2 = UserProfileDetailClass()
-                       // objt2.postRequestForGetTheUserProfileData(uId!)
-                    }
-                    
-                    
-                }
-                
-                
-                
-                
-                
-                // Socket
-               // SocketIOManager.sharedInstance.establishConnection()
-                
-                
-                
-                
-                
             }
-            else{
                 
-                print(jsonResult)
-              
-                
-                CommonFunctionsClass.sharedInstance().showAlert(title: "User already exists!", text: "Email id already registered.", imageName: "alertWrong")
-                
-                
-                
+            else
+            {
+                print(error)
+                MBProgressHUD.hide(for: self.view, animated: true)
             }
-        
-            
-        
-        MBProgressHUD.hide(for: self.view, animated: true)
-        
-        
-            
-        
-        
-        //apiClass.sharedInstance().postRequestCategories("", viewController: self)//hit the api to get the categories from the web
-        
- 
- 
+        }
         
     }
-
     
+    
+    
+    
+    ////////////--------- function to get the user data from facebook /or graph api  call the api -------------//////
+    /// hit the api to backend for save the access token and get user data from facebook
+    func getFBUserData(id:NSString,token:NSString)
+    {
+        
+        let tokendevice = defaults.string(forKey: "deviceToken")!
+        print(tokendevice)
+        
+        if((FBSDKAccessToken.current()) != nil)
+        {
+            
+            defaults.set(true, forKey: "social")
+            defaults.synchronize()
+            
+            if (self.accessToken == "")
+            {
+                
+                //Unable to get the access token
+                
+            }
+            else
+            {
+                let parameterDict: NSDictionary = ["fbId": id, "accessToken": token, "deviceToken": ["token": "", "device": "iphone"]]
+                print(parameterDict)
+                
+                apiClass.sharedInstance().postRequestFacebook(parameterString: parameterDict, viewController: self)
+                logOut = true
+            }
+        }
+        
+    }
+    
+    
+
+    */
     
     
     

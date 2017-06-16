@@ -137,7 +137,7 @@
                                                     <attributes>
                                                         <color key="NSColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                         <font key="NSFont" size="15" name="HelveticaNeue-Light"/>
-                                                        <font key="NSOriginalFont" size="15" name="SFProDisplay-Bold"/>
+                                                        <font key="NSOriginalFont" metaFont="system" size="15"/>
                                                         <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
                                                     </attributes>
                                                 </fragment>
@@ -153,7 +153,7 @@
                                                     <attributes>
                                                         <color key="NSColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                         <font key="NSFont" size="15" name="HelveticaNeue-Light"/>
-                                                        <font key="NSOriginalFont" size="15" name="SFProDisplay-Bold"/>
+                                                        <font key="NSOriginalFont" metaFont="system" size="15"/>
                                                         <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
                                                     </attributes>
                                                 </fragment>
