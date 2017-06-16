@@ -32,6 +32,18 @@
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
 	</array>
+	<key>UIAppFonts</key>
+	<array>
+		<string>SFUIDisplay-Black.otf</string>
+		<string>SFUIDisplay-Bold.otf</string>
+		<string>SFUIDisplay-Heavy.otf</string>
+		<string>SFUIDisplay-Light.otf</string>
+		<string>SFUIDisplay-Medium.otf</string>
+		<string>SFUIDisplay-Regular.otf</string>
+		<string>SFUIDisplay-Semibold.otf</string>
+		<string>SFUIDisplay-Thin.otf</string>
+		<string>SFUIDisplay-Ultralight.otf</string>
+	</array>
 	<key>UISupportedInterfaceOrientations~ipad</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>

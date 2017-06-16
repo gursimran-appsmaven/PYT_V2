@@ -174,7 +174,9 @@
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "1792"
-            endingLineNumber = "1792">
+            endingLineNumber = "1792"
+            landmarkName = "postApiForTrendingLocationsSearch(userid:)"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -188,7 +190,41 @@
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "1928"
-            endingLineNumber = "1928">
+            endingLineNumber = "1928"
+            landmarkName = "postApiFordeviceToken(param:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "PYT.searchScreenViewController.postApiFordeviceToken (param : __ObjC.NSDictionary) -&gt; ()"
+                  moduleName = "PYT"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/osx/Documents/PYT_V2/PYT/SearchScreenClass/searchScreenViewController.swift"
+                  timestampString = "519301082.807101"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "1928"
+                  endingLineNumber = "1928"
+                  offsetFromSymbolStart = "1721">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "PYT.searchScreenViewController.(postApiFordeviceToken (param : __ObjC.NSDictionary) -&gt; ()).(closure #1)"
+                  moduleName = "PYT"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/osx/Documents/PYT_V2/PYT/SearchScreenClass/searchScreenViewController.swift"
+                  timestampString = "519301082.809043"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "1929"
+                  endingLineNumber = "1929"
+                  offsetFromSymbolStart = "23">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

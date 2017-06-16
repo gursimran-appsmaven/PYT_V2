@@ -26,6 +26,16 @@
 		104182B11EF26AEC00078527 /* UIColor+CreateMethods.m in Sources */ = {isa = PBXBuildFile; fileRef = 104182941EF26AEC00078527 /* UIColor+CreateMethods.m */; };
 		10940A6F1EF2CC9000864242 /* ForgotPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10940A6E1EF2CC9000864242 /* ForgotPasswordViewController.swift */; };
 		10940A721EF2D08800864242 /* SignUpScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10940A711EF2D08800864242 /* SignUpScreenViewController.swift */; };
+		10B3A32D1EF3DE890053989C /* SFUIDisplay-Black.otf in Resources */ = {isa = PBXBuildFile; fileRef = 10B3A3241EF3DE890053989C /* SFUIDisplay-Black.otf */; };
+		10B3A32E1EF3DE890053989C /* SFUIDisplay-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 10B3A3251EF3DE890053989C /* SFUIDisplay-Bold.otf */; };
+		10B3A32F1EF3DE890053989C /* SFUIDisplay-Heavy.otf in Resources */ = {isa = PBXBuildFile; fileRef = 10B3A3261EF3DE890053989C /* SFUIDisplay-Heavy.otf */; };
+		10B3A3301EF3DE890053989C /* SFUIDisplay-Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = 10B3A3271EF3DE890053989C /* SFUIDisplay-Light.otf */; };
+		10B3A3311EF3DE890053989C /* SFUIDisplay-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = 10B3A3281EF3DE890053989C /* SFUIDisplay-Medium.otf */; };
+		10B3A3321EF3DE890053989C /* SFUIDisplay-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 10B3A3291EF3DE890053989C /* SFUIDisplay-Regular.otf */; };
+		10B3A3331EF3DE890053989C /* SFUIDisplay-Semibold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 10B3A32A1EF3DE890053989C /* SFUIDisplay-Semibold.otf */; };
+		10B3A3341EF3DE890053989C /* SFUIDisplay-Thin.otf in Resources */ = {isa = PBXBuildFile; fileRef = 10B3A32B1EF3DE890053989C /* SFUIDisplay-Thin.otf */; };
+		10B3A3351EF3DE890053989C /* SFUIDisplay-Ultralight.otf in Resources */ = {isa = PBXBuildFile; fileRef = 10B3A32C1EF3DE890053989C /* SFUIDisplay-Ultralight.otf */; };
+		10B3A3371EF3E5980053989C /* extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10B3A3361EF3E5980053989C /* extensions.swift */; };
 		10C4E9DB1EF3A79A00E05303 /* signupSetPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10C4E9DA1EF3A79A00E05303 /* signupSetPasswordViewController.swift */; };
 		10C4E9E21EF3B76600E05303 /* searchTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10C4E9E11EF3B76600E05303 /* searchTableCell.swift */; };
 		10C4E9E81EF3BBE800E05303 /* searchScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10C4E9E71EF3BBE800E05303 /* searchScreenViewController.swift */; };
@@ -79,6 +89,16 @@
 		104182B21EF26DB100078527 /* PYT-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "PYT-Bridging-Header.h"; sourceTree = "<group>"; };
 		10940A6E1EF2CC9000864242 /* ForgotPasswordViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ForgotPasswordViewController.swift; path = LoginSignupClasses/ForgotPasswordViewController.swift; sourceTree = "<group>"; };
 		10940A711EF2D08800864242 /* SignUpScreenViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SignUpScreenViewController.swift; path = LoginSignupClasses/SignUpScreenViewController.swift; sourceTree = "<group>"; };
+		10B3A3241EF3DE890053989C /* SFUIDisplay-Black.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SFUIDisplay-Black.otf"; sourceTree = "<group>"; };
+		10B3A3251EF3DE890053989C /* SFUIDisplay-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SFUIDisplay-Bold.otf"; sourceTree = "<group>"; };
+		10B3A3261EF3DE890053989C /* SFUIDisplay-Heavy.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SFUIDisplay-Heavy.otf"; sourceTree = "<group>"; };
+		10B3A3271EF3DE890053989C /* SFUIDisplay-Light.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SFUIDisplay-Light.otf"; sourceTree = "<group>"; };
+		10B3A3281EF3DE890053989C /* SFUIDisplay-Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SFUIDisplay-Medium.otf"; sourceTree = "<group>"; };
+		10B3A3291EF3DE890053989C /* SFUIDisplay-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SFUIDisplay-Regular.otf"; sourceTree = "<group>"; };
+		10B3A32A1EF3DE890053989C /* SFUIDisplay-Semibold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SFUIDisplay-Semibold.otf"; sourceTree = "<group>"; };
+		10B3A32B1EF3DE890053989C /* SFUIDisplay-Thin.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SFUIDisplay-Thin.otf"; sourceTree = "<group>"; };
+		10B3A32C1EF3DE890053989C /* SFUIDisplay-Ultralight.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SFUIDisplay-Ultralight.otf"; sourceTree = "<group>"; };
+		10B3A3361EF3E5980053989C /* extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = extensions.swift; sourceTree = "<group>"; };
 		10C4E9DA1EF3A79A00E05303 /* signupSetPasswordViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = signupSetPasswordViewController.swift; path = LoginSignupClasses/signupSetPasswordViewController.swift; sourceTree = "<group>"; };
 		10C4E9E11EF3B76600E05303 /* searchTableCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = searchTableCell.swift; path = SearchScreenClass/searchTableCell.swift; sourceTree = "<group>"; };
 		10C4E9E71EF3BBE800E05303 /* searchScreenViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = searchScreenViewController.swift; path = SearchScreenClass/searchScreenViewController.swift; sourceTree = "<group>"; };
@@ -151,6 +171,7 @@
 			isa = PBXGroup;
 			children = (
 				100EE3921EF156A7005A79C1 /* Main.storyboard */,
+				10B3A3231EF3DE890053989C /* SF_Font */,
 				100EE3BD1EF15F1E005A79C1 /* AppDelegate.swift */,
 				100EE3901EF156A7005A79C1 /* ViewController.swift */,
 				10C4E9DC1EF3A80700E05303 /* Search Screen */,
@@ -189,6 +210,7 @@
 			children = (
 				1041826A1EF25D4300078527 /* CommonFunctionsClass.swift */,
 				104182671EF253D400078527 /* apiClass.swift */,
+				10B3A3361EF3E5980053989C /* extensions.swift */,
 			);
 			name = "Singlton Class";
 			sourceTree = "<group>";
@@ -232,6 +254,22 @@
 				10940A6E1EF2CC9000864242 /* ForgotPasswordViewController.swift */,
 			);
 			name = LoginSignupClasses;
+			sourceTree = "<group>";
+		};
+		10B3A3231EF3DE890053989C /* SF_Font */ = {
+			isa = PBXGroup;
+			children = (
+				10B3A3241EF3DE890053989C /* SFUIDisplay-Black.otf */,
+				10B3A3251EF3DE890053989C /* SFUIDisplay-Bold.otf */,
+				10B3A3261EF3DE890053989C /* SFUIDisplay-Heavy.otf */,
+				10B3A3271EF3DE890053989C /* SFUIDisplay-Light.otf */,
+				10B3A3281EF3DE890053989C /* SFUIDisplay-Medium.otf */,
+				10B3A3291EF3DE890053989C /* SFUIDisplay-Regular.otf */,
+				10B3A32A1EF3DE890053989C /* SFUIDisplay-Semibold.otf */,
+				10B3A32B1EF3DE890053989C /* SFUIDisplay-Thin.otf */,
+				10B3A32C1EF3DE890053989C /* SFUIDisplay-Ultralight.otf */,
+			);
+			path = SF_Font;
 			sourceTree = "<group>";
 		};
 		10C4E9DC1EF3A80700E05303 /* Search Screen */ = {
@@ -386,9 +424,18 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				10B3A3311EF3DE890053989C /* SFUIDisplay-Medium.otf in Resources */,
+				10B3A3341EF3DE890053989C /* SFUIDisplay-Thin.otf in Resources */,
+				10B3A3321EF3DE890053989C /* SFUIDisplay-Regular.otf in Resources */,
+				10B3A3351EF3DE890053989C /* SFUIDisplay-Ultralight.otf in Resources */,
+				10B3A32E1EF3DE890053989C /* SFUIDisplay-Bold.otf in Resources */,
+				10B3A32F1EF3DE890053989C /* SFUIDisplay-Heavy.otf in Resources */,
 				100EE3991EF156A7005A79C1 /* LaunchScreen.storyboard in Resources */,
 				100EE3961EF156A7005A79C1 /* Assets.xcassets in Resources */,
 				100EE3941EF156A7005A79C1 /* Main.storyboard in Resources */,
+				10B3A32D1EF3DE890053989C /* SFUIDisplay-Black.otf in Resources */,
+				10B3A3331EF3DE890053989C /* SFUIDisplay-Semibold.otf in Resources */,
+				10B3A3301EF3DE890053989C /* SFUIDisplay-Light.otf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -554,6 +601,7 @@
 				100EE3BE1EF15F1E005A79C1 /* AppDelegate.swift in Sources */,
 				104182721EF26A4600078527 /* objectiveCFile.m in Sources */,
 				104182B11EF26AEC00078527 /* UIColor+CreateMethods.m in Sources */,
+				10B3A3371EF3E5980053989C /* extensions.swift in Sources */,
 				10C4E9E81EF3BBE800E05303 /* searchScreenViewController.swift in Sources */,
 				104182B01EF26AEC00078527 /* SweetAlert.swift in Sources */,
 				10C4E9DB1EF3A79A00E05303 /* signupSetPasswordViewController.swift in Sources */,
