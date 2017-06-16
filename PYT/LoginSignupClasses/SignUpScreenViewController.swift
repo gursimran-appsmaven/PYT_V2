@@ -51,13 +51,7 @@ class SignUpScreenViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         
         self.view .setNeedsLayout()
-         self.view.layoutIfNeeded()
-        
-      
-       
-        
-        
-       
+        self.view.layoutIfNeeded()
         
     }
     
