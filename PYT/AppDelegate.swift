@@ -6,12 +6,37 @@
 //  Copyright © 2017 osx. All rights reserved.
 //
 
+var bucketListTotalCount = "0"
+var logOut: Bool = true
+var appUrl = "http://pictureyourtravel.com/"  //Test
+//var appUrl = "http://52.25.207.151/"// Live New server working
+var defaults = UserDefaults.standard
+
+
 import UIKit
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
+    var window2: UIWindow?
+    
+    let storyboard = UIStoryboard(name: "Main", bundle: nil)
+    var searchResult:NSMutableDictionary!
+    
+    
+    
+    
+    
+    func application(application: UIApplication, handleEventsForBackgroundURLSession identifier: String, completionHandler: () -> Void) {
+        /*
+         Store the completion handler.
+         */
+       
+        // AWSS3TransferUtility.interceptApplication(application, handleEventsForBackgroundURLSession: identifier, completionHandler: completionHandler)
+    }
+    
+    
 
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {

@@ -7,13 +7,31 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		100EE38F1EF156A7005A79C1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 100EE38E1EF156A7005A79C1 /* AppDelegate.swift */; };
 		100EE3911EF156A7005A79C1 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 100EE3901EF156A7005A79C1 /* ViewController.swift */; };
 		100EE3941EF156A7005A79C1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 100EE3921EF156A7005A79C1 /* Main.storyboard */; };
 		100EE3961EF156A7005A79C1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 100EE3951EF156A7005A79C1 /* Assets.xcassets */; };
 		100EE3991EF156A7005A79C1 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 100EE3971EF156A7005A79C1 /* LaunchScreen.storyboard */; };
 		100EE3A41EF156A8005A79C1 /* PYTTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 100EE3A31EF156A8005A79C1 /* PYTTests.swift */; };
 		100EE3AF1EF156A8005A79C1 /* PYTUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 100EE3AE1EF156A8005A79C1 /* PYTUITests.swift */; };
+		100EE3BE1EF15F1E005A79C1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 100EE3BD1EF15F1E005A79C1 /* AppDelegate.swift */; };
+		104182681EF253D400078527 /* apiClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 104182671EF253D400078527 /* apiClass.swift */; };
+		1041826B1EF25D4300078527 /* CommonFunctionsClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1041826A1EF25D4300078527 /* CommonFunctionsClass.swift */; };
+		1041826D1EF2688C00078527 /* storyCountClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1041826C1EF2688C00078527 /* storyCountClass.swift */; };
+		104182721EF26A4600078527 /* objectiveCFile.m in Sources */ = {isa = PBXBuildFile; fileRef = 104182701EF26A4600078527 /* objectiveCFile.m */; };
+		104182951EF26AEC00078527 /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 104182761EF26AEC00078527 /* Bolts.framework */; };
+		104182961EF26AEC00078527 /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 104182771EF26AEC00078527 /* FBSDKCoreKit.framework */; };
+		104182971EF26AEC00078527 /* FBSDKLoginKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 104182781EF26AEC00078527 /* FBSDKLoginKit.framework */; };
+		104182981EF26AEC00078527 /* FBSDKShareKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 104182791EF26AEC00078527 /* FBSDKShareKit.framework */; };
+		104182B01EF26AEC00078527 /* SweetAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 104182921EF26AEC00078527 /* SweetAlert.swift */; };
+		104182B11EF26AEC00078527 /* UIColor+CreateMethods.m in Sources */ = {isa = PBXBuildFile; fileRef = 104182941EF26AEC00078527 /* UIColor+CreateMethods.m */; };
+		10940A6F1EF2CC9000864242 /* ForgotPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10940A6E1EF2CC9000864242 /* ForgotPasswordViewController.swift */; };
+		10940A721EF2D08800864242 /* SignUpScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10940A711EF2D08800864242 /* SignUpScreenViewController.swift */; };
+		10C4E9DB1EF3A79A00E05303 /* signupSetPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10C4E9DA1EF3A79A00E05303 /* signupSetPasswordViewController.swift */; };
+		10C4E9E21EF3B76600E05303 /* searchTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10C4E9E11EF3B76600E05303 /* searchTableCell.swift */; };
+		10C4E9E81EF3BBE800E05303 /* searchScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10C4E9E71EF3BBE800E05303 /* searchScreenViewController.swift */; };
+		3560C2CC3CCBA85BAE977F76 /* Pods_PYT.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1513D63A44D48DD66BDE374E /* Pods_PYT.framework */; };
+		3F0A1A839E646D951FB2AFE2 /* Pods_PYTTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E7F872540E6E55EA79995C4E /* Pods_PYTTests.framework */; };
+		D40763B2F488B3119D99F30D /* Pods_PYTUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DF1CBD5A76A6F2CFB3117474 /* Pods_PYTUITests.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -35,7 +53,6 @@
 
 /* Begin PBXFileReference section */
 		100EE38B1EF156A7005A79C1 /* PYT.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PYT.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		100EE38E1EF156A7005A79C1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		100EE3901EF156A7005A79C1 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		100EE3931EF156A7005A79C1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		100EE3951EF156A7005A79C1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -47,6 +64,33 @@
 		100EE3AA1EF156A8005A79C1 /* PYTUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PYTUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		100EE3AE1EF156A8005A79C1 /* PYTUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PYTUITests.swift; sourceTree = "<group>"; };
 		100EE3B01EF156A8005A79C1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		100EE3BD1EF15F1E005A79C1 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		104182671EF253D400078527 /* apiClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = apiClass.swift; path = SingltonClass/apiClass.swift; sourceTree = "<group>"; };
+		1041826A1EF25D4300078527 /* CommonFunctionsClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CommonFunctionsClass.swift; path = SingltonClass/CommonFunctionsClass.swift; sourceTree = "<group>"; };
+		1041826C1EF2688C00078527 /* storyCountClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = storyCountClass.swift; path = "Story Class/storyCountClass.swift"; sourceTree = "<group>"; };
+		104182701EF26A4600078527 /* objectiveCFile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = objectiveCFile.m; path = bridgingHeader/objectiveCFile.m; sourceTree = "<group>"; };
+		104182761EF26AEC00078527 /* Bolts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Bolts.framework; sourceTree = "<group>"; };
+		104182771EF26AEC00078527 /* FBSDKCoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKCoreKit.framework; sourceTree = "<group>"; };
+		104182781EF26AEC00078527 /* FBSDKLoginKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKLoginKit.framework; sourceTree = "<group>"; };
+		104182791EF26AEC00078527 /* FBSDKShareKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKShareKit.framework; sourceTree = "<group>"; };
+		104182921EF26AEC00078527 /* SweetAlert.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SweetAlert.swift; sourceTree = "<group>"; };
+		104182931EF26AEC00078527 /* UIColor+CreateMethods.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+CreateMethods.h"; sourceTree = "<group>"; };
+		104182941EF26AEC00078527 /* UIColor+CreateMethods.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+CreateMethods.m"; sourceTree = "<group>"; };
+		104182B21EF26DB100078527 /* PYT-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "PYT-Bridging-Header.h"; sourceTree = "<group>"; };
+		10940A6E1EF2CC9000864242 /* ForgotPasswordViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ForgotPasswordViewController.swift; path = LoginSignupClasses/ForgotPasswordViewController.swift; sourceTree = "<group>"; };
+		10940A711EF2D08800864242 /* SignUpScreenViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SignUpScreenViewController.swift; path = LoginSignupClasses/SignUpScreenViewController.swift; sourceTree = "<group>"; };
+		10C4E9DA1EF3A79A00E05303 /* signupSetPasswordViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = signupSetPasswordViewController.swift; path = LoginSignupClasses/signupSetPasswordViewController.swift; sourceTree = "<group>"; };
+		10C4E9E11EF3B76600E05303 /* searchTableCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = searchTableCell.swift; path = SearchScreenClass/searchTableCell.swift; sourceTree = "<group>"; };
+		10C4E9E71EF3BBE800E05303 /* searchScreenViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = searchScreenViewController.swift; path = SearchScreenClass/searchScreenViewController.swift; sourceTree = "<group>"; };
+		1513D63A44D48DD66BDE374E /* Pods_PYT.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PYT.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		189BCB752BE844C72E8099AE /* Pods-PYTTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PYTTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-PYTTests/Pods-PYTTests.debug.xcconfig"; sourceTree = "<group>"; };
+		339B98DE012895F7805568E9 /* Pods-PYTUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PYTUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-PYTUITests/Pods-PYTUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		4A4FEC046E4E3CABEE2C71DF /* Pods-PYTTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PYTTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-PYTTests/Pods-PYTTests.release.xcconfig"; sourceTree = "<group>"; };
+		8BFB0ED538E02E5499196809 /* Pods-PYT.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PYT.release.xcconfig"; path = "Pods/Target Support Files/Pods-PYT/Pods-PYT.release.xcconfig"; sourceTree = "<group>"; };
+		8DA46A4A0B286CB8D44252CF /* Pods-PYTUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PYTUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-PYTUITests/Pods-PYTUITests.release.xcconfig"; sourceTree = "<group>"; };
+		DF1CBD5A76A6F2CFB3117474 /* Pods_PYTUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PYTUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		E7F872540E6E55EA79995C4E /* Pods_PYTTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PYTTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		F3F3E2242D8683953AD779DC /* Pods-PYT.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PYT.debug.xcconfig"; path = "Pods/Target Support Files/Pods-PYT/Pods-PYT.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -54,6 +98,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3560C2CC3CCBA85BAE977F76 /* Pods_PYT.framework in Frameworks */,
+				104182961EF26AEC00078527 /* FBSDKCoreKit.framework in Frameworks */,
+				104182981EF26AEC00078527 /* FBSDKShareKit.framework in Frameworks */,
+				104182971EF26AEC00078527 /* FBSDKLoginKit.framework in Frameworks */,
+				104182951EF26AEC00078527 /* Bolts.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -61,6 +110,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3F0A1A839E646D951FB2AFE2 /* Pods_PYTTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -68,6 +118,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D40763B2F488B3119D99F30D /* Pods_PYTUITests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -81,6 +132,8 @@
 				100EE3A21EF156A8005A79C1 /* PYTTests */,
 				100EE3AD1EF156A8005A79C1 /* PYTUITests */,
 				100EE38C1EF156A7005A79C1 /* Products */,
+				D839C3FFDDB31808E898C434 /* Pods */,
+				C173BD451CB783A2EC98F3B2 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -97,9 +150,15 @@
 		100EE38D1EF156A7005A79C1 /* PYT */ = {
 			isa = PBXGroup;
 			children = (
-				100EE38E1EF156A7005A79C1 /* AppDelegate.swift */,
-				100EE3901EF156A7005A79C1 /* ViewController.swift */,
 				100EE3921EF156A7005A79C1 /* Main.storyboard */,
+				100EE3BD1EF15F1E005A79C1 /* AppDelegate.swift */,
+				100EE3901EF156A7005A79C1 /* ViewController.swift */,
+				10C4E9DC1EF3A80700E05303 /* Search Screen */,
+				10940A701EF2CC9900864242 /* LoginSignupClasses */,
+				104182691EF253DA00078527 /* Singlton Class */,
+				1041826E1EF2688F00078527 /* StoryClassVc */,
+				104182731EF26A6000078527 /* Bridging Header */,
+				104182751EF26AEC00078527 /* socialFramework */,
 				100EE3951EF156A7005A79C1 /* Assets.xcassets */,
 				100EE3971EF156A7005A79C1 /* LaunchScreen.storyboard */,
 				100EE39A1EF156A7005A79C1 /* Info.plist */,
@@ -125,6 +184,88 @@
 			path = PYTUITests;
 			sourceTree = "<group>";
 		};
+		104182691EF253DA00078527 /* Singlton Class */ = {
+			isa = PBXGroup;
+			children = (
+				1041826A1EF25D4300078527 /* CommonFunctionsClass.swift */,
+				104182671EF253D400078527 /* apiClass.swift */,
+			);
+			name = "Singlton Class";
+			sourceTree = "<group>";
+		};
+		1041826E1EF2688F00078527 /* StoryClassVc */ = {
+			isa = PBXGroup;
+			children = (
+				1041826C1EF2688C00078527 /* storyCountClass.swift */,
+			);
+			name = StoryClassVc;
+			sourceTree = "<group>";
+		};
+		104182731EF26A6000078527 /* Bridging Header */ = {
+			isa = PBXGroup;
+			children = (
+				104182B21EF26DB100078527 /* PYT-Bridging-Header.h */,
+				104182701EF26A4600078527 /* objectiveCFile.m */,
+			);
+			name = "Bridging Header";
+			sourceTree = "<group>";
+		};
+		104182751EF26AEC00078527 /* socialFramework */ = {
+			isa = PBXGroup;
+			children = (
+				104182761EF26AEC00078527 /* Bolts.framework */,
+				104182771EF26AEC00078527 /* FBSDKCoreKit.framework */,
+				104182781EF26AEC00078527 /* FBSDKLoginKit.framework */,
+				104182791EF26AEC00078527 /* FBSDKShareKit.framework */,
+				104182921EF26AEC00078527 /* SweetAlert.swift */,
+				104182931EF26AEC00078527 /* UIColor+CreateMethods.h */,
+				104182941EF26AEC00078527 /* UIColor+CreateMethods.m */,
+			);
+			path = socialFramework;
+			sourceTree = "<group>";
+		};
+		10940A701EF2CC9900864242 /* LoginSignupClasses */ = {
+			isa = PBXGroup;
+			children = (
+				10C4E9DA1EF3A79A00E05303 /* signupSetPasswordViewController.swift */,
+				10940A711EF2D08800864242 /* SignUpScreenViewController.swift */,
+				10940A6E1EF2CC9000864242 /* ForgotPasswordViewController.swift */,
+			);
+			name = LoginSignupClasses;
+			sourceTree = "<group>";
+		};
+		10C4E9DC1EF3A80700E05303 /* Search Screen */ = {
+			isa = PBXGroup;
+			children = (
+				10C4E9E71EF3BBE800E05303 /* searchScreenViewController.swift */,
+				10C4E9E11EF3B76600E05303 /* searchTableCell.swift */,
+			);
+			name = "Search Screen";
+			sourceTree = "<group>";
+		};
+		C173BD451CB783A2EC98F3B2 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				1513D63A44D48DD66BDE374E /* Pods_PYT.framework */,
+				E7F872540E6E55EA79995C4E /* Pods_PYTTests.framework */,
+				DF1CBD5A76A6F2CFB3117474 /* Pods_PYTUITests.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		D839C3FFDDB31808E898C434 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				F3F3E2242D8683953AD779DC /* Pods-PYT.debug.xcconfig */,
+				8BFB0ED538E02E5499196809 /* Pods-PYT.release.xcconfig */,
+				189BCB752BE844C72E8099AE /* Pods-PYTTests.debug.xcconfig */,
+				4A4FEC046E4E3CABEE2C71DF /* Pods-PYTTests.release.xcconfig */,
+				339B98DE012895F7805568E9 /* Pods-PYTUITests.debug.xcconfig */,
+				8DA46A4A0B286CB8D44252CF /* Pods-PYTUITests.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -132,9 +273,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 100EE3B31EF156A8005A79C1 /* Build configuration list for PBXNativeTarget "PYT" */;
 			buildPhases = (
+				AD3799039E090A4F1C5873C5 /* [CP] Check Pods Manifest.lock */,
 				100EE3871EF156A6005A79C1 /* Sources */,
 				100EE3881EF156A6005A79C1 /* Frameworks */,
 				100EE3891EF156A6005A79C1 /* Resources */,
+				D4BDBFBB6C9FFBE1C35808BA /* [CP] Embed Pods Frameworks */,
+				7F9588820438AF28AEB53368 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -149,9 +293,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 100EE3B61EF156A8005A79C1 /* Build configuration list for PBXNativeTarget "PYTTests" */;
 			buildPhases = (
+				41AA5515C9801388A02B3B6F /* [CP] Check Pods Manifest.lock */,
 				100EE39B1EF156A8005A79C1 /* Sources */,
 				100EE39C1EF156A8005A79C1 /* Frameworks */,
 				100EE39D1EF156A8005A79C1 /* Resources */,
+				C3B0DC9D4FABBB15D56775C4 /* [CP] Embed Pods Frameworks */,
+				5B6755DAA57DD3FBC4702399 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -167,9 +314,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 100EE3B91EF156A8005A79C1 /* Build configuration list for PBXNativeTarget "PYTUITests" */;
 			buildPhases = (
+				4371B9156E75A4BC510DE74B /* [CP] Check Pods Manifest.lock */,
 				100EE3A61EF156A8005A79C1 /* Sources */,
 				100EE3A71EF156A8005A79C1 /* Frameworks */,
 				100EE3A81EF156A8005A79C1 /* Resources */,
+				36CD732FB81E8DBCD9AAAF41 /* [CP] Embed Pods Frameworks */,
+				B2EB0E62EB15093265B6A274 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -194,6 +344,7 @@
 					100EE38A1EF156A6005A79C1 = {
 						CreatedOnToolsVersion = 8.2.1;
 						DevelopmentTeam = 9YDH3T82UC;
+						LastSwiftMigration = 0820;
 						ProvisioningStyle = Automatic;
 					};
 					100EE39E1EF156A8005A79C1 = {
@@ -257,13 +408,162 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		36CD732FB81E8DBCD9AAAF41 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-PYTUITests/Pods-PYTUITests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		41AA5515C9801388A02B3B6F /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		4371B9156E75A4BC510DE74B /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		5B6755DAA57DD3FBC4702399 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-PYTTests/Pods-PYTTests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		7F9588820438AF28AEB53368 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-PYT/Pods-PYT-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		AD3799039E090A4F1C5873C5 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		B2EB0E62EB15093265B6A274 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-PYTUITests/Pods-PYTUITests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		C3B0DC9D4FABBB15D56775C4 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-PYTTests/Pods-PYTTests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		D4BDBFBB6C9FFBE1C35808BA /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-PYT/Pods-PYT-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		100EE3871EF156A6005A79C1 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				100EE3BE1EF15F1E005A79C1 /* AppDelegate.swift in Sources */,
+				104182721EF26A4600078527 /* objectiveCFile.m in Sources */,
+				104182B11EF26AEC00078527 /* UIColor+CreateMethods.m in Sources */,
+				10C4E9E81EF3BBE800E05303 /* searchScreenViewController.swift in Sources */,
+				104182B01EF26AEC00078527 /* SweetAlert.swift in Sources */,
+				10C4E9DB1EF3A79A00E05303 /* signupSetPasswordViewController.swift in Sources */,
+				10940A721EF2D08800864242 /* SignUpScreenViewController.swift in Sources */,
+				10C4E9E21EF3B76600E05303 /* searchTableCell.swift in Sources */,
+				1041826B1EF25D4300078527 /* CommonFunctionsClass.swift in Sources */,
+				10940A6F1EF2CC9000864242 /* ForgotPasswordViewController.swift in Sources */,
 				100EE3911EF156A7005A79C1 /* ViewController.swift in Sources */,
-				100EE38F1EF156A7005A79C1 /* AppDelegate.swift in Sources */,
+				104182681EF253D400078527 /* apiClass.swift in Sources */,
+				1041826D1EF2688C00078527 /* storyCountClass.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -413,32 +713,56 @@
 		};
 		100EE3B41EF156A8005A79C1 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = F3F3E2242D8683953AD779DC /* Pods-PYT.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = 9YDH3T82UC;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/PYT/socialFramework",
+				);
 				INFOPLIST_FILE = PYT/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.maven.development.PYT;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "/Users/osx/Desktop/PYT/PYT/PYT-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
 		100EE3B51EF156A8005A79C1 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 8BFB0ED538E02E5499196809 /* Pods-PYT.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = 9YDH3T82UC;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/PYT/socialFramework",
+				);
 				INFOPLIST_FILE = PYT/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.maven.development.PYT;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "/Users/osx/Desktop/PYT/PYT/PYT-Bridging-Header.h";
 				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
 		100EE3B71EF156A8005A79C1 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 189BCB752BE844C72E8099AE /* Pods-PYTTests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -454,6 +778,7 @@
 		};
 		100EE3B81EF156A8005A79C1 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 4A4FEC046E4E3CABEE2C71DF /* Pods-PYTTests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -469,6 +794,7 @@
 		};
 		100EE3BA1EF156A8005A79C1 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 339B98DE012895F7805568E9 /* Pods-PYTUITests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				DEVELOPMENT_TEAM = 9YDH3T82UC;
@@ -483,6 +809,7 @@
 		};
 		100EE3BB1EF156A8005A79C1 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 8DA46A4A0B286CB8D44252CF /* Pods-PYTUITests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				DEVELOPMENT_TEAM = 9YDH3T82UC;
@@ -514,6 +841,7 @@
 				100EE3B51EF156A8005A79C1 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		100EE3B61EF156A8005A79C1 /* Build configuration list for PBXNativeTarget "PYTTests" */ = {
 			isa = XCConfigurationList;
@@ -522,6 +850,7 @@
 				100EE3B81EF156A8005A79C1 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		100EE3B91EF156A8005A79C1 /* Build configuration list for PBXNativeTarget "PYTUITests" */ = {
 			isa = XCConfigurationList;
@@ -530,6 +859,7 @@
 				100EE3BB1EF156A8005A79C1 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
