@@ -1,0 +1,6 @@
+framework module Pods_PYTUITests {
+  umbrella header "Pods-PYTUITests-umbrella.h"
+
+  export *
+  module * { export * }
+}
