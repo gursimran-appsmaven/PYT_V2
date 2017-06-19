@@ -273,7 +273,7 @@ class searchScreenViewController: UIViewController, UINavigationControllerDelega
         {
             self.postApiForTrendingLocationsSearch(userid: uId! as NSString) //api to get the trending and popular places
             
-        }
+       // }
         
         
         
