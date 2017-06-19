@@ -77,100 +77,125 @@ class signupSetPasswordViewController: UIViewController
     
     
     
+    func checkIngTextField(txtF:UITextField) -> Bool {
+        let emtf = txtF
+        
+        
+        if txtF.text=="" || txtF.text == " " || txtF.text == "\n" {
+          
+            return false
+        }
+            
+        else{
+     return true
+        }
+    }
+    
+    
+    
+    
 
-    
-    
-func buttonAction()
-{
-  
-if let pass:Bool = SignUpScreenViewController().checkIngTextField(txtF: passwordTf!)
-{
-     if pass == false
-     {
-                //self.passwordTf.becomeFirstResponder()
-                CommonFunctionsClass.sharedInstance().showAlert(title: "Oops!", text: "Please fill password.", imageName: "alertFill")
-     }
-     else
-     {
-                if let cPass:Bool = SignUpScreenViewController().checkIngTextField(txtF: confirmPasswordTf)
+    @IBAction func netBtnAction(_ sender: Any)
+    {
+
+        if (passwordTf.text?.characters.count)!<1 && (confirmPasswordTf.text?.characters.count)!<1
+        {
+        CommonFunctionsClass.sharedInstance().showAlert(title: "Oops!", text: "Please fill both fields.", imageName: "alertFill")
+            
+        }
+        else
+        {
+            
+            if let pass:Bool = self.checkIngTextField(txtF: passwordTf!)
+            {
+                if pass == false
                 {
-                    if cPass == false
+                    //self.passwordTf.becomeFirstResponder()
+                    CommonFunctionsClass.sharedInstance().showAlert(title: "Oops!", text: "Please fill password.", imageName: "alertFill")
+                }
+                else
+                {
+                    if let cPass:Bool = self.checkIngTextField(txtF: confirmPasswordTf!)
                     {
-                        //self.confirmPasswordTf.becomeFirstResponder()
-                       
-                        CommonFunctionsClass.sharedInstance().showAlert(title: "Oops!", text: "The passwords you entered do not match.", imageName: "alertFill")
-                    }
-                    else
-                    {
-                        if confirmPasswordTf.text==passwordTf.text {
-                        
-                            print("Go to nxt screen")
-                            passwordTf.resignFirstResponder()
-                            confirmPasswordTf.resignFirstResponder()
+                        if cPass == false
+                        {
+                            //self.confirmPasswordTf.becomeFirstResponder()
                             
-                            
-                            
-                            
-                            
-                            let nxtObj = self.storyboard?.instantiateViewController(withIdentifier: "signupProfilePictureViewController") as? signupProfilePictureViewController
-                            
-                            nxtObj?.email = userEmail
-                            nxtObj?.password = passwordTf.text! as NSString
-                            
-                            
-                            self.navigationController! .pushViewController(nxtObj!, animated: true)
-                            self.dismiss(animated: true, completion: {})
-                            
-                            
-                            
-                            
-                            
+                            CommonFunctionsClass.sharedInstance().showAlert(title: "Oops!", text: "The passwords you entered do not match.", imageName: "alertFill")
                         }
                         else
                         {
-                            // self.confirmPasswordTf.becomeFirstResponder()
-                    
-                            CommonFunctionsClass.sharedInstance().showAlert(title: "Oops!", text: "Please fill same password", imageName: "alertFill")
-                            
+                            if confirmPasswordTf.text==passwordTf.text {
+                                
+                                print("Go to nxt screen")
+                                passwordTf.resignFirstResponder()
+                                confirmPasswordTf.resignFirstResponder()
+                                
+                                
+                                
+                                
+                                
+                                let nxtObj = self.storyboard?.instantiateViewController(withIdentifier: "signupProfilePictureViewController") as? signupProfilePictureViewController
+                                
+                                nxtObj?.email = userEmail
+                                nxtObj?.password = passwordTf.text! as NSString
+                                
+                                
+                                self.navigationController! .pushViewController(nxtObj!, animated: true)
+                                self.dismiss(animated: true, completion: {})
+                                
+                                
+                                
+                                
+                                
+                            }
+                            else
+                            {
+                                // self.confirmPasswordTf.becomeFirstResponder()
+                                
+                                CommonFunctionsClass.sharedInstance().showAlert(title: "Oops!", text: "Please fill same password", imageName: "alertFill")
+                                
+                            }
                         }
                     }
+                    
                 }
+            }
+        }
+        
+        
+            
+            
+            /*
+             
+             
+             let token = defaults.string(forKey: "deviceToken")!
+             print(token)
+             
+             
+             
+             let loadingNotification = MBProgressHUD.showAdded(to: self.view, animated: true)
+             loadingNotification.mode = MBProgressHUDMode.indeterminate
+             loadingNotification.label.text = "Signing Up..."
+             
+             let parameterString: NSDictionary = ["name":nameTf.text!, "email": emailTf.text!, "password": passwordTf.text!, "deviceToken":["token": "", "device": "iphone"]]
+             
+             //NSString(string:"username=\(nameTf.text!)&email=\(emailTf.text!)&password=\(passwordTf.text!)&deviceToken=\(token)&device=iphone") as String
+             print(parameterString)
+             
+             
+             nameTf.resignFirstResponder()
+             
+             
+             apiClass.sharedInstance().postRequestSearch(parameterString: parameterString, viewController: self)// call api
+             
+             
+             */
+            
+            
+            
             
         }
-        }
-        
-        
-       /*
- 
- 
-         let token = defaults.string(forKey: "deviceToken")!
-         print(token)
-         
-         
-         
-         let loadingNotification = MBProgressHUD.showAdded(to: self.view, animated: true)
-         loadingNotification.mode = MBProgressHUDMode.indeterminate
-         loadingNotification.label.text = "Signing Up..."
-         
-         let parameterString: NSDictionary = ["name":nameTf.text!, "email": emailTf.text!, "password": passwordTf.text!, "deviceToken":["token": "", "device": "iphone"]]
-         
-         //NSString(string:"username=\(nameTf.text!)&email=\(emailTf.text!)&password=\(passwordTf.text!)&deviceToken=\(token)&device=iphone") as String
-         print(parameterString)
-         
-        
-         nameTf.resignFirstResponder()
-         
-         
-         apiClass.sharedInstance().postRequestSearch(parameterString: parameterString, viewController: self)// call api
-         
- 
- */
-        
-        
-        
-        
-    }
-    
     
     
     

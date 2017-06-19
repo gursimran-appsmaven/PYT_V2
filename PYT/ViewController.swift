@@ -223,6 +223,9 @@ class ViewController: UIViewController, apiClassDelegate , UIScrollViewDelegate,
         }
         
         
+        emailTextField.text = "test@gmail.com"
+        passwordTextField.text = "1234"
+        
         
     }
     
@@ -714,13 +717,13 @@ class ViewController: UIViewController, apiClassDelegate , UIScrollViewDelegate,
                 
                 if (nxtObj3.tabledata?.count)!<1 {
                     
-                   // let nxtObj = self.storyboard?.instantiateViewControllerWithIdentifier("firstMainScreenViewController") as! firstMainScreenViewController
+                    let nxtObj = self.storyboard?.instantiateViewController(withIdentifier: "searchScreenViewController") as! searchScreenViewController
                     
                    // dispatch_after(DispatchTime.now(dispatch_time_t(DispatchTime.now()), Int64(1 * NSEC_PER_SEC)), DispatchQueue.main, {() -> Void in
                         
                         
-                       // self.navigationController! .pushViewController(nxtObj, animated: true)
-                       // self.dismissViewControllerAnimated(true, completion: {})
+                        self.navigationController! .pushViewController(nxtObj, animated: true)
+                        self.dismiss(animated: true, completion: {})
                    // })
                     
                     
@@ -728,13 +731,15 @@ class ViewController: UIViewController, apiClassDelegate , UIScrollViewDelegate,
                 }
                 else
                 {
-                   // let nxtObj = self.storyboard?.instantiateViewControllerWithIdentifier("firstMainScreenViewController") as! firstMainScreenViewController
+                    let nxtObj = self.storyboard?.instantiateViewController(withIdentifier: "searchScreenViewController") as! searchScreenViewController
                     
                     //let nxtObj = self.storyboard?.instantiateViewControllerWithIdentifier("MainTabBarViewController") as? MainTabBarViewController
+                     self.navigationController! .pushViewController(nxtObj, animated: true)
+                     self.dismiss(animated: true, completion: {})
                     
                     DispatchQueue.global(qos: .background).async {
-                      //  self.navigationController! .pushViewController(nxtObj, animated: true)
-                       // self.dismiss(animated: true, completion: {})
+                       
+                       
                     }
                     
                 }
@@ -1030,8 +1035,8 @@ class ViewController: UIViewController, apiClassDelegate , UIScrollViewDelegate,
     @IBAction func newSignupButtonAction(_ sender: Any) {
         // if not select any location show search screen
         
-        //let nxtObj = self.storyboard?.instantiateViewControllerWithIdentifier("SignUpScreenViewController") as! SignUpScreenViewController
-        //self.navigationController! .pushViewController(nxtObj, animated: true)
+        let nxtObj = self.storyboard?.instantiateViewController(withIdentifier: "SignUpScreenViewController") as! SignUpScreenViewController
+        self.navigationController! .pushViewController(nxtObj, animated: true)
     }
     
     

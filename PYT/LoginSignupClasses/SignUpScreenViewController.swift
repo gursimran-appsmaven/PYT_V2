@@ -17,18 +17,6 @@ class SignUpScreenViewController: UIViewController {
     
     @IBOutlet var emailTf: UITextField!
     
-    var allDone = Bool()
-   
-    
-    @IBOutlet var confrmlbl: UILabel!
-    @IBOutlet var signUpBtn: UIButton!
-    @IBOutlet var gradientView: UIView!
-    
-    
-    @IBOutlet var heightOfContantScrollView: NSLayoutConstraint!
-    @IBOutlet var viewHeight: NSLayoutConstraint!
-    
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -51,52 +39,14 @@ class SignUpScreenViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         
         self.view .setNeedsLayout()
-         self.view.layoutIfNeeded()
-        
-      
-       
-        
-        
-       
+        self.view.layoutIfNeeded()
         
     }
     
     override func viewWillLayoutSubviews() {
-        if self.view.frame.size.height<=667 {
-            
-            self.viewHeight.constant = 600
-            
-        }
-        else
-        {
-            self.viewHeight.constant=self.view.frame.size.height - 64
-        }
+        
 
     }
-    
-    
-    
-    
-    
-    @IBAction func backButtonAction(_ sender: Any) {
-    
-        for controller in self.navigationController!.viewControllers as Array
-        {
-            if controller .isKind(of: ViewController.self)
-            {
-                self.navigationController?.popViewController(animated: true)
-                break
-            }
-        }
-        
-    
-    //self.navigationController?.popViewControllerAnimated(true)
-    
-    }
-    
-    
-    
-    
     
     
     
@@ -149,7 +99,8 @@ class SignUpScreenViewController: UIViewController {
     //MARK:- Sign UP  Button Actions
     //MARK:-
     
-    @IBAction func SignUpBtnAction(sender: AnyObject) {
+    @IBAction func NextButtonAction(_ sender: Any) {
+    
 
         // check all txtFields are not empty
         
@@ -168,7 +119,6 @@ class SignUpScreenViewController: UIViewController {
             if let email:Bool = self.checkIngTextField(txtF: emailTf) {
                 if email == false {
                     // self.emailTf.becomeFirstResponder()
-                    allDone=false
                     CommonFunctionsClass.sharedInstance().showAlert(title: "Opps!", text: "Please enter a valid email address.", imageName: "alertFill")
                 }
                 else
@@ -192,9 +142,6 @@ class SignUpScreenViewController: UIViewController {
             
             
             
-            
-            
-            //////////////////////
         }
         
         
@@ -218,7 +165,6 @@ class SignUpScreenViewController: UIViewController {
         
         
         if txtF.text=="" || txtF.text == " " || txtF.text == "\n" {
-            allDone=false
             return false
         }
             
@@ -275,7 +221,8 @@ class SignUpScreenViewController: UIViewController {
     //MARK:-
     //Login Button to move back if alredy Signed Up
     
-    @IBAction func SignInBtnAction(sender: AnyObject) {
+    @IBAction func SignInBtnAction(_ sender: Any) {
+  
         //Move To LOgin screen
 
         
