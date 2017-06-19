@@ -321,7 +321,7 @@
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="GTN-Gr-G2c" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="lJP-BG-Gho">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="lJP-BG-Gho">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -958,7 +958,7 @@
                                                 </constraints>
                                                 <fontDescription key="fontDescription" name="SFUIDisplay-Bold" family="SF UI Display" pointSize="14"/>
                                                 <inset key="titleEdgeInsets" minX="0.0" minY="55" maxX="0.0" maxY="0.0"/>
-                                                <state key="normal" image="0F1F680F-EBB0-4916-BA26-1F0B0171D1A6"/>
+                                                <state key="normal" image="4CF17C45-A662-4A01-8238-14ABCD13CB00"/>
                                                 <userDefinedRuntimeAttributes>
                                                     <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
                                                         <real key="value" value="5"/>
@@ -2615,7 +2615,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="0F1F680F-EBB0-4916-BA26-1F0B0171D1A6" width="16" height="16">
+        <image name="4CF17C45-A662-4A01-8238-14ABCD13CB00" width="16" height="16">
             <mutableData key="keyedArchiveRepresentation">
 YnBsaXN0MDDUAQIDBAUGPT5YJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK4HCBMU
 GR4fIyQrLjE3OlUkbnVsbNUJCgsMDQ4PEBESVk5TU2l6ZVYkY2xhc3NcTlNJbWFnZUZsYWdzVk5TUmVw
@@ -2684,6 +2684,9 @@ Di0OMA5CDkUOSgAAAAAAAAIBAAAAAAAAAEEAAAAAAAAAAAAAAAAAAA5MA
 </mutableData>
         </image>
         <image name="Add" width="16" height="16"/>
+        <image name="Discover" width="25" height="25"/>
+        <image name="Discoveractive" width="25" height="25"/>
+        <image name="Like" width="22" height="22"/>
         <image name="Logo" width="188" height="121"/>
         <image name="LogoBlack" width="16" height="16"/>
         <image name="More" width="22" height="22"/>
@@ -2704,6 +2707,8 @@ Di0OMA5CDkUOSgAAAAAAAAIBAAAAAAAAAEEAAAAAAAAAAAAAAAAAAA5MA
         <image name="interestactive" width="25" height="25"/>
         <image name="likesBlogs" width="16" height="16"/>
         <image name="overLay" width="307" height="69"/>
+        <image name="post" width="74" height="74"/>
+        <image name="travelplanbutton" width="17" height="17"/>
         <image name="user" width="16" height="16"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
