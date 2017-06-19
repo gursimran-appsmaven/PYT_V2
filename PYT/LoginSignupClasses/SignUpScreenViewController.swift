@@ -10,7 +10,7 @@ import UIKit
 import IQKeyboardManager
 import MBProgressHUD
 
-class SignUpScreenViewController: UIViewController {
+class SignUpScreenViewController: UIViewController, apiClassDelegate {
 
     //Outlets of textFields
     
@@ -22,7 +22,7 @@ class SignUpScreenViewController: UIViewController {
         super.viewDidLoad()
         IQKeyboardManager.shared().shouldResignOnTouchOutside=true
         IQKeyboardManager.shared().isEnableAutoToolbar=true
-    
+    apiClass.sharedInstance().delegate = self
         
     }
     
@@ -223,45 +223,12 @@ class SignUpScreenViewController: UIViewController {
     
     @IBAction func SignInBtnAction(_ sender: Any) {
   
-        //Move To LOgin screen
-
         
-        
-        
-//        let n: Int! = self.navigationController?.viewControllers.count
-//        let oldUIViewController: UIViewController = (self.navigationController?.viewControllers[n-2])!
-//        
-//        
-//        
-//        if oldUIViewController.isKindOfClass(ViewController) {
-//            
-//           // print("This is first View controller")
-//          
-//            let nxtObj = self.storyboard?.instantiateViewControllerWithIdentifier("loginViewController") as! loginViewController
-//            
-//            self.dismissViewControllerAnimated(true, completion: {})
-//            self.navigationController! .pushViewController(nxtObj, animated: true)
-//            
-//            //apiClass.sharedInstance().postRequestCategories("", viewController: self)//hit the api to get the categories from the web
-//            
-//        }
-//        else{
-        
-            //print("This is new view controller")
             self.navigationController?.popViewController(animated: true)
-//        }
-        
-        
-        
-       
+
     }
     
-    
-    
-    
-   
-    
-    
+
     
     //MARK:- facebook Action to get the detail and accessToken
     //MARK:-
@@ -270,12 +237,11 @@ class SignUpScreenViewController: UIViewController {
     /*
      function for get the access token from the facebook and get into the app
      also will be able to hit the graph api
-     
+     */
     
-    @IBAction func facebookAction(_ sender: Any)
-    {
-        forgetBool = false
-        loginType = ""
+    @IBAction func facebookAction(_ sender: Any) {
+   
+       
         
         let loadingNotification = MBProgressHUD.showAdded(to: self.view, animated: true)
         loadingNotification.mode = MBProgressHUDMode.indeterminate
@@ -302,28 +268,27 @@ class SignUpScreenViewController: UIViewController {
                     
                 else if(fbloginresult.grantedPermissions.contains("email"))
                 {
-                    let token =   FBSDKAccessToken.current().tokenString as NSString // access token
-                    let token2 = FBSDKAccessToken.current().userID as NSString
-                    print(token2)
-                    print(token)
+                    let token =   FBSDKAccessToken.current().tokenString // access token
+                    let token2 = FBSDKAccessToken.current().userID
+                    print(token2!)
+                    print(token!)
                     
-                    self.accessToken = token as String // set access token to global for use
-                    print(self.accessToken)
+                    let accessToken = token! // set access token to global for use
                     
                     
-                    defaults.set(self.accessToken, forKey: "faceBookAccessToken")
+                    let defaults = UserDefaults.standard
+                    defaults.set(accessToken, forKey: "faceBookAccessToken")
                     defaults.set("", forKey: "instagramAccessToken")
                     
+                    self.getFBUserData(id: token2! as NSString, token: token! as NSString) // call  api for testing
                     
-                    self.getFBUserData(id: token2, token: token)
                     
-                    
-                    DispatchQueue.global(qos: .background).async {
+                    DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + Double(Int64(1 * NSEC_PER_SEC)) / Double(NSEC_PER_SEC), execute: {() -> Void in
                         
                         //self.graphApi()
                         fbLoginManager.logOut() // logout the facebook
                         MBProgressHUD.hide(for: self.view, animated: true)
-                    }
+                    })
                     
                 }
             }
@@ -334,6 +299,7 @@ class SignUpScreenViewController: UIViewController {
                 MBProgressHUD.hide(for: self.view, animated: true)
             }
         }
+        
         
     }
     
@@ -354,27 +320,168 @@ class SignUpScreenViewController: UIViewController {
             defaults.set(true, forKey: "social")
             defaults.synchronize()
             
-            if (self.accessToken == "")
-            {
-                
-                //Unable to get the access token
-                
-            }
-            else
-            {
-                let parameterDict: NSDictionary = ["fbId": id, "accessToken": token, "deviceToken": ["token": "", "device": "iphone"]]
-                print(parameterDict)
-                
-                apiClass.sharedInstance().postRequestFacebook(parameterString: parameterDict, viewController: self)
-                logOut = true
-            }
+            
+            let parameterDict: NSDictionary = ["fbId": id, "accessToken": token, "deviceToken": ["token": "", "device": "iphone"]]
+            print(parameterDict)
+            
+            apiClass.sharedInstance().postRequestFacebook(parameterString: parameterDict, viewController: self)
+            logOut = true
+            
         }
         
     }
     
     
-
-    */
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    //MARK:- Server response arrived here
+    //MARK:-
+    func serverResponseArrived(Response:AnyObject){
+        
+     
+            jsonResult = NSDictionary()
+            jsonResult = Response as! NSDictionary
+            let success = jsonResult.object(forKey: "status") as! NSNumber
+            
+            if success == 1
+            {
+                print(jsonResult)
+                
+                let pytUserId = jsonResult.value(forKey: "userId") as? String ?? ""
+                print(pytUserId)
+                let pytUserName = jsonResult.value(forKey: "name") as? String ?? ""
+                let pytUserProfilePic = jsonResult.value(forKey: "profilePic") as? String ?? ""
+                defaults.set(pytUserId, forKey: "userLoginId")
+                defaults.set(pytUserName, forKey: "userLoginName")
+                defaults.set(pytUserProfilePic, forKey: "userProfilePic")
+                
+                
+                
+                
+                
+                let runtimeLocations = jsonResult.value(forKey: "runtimeLocation") as! NSMutableArray
+                
+                if runtimeLocations.count > 0 {
+                    
+                    let arrayOfLoc = NSMutableArray()
+                    for l in 0..<runtimeLocations.count {
+                        
+                        
+                        
+                        
+                        let fullName1 = runtimeLocations.object(at: l) as? NSDictionary
+                        
+                        let fullName = fullName1?["fullName"] as? String ?? ""
+                        let placeId = fullName1?["placeId"] as? String ?? ""
+                        let placeType = fullName1?["type"] as? String ?? ""
+                        
+                        
+                        
+                        
+                        var loc = ""
+                        
+                        let ArrToSeperate = fullName .components(separatedBy: ",")
+                        if ArrToSeperate.count>0 {
+                            loc=ArrToSeperate[0] as String
+                        }
+                        
+                        
+                        
+                        var dic = NSMutableDictionary()
+                        dic = ["location":loc, "type": placeType, "placeId": placeId,  "delete":false, "fullName": fullName ]
+                        print(dic)
+                        
+                        arrayOfLoc .add(dic)
+                        
+                        
+                        
+                    }
+                    
+                    UserDefaults.standard.set(arrayOfLoc, forKey: "arrayOfIntrest")
+                    
+                    
+                }
+                
+                
+                // DispatchQueue.main.async {
+                
+                self .moveinsideApp()
+                //}
+                
+                // Socket
+                //  SocketIOManager.sharedInstance.establishConnection()
+                
+                
+                
+            }
+                
+            else
+            {
+                
+                defaults.set("", forKey: "userLoginId")
+                
+                CommonFunctionsClass.sharedInstance().showAlert(title: "Session Expire", text: "Your session is expired, Please login again", imageName: "alertDelete")
+                
+                
+                
+            }
+            
+            
+            
+        
+    
+    
+    }
+    
+    
+    func moveinsideApp() -> Void
+    {
+        let uId = defaults .string(forKey: "userLoginId")
+        
+        
+        
+        let nxtObj = self.storyboard?.instantiateViewController(withIdentifier: "searchScreenViewController") as! searchScreenViewController
+        
+        self.navigationController! .pushViewController(nxtObj, animated: true)
+        self.dismiss(animated: true, completion: {})
+        
+        
+        
+        DispatchQueue.global(qos: .background).async {
+            
+            
+            let objt = storyCountClass()
+            let dic:NSDictionary = ["userId": uId!]
+            objt.postRequestForcountStory(parameterString: dic)
+            
+            DispatchQueue.global(qos: .background).async {
+                // dispatch_async(dispatch_get_global_queue(QOS_CLASS_BACKGROUND, 0), {
+                //let objt2 = UserProfileDetailClass()
+                // objt2.postRequestForGetTheUserProfileData(uId!)
+                
+                
+            }
+            
+            
+            
+        }
+        
+        
+        
+        
+        
+        
+        
+    }
+    
     
     
     

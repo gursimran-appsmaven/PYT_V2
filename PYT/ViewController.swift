@@ -362,28 +362,27 @@ class ViewController: UIViewController, apiClassDelegate , UIScrollViewDelegate,
                     
                 else if(fbloginresult.grantedPermissions.contains("email"))
                 {
-                    let token =   FBSDKAccessToken.current().tokenString as NSString // access token
-                    let token2 = FBSDKAccessToken.current().userID as NSString
-                    print(token2)
-                    print(token)
+                    let token =   FBSDKAccessToken.current().tokenString // access token
+                    let token2 = FBSDKAccessToken.current().userID
+                    print(token2!)
+                    print(token!)
                     
-                    self.accessToken = token as String // set access token to global for use
+                    self.accessToken = token! // set access token to global for use
                     print(self.accessToken)
                     
-                   
+                    let defaults = UserDefaults.standard
                     defaults.set(self.accessToken, forKey: "faceBookAccessToken")
                     defaults.set("", forKey: "instagramAccessToken")
                     
+                    self.getFBUserData(id: token2! as NSString, token: token! as NSString) // call  api for testing
                     
-                    self.getFBUserData(id: token2, token: token)
                     
-                    
-                   DispatchQueue.global(qos: .background).async {
+                    DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + Double(Int64(1 * NSEC_PER_SEC)) / Double(NSEC_PER_SEC), execute: {() -> Void in
                         
                         //self.graphApi()
                         fbLoginManager.logOut() // logout the facebook
                         MBProgressHUD.hide(for: self.view, animated: true)
-                    }
+                    })
                     
                 }
             }
@@ -395,6 +394,7 @@ class ViewController: UIViewController, apiClassDelegate , UIScrollViewDelegate,
             }
         }
         
+      
     }
    
     
@@ -432,37 +432,7 @@ class ViewController: UIViewController, apiClassDelegate , UIScrollViewDelegate,
         
     }
     
-    
-    ///---- to get the details of user in front end---////
-    
-    /*
-     func graphApi()
-    {
-        //email
-        FBSDKGraphRequest(graphPath: "me", parameters: ["fields": "id, name, first_name, last_name, picture.type(large)"]).start(completionHandler: { (connection, result, error) -> Void in
-            
-            if (error == nil){
-            print(result .valueForKey("picture")?.valueForKey("data")?.valueForKey("url"))
-                
-                let profilePic=result .valueForKey("picture")?.valueForKey("data")?.valueForKey("url") as! String
-                let userName = result .valueForKey("name") as? String ?? ""
-                defaults.setObject(profilePic, forKey: "userProfilePic")
-                defaults.setObject(userName, forKey: "userName")
-            
-            }
-            else
-            {
-                print(error)
-            }
-            
-        })
-        
-        
-        
-        
-    }
-    */
-    /////////////////////------------- Facebook login ends Here------------////////////////////
+        /////////////////////------------- Facebook login ends Here------------////////////////////
     
     
     
@@ -678,9 +648,9 @@ class ViewController: UIViewController, apiClassDelegate , UIScrollViewDelegate,
                 if runtimeLocations.count > 0
                 {
                     let arrayOfLoc = NSMutableArray()
-                    for l in 0..<runtimeLocations.count
+                    for i in 0..<runtimeLocations.count
                     {
-                let fullName1 = (runtimeLocations[1] as! NSDictionary)  //(runtimeLocations.objectAtIndex(l) as AnyObject).value("fullName") as? String ?? ""
+                let fullName1 = (runtimeLocations[i] as! NSDictionary)  //(runtimeLocations.objectAtIndex(l) as AnyObject).value("fullName") as? String ?? ""
                       let fullName = fullName1["fullName"] as? String ?? ""
                         let placeId = fullName1["placeId"] as? String ?? ""
                         let placeType = fullName1["type"] as? String ?? ""
@@ -1148,7 +1118,12 @@ class ViewController: UIViewController, apiClassDelegate , UIScrollViewDelegate,
         
         
       
-      //  let nxtObj = self.storyboard?.instantiateViewControllerWithIdentifier("firstMainScreenViewController") as! firstMainScreenViewController
+        let nxtObj = self.storyboard?.instantiateViewController(withIdentifier: "searchScreenViewController") as! searchScreenViewController
+        
+        self.navigationController! .pushViewController(nxtObj, animated: true)
+        self.dismiss(animated: true, completion: {})
+        
+        
         
         DispatchQueue.global(qos: .background).async {
        
@@ -1168,71 +1143,6 @@ class ViewController: UIViewController, apiClassDelegate , UIScrollViewDelegate,
             
             
         }
-        
-      
-        //self.navigationController! .pushViewController(nxtObj, animated: true)
-        
-        
-        
-        
-        
-        /*
-         
-         else
-         {
-         
-         dispatch_async(dispatch_get_global_queue(QOS_CLASS_BACKGROUND, 0), {
-         
-         
-         let objt = storyCountClass()
-         let dic:NSDictionary = ["userId": uId!]
-         objt.postRequestForcountStory(dic)
-         //objt.postRequestForcountStory("userId=\(uId!)")//PYT1979030")
-         
-         
-         
-         ///For get the user's all data
-         
-         dispatch_async(dispatch_get_global_queue(QOS_CLASS_BACKGROUND, 0), {
-         let objt2 = UserProfileDetailClass()
-         objt2.postRequestForGetTheUserProfileData("userId=\(uId)")
-         
-         
-         dispatch_async(dispatch_get_main_queue(),
-         {
-         indicatorClass.sharedInstance().hideIndicator()
-         
-         let nxtObj = self.storyboard?.instantiateViewControllerWithIdentifier("MainTabBarViewController") as! MainTabBarViewController
-         self.navigationController! .pushViewController(nxtObj, animated: true)
-         
-         
-         //self.performSegueWithIdentifier("MainHomeView", sender: self) //if already selected locations then go to home screen
-         })
-         
-         })
-         
-         
-         
-         //                            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, Int64(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), {() -> Void in
-         //
-         //                                  indicatorClass.sharedInstance().hideIndicator()
-         //                                 self.performSegueWithIdentifier("MainHomeView", sender: self) //if already selected locations then go to home screen
-         // })
-         
-         
-         
-         })
-         
-         
-         
-         
-         
-         }
-         
-         
-         */
-        
-        
         
         
         

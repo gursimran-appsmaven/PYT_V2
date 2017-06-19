@@ -481,7 +481,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     
     
-    func application(application: UIApplication, openURL url: URL, sourceApplication: String?, annotation: Any) -> Bool
+    func application(_ application: UIApplication, open url: URL, sourceApplication: String?, annotation: Any) -> Bool
     {
         
         print("URL : \(url)")

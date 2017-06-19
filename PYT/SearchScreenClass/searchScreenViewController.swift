@@ -196,12 +196,7 @@ class searchScreenViewController: UIViewController, UINavigationControllerDelega
             
             //////////------- temp handle intrets:
         
-        deleteBtn1.isHidden = true
-        deleteBtn2.isHidden = true
-        deleteBtn3.isHidden = true
-        deleteBtn3.isHidden = true
-        deleteBtn4.isHidden = true
-        deleteBtn5.isHidden = true
+       self.manageContentOfButtons()
         
             let tabledata2 = UserDefaults.standard.array(forKey: "arrayOfIntrest")
             if (tabledata2?.count)!<1
@@ -421,7 +416,9 @@ class searchScreenViewController: UIViewController, UINavigationControllerDelega
      self.promptIndicator.isHidden=true
      self.autoPromptTable.contentInset = UIEdgeInsetsMake(0, 0, 10, 0)
      
-     
+        self.promptArray = self.popularArray
+        self.autoPromptTable .reloadData()
+        
      //self.heightofPromptTableview.constant = self.autoPromptTable.rowHeight * CGFloat(self.promptArray.count) //+ 50
     // print(self.heightofPromptTableview.constant)
      self.view.layoutIfNeeded()
@@ -527,7 +524,7 @@ class searchScreenViewController: UIViewController, UINavigationControllerDelega
             // cell.locationImage.sd_setImage(with: url, placeholderImage: pImage)
             
             
-            cell.locationImage.contentMode = .scaleAspectFill
+            cell.locationImage.contentMode = .scaleToFill
             cell.locationImage.layer.cornerRadius=3
             cell.locationImage.clipsToBounds=true
             
@@ -634,7 +631,7 @@ class searchScreenViewController: UIViewController, UINavigationControllerDelega
     }
     
     
-    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAtIndex section: Int) -> UIEdgeInsets {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
         // return UIEdgeInsetsMake(0,8,0,8);  // top, left, bottom, right
         return UIEdgeInsetsMake(0, 4, 0, 4)
         // top, left, bottom, right
@@ -642,42 +639,80 @@ class searchScreenViewController: UIViewController, UINavigationControllerDelega
     
     
     
-    func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: IndexPath){
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath){
         if collectionView == trendingPlacesCollectionView{
             
-            var locationSt = "" //trendingArray.objectAtIndex(indexPath.row).valueForKey("fullName") as? String ?? ""
+            var locationSt = ((trendingArray.object(at: indexPath.row)) as AnyObject).value(forKey: "fullName") as? String ?? "" //trendingArray.objectAtIndex(indexPath.row).valueForKey("fullName") as? String ?? ""
             
             let ArrToSeperate = locationSt .components(separatedBy: ",")
             if ArrToSeperate.count>0 {
                 locationSt=ArrToSeperate[0] as String
             }
             
-            let fullName = ""//trendingArray.objectAtIndex(indexPath.row).valueForKey("fullName") as? String ?? ""
+            let fullName = ((trendingArray.object(at: indexPath.row)) as AnyObject).value(forKey: "fullName") as? String ?? ""//trendingArray.objectAtIndex(indexPath.row).valueForKey("fullName") as? String ?? ""
             
             
             
-            let typelo = ""//trendingArray.objectAtIndex(indexPath.row).valueForKey("type") as? String ?? ""
+            let typelo = ((trendingArray.object(at: indexPath.row)) as AnyObject).value(forKey: "type") as? String ?? ""//trendingArray.objectAtIndex(indexPath.row).valueForKey("type") as? String ?? ""
             
-            let locId = ""//trendingArray.objectAtIndex(indexPath.row).valueForKey("_id") as? String ?? ""
+            let locId = ((trendingArray.object(at: indexPath.row)) as AnyObject).value(forKey: "_id") as? String ?? ""//trendingArray.objectAtIndex(indexPath.row).valueForKey("_id") as? String ?? ""
             
             
-            if (arrayOfIntrest .value(forKey: "placeId") as AnyObject).contains(locId) {
+            
+            var containBool = Bool()
+            
+            for diction in arrayOfIntrest {
+                let dic2 =  diction as! NSDictionary
+                print(dic2)
+                if dic2["placeId"]as? String == locId
+                {
+                    print("contains")
+                    
+                  //  CommonFunctionsClass.sharedInstance().showAlert(title: "Opps!", text: "Please enter different name.", imageName: "alertFill")
+                    
+                    self.messageFrame.removeFromSuperview()
+                    containBool = true
+                    var indexTre = Int()
+                    
+                    indexTre = arrayOfIntrest.index(of: diction)
+                    print(indexTre)
+                    print(arrayOfIntrest)
+                    selectedindxSearch=indexTre
+                    
+                    self.nextPageAction(sender: self)
+                    
+                    
+                    break
+                }
                 
-                // CommonFunctionsClass.sharedInstance().alertViewOpen("Already selected", viewController: self)
-                var indexTre = Int()
-                
-                indexTre = 0//(arrayOfIntrest.value(forKey: "placeId") as AnyObject).index(locId)
-                print(indexTre)
-                print(arrayOfIntrest)
-                selectedindxSearch=indexTre
-                
-                self.nextPageAction(sender: self)
                 
             }
-                
-            else
-            {
-                let imageLoc = ""// trendingArray.objectAtIndex(indexPath.row).valueForKey("imageLarge") as? String ?? ""
+            
+            
+            
+            
+            
+            
+//            if (arrayOfIntrest .value(forKey: "placeId") as AnyObject).contains(locId) {
+//                
+//                // CommonFunctionsClass.sharedInstance().alertViewOpen("Already selected", viewController: self)
+//                var indexTre = Int()
+//                
+//                indexTre = 0//(arrayOfIntrest.value(forKey: "placeId") as AnyObject).index(locId)
+//                print(indexTre)
+//                print(arrayOfIntrest)
+//                selectedindxSearch=indexTre
+//                
+//                self.nextPageAction(sender: self)
+//                
+//            }
+//                
+//            else
+
+            
+            if containBool == false {
+        
+                        let imageLoc = ""// trendingArray.objectAtIndex(indexPath.row).valueForKey("imageLarge") as? String ?? ""
                 
                 if arrayOfIntrest.count<5 {
                     
@@ -690,24 +725,104 @@ class searchScreenViewController: UIViewController, UINavigationControllerDelega
                     print(dic)
                     
                     self.arrayOfIntrest .insert(dic, at: 0)
-                    
+                     UserDefaults.standard.set(arrayOfIntrest, forKey: "arrayOfIntrest")
                     print(self.arrayOfIntrest)
                     
                     
                     
                     
-                    
-                    
-                    self.nextPageAction(sender: self)
+                    //self.nextPageAction(sender: self)
                     //self .adjustHeightOftableView()
                 }
+                    
+                    
+                    
+                    
+                    
+                    
                     //More than 5
                 else
                 {
                     
+                    
+                    var containBool2 = Bool()
+                    
+                    for diction in trendingArray {
+                        let dic2 =  diction as! NSDictionary
+                        print(dic2)
+                        if dic2["_id"]as? String == locId
+                        {
+                            print("contains")
+                            
+                           
+                            containBool = true
+                            var indexTre = Int()
+                            
+                            indexTre = arrayOfIntrest.index(of: diction)
+                            print(indexTre)
+                            print(arrayOfIntrest)
+                            arrayOfIntrest .removeObject(at: indexTre)
+                            
+                            var dic = NSMutableDictionary()
+                            
+                            
+                            dic = ["location":locationSt, "type": typelo, "placeId":"\(locId)",  "delete":false, "fullName": fullName, "imgLink": imageLoc ]
+                            print(dic)
+                            
+                            self.arrayOfIntrest .insert(dic, at: 0)
+                            
+                            
+                            selectedindxSearch=0
+                            containBool2 = true
+                            
+                            break
+                        }
+                        
+                        
+                    }
+                    
+                    
+                    
+                    if containBool2 == false {
+                        print(trendingArray.count)
+                        
+                       // for i in 0..<trendingArray.count {
+                            
+                          //  if i == trendingArray.count - 1 {
+                                
+                                // if not contain any trending
+                                arrayOfIntrest.removeLastObject()
+                                selectedindxSearch=0
+                                
+                                var dic = NSMutableDictionary()
+                                
+                                dic = ["location":locationSt, "type": typelo, "placeId":"\(locId)",  "delete":false, "fullName": fullName, "imgLink": imageLoc ]
+                                print(dic)
+                                self.arrayOfIntrest .insert(dic, at: 0)
+                                //self.nextPageAction(sender: self)
+                                
+                                
+                            //}
+                       // }
+                        
+                        
+                    }
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    /*
                     for i in 0..<trendingArray.count {
                         
-                        let locId2 = ""//trendingArray.objectAtIndex(i).valueForKey("_id") as? String ?? ""
+                        let locId2 = ((trendingArray.object(at: indexPath.row)) as AnyObject).value(forKey: "_id") as? String ?? ""//trendingArray.objectAtIndex(i).valueForKey("_id") as? String ?? ""
                         
                         if (arrayOfIntrest .value(forKey: "placeId") as AnyObject).contains(locId2) {
                             
@@ -754,7 +869,7 @@ class searchScreenViewController: UIViewController, UINavigationControllerDelega
                         
                         
                         
-                    }
+                    } */
                     
                     
                     
@@ -1087,7 +1202,7 @@ class searchScreenViewController: UIViewController, UINavigationControllerDelega
     
     func setLocationInButtons(btnTag: Int)
     {
-        print(arrayOfIntrest)
+       // print(arrayOfIntrest)
         
         let LocationNameString = ((arrayOfIntrest.object(at: btnTag)) as AnyObject).value(forKey: "location") as? String ?? ""// arrayOfIntrest.objectAtIndex(.row).valueForKey("location") as? String ?? ""
         
@@ -1480,15 +1595,10 @@ class searchScreenViewController: UIViewController, UINavigationControllerDelega
         print(sender.tag)
         
         arrayOfIntrest .removeObject(at: sender.tag)
-        
+        UserDefaults.standard.set(arrayOfIntrest, forKey: "arrayOfIntrest")
         self .adjustHeightOftableView()
         
-        deleteBtn1.isHidden = true
-        deleteBtn2.isHidden = true
-        deleteBtn3.isHidden = true
-        deleteBtn3.isHidden = true
-        deleteBtn4.isHidden = true
-        deleteBtn5.isHidden = true
+       self.manageContentOfButtons()
         
         switch sender.tag
         {
@@ -1512,6 +1622,7 @@ class searchScreenViewController: UIViewController, UINavigationControllerDelega
             button3 .setImage(UIImage (named: "Add") , for: .normal) //
             button3.backgroundColor = UIColor .lightGray
             blackLabel3.alpha = 0
+            button3.setTitle("", for: .normal)
             deleteBtn3.isHidden = true
             break
             
@@ -1519,6 +1630,7 @@ class searchScreenViewController: UIViewController, UINavigationControllerDelega
             button4 .setImage(UIImage (named: "Add") , for: .normal) //
             button4.backgroundColor = UIColor .lightGray
             blacklabel4.alpha = 0
+            button4.setTitle("", for: .normal)
             deleteBtn4.isHidden = true
             break
             
@@ -1526,6 +1638,7 @@ class searchScreenViewController: UIViewController, UINavigationControllerDelega
             button5 .setImage(UIImage (named: "Add") , for: .normal) //
             button5.backgroundColor = UIColor .lightGray
             blackLabel5.alpha = 0
+            button5.setTitle("", for: .normal)
             deleteBtn5.isHidden = true
             break
         }
@@ -1543,6 +1656,48 @@ class searchScreenViewController: UIViewController, UINavigationControllerDelega
 
         
     }
+ 
+    
+    
+    func manageContentOfButtons()
+    {
+        deleteBtn1.isHidden = true
+        deleteBtn2.isHidden = true
+        deleteBtn3.isHidden = true
+        deleteBtn3.isHidden = true
+        deleteBtn4.isHidden = true
+        deleteBtn5.isHidden = true
+        
+        
+        button1 .setImage(UIImage (named: "Add") , for: .normal) //
+        button1.backgroundColor = UIColor (colorLiteralRed: 250/255, green: 250/255, blue: 250/255, alpha: 1) //.lightGray
+        button1.setTitle("", for: .normal)
+        blacklabel1.alpha = 0
+        
+        button2 .setImage(UIImage (named: "Add") , for: .normal) //
+        button2.backgroundColor = UIColor (colorLiteralRed: 250/255, green: 250/255, blue: 250/255, alpha: 1) //.lightGray
+        button2.setTitle("", for: .normal)
+        blackLabel2.alpha = 0
+        
+        button3 .setImage(UIImage (named: "Add") , for: .normal) //
+        button3.backgroundColor = UIColor (colorLiteralRed: 250/255, green: 250/255, blue: 250/255, alpha: 1)//.lightGray
+        blackLabel3.alpha = 0
+        button3.setTitle("", for: .normal)
+        
+        button4 .setImage(UIImage (named: "Add") , for: .normal) //
+        button4.backgroundColor = UIColor (colorLiteralRed: 250/255, green: 250/255, blue: 250/255, alpha: 1)//UIColor .lightGray
+        blacklabel4.alpha = 0
+        button4.setTitle("", for: .normal)
+        
+        button5 .setImage(UIImage (named: "Add") , for: .normal) //
+        button5.backgroundColor = UIColor (colorLiteralRed: 250/255, green: 250/255, blue: 250/255, alpha: 1)//UIColor .lightGray
+        blackLabel5.alpha = 0
+        button5.setTitle("", for: .normal)
+        
+    }
+    
+    
+    
     
     
     
@@ -1561,12 +1716,9 @@ class searchScreenViewController: UIViewController, UINavigationControllerDelega
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int
     {
         
-        if tableView == autoPromptTable{
+       
             return promptArray.count
-        }
-        else{
-            return 3//trendingArray.count
-        }
+       
         
         
     }
@@ -1575,10 +1727,6 @@ class searchScreenViewController: UIViewController, UINavigationControllerDelega
     {
         
         
-        
-        if tableView == autoPromptTable{
-            
-            
             let cellPrompt:UITableViewCell = tableView.dequeueReusableCell(withIdentifier: "promptCell")!
             
             
@@ -1595,147 +1743,24 @@ class searchScreenViewController: UIViewController, UINavigationControllerDelega
             }
             
             return cellPrompt
-            
-        }
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            //Bloggers location table
-        else
-        {
-            let cell:searchTableCell = tableView.dequeueReusableCell(withIdentifier: "searchCell")! as! searchTableCell
-            
-            
-            var profileUrl = NSString()
-            
-            if indexPath.row==0 {
-                profileUrl = "https://scontent.xx.fbcdn.net/v/t1.0-1/c3.0.50.50/p50x50/11659245_858591540881778_3443521200972300309_n.jpg?oh=2684f2e2132c48d119e0c3cbf65bfe40&oe=58ED6DFB"
-                //Nitin Sir
-                
-                cell.bloggerName.text="Nitin Trehan"
-                cell.locationImage.image=UIImage (named: "img2")
-                
-                cell.blogsBtnLbl .setTitle("96 Blogs", for: UIControlState .normal)
-                cell.likesBtnLbl .setTitle("176 Likes", for: UIControlState .normal)
-                
-            }
-            else if indexPath.row==1{
-                
-                profileUrl = "https://scontent.xx.fbcdn.net/v/t1.0-1/p50x50/15349790_10154566396396609_4262469596483300295_n.jpg?oh=af3eec7939958de237acaee1ab7886fd&oe=58DBFF64"
-                cell.bloggerName.text="Tanvi Trehan"
-                cell.locationImage.image=UIImage (named: "img3")
-                
-                cell.blogsBtnLbl .setTitle("84 Blogs", for: UIControlState .normal)
-                cell.likesBtnLbl .setTitle("463 Likes", for: UIControlState .normal)
-                
-            }
-                
-                
-            else
-            {
-                
-                profileUrl = "https://scontent.xx.fbcdn.net/v/t1.0-1/p50x50/15726441_10154581083519193_8947036995706174825_n.jpg?oh=de675214c09b0dc901deca70d3bd6276&oe=58F1ACC3"
-                cell.bloggerName.text="Dimple Duggal"
-                cell.locationImage.image=UIImage (named: "img4")
-                
-                cell.blogsBtnLbl .setTitle("62 Blogs", for: UIControlState .normal)
-                cell.likesBtnLbl .setTitle("233 Likes", for: UIControlState .normal)
-                //Tanvi mam
-            }
-            
-            
-            let url = NSURL(string: profileUrl as String)
-            
-            // cell.locationImage.sd_setImageWithURL(url)
-            
-            cell.profileImage.sd_setImage(with: url as URL!)
-            
-            
-            
-            //Layout and constraints
-            
-            cell.profileImage!.layer.cornerRadius=cell.profileImage.frame.size.width/2
-            cell.profileImage!.clipsToBounds=true
-            
-            cell.profileBorder.layer.cornerRadius=cell.profileBorder.frame.size.width/2
-            cell.profileBorder!.clipsToBounds=true
-            
-            
-            
-            cell.locationImage.contentMode = .scaleAspectFill
-            cell.backView.layer.cornerRadius = 3.0
-            cell.backView.layer.masksToBounds = true
-            
-            cell.setNeedsLayout()
-            cell.layoutIfNeeded()
-            return cell
-        }
-        
-        
         
         
     }
+    
+    
     
     func tableView(_ tableView: (UITableView!), commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: (NSIndexPath!)) {
         
     }
     
-    func tableView(_ tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-        //         if tableView==locationtableView {
-        //            return true
-        //        }
-        if tableView == autoPromptTable{
-            
-            return false
-        }
-        else{
-            return false
-        }
-        
-    }
-    
-    
-    func tableView(_ tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) -> [AnyObject]? {
-        
-        let deleteAction = UITableViewRowAction(style: .default, title: "Delete") {action in
-            
-            
-        }
-        
-        
-        return [deleteAction]
-    }
+   
     
     
     
-    func tableView(tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: NSIndexPath) {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         
         
-        
-    }
-    
-    
-    
-    
-    
-    
-    
-    func tableView(_ tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        
-        
-        
-        if tableView == autoPromptTable
-        {
-            
-            
             
             let selectedString = ((promptArray.object(at: indexPath.row)) as AnyObject).value(forKey: "fullName") as? String ?? ""//promptArray.objectAtIndex(indexPath.row).valueForKey("fullName") as? String ?? ""
             print(selectedString)
@@ -1759,13 +1784,13 @@ class searchScreenViewController: UIViewController, UINavigationControllerDelega
             print(locationId)
             
             
-            
-            
-            self.autoPromptView.isHidden=true
-            self.search_Bar.showsCancelButton = false
-            self.cancelWidth.constant = 0
-           
-            self.view.layoutIfNeeded()
+            self.hideTheView()
+//            
+//            self.autoPromptView.isHidden=true
+//            self.search_Bar.showsCancelButton = false
+//            self.cancelWidth.constant = 0
+//           
+//            self.view.layoutIfNeeded()
             
             
             
@@ -1775,31 +1800,49 @@ class searchScreenViewController: UIViewController, UINavigationControllerDelega
             
           
             promptArray.removeAllObjects()
+            promptArray = popularArray
             autoPromptTable .reloadData()
             
             
             
             
             
-            
-            
-            
-            
-            
-            
             /////////////  Automatic add locations ////////
+           var containBool = Bool()
             
-            
-            if (arrayOfIntrest.contains(locationId)) {
-                
-                CommonFunctionsClass.sharedInstance().showAlert(title: "Opps!", text: "Please enter different name.", imageName: "alertFill")
-                //CommonFunctionsClass.sharedInstance().alertViewOpen("Please Enter Different Name", viewController: self)
-                self.messageFrame.removeFromSuperview()
+            for diction in arrayOfIntrest {
+             let dic2 =  diction as! NSDictionary
+                print(dic2)
+                if dic2["placeId"]as? String == locationId
+                {
+                    print("contains")
+                    
+                        CommonFunctionsClass.sharedInstance().showAlert(title: "Opps!", text: "Please enter different name.", imageName: "alertFill")
+                    
+                        self.messageFrame.removeFromSuperview()
+                        containBool = true
+                        
+                    
+                    break
+                }
                 
                 
             }
-            else
-            {
+            
+            
+            
+            
+//            if (((arrayOfIntrest.value(forKey: "placeId")) as! NSString).contains(locationId)) {
+//                
+//                CommonFunctionsClass.sharedInstance().showAlert(title: "Opps!", text: "Please enter different name.", imageName: "alertFill")
+//                //CommonFunctionsClass.sharedInstance().alertViewOpen("Please Enter Different Name", viewController: self)
+//                self.messageFrame.removeFromSuperview()
+//                
+//                
+//            }
+//            else
+
+            if containBool == false {
                 
                 var dict = NSMutableDictionary()
             //dict = ["location":locationAutoPrompt,"lat": "0.0", "long": "0.0", "type": locationType, "country":"\(locationAutoPrompt)",  "delete":false ]
@@ -1823,7 +1866,7 @@ class searchScreenViewController: UIViewController, UINavigationControllerDelega
                     }
                     
                     self.arrayOfIntrest .add(dict)
-                    //self.arrayOfIntrest .insert(dict, at: 0)
+                     UserDefaults.standard.set(arrayOfIntrest, forKey: "arrayOfIntrest")
                     selectedindxSearch=0
                     
                     
@@ -1831,12 +1874,6 @@ class searchScreenViewController: UIViewController, UINavigationControllerDelega
                     {
                         self.setLocationInButtons(btnTag: i)
                     }
-                    
-                
-
-                
-                   // self .nextPageAction(sender: self)
-                    
                     
                     
                 }
@@ -1850,18 +1887,9 @@ class searchScreenViewController: UIViewController, UINavigationControllerDelega
                 search_Bar.text = nil
                 
             }
-            
-            
-            
-            
-            
-        }
-            
-        else
-        {
-            
-            
-        }
+        
+    
+    
         
         
         
@@ -1870,7 +1898,7 @@ class searchScreenViewController: UIViewController, UINavigationControllerDelega
     
     
     
-    func scrollViewWillBeginDragging(scrollView: UIScrollView) {
+    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
         
         
     }
