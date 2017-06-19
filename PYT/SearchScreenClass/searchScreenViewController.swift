@@ -495,7 +495,7 @@ class searchScreenViewController: UIViewController, UINavigationControllerDelega
             return trendingArray.count
         }
         else{
-            return 0
+            return 4
         }
         
     }
