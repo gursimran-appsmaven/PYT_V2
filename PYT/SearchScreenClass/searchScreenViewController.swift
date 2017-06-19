@@ -94,11 +94,11 @@ class searchScreenViewController: UIViewController, UINavigationControllerDelega
     @IBOutlet weak var button5: CustomButton!
     
     //black labels
-    @IBOutlet weak var blacklabel1: UILabel!
-    @IBOutlet weak var blackLabel2: UILabel!
-    @IBOutlet weak var blackLabel3: UILabel!
-    @IBOutlet weak var blacklabel4: UILabel!
-    @IBOutlet weak var blackLabel5: UILabel!
+    @IBOutlet weak var btn1Overlay: GradientView!
+    @IBOutlet weak var btn2Overlay: GradientView!
+    @IBOutlet weak var btn3Overlay: GradientView!
+    @IBOutlet weak var btn4Overlay: GradientView!
+    @IBOutlet weak var btn5Overlay: GradientView!
     
     //Cross buttons
     
@@ -119,6 +119,19 @@ class searchScreenViewController: UIViewController, UINavigationControllerDelega
     {
         IQKeyboardManager.shared().isEnableAutoToolbar=false
         IQKeyboardManager.shared().shouldResignOnTouchOutside=true
+        
+        btn1Overlay.gradientLayer.colors = [UIColor.black.withAlphaComponent(0.5).cgColor, UIColor.clear.cgColor]
+        btn1Overlay.gradientLayer.gradient = GradientPoint.bottomTop.draw()
+        btn2Overlay.gradientLayer.colors = [UIColor.black.withAlphaComponent(0.5).cgColor, UIColor.clear.cgColor]
+        btn2Overlay.gradientLayer.gradient = GradientPoint.bottomTop.draw()
+        btn3Overlay.gradientLayer.colors = [UIColor.black.withAlphaComponent(0.5).cgColor, UIColor.clear.cgColor]
+        btn3Overlay.gradientLayer.gradient = GradientPoint.bottomTop.draw()
+        btn4Overlay.gradientLayer.colors = [UIColor.black.withAlphaComponent(0.5).cgColor, UIColor.clear.cgColor]
+        btn4Overlay.gradientLayer.gradient = GradientPoint.bottomTop.draw()
+        btn5Overlay.gradientLayer.colors = [UIColor.black.withAlphaComponent(0.5).cgColor, UIColor.clear.cgColor]
+        btn5Overlay.gradientLayer.gradient = GradientPoint.bottomTop.draw()
+
+
     }
     
     override func viewDidDisappear(_ animated: Bool)
@@ -525,10 +538,11 @@ class searchScreenViewController: UIViewController, UINavigationControllerDelega
             
             
             cell.locationImage.contentMode = .scaleToFill
-            cell.locationImage.layer.cornerRadius=3
+            cell.locationImage.layer.cornerRadius=0
             cell.locationImage.clipsToBounds=true
             
-            
+            cell.gradientView.gradientLayer.colors = [UIColor.black.cgColor, UIColor.clear.cgColor]
+            cell.gradientView.gradientLayer.gradient = GradientPoint.bottomTop.draw()
             
             
             return cell
@@ -610,7 +624,7 @@ class searchScreenViewController: UIViewController, UINavigationControllerDelega
             print(trendingPlacesCollectionView.frame.height)
             
             let width1 = collectionView.frame.size.width/1.16
-            let height3: CGFloat = trendingPlacesCollectionView.frame.height - 20
+            let height3: CGFloat = trendingPlacesCollectionView.frame.height
             
             return CGSize(width: width1 , height: height3)
             
@@ -1215,7 +1229,6 @@ class searchScreenViewController: UIViewController, UINavigationControllerDelega
             
             button1 .setImage(nil, for: .normal) //imageView?.image = nil
             button1.backgroundColor = UIColor .red
-            blacklabel1.alpha = 0.15
             button1 .setTitle(LocationNameString, for: .normal)
             deleteBtn1.tag = 0
             deleteBtn1.isHidden = false
@@ -1223,7 +1236,6 @@ class searchScreenViewController: UIViewController, UINavigationControllerDelega
         case 1:
             button2.setImage(nil, for: .normal)
             button2.backgroundColor = UIColor .red
-            blackLabel2.alpha = 0.15
             button2 .setTitle(LocationNameString, for: .normal)
             deleteBtn2.tag = 1
             deleteBtn2.isHidden = false
@@ -1231,7 +1243,6 @@ class searchScreenViewController: UIViewController, UINavigationControllerDelega
         case 2:
             button3.setImage(nil, for: .normal)
             button3.backgroundColor = UIColor .red
-            blackLabel3.alpha = 0.15
             button3 .setTitle(LocationNameString, for: .normal)
             deleteBtn3.tag = 2
             deleteBtn3.isHidden = false
@@ -1239,7 +1250,6 @@ class searchScreenViewController: UIViewController, UINavigationControllerDelega
         case 3:
             button4.setImage(nil, for: .normal)
             button4.backgroundColor = UIColor .red
-            blacklabel4.alpha = 0.15
             button4 .setTitle(LocationNameString, for: .normal)
             deleteBtn4.tag = 3
             deleteBtn4.isHidden = false
@@ -1248,7 +1258,6 @@ class searchScreenViewController: UIViewController, UINavigationControllerDelega
         default:
             button5.setImage(nil, for: .normal)
             button5.backgroundColor = UIColor .red
-            blackLabel5.alpha = 0.15
             button5 .setTitle(LocationNameString, for: .normal)
             deleteBtn5.tag = 4
             deleteBtn5.isHidden = false
@@ -1604,40 +1613,35 @@ class searchScreenViewController: UIViewController, UINavigationControllerDelega
         {
         case 0:
             button1 .setImage(UIImage (named: "Add") , for: .normal) //
-            button1.backgroundColor = UIColor .lightGray
+            button1.backgroundColor = UIColor .lightGray.withAlphaComponent(0.2)
             button1.setTitle("", for: .normal)
-            blacklabel1.alpha = 0
             deleteBtn1.isHidden = true
             break
             
         case 1:
             button2 .setImage(UIImage (named: "Add") , for: .normal) //
-            button2.backgroundColor = UIColor .lightGray
+            button2.backgroundColor = UIColor .lightGray.withAlphaComponent(0.2)
             button2.setTitle("", for: .normal)
-            blackLabel2.alpha = 0
             deleteBtn2.isHidden = true
             break
             
         case 2:
             button3 .setImage(UIImage (named: "Add") , for: .normal) //
-            button3.backgroundColor = UIColor .lightGray
-            blackLabel3.alpha = 0
+            button3.backgroundColor = UIColor .lightGray.withAlphaComponent(0.2)
             button3.setTitle("", for: .normal)
             deleteBtn3.isHidden = true
             break
             
         case 3:
             button4 .setImage(UIImage (named: "Add") , for: .normal) //
-            button4.backgroundColor = UIColor .lightGray
-            blacklabel4.alpha = 0
+            button4.backgroundColor = UIColor .lightGray.withAlphaComponent(0.2)
             button4.setTitle("", for: .normal)
             deleteBtn4.isHidden = true
             break
             
         default:
             button5 .setImage(UIImage (named: "Add") , for: .normal) //
-            button5.backgroundColor = UIColor .lightGray
-            blackLabel5.alpha = 0
+            button5.backgroundColor = UIColor .lightGray.withAlphaComponent(0.2)
             button5.setTitle("", for: .normal)
             deleteBtn5.isHidden = true
             break
@@ -1672,26 +1676,21 @@ class searchScreenViewController: UIViewController, UINavigationControllerDelega
         button1 .setImage(UIImage (named: "Add") , for: .normal) //
         button1.backgroundColor = UIColor (colorLiteralRed: 250/255, green: 250/255, blue: 250/255, alpha: 1) //.lightGray
         button1.setTitle("", for: .normal)
-        blacklabel1.alpha = 0
         
         button2 .setImage(UIImage (named: "Add") , for: .normal) //
         button2.backgroundColor = UIColor (colorLiteralRed: 250/255, green: 250/255, blue: 250/255, alpha: 1) //.lightGray
         button2.setTitle("", for: .normal)
-        blackLabel2.alpha = 0
         
         button3 .setImage(UIImage (named: "Add") , for: .normal) //
         button3.backgroundColor = UIColor (colorLiteralRed: 250/255, green: 250/255, blue: 250/255, alpha: 1)//.lightGray
-        blackLabel3.alpha = 0
         button3.setTitle("", for: .normal)
         
         button4 .setImage(UIImage (named: "Add") , for: .normal) //
         button4.backgroundColor = UIColor (colorLiteralRed: 250/255, green: 250/255, blue: 250/255, alpha: 1)//UIColor .lightGray
-        blacklabel4.alpha = 0
         button4.setTitle("", for: .normal)
         
         button5 .setImage(UIImage (named: "Add") , for: .normal) //
         button5.backgroundColor = UIColor (colorLiteralRed: 250/255, green: 250/255, blue: 250/255, alpha: 1)//UIColor .lightGray
-        blackLabel5.alpha = 0
         button5.setTitle("", for: .normal)
         
     }
@@ -2379,6 +2378,7 @@ class locationsCell: UICollectionViewCell {
     
     @IBOutlet var locationLabel: UILabel!
     @IBOutlet var locationImage: UIImageView!
+    @IBOutlet weak var gradientView: GradientView!
     
     @IBOutlet weak var minusBtn: UIButton!
     
