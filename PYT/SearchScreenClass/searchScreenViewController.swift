@@ -70,7 +70,7 @@ class searchScreenViewController: UIViewController, UINavigationControllerDelega
     @IBOutlet weak var autoPromptTable: UITableView!
     @IBOutlet weak var autoPromptView: UIView!
     
-   // @IBOutlet weak var heightofPromptTableview: NSLayoutConstraint!
+    // @IBOutlet weak var heightofPromptTableview: NSLayoutConstraint!
     
     @IBOutlet weak var topSpaceOfAutoPrompt: NSLayoutConstraint!
     
@@ -123,7 +123,7 @@ class searchScreenViewController: UIViewController, UINavigationControllerDelega
     
     override func viewDidDisappear(_ animated: Bool)
     {
-
+        
         
         //  UIApplication.sharedApplication().statusBarStyle = .LightContent
         
@@ -192,9 +192,9 @@ class searchScreenViewController: UIViewController, UINavigationControllerDelega
         
         
         
-       // DispatchQueue.main.async {
-            
-            //////////------- temp handle intrets:
+        // DispatchQueue.main.async {
+        
+        //////////------- temp handle intrets:
         
         deleteBtn1.isHidden = true
         deleteBtn2.isHidden = true
@@ -203,106 +203,106 @@ class searchScreenViewController: UIViewController, UINavigationControllerDelega
         deleteBtn4.isHidden = true
         deleteBtn5.isHidden = true
         
-            let tabledata2 = UserDefaults.standard.array(forKey: "arrayOfIntrest")
-            if (tabledata2?.count)!<1
+        let tabledata2 = UserDefaults.standard.array(forKey: "arrayOfIntrest")
+        if (tabledata2?.count)!<1
+        {
+            //do nothing
+            
+            
+        }
+        else
+        {
+            let tabledata:NSMutableArray = [UserDefaults.standard.array(forKey:"arrayOfIntrest")!]
+            
+            for i in 0..<(tabledata[0] as AnyObject).count
             {
-                //do nothing
                 
+                var srrObj = NSMutableDictionary()
+                print((tabledata[0] as AnyObject).object(at: i))
+                srrObj = (tabledata[0] as AnyObject).object(at: i) as! NSMutableDictionary //((tabledata[0] as AnyObject) .object(i) as! NSMutableDictionary).mutableCopy() as! NSMutableDictionary
+                print(srrObj)
                 
-            }
-            else
-            {
-                let tabledata:NSMutableArray = [UserDefaults.standard.array(forKey:"arrayOfIntrest")!]
-            
-                for i in 0..<(tabledata[0] as AnyObject).count
-                {
-                   
-                    var srrObj = NSMutableDictionary()
-                    print((tabledata[0] as AnyObject).object(at: i))
-                    srrObj = (tabledata[0] as AnyObject).object(at: i) as! NSMutableDictionary //((tabledata[0] as AnyObject) .object(i) as! NSMutableDictionary).mutableCopy() as! NSMutableDictionary
-                    print(srrObj)
-                    
-                    self.arrayOfIntrest .add(srrObj.mutableCopy())
-                    print(self.arrayOfIntrest)
-                    self.setLocationInButtons(btnTag: i)
-                    
-                    
-                    
-                }
-                
-            }
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            let uId = defaults .string(forKey: "userLoginId")
-            
-            
-            
-            //get the trending places here
-            
-            let trendingDataSaved = UserDefaults.standard.object(forKey: "arrayOfTrending")
-            
-            let popularSaved = UserDefaults.standard.object(forKey: "arrayOfPopular")
-            
-            
-            if (trendingDataSaved != nil && popularSaved != nil) {
-                
-                self.trendingArray=NSMutableArray(array: trendingDataSaved as! NSArray)
-                self.popularArray=NSMutableArray(array: popularSaved as! NSArray)
-                // self.updateTrending()
-                self.trendingPlacesCollectionView.reloadData()
-                self.showPopular()
-                
-                self.adjustHeightOftableView()
-                
-                DispatchQueue.main.asyncAfter(deadline: .now() + 5.0) {
-                    self.postApiForTrendingLocationsSearch(userid: uId! as NSString)
-                    //apiClassInterest.sharedInstance().postApiForTrendingLocations(self, userid: uId!)
-                }
+                self.arrayOfIntrest .add(srrObj.mutableCopy())
+                print(self.arrayOfIntrest)
+                self.setLocationInButtons(btnTag: i)
                 
                 
                 
             }
-            else
-            {
-                self.postApiForTrendingLocationsSearch(userid: uId! as NSString) //api to get the trending and popular places
-                
-            }
             
+        }
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        let uId = defaults .string(forKey: "userLoginId")
+        
+        
+        
+        //get the trending places here
+        
+        let trendingDataSaved = UserDefaults.standard.object(forKey: "arrayOfTrending")
+        
+        let popularSaved = UserDefaults.standard.object(forKey: "arrayOfPopular")
+        
+        
+        if (trendingDataSaved != nil && popularSaved != nil) {
             
-            
+            self.trendingArray=NSMutableArray(array: trendingDataSaved as! NSArray)
+            self.popularArray=NSMutableArray(array: popularSaved as! NSArray)
+            // self.updateTrending()
+            self.trendingPlacesCollectionView.reloadData()
+            self.showPopular()
             
             self.adjustHeightOftableView()
             
-            URLCache.shared.removeAllCachedResponses()//clear cache
+            DispatchQueue.main.asyncAfter(deadline: .now() + 5.0) {
+                self.postApiForTrendingLocationsSearch(userid: uId! as NSString)
+                //apiClassInterest.sharedInstance().postApiForTrendingLocations(self, userid: uId!)
+            }
             
             
             
+        }
+        else
+        {
+            self.postApiForTrendingLocationsSearch(userid: uId! as NSString) //api to get the trending and popular places
             
-            
-            
-            
-            
-            
-            
-            self.navigationController?.isNavigationBarHidden = true
-            
-            self.tabBarController?.tabBar.isHidden = true
-            
-            
-            
-            
-            selectedindxSearch=0
-            
-            
-            
-       // }
+        }
+        
+        
+        
+        
+        self.adjustHeightOftableView()
+        
+        URLCache.shared.removeAllCachedResponses()//clear cache
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        self.navigationController?.isNavigationBarHidden = true
+        
+        self.tabBarController?.tabBar.isHidden = true
+        
+        
+        
+        
+        selectedindxSearch=0
+        
+        
+        
+        // }
         
         
         
@@ -317,7 +317,7 @@ class searchScreenViewController: UIViewController, UINavigationControllerDelega
         
         let tokendevice = defaults.string(forKey: "deviceToken")!
         print(tokendevice)
-       // let uId = defaults .string(forKey: "userLoginId")
+        // let uId = defaults .string(forKey: "userLoginId")
         if defaults.bool(forKey: "savedDeviceToken") == true {
             
         }
@@ -393,43 +393,43 @@ class searchScreenViewController: UIViewController, UINavigationControllerDelega
     //MARK: Hide and unhide the view wwhen start typing
     
     
-     func hideTheView() {
-     
-     UIView.animate(withDuration: 0.4, animations: {() -> Void in
-     
-     self.autoPromptView.isHidden=true
-     self.search_Bar.showsCancelButton = false
-     self.cancelWidth.constant = 0
-     self.view.layoutIfNeeded()
-     })
-     
-     
-     
-     
-     }
-     
-     
-     func showTheView()
-     {
-     UIView.animate(withDuration: 0.6, animations: {() -> Void in
-     self.autoPromptView.isHidden=false
-     self.topSpaceOfAutoPrompt.constant = 0
-     self.search_Bar.showsCancelButton = false
-     self.search_Bar.layer.borderWidth = 1.0
-     self.search_Bar.layer.borderColor = UIColor .lightGray.cgColor
-     self.cancelWidth.constant = 43
-     self.promptIndicator.isHidden=true
-     self.autoPromptTable.contentInset = UIEdgeInsetsMake(0, 0, 10, 0)
-     
-     
-     //self.heightofPromptTableview.constant = self.autoPromptTable.rowHeight * CGFloat(self.promptArray.count) //+ 50
-    // print(self.heightofPromptTableview.constant)
-     self.view.layoutIfNeeded()
-     })
-     
-     
-     }
-     
+    func hideTheView() {
+        
+        UIView.animate(withDuration: 0.4, animations: {() -> Void in
+            
+            self.autoPromptView.isHidden=true
+            self.search_Bar.showsCancelButton = false
+            self.cancelWidth.constant = 0
+            self.view.layoutIfNeeded()
+        })
+        
+        
+        
+        
+    }
+    
+    
+    func showTheView()
+    {
+        UIView.animate(withDuration: 0.6, animations: {() -> Void in
+            self.autoPromptView.isHidden=false
+            self.topSpaceOfAutoPrompt.constant = 0
+            self.search_Bar.showsCancelButton = false
+            self.search_Bar.layer.borderWidth = 1.0
+            self.search_Bar.layer.borderColor = UIColor .lightGray.cgColor
+            self.cancelWidth.constant = 43
+            self.promptIndicator.isHidden=true
+            self.autoPromptTable.contentInset = UIEdgeInsetsMake(0, 0, 10, 0)
+            
+            
+            //self.heightofPromptTableview.constant = self.autoPromptTable.rowHeight * CGFloat(self.promptArray.count) //+ 50
+            // print(self.heightofPromptTableview.constant)
+            self.view.layoutIfNeeded()
+        })
+        
+        
+    }
+    
     
     
     
@@ -440,13 +440,13 @@ class searchScreenViewController: UIViewController, UINavigationControllerDelega
     func adjustHeightOftableView() -> Void
     {
         
-                  self.heightOfcontentView.constant = 950 //
-            
-            UserDefaults.standard.set(arrayOfIntrest, forKey: "arrayOfIntrest")
-            
+        self.heightOfcontentView.constant = 950 //
         
-                  UserDefaults.standard.set(arrayOfIntrest, forKey: "arrayOfIntrest")
-            
+        UserDefaults.standard.set(arrayOfIntrest, forKey: "arrayOfIntrest")
+        
+        
+        UserDefaults.standard.set(arrayOfIntrest, forKey: "arrayOfIntrest")
+        
         
         
         
@@ -477,7 +477,7 @@ class searchScreenViewController: UIViewController, UINavigationControllerDelega
     }
     
     
-
+    
     
     func collectionView(_ collectionView: UICollectionView,numberOfItemsInSection section: Int) -> Int
     {
@@ -503,7 +503,7 @@ class searchScreenViewController: UIViewController, UINavigationControllerDelega
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "trendingCell",for: indexPath as IndexPath) as! locationsCell
             
             
-        var nameSt = (trendingArray.object(at: indexPath.row) as! NSDictionary).value(forKey: "fullName") as?  String ?? " " // trendingArray.objectAtIndex(indexPath.row).valueForKey("fullName") as? String ?? " "
+            var nameSt = (trendingArray.object(at: indexPath.row) as! NSDictionary).value(forKey: "fullName") as?  String ?? " " // trendingArray.objectAtIndex(indexPath.row).valueForKey("fullName") as? String ?? " "
             
             
             let ArrToSeperate = nameSt .components(separatedBy: ",")
@@ -600,7 +600,7 @@ class searchScreenViewController: UIViewController, UINavigationControllerDelega
             return CGSize(width: width1 , height: height3)
         }
         
-
+        
         
     }
     
@@ -861,7 +861,7 @@ class searchScreenViewController: UIViewController, UINavigationControllerDelega
             promptArray .removeAllObjects()
             
             
-           // self.showPopular()
+            // self.showPopular()
             
             self.autoPromptTable.contentInset = UIEdgeInsetsMake(0, 0, 10, 0)
             
@@ -941,17 +941,17 @@ class searchScreenViewController: UIViewController, UINavigationControllerDelega
     func cancelSearchFunction() {
         
         
-    UIView.animate(withDuration: 0.1, animations: {() -> Void in
-       
-        self.search_Bar.showsCancelButton = false
-        self.cancelWidth.constant = 0
-        self.topSpaceOfAutoPrompt.constant = 200
-        self.view.layoutIfNeeded()
-        UIView.animate(withDuration: 0.4, animations: {() -> Void in
-         self.autoPromptView.isHidden=true
+        UIView.animate(withDuration: 0.1, animations: {() -> Void in
+            
+            self.search_Bar.showsCancelButton = false
+            self.cancelWidth.constant = 0
+            self.topSpaceOfAutoPrompt.constant = 200
+            self.view.layoutIfNeeded()
+            UIView.animate(withDuration: 0.4, animations: {() -> Void in
+                self.autoPromptView.isHidden=true
+            })
+            
         })
-
-          })
         
         
         search_Bar .resignFirstResponder()
@@ -979,7 +979,7 @@ class searchScreenViewController: UIViewController, UINavigationControllerDelega
         
         
     }
-
+    
     
     
     
@@ -1045,26 +1045,26 @@ class searchScreenViewController: UIViewController, UINavigationControllerDelega
             
             
             if SearchString.length >= 3 {
-               // self.scrollMainView.isScrollEnabled=false
+                // self.scrollMainView.isScrollEnabled=false
                 promptIndicator.isHidden=false
                 promptIndicator.startAnimating()
                 
                 let uId = defaults .string(forKey: "userLoginId")
                 
-//                
-//                if task != nil {
-//                    
-//                    if task.state == .running{ //URLSessionTask.State.running{
-//                        task.cancel()
-//                        print("\n\n Task 1 cancel\n\n")
-//                    }
-//                    
-//                    
-//                    if task.state == URLSessionTask.State.running {
-//                        task.cancel()
-//                        
-//                    }
-//                }
+                //
+                //                if task != nil {
+                //
+                //                    if task.state == .running{ //URLSessionTask.State.running{
+                //                        task.cancel()
+                //                        print("\n\n Task 1 cancel\n\n")
+                //                    }
+                //
+                //
+                //                    if task.state == URLSessionTask.State.running {
+                //                        task.cancel()
+                //
+                //                    }
+                //                }
                 
                 let parameterString = NSString(string:"query=\(SearchString)&userId=\(uId!)") as String
                 print(parameterString)
@@ -1129,7 +1129,7 @@ class searchScreenViewController: UIViewController, UINavigationControllerDelega
             deleteBtn4.tag = 3
             deleteBtn4.isHidden = false
             break
-       
+            
         default:
             button5.setImage(nil, for: .normal)
             button5.backgroundColor = UIColor .red
@@ -1147,16 +1147,16 @@ class searchScreenViewController: UIViewController, UINavigationControllerDelega
         
         
         
-       
-//        locationLabel.text = LocationNameString.capitalizedString
-//        
-//        cell.locationImage.sd_setImageWithURL(urlImg, placeholderImage: UIImage(named: "img1Temp"))
-//        cell.locationImage.layer.cornerRadius = 4.0
-//        cell.locationImage.clipsToBounds = true
-//        cell.minusBtn.layer.cornerRadius = cell.minusBtn.frame.size.width/2
-//        cell.minusBtn.alpha = 1
-//        cell.bringSubviewToFront(cell.minusBtn)
-//        cell.minusBtn.tag = indexPath.row
+        
+        //        locationLabel.text = LocationNameString.capitalizedString
+        //
+        //        cell.locationImage.sd_setImageWithURL(urlImg, placeholderImage: UIImage(named: "img1Temp"))
+        //        cell.locationImage.layer.cornerRadius = 4.0
+        //        cell.locationImage.clipsToBounds = true
+        //        cell.minusBtn.layer.cornerRadius = cell.minusBtn.frame.size.width/2
+        //        cell.minusBtn.alpha = 1
+        //        cell.bringSubviewToFront(cell.minusBtn)
+        //        cell.minusBtn.tag = indexPath.row
         
         
         
@@ -1270,7 +1270,7 @@ class searchScreenViewController: UIViewController, UINavigationControllerDelega
                                     // print("prompt array\n \n \(self.promptArray)")
                                     
                                     self.autoPromptTable .reloadData()
-                                   // self.emptyView.isHidden=true
+                                    // self.emptyView.isHidden=true
                                     
                                     
                                 }
@@ -1290,7 +1290,7 @@ class searchScreenViewController: UIViewController, UINavigationControllerDelega
                                     
                                     
                                     
-                                   // self.emptyView.isHidden=false
+                                    // self.emptyView.isHidden=false
                                     
                                     
                                 }
@@ -1393,7 +1393,7 @@ class searchScreenViewController: UIViewController, UINavigationControllerDelega
             }
             
             
-          
+            
             
             
             
@@ -1540,7 +1540,7 @@ class searchScreenViewController: UIViewController, UINavigationControllerDelega
         {
             self.setLocationInButtons(btnTag: i)
         }
-
+        
         
     }
     
@@ -1748,7 +1748,7 @@ class searchScreenViewController: UIViewController, UINavigationControllerDelega
             
             let str = ((promptArray.object(at: indexPath.row)) as AnyObject).value(forKey: "type") as? String ?? ""//promptArray.objectAtIndex(indexPath.row).valueForKey("type") as? String ?? ""
             
-           let locationId = ((promptArray.object(at: indexPath.row)) as AnyObject).value(forKey: "_id") as? String ?? "" //promptArray.objectAtIndex(indexPath.row).valueForKey("_id") as? String ?? ""
+            let locationId = ((promptArray.object(at: indexPath.row)) as AnyObject).value(forKey: "_id") as? String ?? "" //promptArray.objectAtIndex(indexPath.row).valueForKey("_id") as? String ?? ""
             
             
             
@@ -1764,7 +1764,7 @@ class searchScreenViewController: UIViewController, UINavigationControllerDelega
             self.autoPromptView.isHidden=true
             self.search_Bar.showsCancelButton = false
             self.cancelWidth.constant = 0
-           
+            
             self.view.layoutIfNeeded()
             
             
@@ -1773,7 +1773,7 @@ class searchScreenViewController: UIViewController, UINavigationControllerDelega
             
             
             
-          
+            
             promptArray.removeAllObjects()
             autoPromptTable .reloadData()
             
@@ -1802,7 +1802,7 @@ class searchScreenViewController: UIViewController, UINavigationControllerDelega
             {
                 
                 var dict = NSMutableDictionary()
-            //dict = ["location":locationAutoPrompt,"lat": "0.0", "long": "0.0", "type": locationType, "country":"\(locationAutoPrompt)",  "delete":false ]
+                //dict = ["location":locationAutoPrompt,"lat": "0.0", "long": "0.0", "type": locationType, "country":"\(locationAutoPrompt)",  "delete":false ]
                 
                 let fullName = locationAutoPrompt
                 let ArrToSeperate = locationAutoPrompt .components(separatedBy: ",")
@@ -1832,10 +1832,10 @@ class searchScreenViewController: UIViewController, UINavigationControllerDelega
                         self.setLocationInButtons(btnTag: i)
                     }
                     
-                
-
-                
-                   // self .nextPageAction(sender: self)
+                    
+                    
+                    
+                    // self .nextPageAction(sender: self)
                     
                     
                     
