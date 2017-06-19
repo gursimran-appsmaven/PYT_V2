@@ -5023,8 +5023,7 @@ extension mainHomeViewController: UICollectionViewDelegate, UICollectionViewData
         
         let source = (self.arrayOfimages1[a] as AnyObject).value(forKey: "source") as! NSArray
         
-        detailSub5Bottom.constant = -(detailSub4.frame.size.height)
-        detailSub4.isHidden=true
+        detailView.isHidden=true
         
         if source[b] as? NSNull != NSNull()  {
             
@@ -5038,11 +5037,6 @@ extension mainHomeViewController: UICollectionViewDelegate, UICollectionViewData
                     
                     //print("Enter if match the user id")
                     
-                    if detailSub5Bottom.constant<9
-                    {
-                        detailSub5Bottom.constant = 9
-                        detailSub4.isHidden=false
-                    }
                     
                     
                     
