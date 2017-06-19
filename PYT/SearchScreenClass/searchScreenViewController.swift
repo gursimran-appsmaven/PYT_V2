@@ -14,11 +14,10 @@ import SDWebImage
 
 var selectedindxSearch = Int()
 
-class searchScreenViewController: UIViewController, UINavigationControllerDelegate, UISearchBarDelegate {
+class searchScreenViewController: UIViewController, UINavigationControllerDelegate, UISearchBarDelegate, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UITableViewDelegate, UITableViewDataSource {
     
     
     @IBOutlet var heightOfcontentView: NSLayoutConstraint!
-    @IBOutlet weak var headerView: UIView!
     
     //SEARCH BAR VIEW
     @IBOutlet weak var search_Bar: UISearchBar!
@@ -29,16 +28,13 @@ class searchScreenViewController: UIViewController, UINavigationControllerDelega
     
     
     
-    //BannerSearch
-    @IBOutlet weak var searchBanner: UIImageView!
-    
-    @IBOutlet weak var txtLbl: UILabel!
-    
+    //BannerSearch top bar when searching
     
     @IBOutlet weak var emptyView: UIView!
-    
-    
     @IBOutlet var menuButton: UIButton!
+    @IBOutlet weak var topSpaceofView: NSLayoutConstraint!
+    
+    
     
     //indicator objects
     var messageFrame = UIView()
@@ -57,12 +53,10 @@ class searchScreenViewController: UIViewController, UINavigationControllerDelega
     
     
     @IBOutlet weak var scrollMainView: UIScrollView!
-    @IBOutlet weak var scrollTopView: NSLayoutConstraint!
     @IBOutlet weak var scrollFirstView: UIView!
     
     
     
-    @IBOutlet weak var searchedLocationsCollectionView: UICollectionView!
     
     @IBOutlet weak var trendingPlacesCollectionView: UICollectionView!
     
@@ -76,38 +70,60 @@ class searchScreenViewController: UIViewController, UINavigationControllerDelega
     @IBOutlet weak var autoPromptTable: UITableView!
     @IBOutlet weak var autoPromptView: UIView!
     
-    @IBOutlet weak var heightofPromptTableview: NSLayoutConstraint!
+   // @IBOutlet weak var heightofPromptTableview: NSLayoutConstraint!
     
+    @IBOutlet weak var topSpaceOfAutoPrompt: NSLayoutConstraint!
     
     
     
     
     
     @IBOutlet weak var promptIndicator: UIActivityIndicatorView!
-    var task = URLSessionDataTask()
+    var task = URLSessionTask()
     var promptArray = NSMutableArray()
     var locationAutoPrompt = NSString()
     var locationType = NSString()
     var locationId = NSString()
     
     
+    //Buttons
+    @IBOutlet weak var button1: CustomButton!
+    @IBOutlet weak var button2: CustomButton!
+    @IBOutlet weak var button3: CustomButton!
+    @IBOutlet weak var button4: CustomButton!
+    @IBOutlet weak var button5: CustomButton!
+    
+    //black labels
+    @IBOutlet weak var blacklabel1: UILabel!
+    @IBOutlet weak var blackLabel2: UILabel!
+    @IBOutlet weak var blackLabel3: UILabel!
+    @IBOutlet weak var blacklabel4: UILabel!
+    @IBOutlet weak var blackLabel5: UILabel!
+    
+    //Cross buttons
     
     
-    override func viewWillAppear(_ animated: Bool) {
-        
-        
-        
+    @IBOutlet weak var deleteBtn1: CustomButton!
+    @IBOutlet weak var deleteBtn2: CustomButton!
+    @IBOutlet weak var deleteBtn3: CustomButton!
+    @IBOutlet weak var deleteBtn4: CustomButton!
+    @IBOutlet weak var deleteBtn5: CustomButton!
+    
+    
+    var buttonPressedTag = Int()
+    
+    
+    
+    
+    override func viewWillAppear(_ animated: Bool)
+    {
         IQKeyboardManager.shared().isEnableAutoToolbar=false
         IQKeyboardManager.shared().shouldResignOnTouchOutside=true
-        
-        
-        
-        
-        
     }
     
-    override func viewDidDisappear(_ animated: Bool) {
-        
+    override func viewDidDisappear(_ animated: Bool)
+    {
+
         
         //  UIApplication.sharedApplication().statusBarStyle = .LightContent
         
@@ -130,12 +146,7 @@ class searchScreenViewController: UIViewController, UINavigationControllerDelega
         locationAutoPrompt = "Empty"
         autoPromptTable.rowHeight = 50
         
-        headerView.alpha = 0
         
-        
-        
-        searchBanner.layer.cornerRadius = 2.0
-        searchBanner.clipsToBounds = true
         search_Bar.layer.cornerRadius = 5.0
         search_Bar.clipsToBounds = true
         search_Bar.barTintColor = UIColor .white
@@ -143,7 +154,7 @@ class searchScreenViewController: UIViewController, UINavigationControllerDelega
         search_Bar.returnKeyType = UIReturnKeyType .done
         search_Bar.showsCancelButton = false
         cancelWidth.constant = 0
-        
+        search_Bar.delegate = self
         
         
         
@@ -159,7 +170,8 @@ class searchScreenViewController: UIViewController, UINavigationControllerDelega
         blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         autoPromptView.addSubview(blurEffectView)
         self.autoPromptView .bringSubview(toFront: autoPromptTable)
-        
+        self.autoPromptView.bringSubview(toFront: search_Bar)
+        self.autoPromptView.bringSubview(toFront: cancelButtonSearch)
         
         
         
@@ -180,7 +192,7 @@ class searchScreenViewController: UIViewController, UINavigationControllerDelega
         
         
         
-        DispatchQueue.main.async {
+       // DispatchQueue.main.async {
             
             //////////------- temp handle intrets:
             
@@ -196,13 +208,27 @@ class searchScreenViewController: UIViewController, UINavigationControllerDelega
                 let tabledata:NSMutableArray = [UserDefaults.standard.array(forKey:"arrayOfIntrest")!]
                 
                 
+                deleteBtn1.isHidden = true
+                deleteBtn2.isHidden = true
+                deleteBtn3.isHidden = true
+                deleteBtn3.isHidden = true
+                deleteBtn4.isHidden = true
+                deleteBtn5.isHidden = true
+                
+                
                 for i in 0..<(tabledata[0] as AnyObject).count
                 {
+                   
                     var srrObj = NSMutableDictionary()
-                    //srrObj = ((tabledata[0] as AnyObject) .object(i) as! NSMutableDictionary).mutableCopy() as! NSMutableDictionary
+                    print((tabledata[0] as AnyObject).object(at: i))
+                    srrObj = (tabledata[0] as AnyObject).object(at: i) as! NSMutableDictionary //((tabledata[0] as AnyObject) .object(i) as! NSMutableDictionary).mutableCopy() as! NSMutableDictionary
+                    print(srrObj)
+                    
+                    self.arrayOfIntrest .add(srrObj.mutableCopy())
+                    print(self.arrayOfIntrest)
+                    self.setLocationInButtons(btnTag: i)
                     
                     
-                    self.arrayOfIntrest .add(srrObj)
                     
                 }
                 
@@ -278,7 +304,7 @@ class searchScreenViewController: UIViewController, UINavigationControllerDelega
             
             
             
-        }
+       // }
         
         
         
@@ -293,7 +319,7 @@ class searchScreenViewController: UIViewController, UINavigationControllerDelega
         
         let tokendevice = defaults.string(forKey: "deviceToken")!
         print(tokendevice)
-        let uId = defaults .string(forKey: "userLoginId")
+       // let uId = defaults .string(forKey: "userLoginId")
         if defaults.bool(forKey: "savedDeviceToken") == true {
             
         }
@@ -313,6 +339,31 @@ class searchScreenViewController: UIViewController, UINavigationControllerDelega
             }
             
         }
+        
+        
+        button1.tag = 0
+        button1.addTarget(self, action: #selector(self.searchLocationAction(_:)), for: UIControlEvents.touchUpInside)
+        deleteBtn1.addTarget(self, action: #selector(self.deleteLocation(sender:)), for: .touchUpInside)
+        
+        button2.tag = 1
+        button2.addTarget(self, action: #selector(self.searchLocationAction(_:)), for: UIControlEvents.touchUpInside)
+        deleteBtn2.addTarget(self, action: #selector(self.deleteLocation(sender:)), for: .touchUpInside)
+        
+        button3.tag = 2
+        button3.addTarget(self, action: #selector(self.searchLocationAction(_:)), for: UIControlEvents.touchUpInside)
+        deleteBtn3.addTarget(self, action: #selector(self.deleteLocation(sender:)), for: .touchUpInside)
+        
+        button4.tag = 3
+        button4.addTarget(self, action: #selector(self.searchLocationAction(_:)), for: UIControlEvents.touchUpInside)
+        deleteBtn4.addTarget(self, action: #selector(self.deleteLocation(sender:)), for: .touchUpInside)
+        
+        button5.tag = 4
+        button5.addTarget(self, action: #selector(self.searchLocationAction(_:)), for: UIControlEvents.touchUpInside)
+        deleteBtn5.addTarget(self, action: #selector(self.deleteLocation(sender:)), for: .touchUpInside)
+        
+        
+        
+        bloggersCollectionView.reloadData()
         
     }
     
@@ -343,23 +394,14 @@ class searchScreenViewController: UIViewController, UINavigationControllerDelega
     
     //MARK: Hide and unhide the view wwhen start typing
     
-    /*
+    
      func hideTheView() {
      
      UIView.animate(withDuration: 0.4, animations: {() -> Void in
      
-     self.headerView.alpha = 0
      self.autoPromptView.isHidden=true
      self.search_Bar.showsCancelButton = false
      self.cancelWidth.constant = 0
-     self.searchBanner.image = UIImage (named: "bannerSearch")
-     self.searchBanner.backgroundColor = UIColor .white
-     self.scrollTopView.constant = 0
-     self.singleSelectionButton.alpha = 1
-     self.multipleSelectionButton.alpha = 1
-     self.txtLbl.alpha = 1
-     self.singlecityLabel.alpha = 1
-     self.multipleCityLabel.alpha = 1
      self.view.layoutIfNeeded()
      })
      
@@ -369,33 +411,28 @@ class searchScreenViewController: UIViewController, UINavigationControllerDelega
      }
      
      
-     func showTheView() {
-     
-     UIView.animateWithDuration(0.6, animations: {() -> Void in
-     
-     self.headerView.alpha = 1
+     func showTheView()
+     {
+     UIView.animate(withDuration: 0.6, animations: {() -> Void in
+     self.autoPromptView.isHidden=false
+     self.topSpaceOfAutoPrompt.constant = 0
      self.search_Bar.showsCancelButton = false
      self.search_Bar.layer.borderWidth = 1.0
-     self.search_Bar.layer.borderColor = UIColor .lightGray.CGColor
+     self.search_Bar.layer.borderColor = UIColor .lightGray.cgColor
      self.cancelWidth.constant = 43
-     self.singlecityLabel.alpha = 0
-     self.multipleCityLabel.alpha = 0
      self.promptIndicator.isHidden=true
      self.autoPromptTable.contentInset = UIEdgeInsetsMake(0, 0, 10, 0)
-     self.scrollTopView.constant = -105
-     self.singleSelectionButton.alpha = 0
-     self.multipleSelectionButton.alpha = 0
-     self.txtLbl.alpha = 0
      
-     self.heightofPromptTableview.constant = self.autoPromptTable.rowHeight * CGFloat(self.promptArray.count) //+ 50
-     print(self.heightofPromptTableview.constant)
+     
+     //self.heightofPromptTableview.constant = self.autoPromptTable.rowHeight * CGFloat(self.promptArray.count) //+ 50
+    // print(self.heightofPromptTableview.constant)
      self.view.layoutIfNeeded()
      })
      
      
      }
      
-     */
+    
     
     
     
@@ -405,38 +442,13 @@ class searchScreenViewController: UIViewController, UINavigationControllerDelega
     func adjustHeightOftableView() -> Void
     {
         
-        
-        if arrayOfIntrest.count<1
-        {
-            
-            
-            self.navigationItem.leftBarButtonItem=nil
-            
-            //heightOfTrendingView.constant=self.view.frame.size.width * 0.66
-            
-            self.heightOfcontentView.constant = 1150 //self.heightOfTableView.constant + 355 + heightOfTrendingView.constant
+                  self.heightOfcontentView.constant = 950 //
             
             UserDefaults.standard.set(arrayOfIntrest, forKey: "arrayOfIntrest")
             
-            
-            searchedLocationsCollectionView .reloadData()
-            
-        }
-        else
-        {
-            
-            searchedLocationsCollectionView .reloadData()
-            
-            self.heightOfcontentView.constant=1150//self.heightOfTableView.constant + 355 + self.heightOfLocationTable.constant + heightOfTrendingView.constant
-            
-            print("heightOfcontentView   ________   \(heightOfcontentView.constant)")
-            
-            
-            UserDefaults.standard.set(arrayOfIntrest, forKey: "arrayOfIntrest")
-            
-        }
         
-        
+                  UserDefaults.standard.set(arrayOfIntrest, forKey: "arrayOfIntrest")
+            
         
         
         
@@ -467,13 +479,15 @@ class searchScreenViewController: UIViewController, UINavigationControllerDelega
     }
     
     
-    func collectionView(collectionView: UICollectionView,numberOfItemsInSection section: Int) -> Int
+
+    
+    func collectionView(_ collectionView: UICollectionView,numberOfItemsInSection section: Int) -> Int
     {
         if collectionView == trendingPlacesCollectionView{
             return trendingArray.count
         }
         else{
-            return 3
+            return 0
         }
         
     }
@@ -481,7 +495,7 @@ class searchScreenViewController: UIViewController, UINavigationControllerDelega
     
     
     
-    func collectionView(collectionView: UICollectionView,cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell
+    internal func collectionView(_ collectionView: UICollectionView,cellForItemAt indexPath: IndexPath) -> UICollectionViewCell
     {
         
         
@@ -491,7 +505,7 @@ class searchScreenViewController: UIViewController, UINavigationControllerDelega
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "trendingCell",for: indexPath as IndexPath) as! locationsCell
             
             
-            var nameSt = ""// trendingArray.objectAtIndex(indexPath.row).valueForKey("fullName") as? String ?? " "
+        var nameSt = (trendingArray.object(at: indexPath.row) as! NSDictionary).value(forKey: "fullName") as?  String ?? " " // trendingArray.objectAtIndex(indexPath.row).valueForKey("fullName") as? String ?? " "
             
             
             let ArrToSeperate = nameSt .components(separatedBy: ",")
@@ -502,8 +516,8 @@ class searchScreenViewController: UIViewController, UINavigationControllerDelega
             
             
             
-            let pImage : UIImage = UIImage(named:"backgroundImage")! //placeholder image
-            let imageLoc = "" //trendingArray.objectAtIndex(indexPath.row).valueForKey("imageLarge") as? String ?? ""
+            let pImage : UIImage = UIImage(named:"Profile")! //placeholder image
+            let imageLoc = (trendingArray.object(at: indexPath.row) as! NSDictionary).value(forKey: "imageLarge") as? String ?? " " //objectAtIndex(indexPath.row).valueForKey("imageLarge") as? String ?? ""
             
             let url = NSURL(string: imageLoc as String)
             
@@ -511,7 +525,7 @@ class searchScreenViewController: UIViewController, UINavigationControllerDelega
             
             cell.locationLabel.text=nameSt
             
-            
+            cell.locationImage.sd_setImage(with: url as! URL, placeholderImage: pImage)
             // cell.locationImage.sd_setImage(with: url, placeholderImage: pImage)
             
             
@@ -544,8 +558,9 @@ class searchScreenViewController: UIViewController, UINavigationControllerDelega
             cell.userImageProfile.layer.cornerRadius = cell.userImageProfile.frame.size.width/2
             cell.locationImage.contentMode = .scaleAspectFill
             cell.locationImage.clipsToBounds = true
+            cell.locationImage.backgroundColor = UIColor .green
             cell.userImageProfile.clipsToBounds = true
-            cell.userImageProfile.image = UIImage (named: "profileDummy")
+            cell.userImageProfile.image = UIImage (named: "profile")
             cell.userImageProfile.backgroundColor = UIColor .yellow
             
             return cell
@@ -564,10 +579,40 @@ class searchScreenViewController: UIViewController, UINavigationControllerDelega
     // MARK: UICollectionViewDelegateFlowLayout
     //MARK:
     
+    func collectionView(_ collectionView: UICollectionView,
+                        layout collectionViewLayout: UICollectionViewLayout,
+                        sizeForItemAt indexPath: IndexPath) -> CGSize {
+        
+        if collectionView == trendingPlacesCollectionView{
+            
+            print(trendingPlacesCollectionView.frame.height)
+            
+            let width1 = collectionView.frame.size.width/1.16
+            let height3: CGFloat = trendingPlacesCollectionView.frame.height - 20
+            
+            return CGSize(width: width1 , height: height3)
+            
+        }
+        else
+        {
+            
+            let width1 = collectionView.frame.size.width/2.2
+            let height3: CGFloat = bloggersCollectionView.frame.size.height
+            
+            return CGSize(width: width1 , height: height3)
+        }
+        
+
+        
+    }
+    
+    
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
         
         
         if collectionView == trendingPlacesCollectionView{
+            
+            print(trendingPlacesCollectionView.frame.height)
             
             let width1 = collectionView.frame.size.width/1.16
             let height3: CGFloat = trendingPlacesCollectionView.frame.height - 20
@@ -599,7 +644,7 @@ class searchScreenViewController: UIViewController, UINavigationControllerDelega
     
     
     
-    func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath){
+    func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: IndexPath){
         if collectionView == trendingPlacesCollectionView{
             
             var locationSt = "" //trendingArray.objectAtIndex(indexPath.row).valueForKey("fullName") as? String ?? ""
@@ -766,6 +811,9 @@ class searchScreenViewController: UIViewController, UINavigationControllerDelega
     
     
     
+    
+    
+    
     //MARK:
     //MARK: Search Bar Delegates
     //MARK:
@@ -773,14 +821,14 @@ class searchScreenViewController: UIViewController, UINavigationControllerDelega
     
     
     
-    func searchBarTextDidEndEditing(searchBar: UISearchBar) {
+    func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
         
         print("Enter")
         
         
     }
     
-    func searchBarTextDidBeginEditing(searchBar: UISearchBar) {
+    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
         
         
         
@@ -808,24 +856,19 @@ class searchScreenViewController: UIViewController, UINavigationControllerDelega
         }
         else
         {
-            scrollMainView.contentOffset.y = 0
+            
             
             locationAutoPrompt="Empty"
             
             promptArray .removeAllObjects()
             
             
-            self.showPopular()
+           // self.showPopular()
             
             self.autoPromptTable.contentInset = UIEdgeInsetsMake(0, 0, 10, 0)
             
             
-            scrollMainView.isScrollEnabled=false//disable the scrollView
-            if autoPromptView.isHidden==true
-            {
-                // self.showTheView()
-                self.autoPromptView.isHidden=false
-            }
+            //scrollMainView.isScrollEnabled=false//disable the scrollView
             
             let SearchString: NSString = search_Bar.text! as NSString
             
@@ -873,7 +916,7 @@ class searchScreenViewController: UIViewController, UINavigationControllerDelega
     
     
     
-    func searchBar(searchBar: UISearchBar, textDidChange searchText: String) {
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         //customDelegate.didChangeSearchText(searchText)
         
         print("While entering the characters this method gets called")
@@ -884,14 +927,13 @@ class searchScreenViewController: UIViewController, UINavigationControllerDelega
     
     
     
-    
-    @IBAction func cancelSearchAction(sender: AnyObject) {
+    @IBAction func cancelSearchAction(_ sender: Any) {
         
         self.cancelSearchFunction()
         
     }
     
-    func searchBarSearchButtonClicked(searchBar: UISearchBar) {
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         
         self.cancelSearchFunction()
         
@@ -901,23 +943,45 @@ class searchScreenViewController: UIViewController, UINavigationControllerDelega
     func cancelSearchFunction() {
         
         
-        
-        // UIView.animate(withDuration: 0.4, animations: {() -> Void in
-        self.autoPromptView.isHidden=true
+    UIView.animate(withDuration: 0.1, animations: {() -> Void in
+       
         self.search_Bar.showsCancelButton = false
         self.cancelWidth.constant = 0
-        self.scrollTopView.constant = 0
-        self.txtLbl.alpha = 1
-        self.headerView.alpha = 0
-        self.scrollMainView.isScrollEnabled=true
+        self.topSpaceOfAutoPrompt.constant = 200
         self.view.layoutIfNeeded()
-        //  })
+        UIView.animate(withDuration: 0.4, animations: {() -> Void in
+         self.autoPromptView.isHidden=true
+        })
+
+          })
         
         
         search_Bar .resignFirstResponder()
         search_Bar .showsCancelButton = false
         
     }
+    
+    
+    
+    //Add serached location action
+    
+    
+    func searchLocationAction(_ sender: UIButton) {
+        
+        
+        print(sender.tag)
+        
+        if autoPromptView.isHidden==true
+        {
+            self.showTheView()
+            
+        }
+        
+        
+        
+        
+    }
+
     
     
     
@@ -970,10 +1034,6 @@ class searchScreenViewController: UIViewController, UINavigationControllerDelega
                 //UIView.animateWithDuration(0.4, animations: {() -> Void in
                 
                 self.autoPromptView.isHidden=true
-                self.searchBanner.image = UIImage (named: "bannerSearch")
-                self.searchBanner.backgroundColor = UIColor .white
-                self.scrollTopView.constant = 0
-                self.txtLbl.alpha = 1
                 self.view.layoutIfNeeded()
                 // })
                 
@@ -987,20 +1047,26 @@ class searchScreenViewController: UIViewController, UINavigationControllerDelega
             
             
             if SearchString.length >= 3 {
-                self.scrollMainView.isScrollEnabled=false
+               // self.scrollMainView.isScrollEnabled=false
                 promptIndicator.isHidden=false
                 promptIndicator.startAnimating()
                 
                 let uId = defaults .string(forKey: "userLoginId")
                 
-                
-                if task != nil {
-                    
-                    if task.state == URLSessionTask.State.running {
-                        task.cancel()
-                        print("\n\n Task 1 cancel\n\n")
-                    }
-                }
+//                
+//                if task != nil {
+//                    
+//                    if task.state == .running{ //URLSessionTask.State.running{
+//                        task.cancel()
+//                        print("\n\n Task 1 cancel\n\n")
+//                    }
+//                    
+//                    
+//                    if task.state == URLSessionTask.State.running {
+//                        task.cancel()
+//                        
+//                    }
+//                }
                 
                 let parameterString = NSString(string:"query=\(SearchString)&userId=\(uId!)") as String
                 print(parameterString)
@@ -1013,13 +1079,100 @@ class searchScreenViewController: UIViewController, UINavigationControllerDelega
             }
             
             
-            
-            
         }
         
         
         
     }
+    
+    
+    
+    func setLocationInButtons(btnTag: Int)
+    {
+        print(arrayOfIntrest)
+        
+        let LocationNameString = ((arrayOfIntrest.object(at: btnTag)) as AnyObject).value(forKey: "location") as? String ?? ""// arrayOfIntrest.objectAtIndex(.row).valueForKey("location") as? String ?? ""
+        
+        let locImage = ""//arrayOfIntrest.objectAtIndex(indexPath.row).valueForKey("imgLink") as? String ?? "NA"
+        let urlImg = NSURL (string: locImage)
+        
+        
+        switch btnTag {
+        case 0:
+            
+            button1 .setImage(nil, for: .normal) //imageView?.image = nil
+            button1.backgroundColor = UIColor .red
+            blacklabel1.alpha = 0.15
+            button1 .setTitle(LocationNameString, for: .normal)
+            deleteBtn1.tag = 0
+            deleteBtn1.isHidden = false
+            break
+        case 1:
+            button2.setImage(nil, for: .normal)
+            button2.backgroundColor = UIColor .red
+            blackLabel2.alpha = 0.15
+            button2 .setTitle(LocationNameString, for: .normal)
+            deleteBtn2.tag = 1
+            deleteBtn2.isHidden = false
+            break
+        case 2:
+            button3.setImage(nil, for: .normal)
+            button3.backgroundColor = UIColor .red
+            blackLabel3.alpha = 0.15
+            button3 .setTitle(LocationNameString, for: .normal)
+            deleteBtn3.tag = 2
+            deleteBtn3.isHidden = false
+            break
+        case 3:
+            button4.setImage(nil, for: .normal)
+            button4.backgroundColor = UIColor .red
+            blacklabel4.alpha = 0.15
+            button4 .setTitle(LocationNameString, for: .normal)
+            deleteBtn4.tag = 3
+            deleteBtn4.isHidden = false
+            break
+       
+        default:
+            button5.setImage(nil, for: .normal)
+            button5.backgroundColor = UIColor .red
+            blackLabel5.alpha = 0.15
+            button5 .setTitle(LocationNameString, for: .normal)
+            deleteBtn5.tag = 4
+            deleteBtn5.isHidden = false
+            
+            break
+        }
+        
+        
+        
+        
+        
+        
+        
+       
+//        locationLabel.text = LocationNameString.capitalizedString
+//        
+//        cell.locationImage.sd_setImageWithURL(urlImg, placeholderImage: UIImage(named: "img1Temp"))
+//        cell.locationImage.layer.cornerRadius = 4.0
+//        cell.locationImage.clipsToBounds = true
+//        cell.minusBtn.layer.cornerRadius = cell.minusBtn.frame.size.width/2
+//        cell.minusBtn.alpha = 1
+//        cell.bringSubviewToFront(cell.minusBtn)
+//        cell.minusBtn.tag = indexPath.row
+        
+        
+        
+        
+        
+        
+        
+        
+    }
+    
+    
+    
+    
+    
     
     
     
@@ -1078,7 +1231,7 @@ class searchScreenViewController: UIViewController, UINavigationControllerDelega
             
             
             
-            
+            task = URLSessionTask()//.cancel()
             task = session.dataTask(with: request as URLRequest, completionHandler: {data, response, error -> Void in
                 
                 OperationQueue.main.addOperation
@@ -1119,7 +1272,7 @@ class searchScreenViewController: UIViewController, UINavigationControllerDelega
                                     // print("prompt array\n \n \(self.promptArray)")
                                     
                                     self.autoPromptTable .reloadData()
-                                    self.emptyView.isHidden=true
+                                   // self.emptyView.isHidden=true
                                     
                                     
                                 }
@@ -1139,7 +1292,7 @@ class searchScreenViewController: UIViewController, UINavigationControllerDelega
                                     
                                     
                                     
-                                    self.emptyView.isHidden=false
+                                   // self.emptyView.isHidden=false
                                     
                                     
                                 }
@@ -1201,40 +1354,6 @@ class searchScreenViewController: UIViewController, UINavigationControllerDelega
     
     
     
-    //MARK:- //////////Buttons Action Here//////
-    //MARK:-
-    
-    
-    
-    //MARK:- Goto Story Screen
-    
-    @IBAction func storyButtonAction(sender: AnyObject) {
-        
-        //let nxtObj = self.storyboard?.instantiateViewControllerWithIdentifier("storyViewcontrollerViewController") as! storyViewcontrollerViewController
-        
-        DispatchQueue.main.async {
-            //self.navigationController! .pushViewController(nxtObj, animated: true)
-            // nxtObj.hidesBottomBarWhenPushed = true
-        }
-        
-    }
-    
-    
-    
-    //MARK:- Goto Bucket List
-    
-    @IBAction func bucketListAction(sender: AnyObject) {
-        
-        // let nxtObj = self.storyboard?.instantiateViewControllerWithIdentifier("BucketListViewController") as! BucketListViewController
-        
-        
-        // self.navigationController! .pushViewController(nxtObj, animated: true)
-        
-    }
-    
-    
-    
-    
     
     
     
@@ -1263,11 +1382,12 @@ class searchScreenViewController: UIViewController, UINavigationControllerDelega
                 //    print((arrayOfIntrest.objectAtIndex(i) as AnyObject).valueForKey("location"))
                 
                 
-                let locName = ""// arrayOfIntrest.objectAtIndex(i).valueForKey("fullName") as? String ?? ""
+                let locName = ((arrayOfIntrest.object(at: i)) as AnyObject).value(forKey: "fullName") as? String ?? "" // arrayOfIntrest.objectAtIndex(i).valueForKey("fullName") as? String ?? ""
                 
-                let locType = ""//arrayOfIntrest.objectAtIndex(i).valueForKey("type") as? String ?? ""
+                let locType = ((arrayOfIntrest.object(at: i)) as AnyObject).value(forKey: "type") as? String ?? ""
+                //arrayOfIntrest.objectAtIndex(i).valueForKey("type") as? String ?? ""
                 
-                let locId = ""//arrayOfIntrest.objectAtIndex(i).valueForKey("placeId") as? String ?? ""
+                let locId = ((arrayOfIntrest.object(at: i)) as AnyObject).value(forKey: "placeId") as? String ?? ""//arrayOfIntrest.objectAtIndex(i).valueForKey("placeId") as? String ?? ""
                 
                 
                 typeArr .add(["type": locType, "placeId": locId, "fullName": locName])
@@ -1275,7 +1395,7 @@ class searchScreenViewController: UIViewController, UINavigationControllerDelega
             }
             
             
-            // { userId: "userIdofuser", location: [{type: "city", placeId: "idofplace"}, {type: "state", placeId: "idofplace"}]}
+          
             
             
             
@@ -1357,19 +1477,29 @@ class searchScreenViewController: UIViewController, UINavigationControllerDelega
     
     
     //MARK:- Buttons action to remove the intrests
-    
-    
-    
-    
     func deleteLocation(sender:UIButton) -> Void {
         
-        
-        print(arrayOfIntrest.count)
+        print(sender.tag)
         
         arrayOfIntrest .removeObject(at: sender.tag)
         
-        
         self .adjustHeightOftableView()
+        
+        
+        
+        button1 .setImage(UIImage (named: "Add") , for: .normal) //
+        button1.backgroundColor = UIColor .red
+        blacklabel1.alpha = 0.15
+
+        deleteBtn1.isHidden = false
+        
+        
+        
+        for i in 0..<self.arrayOfIntrest.count
+        {
+            self.setLocationInButtons(btnTag: i)
+        }
+
         
     }
     
@@ -1378,7 +1508,7 @@ class searchScreenViewController: UIViewController, UINavigationControllerDelega
     
     
     
-    func numberOfSectionsInTableView(tableView: UITableView) -> Int
+    func numberOfSections(in tableView: UITableView) -> Int
     {
         
         return 1
@@ -1387,7 +1517,7 @@ class searchScreenViewController: UIViewController, UINavigationControllerDelega
         
     }
     
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int
     {
         
         if tableView == autoPromptTable{
@@ -1400,7 +1530,7 @@ class searchScreenViewController: UIViewController, UINavigationControllerDelega
         
     }
     
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell
     {
         
         
@@ -1420,7 +1550,7 @@ class searchScreenViewController: UIViewController, UINavigationControllerDelega
             else
             {
                 
-                searchLabel.text = ""//promptArray.objectAtIndex(indexPath.row).valueForKey("fullName") as? String ?? ""
+                searchLabel.text = (promptArray.object(at: indexPath.row) as! NSDictionary).value(forKey: "fullName") as? String ?? ""//promptArray.objectAtIndex(indexPath.row).valueForKey("fullName") as? String ?? ""
             }
             
             return cellPrompt
@@ -1512,11 +1642,11 @@ class searchScreenViewController: UIViewController, UINavigationControllerDelega
         
     }
     
-    func tableView(tableView: (UITableView!), commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: (NSIndexPath!)) {
+    func tableView(_ tableView: (UITableView!), commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: (NSIndexPath!)) {
         
     }
     
-    func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+    func tableView(_ tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
         //         if tableView==locationtableView {
         //            return true
         //        }
@@ -1531,7 +1661,7 @@ class searchScreenViewController: UIViewController, UINavigationControllerDelega
     }
     
     
-    func tableView(tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) -> [AnyObject]? {
+    func tableView(_ tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) -> [AnyObject]? {
         
         let deleteAction = UITableViewRowAction(style: .default, title: "Delete") {action in
             
@@ -1557,7 +1687,7 @@ class searchScreenViewController: UIViewController, UINavigationControllerDelega
     
     
     
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    func tableView(_ tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         
         
         
@@ -1566,7 +1696,7 @@ class searchScreenViewController: UIViewController, UINavigationControllerDelega
             
             
             
-            let selectedString = ""//promptArray.objectAtIndex(indexPath.row).valueForKey("fullName") as? String ?? ""
+            let selectedString = ((promptArray.object(at: indexPath.row)) as AnyObject).value(forKey: "fullName") as? String ?? ""//promptArray.objectAtIndex(indexPath.row).valueForKey("fullName") as? String ?? ""
             print(selectedString)
             
             locationAutoPrompt = selectedString as NSString
@@ -1575,9 +1705,9 @@ class searchScreenViewController: UIViewController, UINavigationControllerDelega
             
             
             
-            let str = ""//promptArray.objectAtIndex(indexPath.row).valueForKey("type") as? String ?? ""
+            let str = ((promptArray.object(at: indexPath.row)) as AnyObject).value(forKey: "type") as? String ?? ""//promptArray.objectAtIndex(indexPath.row).valueForKey("type") as? String ?? ""
             
-            locationId = ""//promptArray.objectAtIndex(indexPath.row).valueForKey("_id") as? String ?? ""
+           let locationId = ((promptArray.object(at: indexPath.row)) as AnyObject).value(forKey: "_id") as? String ?? "" //promptArray.objectAtIndex(indexPath.row).valueForKey("_id") as? String ?? ""
             
             
             
@@ -1593,12 +1723,7 @@ class searchScreenViewController: UIViewController, UINavigationControllerDelega
             self.autoPromptView.isHidden=true
             self.search_Bar.showsCancelButton = false
             self.cancelWidth.constant = 0
-            self.searchBanner.image = UIImage (named: "bannerSearch")
-            self.searchBanner.backgroundColor = UIColor .white
-            self.scrollTopView.constant = 0
-            self.scrollFirstView.backgroundColor = UIColor.init(colorLiteralRed: 246/255, green: 246/255, blue: 246/255, alpha: 0.78)
-            self.txtLbl.alpha = 1
-            self.headerView.alpha = 0
+           
             self.view.layoutIfNeeded()
             
             
@@ -1607,7 +1732,7 @@ class searchScreenViewController: UIViewController, UINavigationControllerDelega
             
             
             
-            self.scrollMainView.isScrollEnabled=true
+          
             promptArray.removeAllObjects()
             autoPromptTable .reloadData()
             
@@ -1623,7 +1748,8 @@ class searchScreenViewController: UIViewController, UINavigationControllerDelega
             
             /////////////  Automatic add locations ////////
             
-            if (arrayOfIntrest .value(forKey: "placeId") as AnyObject).contains(locationId) {
+            
+            if (arrayOfIntrest.contains(locationId)) {
                 
                 CommonFunctionsClass.sharedInstance().showAlert(title: "Opps!", text: "Please enter different name.", imageName: "alertFill")
                 //CommonFunctionsClass.sharedInstance().alertViewOpen("Please Enter Different Name", viewController: self)
@@ -1635,7 +1761,7 @@ class searchScreenViewController: UIViewController, UINavigationControllerDelega
             {
                 
                 var dict = NSMutableDictionary()
-                //            dict = ["location":locationAutoPrompt,"lat": "0.0", "long": "0.0", "type": locationType, "country":"\(locationAutoPrompt)",  "delete":false ]
+            //dict = ["location":locationAutoPrompt,"lat": "0.0", "long": "0.0", "type": locationType, "country":"\(locationAutoPrompt)",  "delete":false ]
                 
                 let fullName = locationAutoPrompt
                 let ArrToSeperate = locationAutoPrompt .components(separatedBy: ",")
@@ -1655,9 +1781,20 @@ class searchScreenViewController: UIViewController, UINavigationControllerDelega
                         self .apiToGetTheLocationPhoto(parameters: fullName)
                     }
                     
-                    self.arrayOfIntrest .insert(dict, at: 0)
+                    self.arrayOfIntrest .add(dict)
+                    //self.arrayOfIntrest .insert(dict, at: 0)
                     selectedindxSearch=0
-                    //self .nextPageAction(self)
+                    
+                    
+                    for i in 0..<self.arrayOfIntrest.count
+                    {
+                        self.setLocationInButtons(btnTag: i)
+                    }
+                    
+                
+
+                
+                   // self .nextPageAction(sender: self)
                     
                     
                     

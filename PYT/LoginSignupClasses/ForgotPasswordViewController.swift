@@ -34,11 +34,9 @@ class ForgotPasswordViewController: UIViewController {
     }
     
     
-    
     @IBAction func doneAction(_ sender: Any) {
         
         emailTxtField .resignFirstResponder()
-        
         
         if ViewController().isValidEmail(candidate: emailTxtField.text!)
         {
