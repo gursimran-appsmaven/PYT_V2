@@ -41,6 +41,9 @@
 		10B3A3371EF3E5980053989C /* extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10B3A3361EF3E5980053989C /* extensions.swift */; };
 		10C4E9E21EF3B76600E05303 /* searchTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10C4E9E11EF3B76600E05303 /* searchTableCell.swift */; };
 		10C4E9E81EF3BBE800E05303 /* searchScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10C4E9E71EF3BBE800E05303 /* searchScreenViewController.swift */; };
+		10CD18861EF7EA780031093F /* cellClassTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10CD18851EF7EA780031093F /* cellClassTableViewCell.swift */; };
+		10CD188A1EF7FE440031093F /* GestureViewClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10CD18881EF7FE440031093F /* GestureViewClass.swift */; };
+		10CD188B1EF7FE440031093F /* LongPressGesture.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10CD18891EF7FE440031093F /* LongPressGesture.swift */; };
 		10D005801EF78B81002BED25 /* mainHomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10D0057F1EF78B81002BED25 /* mainHomeViewController.swift */; };
 		3560C2CC3CCBA85BAE977F76 /* Pods_PYT.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1513D63A44D48DD66BDE374E /* Pods_PYT.framework */; };
 		3F0A1A839E646D951FB2AFE2 /* Pods_PYTTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E7F872540E6E55EA79995C4E /* Pods_PYTTests.framework */; };
@@ -107,6 +110,9 @@
 		10B3A3361EF3E5980053989C /* extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = extensions.swift; sourceTree = "<group>"; };
 		10C4E9E11EF3B76600E05303 /* searchTableCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = searchTableCell.swift; path = SearchScreenClass/searchTableCell.swift; sourceTree = "<group>"; };
 		10C4E9E71EF3BBE800E05303 /* searchScreenViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = searchScreenViewController.swift; path = SearchScreenClass/searchScreenViewController.swift; sourceTree = "<group>"; };
+		10CD18851EF7EA780031093F /* cellClassTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = cellClassTableViewCell.swift; sourceTree = "<group>"; };
+		10CD18881EF7FE440031093F /* GestureViewClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GestureViewClass.swift; sourceTree = "<group>"; };
+		10CD18891EF7FE440031093F /* LongPressGesture.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LongPressGesture.swift; sourceTree = "<group>"; };
 		10D0057F1EF78B81002BED25 /* mainHomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = mainHomeViewController.swift; sourceTree = "<group>"; };
 		1513D63A44D48DD66BDE374E /* Pods_PYT.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PYT.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		189BCB752BE844C72E8099AE /* Pods-PYTTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PYTTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-PYTTests/Pods-PYTTests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -186,6 +192,7 @@
 				10940A701EF2CC9900864242 /* LoginSignupClasses */,
 				104182691EF253DA00078527 /* Singlton Class */,
 				1041826E1EF2688F00078527 /* StoryClassVc */,
+				10CD18871EF7FE440031093F /* GestureViewClass */,
 				104182731EF26A6000078527 /* Bridging Header */,
 				104182751EF26AEC00078527 /* socialFramework */,
 				100EE3951EF156A7005A79C1 /* Assets.xcassets */,
@@ -298,10 +305,20 @@
 			name = "Search Screen";
 			sourceTree = "<group>";
 		};
+		10CD18871EF7FE440031093F /* GestureViewClass */ = {
+			isa = PBXGroup;
+			children = (
+				10CD18881EF7FE440031093F /* GestureViewClass.swift */,
+				10CD18891EF7FE440031093F /* LongPressGesture.swift */,
+			);
+			path = GestureViewClass;
+			sourceTree = "<group>";
+		};
 		10D0057E1EF78B81002BED25 /* MainHomeViewController */ = {
 			isa = PBXGroup;
 			children = (
 				10D0057F1EF78B81002BED25 /* mainHomeViewController.swift */,
+				10CD18851EF7EA780031093F /* cellClassTableViewCell.swift */,
 			);
 			path = MainHomeViewController;
 			sourceTree = "<group>";
@@ -623,6 +640,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				10CD18861EF7EA780031093F /* cellClassTableViewCell.swift in Sources */,
+				10CD188A1EF7FE440031093F /* GestureViewClass.swift in Sources */,
 				1089A5A91EF3EAFC006197FE /* signupProfilePictureViewController.swift in Sources */,
 				100EE3BE1EF15F1E005A79C1 /* AppDelegate.swift in Sources */,
 				104182721EF26A4600078527 /* objectiveCFile.m in Sources */,
@@ -634,6 +653,7 @@
 				104182B01EF26AEC00078527 /* SweetAlert.swift in Sources */,
 				10C4E9E21EF3B76600E05303 /* searchTableCell.swift in Sources */,
 				1089A5AB1EF3EAFC006197FE /* signupSetPasswordViewController.swift in Sources */,
+				10CD188B1EF7FE440031093F /* LongPressGesture.swift in Sources */,
 				1089A5AA1EF3EAFC006197FE /* SignUpScreenViewController.swift in Sources */,
 				1041826B1EF25D4300078527 /* CommonFunctionsClass.swift in Sources */,
 				1089A5A81EF3EAFC006197FE /* ForgotPasswordViewController.swift in Sources */,

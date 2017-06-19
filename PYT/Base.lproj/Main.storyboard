@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" colorMatched="YES" initialViewController="KAY-jN-Eo5">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" colorMatched="YES" initialViewController="4hR-jc-i78">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -321,7 +321,7 @@
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="GTN-Gr-G2c" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="lJP-BG-Gho">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="lJP-BG-Gho">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -977,6 +977,9 @@
                                                     <constraint firstItem="xpK-GF-hph" firstAttribute="leading" secondItem="mvO-Np-T6l" secondAttribute="leading" id="xYN-fi-qem"/>
                                                     <constraint firstItem="3pT-Kf-dgU" firstAttribute="leading" secondItem="mvO-Np-T6l" secondAttribute="leading" id="z7L-Dd-9Ij"/>
                                                 </constraints>
+                                                <fontDescription key="fontDescription" name="SFUIDisplay-Bold" family="SF UI Display" pointSize="14"/>
+                                                <inset key="titleEdgeInsets" minX="0.0" minY="55" maxX="0.0" maxY="0.0"/>
+                                                <state key="normal" image="D3523AB8-FB5C-48B3-8BEB-32BAC9194AEF"/>
                                                 <userDefinedRuntimeAttributes>
                                                     <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
                                                         <real key="value" value="7"/>
@@ -1279,7 +1282,7 @@
                                                         </connections>
                                                     </collectionView>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Travel Gurus" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7fJ-Ei-igS">
-                                                        <rect key="frame" x="8" y="280" width="83" height="21"/>
+                                                        <rect key="frame" x="8" y="280" width="82.5" height="21"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="21" id="5n7-2x-7x3"/>
                                                         </constraints>
@@ -1339,13 +1342,13 @@
                                                                                     <rect key="frame" x="0.0" y="43" width="140" height="12"/>
                                                                                     <subviews>
                                                                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="likeblogger" translatesAutoresizingMaskIntoConstraints="NO" id="VNB-DP-KR3">
-                                                                                            <rect key="frame" x="20.5" y="1" width="12" height="12"/>
+                                                                                            <rect key="frame" x="20" y="1" width="12" height="12"/>
                                                                                             <constraints>
                                                                                                 <constraint firstAttribute="width" secondItem="VNB-DP-KR3" secondAttribute="height" multiplier="1:1" id="BVz-At-jr0"/>
                                                                                             </constraints>
                                                                                         </imageView>
                                                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="75 Likes" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.44999998807907104" translatesAutoresizingMaskIntoConstraints="NO" id="kwL-YC-jZv">
-                                                                                            <rect key="frame" x="34.5" y="1" width="32.5" height="11"/>
+                                                                                            <rect key="frame" x="34" y="1" width="33" height="11"/>
                                                                                             <fontDescription key="fontDescription" name="SFUIDisplay-Regular" family="SF UI Display" pointSize="9"/>
                                                                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                                             <nil key="highlightedColor"/>
@@ -1736,7 +1739,7 @@
         <!--Main Home View Controller-->
         <scene sceneID="Yoa-JB-IMh">
             <objects>
-                <viewController storyboardIdentifier="mainHomeViewController" id="gHH-58-bjG" customClass="mainHomeViewController" customModule="PYT" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="mainHomeViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="gHH-58-bjG" customClass="mainHomeViewController" customModule="PYT" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="adY-gZ-PR2"/>
                         <viewControllerLayoutGuide type="bottom" id="clB-zf-O5s"/>
@@ -2166,17 +2169,31 @@
                                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             </tableViewCell>
                                         </prototypes>
+                                        <connections>
+                                            <outlet property="dataSource" destination="gHH-58-bjG" id="lRg-gH-BDz"/>
+                                            <outlet property="delegate" destination="gHH-58-bjG" id="BJQ-vY-NMU"/>
+                                        </connections>
                                     </tableView>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="y9b-eU-uCJ">
+                                        <rect key="frame" x="137" y="219" width="100" height="100"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="100" id="RV3-LW-H8W"/>
+                                            <constraint firstAttribute="height" constant="100" id="uge-0V-sfO"/>
+                                        </constraints>
+                                    </view>
                                 </subviews>
                                 <color key="backgroundColor" red="0.92941176470588238" green="0.92941176470588238" blue="0.92941176470588238" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstItem="lfU-7s-s5p" firstAttribute="top" secondItem="k7Y-Ne-hzV" secondAttribute="top" constant="2" id="5TJ-ga-V18"/>
+                                    <constraint firstItem="y9b-eU-uCJ" firstAttribute="centerX" secondItem="k7Y-Ne-hzV" secondAttribute="centerX" id="Sgb-gr-3nr"/>
                                     <constraint firstItem="lfU-7s-s5p" firstAttribute="leading" secondItem="k7Y-Ne-hzV" secondAttribute="leading" id="X9S-rI-1WK"/>
                                     <constraint firstItem="Xbs-H2-SNq" firstAttribute="top" secondItem="lfU-7s-s5p" secondAttribute="bottom" constant="2" id="cYH-C4-zUt"/>
                                     <constraint firstAttribute="trailing" secondItem="Xbs-H2-SNq" secondAttribute="trailing" id="dC5-hs-6h7"/>
                                     <constraint firstAttribute="bottom" secondItem="Xbs-H2-SNq" secondAttribute="bottom" id="gh5-71-Ixx"/>
                                     <constraint firstItem="Xbs-H2-SNq" firstAttribute="leading" secondItem="k7Y-Ne-hzV" secondAttribute="leading" id="gu5-kE-lTO"/>
                                     <constraint firstAttribute="trailing" secondItem="lfU-7s-s5p" secondAttribute="trailing" id="mwL-vv-xbb"/>
+                                    <constraint firstItem="y9b-eU-uCJ" firstAttribute="centerY" secondItem="k7Y-Ne-hzV" secondAttribute="centerY" id="uTG-Cn-ZLa"/>
                                 </constraints>
                             </view>
                         </subviews>
@@ -2194,6 +2211,12 @@
                     <tabBarItem key="tabBarItem" title="" image="Discover" selectedImage="Discoveractive" id="xRE-I3-O8e">
                         <inset key="imageInsets" minX="0.0" minY="4" maxX="0.0" maxY="-4"/>
                     </tabBarItem>
+                    <connections>
+                        <outlet property="detailView" destination="y9b-eU-uCJ" id="AEg-Ee-ael"/>
+                        <outlet property="imagesTableView" destination="Xbs-H2-SNq" id="mZU-je-K6y"/>
+                        <outlet property="searchButtonOutlet" destination="IMT-HL-g7n" id="ifC-6K-V9a"/>
+                        <outlet property="segmentControl" destination="NJH-sK-E1C" id="RTz-Qh-gex"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="591-tU-3Th" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -2219,7 +2242,7 @@
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="m0X-O0-ZdZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1710" y="-82"/>
+            <point key="canvasLocation" x="1788" y="-187"/>
         </scene>
         <!--Signup Profile Picture View Controller-->
         <scene sceneID="bcq-RV-7aT">
@@ -2407,6 +2430,9 @@
                                         <constraints>
                                             <constraint firstAttribute="width" secondItem="1F1-Tz-XfP" secondAttribute="height" multiplier="1:1" id="paL-fe-abM"/>
                                         </constraints>
+                                        <connections>
+                                            <action selector="profileButtonAction:" destination="pS3-yv-Gkl" eventType="touchUpInside" id="7BR-4A-3ye"/>
+                                        </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Add Your Profile Picture" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="omL-Wy-N5j">
                                         <rect key="frame" x="218" y="228" width="165" height="21"/>
@@ -2476,6 +2502,9 @@
                     <nil key="simulatedTopBarMetrics"/>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="600" height="750"/>
+                    <connections>
+                        <outlet property="profileBtn" destination="1F1-Tz-XfP" id="siI-nH-SUj"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="MYX-W0-Y2A" sceneMemberID="firstResponder"/>
                 <pinchGestureRecognizer id="jon-TX-6wg"/>
@@ -2690,7 +2719,8 @@
         </scene>
     </scenes>
     <resources>
-        <image name="95F7ECDE-A2D4-4A15-8AC4-B35650BFB7C9" width="16" height="16">
+        <image name="Add" width="16" height="16"/>
+        <image name="D3523AB8-FB5C-48B3-8BEB-32BAC9194AEF" width="16" height="16">
             <mutableData key="keyedArchiveRepresentation">
 YnBsaXN0MDDUAQIDBAUGPT5YJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK4HCBMU
 GR4fIyQrLjE3OlUkbnVsbNUJCgsMDQ4PEBESVk5TU2l6ZVYkY2xhc3NcTlNJbWFnZUZsYWdzVk5TUmVw
@@ -2758,7 +2788,6 @@ ALsAvQDCANkA2wDdDX8NhA2PDZgNqw2vDboNww3IDdAN0w3YDecN6w3yDfoOBw4MDg4OEA4VDh0OIA4l
 Di0OMA5CDkUOSgAAAAAAAAIBAAAAAAAAAEEAAAAAAAAAAAAAAAAAAA5MA
 </mutableData>
         </image>
-        <image name="Add" width="16" height="16"/>
         <image name="Discover" width="25" height="25"/>
         <image name="Discoveractive" width="25" height="25"/>
         <image name="Like" width="22" height="22"/>

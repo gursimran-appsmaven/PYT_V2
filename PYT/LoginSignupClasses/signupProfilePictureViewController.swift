@@ -17,6 +17,7 @@ class signupProfilePictureViewController: UIViewController, apiClassDelegate {
     var email = NSString()
     var password = NSString()
 
+    @IBOutlet weak var profileBtn: UIButton!
     
     
     override func viewDidLoad()
@@ -29,6 +30,8 @@ class signupProfilePictureViewController: UIViewController, apiClassDelegate {
         
          apiClass.sharedInstance().delegate=self //delegate of api class
         
+        profileBtn.layer.cornerRadius = profileBtn.frame.size.width/2
+        profileBtn.clipsToBounds = true
         // Do any additional setup after loading the view.
     }
 
@@ -36,7 +39,6 @@ class signupProfilePictureViewController: UIViewController, apiClassDelegate {
     
     
     func startRegisterUser() {
-        
         
         nameTf.resignFirstResponder()
         
@@ -46,6 +48,9 @@ class signupProfilePictureViewController: UIViewController, apiClassDelegate {
     
     
     
+    @IBAction func profileButtonAction(_ sender: Any) {
+        
+    }
     
     
     
