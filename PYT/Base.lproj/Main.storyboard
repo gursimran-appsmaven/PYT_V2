@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" colorMatched="YES" initialViewController="4hR-jc-i78">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" colorMatched="YES" initialViewController="GTN-Gr-G2c">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -321,7 +321,7 @@
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="GTN-Gr-G2c" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="lJP-BG-Gho">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="lJP-BG-Gho">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -385,6 +385,9 @@
                                             <constraint firstAttribute="width" secondItem="OA6-MT-0OP" secondAttribute="height" multiplier="177:31" id="Rq4-y4-bge"/>
                                         </constraints>
                                         <state key="normal" image="fb"/>
+                                        <connections>
+                                            <action selector="facebookAction:" destination="1WH-Fk-Lid" eventType="touchUpInside" id="zIh-yA-EgJ"/>
+                                        </connections>
                                     </button>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Enter Your Email Address" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="zDa-Sp-rx4">
                                         <rect key="frame" x="40" y="279" width="521" height="33"/>
@@ -655,6 +658,9 @@
                                             <constraint firstAttribute="width" secondItem="P3S-EZ-gYq" secondAttribute="height" multiplier="177:31" id="6ER-6Q-LgU"/>
                                         </constraints>
                                         <state key="normal" image="fb"/>
+                                        <connections>
+                                            <action selector="facebookAction:" destination="2O9-Ph-A2Z" eventType="touchUpInside" id="dHa-L2-bE1"/>
+                                        </connections>
                                     </button>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Create Password" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="0qb-kQ-lei">
                                         <rect key="frame" x="40" y="102.5" width="521" height="33"/>
@@ -780,7 +786,7 @@
                                             <constraint firstAttribute="width" constant="135" id="t2F-Ma-41r"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" name="SFUIDisplay-Semibold" family="SF UI Display" pointSize="16"/>
-                                        <state key="normal" title="Finish">
+                                        <state key="normal" title="Next">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <userDefinedRuntimeAttributes>
@@ -1124,7 +1130,6 @@
                                                             <constraint firstAttribute="height" constant="17" id="s6G-vq-ZUQ"/>
                                                         </constraints>
                                                         <fontDescription key="fontDescription" name="SFUIDisplay-Regular" family="SF UI Display" pointSize="12"/>
-                                                        <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" prefetchingEnabled="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cPa-a3-Wmf">
@@ -1150,13 +1155,13 @@
                                                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="ZOC-A6-qZZ">
                                                                             <rect key="frame" x="0.0" y="0.0" width="200" height="199"/>
                                                                         </imageView>
-                                                                        <imageView userInteractionEnabled="NO" alpha="0.64999997615814209" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="greadientSearchtrending" translatesAutoresizingMaskIntoConstraints="NO" id="iuN-wj-7BW">
-                                                                            <rect key="frame" x="0.0" y="183" width="200" height="16"/>
-                                                                            <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="overLay" translatesAutoresizingMaskIntoConstraints="NO" id="iuN-wj-7BW">
+                                                                            <rect key="frame" x="0.0" y="131" width="200" height="69"/>
+                                                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                                         </imageView>
-                                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Manali India" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Y2w-In-1iP">
-                                                                            <rect key="frame" x="10" y="82" width="97" height="18"/>
-                                                                            <fontDescription key="fontDescription" name="Roboto-Medium" family="Roboto" pointSize="15"/>
+                                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Manali India" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Y2w-In-1iP">
+                                                                            <rect key="frame" x="10" y="172" width="187" height="17"/>
+                                                                            <fontDescription key="fontDescription" name="SFUIDisplay-Regular" family="SF UI Display" pointSize="14"/>
                                                                             <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                             <nil key="highlightedColor"/>
                                                                         </label>
@@ -1166,22 +1171,16 @@
                                                                 <constraints>
                                                                     <constraint firstItem="ZOC-A6-qZZ" firstAttribute="leading" secondItem="ijV-SS-pTK" secondAttribute="leading" id="1jA-Z1-x35"/>
                                                                     <constraint firstAttribute="trailing" secondItem="ZOC-A6-qZZ" secondAttribute="trailing" id="Auk-B4-Wpg"/>
+                                                                    <constraint firstAttribute="bottom" secondItem="iuN-wj-7BW" secondAttribute="bottom" id="Lms-pJ-SGc"/>
                                                                     <constraint firstItem="ZOC-A6-qZZ" firstAttribute="top" secondItem="ijV-SS-pTK" secondAttribute="top" id="N9a-9e-ANs"/>
                                                                     <constraint firstAttribute="bottom" secondItem="ZOC-A6-qZZ" secondAttribute="bottom" constant="1" id="OB3-zH-1LV"/>
-                                                                    <constraint firstItem="iuN-wj-7BW" firstAttribute="leading" secondItem="ijV-SS-pTK" secondAttribute="leading" id="cK9-8e-IYr"/>
-                                                                    <constraint firstItem="iuN-wj-7BW" firstAttribute="top" secondItem="ijV-SS-pTK" secondAttribute="top" id="fg7-QA-EUI"/>
-                                                                    <constraint firstAttribute="bottom" secondItem="iuN-wj-7BW" secondAttribute="bottom" constant="1" id="gzK-XD-b0k"/>
-                                                                    <constraint firstAttribute="trailing" secondItem="iuN-wj-7BW" secondAttribute="trailing" id="qkf-wU-tWH"/>
+                                                                    <constraint firstAttribute="trailing" secondItem="iuN-wj-7BW" secondAttribute="trailing" id="j7T-TH-BmH"/>
+                                                                    <constraint firstItem="iuN-wj-7BW" firstAttribute="leading" secondItem="ijV-SS-pTK" secondAttribute="leading" id="jbF-eD-lF8"/>
                                                                     <constraint firstAttribute="bottom" secondItem="Y2w-In-1iP" secondAttribute="bottom" constant="11" id="vXM-aI-kJF"/>
                                                                     <constraint firstAttribute="trailing" secondItem="Y2w-In-1iP" secondAttribute="trailing" constant="3" id="zSP-5T-BuQ"/>
                                                                     <constraint firstItem="Y2w-In-1iP" firstAttribute="leading" secondItem="ijV-SS-pTK" secondAttribute="leading" constant="10" id="zse-Ol-xeR"/>
                                                                 </constraints>
                                                                 <size key="customSize" width="200" height="200"/>
-                                                                <variation key="default">
-                                                                    <mask key="constraints">
-                                                                        <exclude reference="fg7-QA-EUI"/>
-                                                                    </mask>
-                                                                </variation>
                                                                 <connections>
                                                                     <outlet property="locationImage" destination="ZOC-A6-qZZ" id="Jdp-MO-5yM"/>
                                                                     <outlet property="locationLabel" destination="Y2w-In-1iP" id="FWf-eD-Vw2"/>
@@ -1202,17 +1201,16 @@
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" alpha="0.75" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Inspiration from the best travel bloggers" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oM1-B3-Teh">
-                                                        <rect key="frame" x="8" y="322" width="206" height="17"/>
+                                                        <rect key="frame" x="8" y="322" width="214" height="17"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="17" id="waw-LU-zYL"/>
                                                         </constraints>
                                                         <fontDescription key="fontDescription" name="SFUIDisplay-Regular" family="SF UI Display" pointSize="12"/>
-                                                        <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" prefetchingEnabled="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ezQ-yk-oCz">
                                                         <rect key="frame" x="0.0" y="348" width="600" height="200"/>
-                                                        <color key="backgroundColor" red="0.5" green="0.89612068970000003" blue="0.53173491380000004" alpha="1" colorSpace="calibratedRGB"/>
+                                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="200" id="Oh0-JM-kSf"/>
                                                         </constraints>
@@ -1368,10 +1366,6 @@
                                                                 </connections>
                                                             </collectionViewCell>
                                                         </cells>
-                                                        <connections>
-                                                            <outlet property="dataSource" destination="KAY-jN-Eo5" id="3c6-iX-LNU"/>
-                                                            <outlet property="delegate" destination="KAY-jN-Eo5" id="zCm-Op-ccL"/>
-                                                        </connections>
                                                     </collectionView>
                                                     <label hidden="YES" opaque="NO" userInteractionEnabled="NO" alpha="0.34999999999999998" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CHn-jF-a8u">
                                                         <rect key="frame" x="-0.5" y="348" width="600" height="200"/>
@@ -1381,7 +1375,7 @@
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                 </subviews>
-                                                <color key="backgroundColor" white="0.66666666669999997" alpha="0.2518838652" colorSpace="calibratedWhite"/>
+                                                <color key="backgroundColor" red="0.94901960784313721" green="0.94901960784313721" blue="0.94901960784313721" alpha="1" colorSpace="calibratedRGB"/>
                                                 <constraints>
                                                     <constraint firstItem="CHn-jF-a8u" firstAttribute="height" secondItem="ezQ-yk-oCz" secondAttribute="height" id="2Gp-Ge-f7y"/>
                                                     <constraint firstItem="LTM-Z5-MGe" firstAttribute="leading" secondItem="AOw-yV-9vP" secondAttribute="leading" constant="8" id="5fR-Fc-J8X"/>
@@ -2183,6 +2177,9 @@
                                             <constraint firstAttribute="width" secondItem="sVL-Dj-qXJ" secondAttribute="height" multiplier="177:31" id="ttH-G5-w1S"/>
                                         </constraints>
                                         <state key="normal" image="fb"/>
+                                        <connections>
+                                            <action selector="facebookAction:" destination="pS3-yv-Gkl" eventType="touchUpInside" id="lva-FD-fJq"/>
+                                        </connections>
                                     </button>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Create Your Username" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="pWm-0Y-8ZN">
                                         <rect key="frame" x="40" y="310" width="521" height="33"/>
@@ -2704,14 +2701,12 @@ Di0OMA5CDkUOSgAAAAAAAAIBAAAAAAAAAEEAAAAAAAAAAAAAAAAAAA5MA
         <image name="chatactive" width="25" height="25"/>
         <image name="cross" width="20" height="20"/>
         <image name="fb" width="354" height="62"/>
-        <image name="greadientSearchtrending" width="16" height="16"/>
         <image name="img2Temp" width="16" height="16"/>
         <image name="india" width="472" height="300"/>
         <image name="interest" width="25" height="25"/>
         <image name="interestactive" width="25" height="25"/>
         <image name="likesBlogs" width="16" height="16"/>
-        <image name="post" width="74" height="74"/>
-        <image name="travelplanbutton" width="17" height="17"/>
+        <image name="overLay" width="307" height="69"/>
         <image name="user" width="16" height="16"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
