@@ -795,7 +795,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				SWIFT_OBJC_BRIDGING_HEADER = "/Users/osx/Desktop/PYT/PYT/PYT-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "/Users/osx/Documents/PYT_V2/PYT/PYT-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -820,7 +820,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.maven.development.PYT;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_OBJC_BRIDGING_HEADER = "/Users/osx/Desktop/PYT/PYT/PYT-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "/Users/osx/Documents/PYT_V2/PYT/PYT-Bridging-Header.h";
 				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
