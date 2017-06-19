@@ -13,11 +13,11 @@ import HMSegmentedControl
 //import ImageSlideshow
 
 
-class mainHomeViewController: UIViewController  {
+//class mainHomeViewController: UIViewController  {
 
-//class mainHomeViewController: UIViewController, SDWebImageManagerDelegate, apiClassDelegate, UITabBarControllerDelegate {
+class mainHomeViewController: UIViewController, SDWebImageManagerDelegate, apiClassDelegate, UITabBarControllerDelegate {
 
-    @IBOutlet var mainViewWithGradient: UIView!
+   // @IBOutlet var mainViewWithGradient: UIView!
     
     
     
@@ -27,21 +27,20 @@ class mainHomeViewController: UIViewController  {
     var showApiHitted = Bool()
     var segmentBool = Bool()
     
-    
+    //Main View outlets
     @IBOutlet var imagesTableView: UITableView!
+    @IBOutlet weak var searchButtonOutlet: UIButton!
+    @IBOutlet var segmentControl: HMSegmentedControl!
+    
+    
+    
     
     @IBOutlet weak var emptyView: UIView!
-    @IBOutlet var segmentControl: HMSegmentedControl!
     @IBOutlet var firstView: UIView!
     
     //View open on long tap
     @IBOutlet var detailView: UIView!
-    @IBOutlet var detailSubView: UIView!
-    @IBOutlet var detailSub1: UIView!
-    @IBOutlet var detailSub2: UIView!
-    @IBOutlet var detailSub3: UIView!
-    @IBOutlet var detailSub4: UIView!
-    @IBOutlet var detailSub5Bottom: NSLayoutConstraint!
+    
     
     
     
@@ -87,7 +86,6 @@ class mainHomeViewController: UIViewController  {
     
     
     
-    
     ////////Pop up View items to Story, Edit, Like, Bucket
     
     @IBOutlet var addToStory: UIImageView!
@@ -130,12 +128,11 @@ class mainHomeViewController: UIViewController  {
    
     
     
-    @IBOutlet var cameraBtn: UIButton!
+    
     
     @IBOutlet var storyBtnOutlet: UIButton!
-    @IBOutlet var bucketListOutlet: UIButton!
-    @IBOutlet var bucketListCount: UILabel!
-    @IBOutlet var storyListCount: UILabel!
+   //@IBOutlet var bucketListCount: UILabel!
+   // @IBOutlet var storyListCount: UILabel!
     
     
     
@@ -146,17 +143,6 @@ class mainHomeViewController: UIViewController  {
     }
     
     
-    
-    override func viewDidLoad() {
-        
-        
-    }
-    
-    
-    
-}
-
-    /*
     
     
     
@@ -196,12 +182,12 @@ class mainHomeViewController: UIViewController  {
             
            //print(countArray)
             
-            self.storyListCount.text="0"
+            //self.storyListCount.text="0"
             
             if countArray.object(forKey: "storyCount") != nil {
                 if let stCount = countArray.value(forKey: "storyCount"){
                     
-                    self.storyListCount.text=String(describing: stCount)
+                    //self.storyListCount.text=String(describing: stCount)
                 }
 
             }
@@ -220,7 +206,7 @@ class mainHomeViewController: UIViewController  {
            
             
             
-            self.bucketListCount.text = bucketListTotalCount
+           // self.bucketListCount.text = bucketListTotalCount
             
             
             
@@ -495,18 +481,16 @@ class mainHomeViewController: UIViewController  {
         
       
        
-        
-        cameraBtn.layer.cornerRadius=cameraBtn.frame.size.width/2
-        cameraBtn.clipsToBounds=true
+       
       
          self.imagesTableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 20, right: 0)
       
         
         
-        bucketListCount.layer.cornerRadius=bucketListCount.frame.size.width/2
-        bucketListCount.clipsToBounds=true
-        storyListCount.layer.cornerRadius=storyListCount.frame.size.width/2
-        storyListCount.clipsToBounds=true
+        //bucketListCount.layer.cornerRadius=bucketListCount.frame.size.width/2
+        //bucketListCount.clipsToBounds=true
+       // storyListCount.layer.cornerRadius=storyListCount.frame.size.width/2
+       // storyListCount.clipsToBounds=true
         
         
         
@@ -552,18 +536,18 @@ class mainHomeViewController: UIViewController  {
         
         //////-------- Gradient background color ----/////////
         
-        let layer = CAGradientLayer()
-        layer.frame = CGRect(x: 0, y: 0, width: mainViewWithGradient.frame.size.width, height: self.firstView.frame.origin.y+self.firstView.frame.size.height)
-        let blueColor = UIColor(red: 0/255, green: 146/255, blue: 198/255, alpha: 1.0).cgColor as CGColor
-        let purpleColor = UIColor(red: 117/255, green: 42/255, blue: 211/255, alpha: 1.0).cgColor as CGColor
-        layer.colors = [purpleColor, blueColor]
-        layer.startPoint = CGPoint(x: 0.1, y: 0.5)
-        layer.endPoint = CGPoint(x: 1.0, y: 0.5)
-        layer.locations = [0.25,1.0]
-        self.mainViewWithGradient.layer.addSublayer(layer)
-        
-       
-        self.view .bringSubview(toFront: firstView)
+//        let layer = CAGradientLayer()
+//        layer.frame = CGRect(x: 0, y: 0, width: mainViewWithGradient.frame.size.width, height: self.firstView.frame.origin.y+self.firstView.frame.size.height)
+//        let blueColor = UIColor(red: 0/255, green: 146/255, blue: 198/255, alpha: 1.0).cgColor as CGColor
+//        let purpleColor = UIColor(red: 117/255, green: 42/255, blue: 211/255, alpha: 1.0).cgColor as CGColor
+//        layer.colors = [purpleColor, blueColor]
+//        layer.startPoint = CGPoint(x: 0.1, y: 0.5)
+//        layer.endPoint = CGPoint(x: 1.0, y: 0.5)
+//        layer.locations = [0.25,1.0]
+//        self.mainViewWithGradient.layer.addSublayer(layer)
+//        
+//       
+//        self.view .bringSubview(toFront: firstView)
 
         
         
@@ -967,13 +951,13 @@ class mainHomeViewController: UIViewController  {
     func loadCount(_ notification: Notification){
         //load data here
         
-        self.storyListCount.text="0"
+       // self.storyListCount.text="0"
       
         
         if countArray.object(forKey: "storyCount") != nil {
             if let stCount = countArray.value(forKey: "storyCount"){
                 
-                self.storyListCount.text=String(describing: stCount)
+               // self.storyListCount.text=String(describing: stCount)
             }
             
         }
@@ -986,7 +970,7 @@ class mainHomeViewController: UIViewController  {
             
         }
         
-        bucketListCount.text=bucketListTotalCount
+       // bucketListCount.text=bucketListTotalCount
     }
 
     
@@ -1260,7 +1244,7 @@ class mainHomeViewController: UIViewController  {
                
                 self.reuseData.setObject(self.pageNumber, forKey: "ShowMore\(self.globalLocation)" as NSCopying)
                 if self.showApiHitted == false{
-                    apiClass.sharedInstance().getRequest(parameterString: parameterString, urlStringMultiple: urlstringFeed, viewController: self)
+                    apiClass.sharedInstance().getRequest(parameterString: parameterString, urlStringMultiple: urlstringFeed as NSString, viewController: self)
                     self.showApiHitted = true
                 }
                 
@@ -1633,7 +1617,7 @@ class mainHomeViewController: UIViewController  {
         
         
         
-        categ = (arrCategory[collectionIndex] as AnyObject).componentsJoined(by: ",")
+        categ = "" //(arrCategory[collectionIndex] as AnyObject).componentsJoined(by: ",")
         //let location = "\(geoTag[collectionIndex] as? String ?? "")"
         
        //  let profileImage = self.userDetailArray .objectAtIndex(tableIndex) .valueForKey("profile")! as? NSString ?? ""
@@ -1662,8 +1646,7 @@ class mainHomeViewController: UIViewController  {
         
         if  addStoryLabelInPopup.text=="Add To Plan" {
             
-            
-//            let dat: NSDictionary = ["userid": "\(uId)", "id": imageId, "imageLink": imageName2, "location": self.globalLocation, "source":"facebook", "latitude": lat, "longitude": long, "geoTag":location, "category":categ, "description":desc, "userName":nameUser,"type": sourceStr, "profileImage":profileImage, "cityName":cityName, "imageThumb": thumbnailImage ]
+      
 
             
             let dat: NSDictionary = ["userId": "\(uId)", "imageId": imageId, "placeId": globalPlaceid, "placeType": self.globalType, "ownerId": ownersId ]
@@ -1682,14 +1665,14 @@ class mainHomeViewController: UIViewController  {
             
            
             DispatchQueue.global(qos: DispatchQoS.QoSClass.background).async(execute: {
-            apiClass.sharedInstance().postRequestWithMultipleImage("", parameters: postDict, viewController: self)
+            apiClass.sharedInstance().postRequestWithMultipleImage(parameterString: "", parameters: postDict, viewController: self)
                 })
 
             self.proceedBtnAction(tableIndex, collectionViewIndex: collectionIndex)
             
                         self.detailSelectBtnAction(true)
             
-            storyListCount.text=String(self.addTheLikes(countst))
+           // storyListCount.text=String(self.addTheLikes(countst))
             
         }
             
@@ -1705,10 +1688,10 @@ class mainHomeViewController: UIViewController  {
             
            //print(dataStr)
             DispatchQueue.global(qos: DispatchQoS.QoSClass.background).async(execute: {
-            apiClassStory.sharedInstance().postRequestDeleteStory(dataStr, viewController: self)
+           // apiClassStory.sharedInstance().postRequestDeleteStory(dataStr, viewController: self)
                 
                 })
-            storyListCount.text=String(self.subtractTheLikes(countst))
+           // storyListCount.text=String(self.subtractTheLikes(countst))
             
         }
         
@@ -1803,12 +1786,21 @@ class mainHomeViewController: UIViewController  {
         pathAnimation.fillMode = kCAFillModeForwards
         pathAnimation.isRemovedOnCompletion = false
         pathAnimation.duration = 1.0
-        pathAnimation.delegate=self
+        //pathAnimation.delegate=self
         
         let curvedPath:CGMutablePath = CGMutablePath()
-        CGPathMoveToPoint(curvedPath, nil, CGFloat(1.0), CGFloat(1.0))
-        CGPathMoveToPoint(curvedPath, nil, starView.frame.origin.x, starView.frame.origin.y)
-        CGPathAddCurveToPoint(curvedPath, nil, endPoint.x, starView.frame.origin.y, endPoint.x, starView.frame.origin.y, endPoint.x, endPoint.y)
+    
+        
+        
+       // pathAnimation.addQuadCurveToPoint(CGPoint(x: endPoint.x, y: endPoint.y), controlPoint: CGPoint(x: starView.frame.origin.y, y: endPoint.y))
+
+    
+        
+//        CGPathMoveToPoint(curvedPath, nil, CGFloat(1.0), CGFloat(1.0))
+//        CGPathMoveToPoint(curvedPath, nil, starView.frame.origin.x, starView.frame.origin.y)
+//        CGPathAddCurveToPoint(curvedPath, nil, endPoint.x, starView.frame.origin.y, endPoint.x, starView.frame.origin.y, endPoint.x, endPoint.y)
+        
+        
         pathAnimation.path = curvedPath
         
         // apply transform animation
@@ -1942,7 +1934,7 @@ class mainHomeViewController: UIViewController  {
                     let dat: NSDictionary = ["userId": "\(uId)", "photoId":"\(imageId)", "userLiked":"\(uId)", "status":"0", "imageOwn": "\(otherUserId)", "userName": "\(userNameMy!)"]
                    //print("Post to like picture---- \(dat)")
                     DispatchQueue.main.async(execute: {
-                        apiClass.sharedInstance().postRequestLikeUnlikeImage(dat, viewController: self)
+                        apiClass.sharedInstance().postRequestLikeUnlikeImage(parameters: dat, viewController: self)
                     })
                     
                 }
@@ -1964,7 +1956,7 @@ class mainHomeViewController: UIViewController  {
                     
                    //print("Post to like picture---- \(dat)")
                     DispatchQueue.main.async(execute: {
-                        apiClass.sharedInstance().postRequestLikeUnlikeImage(dat, viewController: self)
+                        apiClass.sharedInstance().postRequestLikeUnlikeImage(parameters: dat, viewController: self)
                     })
                     
                 }
@@ -1980,7 +1972,7 @@ class mainHomeViewController: UIViewController  {
                 
                //print("Post to like picture---- \(dat)")
                 DispatchQueue.main.async(execute: {
-                    apiClass.sharedInstance().postRequestLikeUnlikeImage(dat, viewController: self)
+                    apiClass.sharedInstance().postRequestLikeUnlikeImage(parameters: dat, viewController: self)
                 })
             }
             
@@ -1999,7 +1991,7 @@ class mainHomeViewController: UIViewController  {
             
            //print("Post to like picture---- \(dat)")
             DispatchQueue.main.async(execute: {
-                apiClass.sharedInstance().postRequestLikeUnlikeImage(dat, viewController: self)
+                apiClass.sharedInstance().postRequestLikeUnlikeImage(parameters: dat, viewController: self)
             })
         }
         
@@ -2044,16 +2036,16 @@ class mainHomeViewController: UIViewController  {
        
         var arrId = NSArray()
         arrId = (self.arrayOfimages1[tableIndex] as AnyObject).value(forKey: "id") as! NSArray
-        otherUserId = (self.userDetailArray[tableIndex] as AnyObject).value(forKey: "id") as? String ?? ""
+        otherUserId = ""
+        //(self.userDetailArray[tableIndex] as AnyObject).value(forKey: "id") as? String ?? ""
         
         imageId = arrId.object(at: collectionIndex) as? String as NSString? ?? ""
        
         
         
         
-        if  addToBucketLblInPopup.text=="Add To Bucket List" {
-            
-            
+        if  addToBucketLblInPopup.text=="Add To Bucket List"
+        {
             
             let parameterDic: NSDictionary = ["userId": uId,"imageOwn": otherUserId, "imageId": imageId ]
            //print("parameter of add t0 bucket=\(parameterString)")
@@ -2064,7 +2056,7 @@ class mainHomeViewController: UIViewController  {
             
             
             DispatchQueue.global(qos: DispatchQoS.QoSClass.background).async(execute: {
-                bucketListApiClass.sharedInstance().postRequestForAddBucket(parameterDic, viewController: self)
+               // bucketListApiClass.sharedInstance().postRequestForAddBucket(parameterDic, viewController: self)
                 
                 
 
@@ -2084,7 +2076,7 @@ class mainHomeViewController: UIViewController  {
             
             let parameter: NSDictionary = ["userId": uId, "imageId": imageId]
             
-            bucketListApiClass.sharedInstance().postRequestForDeletBucketListFromFeed(parameter, viewController: self)
+           // bucketListApiClass.sharedInstance().postRequestForDeletBucketListFromFeed(parameter, viewController: self)
             
             
             
@@ -2124,9 +2116,9 @@ class mainHomeViewController: UIViewController  {
         
         
         
-        let nxtObj2 = self.storyboard?.instantiateViewController(withIdentifier: "imageEditViewController") as! imageEditViewController
+       // let nxtObj2 = self.storyboard?.instantiateViewController(withIdentifier: "imageEditViewController") as! imageEditViewController
         
-        nxtObj2.screenName = "Feed"
+       // nxtObj2.screenName = "Feed"
         
         
        //print(self.arrayOfimages1[self.tableIndex])
@@ -2172,10 +2164,10 @@ class mainHomeViewController: UIViewController  {
         
         
        //print(dictionaryToEditdata)
-       nxtObj2.dataDictionary = dictionaryToEditdata
-        nxtObj2.screenName = "Feed"
+     //  nxtObj2.dataDictionary = dictionaryToEditdata
+      //  nxtObj2.screenName = "Feed"
         
-        self.navigationController! .pushViewController(nxtObj2, animated: true)
+       // self.navigationController! .pushViewController(nxtObj2, animated: true)
         
         
         
@@ -2634,7 +2626,7 @@ class mainHomeViewController: UIViewController  {
             let urlstringFeed = "\(appUrl)search_feed_screen_v2" //search_feed_screen"
             pageNumber = 1
              reuseData.setObject(pageNumber, forKey: "ShowMore\(globalLocation)" as NSCopying)
-            apiClass.sharedInstance().getRequest(parameterString, urlStringMultiple: urlstringFeed, viewController: self)
+            apiClass.sharedInstance().getRequest(parameterString: parameterString, urlStringMultiple: urlstringFeed as NSString, viewController: self)
             
            
         }
@@ -2667,7 +2659,7 @@ class mainHomeViewController: UIViewController  {
     //MARK:-//////////////////////// get response from server into its delegate/////////////////////
     //MARK:-
     
-    func serverResponseArrived(_ Response:AnyObject)
+    func serverResponseArrived(Response:AnyObject)
     {
     
         
@@ -2681,7 +2673,7 @@ class mainHomeViewController: UIViewController  {
             
             if success != 1
             {
-                CommonFunctionsClass.sharedInstance().alertViewOpen("Sorry image is not added to story, Please try again", viewController: self)
+               CommonFunctionsClass.sharedInstance().showAlert(title: "Opps!", text: "Sorry image is not added to story, Please try again", imageName: "") // CommonFunctionsClass.sharedInstance().alertViewOpen("Sorry image is not added to story, Please try again", viewController: self)
             }
             
             
@@ -2786,7 +2778,7 @@ class mainHomeViewController: UIViewController  {
                 
                 //logout the user from the app
                 
-                 let nxtObj2 = self.storyboard?.instantiateViewController(withIdentifier: "settingsViewController") as! settingsViewController
+                 //let nxtObj2 = self.storyboard?.instantiateViewController(withIdentifier: "settingsViewController") as! settingsViewController
                 
                 self.tabBarController?.tabBar.isHidden = true
                 
@@ -2808,7 +2800,7 @@ class mainHomeViewController: UIViewController  {
                 
                 
                 
-                nxtObj2.logoutApi(parameter)
+                //nxtObj2.logoutApi(parameter)
                 
                 defaults.set("", forKey: "userLoginId")
                 defaults.set("", forKey: "userLoginName")
@@ -3001,14 +2993,14 @@ class mainHomeViewController: UIViewController  {
             
                 name = nameSt as NSString
            
-                email = (((self.dataArray.object(at: i) as AnyObject).value(forKey: "userId")! as AnyObject).object(at: 0) as AnyObject).value(forKey: "email") as? String ?? ""
+                email = ""//(((self.dataArray.object(at: i) as AnyObject).value(forKey: "userId")! as AnyObject).object(at: 0) as AnyObject).value(forKey: "email") as? String ?? ""
                 
         
             // if profile picture is avaliable in the code
             if ((((self.dataArray.object(at: i) as AnyObject).value(forKey: "userId")! as AnyObject).object(at: 0) as AnyObject).value(forKey: "picture") != nil)
             {
                 
-            profile = (((self.dataArray.object(at: i) as AnyObject).value(forKey: "userId")! as AnyObject).object(at: 0) as AnyObject).value(forKey: "picture") as? String ?? ""
+            profile = ""//(((self.dataArray.object(at: i) as AnyObject).value(forKey: "userId")! as AnyObject).object(at: 0) as AnyObject).value(forKey: "picture") as? String ?? ""
                
                 self.userDetailArray.add(["id":id, "email":email, "name":name, "profile":profile ])
             }
@@ -3041,7 +3033,7 @@ class mainHomeViewController: UIViewController  {
         if countArray.object(forKey: "storyCount") != nil {
             if let stCount = countArray.value(forKey: "storyCount"){
                 
-                self.storyListCount.text=String(describing: stCount)
+              //  self.storyListCount.text=String(describing: stCount)
             }
             
         }
@@ -3077,7 +3069,7 @@ class mainHomeViewController: UIViewController  {
         
         
         MBProgressHUD.hide(for: self.view, animated: true)
-        bucketListCount.text = bucketListTotalCount
+        //bucketListCount.text = bucketListTotalCount
         
         
        
@@ -3165,7 +3157,7 @@ class mainHomeViewController: UIViewController  {
                             if data == nil
                             {
                                 
-                                CommonFunctionsClass.sharedInstance().showAlert("Server Alert", text: "Something doesn't seem right, Please try again!", imageName: "alertServer")
+                                CommonFunctionsClass.sharedInstance().showAlert(title: "Server Alert", text: "Something doesn't seem right, Please try again!", imageName: "alertServer")
                                
                                
                             }
@@ -3178,7 +3170,7 @@ class mainHomeViewController: UIViewController  {
                                     let result = NSString(data: data!, encoding:String.Encoding.ascii.rawValue)!
                                     print("Body: \(result)")
                                     
-                                    let anyObj: AnyObject = try JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.mutableContainers)
+                   let anyObj: Any = try JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.mutableContainers)
                                     
                                     jsonResult = NSDictionary()
                                     jsonResult = anyObj as! NSDictionary
@@ -3349,7 +3341,7 @@ class mainHomeViewController: UIViewController  {
                                     
                                 } catch {
                                     print("json error: \(error)")
-                                     CommonFunctionsClass.sharedInstance().showAlert("Server Alert", text: "Something doesn't seem right, Please try again!", imageName: "alertServer")
+                                     CommonFunctionsClass.sharedInstance().showAlert(title: "Server Alert", text: "Something doesn't seem right, Please try again!", imageName: "alertServer")
                                     
                                    
                                   
@@ -3372,7 +3364,7 @@ class mainHomeViewController: UIViewController  {
             }
             else
             {
-                CommonFunctionsClass.sharedInstance().showAlert("No Internet Connection", text: "You are currently offline.", imageName: "alertInternet")
+                CommonFunctionsClass.sharedInstance().showAlert(title: "No Internet Connection", text: "You are currently offline.", imageName: "alertInternet")
             }
             
        
@@ -3488,7 +3480,7 @@ extension mainHomeViewController: UICollectionViewDelegate, UICollectionViewData
         let show = (arrayOfimages1[collectionView.tag] as AnyObject).value(forKey: "showMore") as! Int
         
     if show == 0 {
-            return (arrayOfimages1[collectionView.tag] as AnyObject).value(forKey: "id")! .count
+            return ((arrayOfimages1.object(at: collectionView.tag) as AnyObject).value(forKey: "id") as! NSArray).count //(arrayOfimages1[collectionView.tag] as AnyObject).value(forKey: "id")! .count
         }
         else{
             return ((arrayOfimages1[collectionView.tag] as AnyObject).value(forKey: "id")! as AnyObject) .count + 1
@@ -4347,7 +4339,7 @@ extension mainHomeViewController: UICollectionViewDelegate, UICollectionViewData
                 let dat: NSDictionary = ["userId": "\(uId)", "photoId":"\(imageId)", "userLiked":"\(uId)", "status":"0", "imageOwn": "\(otherUserId)", "userName": "\(userNameMy!)"]
                //print("Post to like picture---- \(dat)")
                  DispatchQueue.main.async(execute: {
-                apiClass.sharedInstance().postRequestLikeUnlikeImage(dat, viewController: self)
+                apiClass.sharedInstance().postRequestLikeUnlikeImage(parameters: dat, viewController: self)
                 })
                 
             }
@@ -4373,7 +4365,7 @@ extension mainHomeViewController: UICollectionViewDelegate, UICollectionViewData
                 
                //print("Post to like picture---- \(dat)")
                  DispatchQueue.main.async(execute: {
-                apiClass.sharedInstance().postRequestLikeUnlikeImage(dat, viewController: self)
+                apiClass.sharedInstance().postRequestLikeUnlikeImage(parameters: dat, viewController: self)
                 })
                 
             }
@@ -4393,7 +4385,7 @@ extension mainHomeViewController: UICollectionViewDelegate, UICollectionViewData
             
            //print("Post to like picture---- \(dat)")
              DispatchQueue.main.async(execute: {
-            apiClass.sharedInstance().postRequestLikeUnlikeImage(dat, viewController: self)
+            apiClass.sharedInstance().postRequestLikeUnlikeImage(parameters: dat, viewController: self)
             })
         }
 
@@ -4415,7 +4407,7 @@ extension mainHomeViewController: UICollectionViewDelegate, UICollectionViewData
         
        //print("Post to like picture---- \(dat)")
          DispatchQueue.main.async(execute: {
-        apiClass.sharedInstance().postRequestLikeUnlikeImage(dat, viewController: self)
+        apiClass.sharedInstance().postRequestLikeUnlikeImage(parameters: dat, viewController: self)
          })
 
     }
@@ -4718,15 +4710,15 @@ extension mainHomeViewController: UICollectionViewDelegate, UICollectionViewData
             
             
             
-            let nxtObj2 = self.storyboard?.instantiateViewController(withIdentifier: "detailViewController") as! detailViewController
-            nxtObj2.arrayWithData=arrayData
-             nxtObj2.fromStory=false
-            nxtObj2.countLikes=self.likeCount
-             nxtObj2.fromInterest = false
+           // let nxtObj2 = self.storyboard?.instantiateViewController(withIdentifier: "detailViewController") as! detailViewController
+           // nxtObj2.arrayWithData=arrayData
+           //  nxtObj2.fromStory=false
+           // nxtObj2.countLikes=self.likeCount
+           //  nxtObj2.fromInterest = false
             
        
             
-            self.navigationController! .pushViewController(nxtObj2, animated: true)
+           // self.navigationController! .pushViewController(nxtObj2, animated: true)
             
         
 
@@ -4840,7 +4832,7 @@ extension mainHomeViewController: UICollectionViewDelegate, UICollectionViewData
                     let dat: NSDictionary = ["userId": "\(uId)", "photoId":"\(imageId)", "userLiked":"\(uId)", "status":"0", "imageOwn": "\(otherUserId)", "userName": "\(userNameMy!)"]
                     print("Post to like picture---- \(dat)")
                     DispatchQueue.main.async(execute: {
-                        apiClass.sharedInstance().postRequestLikeUnlikeImage(dat, viewController: self)
+                        apiClass.sharedInstance().postRequestLikeUnlikeImage(parameters: dat, viewController: self)
                     })
                     
                 }
@@ -4866,7 +4858,7 @@ extension mainHomeViewController: UICollectionViewDelegate, UICollectionViewData
                     
                     print("Post to like picture---- \(dat)")
                     DispatchQueue.main.async(execute: {
-                        apiClass.sharedInstance().postRequestLikeUnlikeImage(dat, viewController: self)
+                        apiClass.sharedInstance().postRequestLikeUnlikeImage(parameters: dat, viewController: self)
                     })
                     
                 }
@@ -4886,7 +4878,7 @@ extension mainHomeViewController: UICollectionViewDelegate, UICollectionViewData
                 
                 print("Post to like picture---- \(dat)")
                 DispatchQueue.main.async(execute: {
-                    apiClass.sharedInstance().postRequestLikeUnlikeImage(dat, viewController: self)
+                    apiClass.sharedInstance().postRequestLikeUnlikeImage(parameters: dat, viewController: self)
                 })
             }
             
@@ -4908,7 +4900,7 @@ extension mainHomeViewController: UICollectionViewDelegate, UICollectionViewData
             
             print("Post to like picture---- \(dat)")
             DispatchQueue.main.async(execute: {
-                apiClass.sharedInstance().postRequestLikeUnlikeImage(dat, viewController: self)
+                apiClass.sharedInstance().postRequestLikeUnlikeImage(parameters: dat, viewController: self)
             })
             
         }
@@ -5125,7 +5117,7 @@ extension mainHomeViewController: UICollectionViewDelegate, UICollectionViewData
     
     
 }
-*/
+
 
 
 

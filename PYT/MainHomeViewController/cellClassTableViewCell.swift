@@ -8,7 +8,9 @@
 
 import UIKit
 
-class cellClassTableViewCell: UITableViewCell, UICollectionViewDelegate, UICollectionViewDataSource {
+class cellClassTableViewCell: UITableViewCell{
+    
+//}UICollectionViewDelegate, UICollectionViewDataSource {
 
     
     @IBOutlet var ChatButton: UIButton!
@@ -74,7 +76,7 @@ class cellClassTableViewCell: UITableViewCell, UICollectionViewDelegate, UIColle
     
     
     
-    
+    /*
     func setCollectionViewDataSourceDelegate<D: (UICollectionViewDataSource & UICollectionViewDelegate)>
         (_ dataSourceDelegate: D, forRow row: Int , andForSection section : Int) {
         
@@ -133,7 +135,7 @@ class cellClassTableViewCell: UITableViewCell, UICollectionViewDelegate, UIColle
     
     
     
-    
+    */
 }
 
 
