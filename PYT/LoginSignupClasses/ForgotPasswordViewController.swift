@@ -16,14 +16,15 @@ class ForgotPasswordViewController: UIViewController {
     
     @IBOutlet weak var doneButton: UIButton!
     
+    @IBOutlet weak var desLblWidth: NSLayoutConstraint!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        doneButton.layer.cornerRadius=doneButton.frame.size.height/2
-        doneButton.layer.borderColor = UIColor (colorLiteralRed: 162/255, green: 200/255, blue: 138/255, alpha: 1).cgColor
-        doneButton.layer.borderWidth = 1.5
-        doneButton.clipsToBounds=true
-        doneButton.layer.masksToBounds=true
+        if(self.view.frame.width==320)
+        {
+            desLblWidth.constant = 280
+        }
         
         // Do any additional setup after loading the view.
     }
