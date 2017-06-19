@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" colorMatched="YES" initialViewController="GTN-Gr-G2c">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" colorMatched="YES" initialViewController="KAY-jN-Eo5">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -958,7 +958,7 @@
                                                 </constraints>
                                                 <fontDescription key="fontDescription" name="SFUIDisplay-Bold" family="SF UI Display" pointSize="14"/>
                                                 <inset key="titleEdgeInsets" minX="0.0" minY="55" maxX="0.0" maxY="0.0"/>
-                                                <state key="normal" image="4CF17C45-A662-4A01-8238-14ABCD13CB00"/>
+                                                <state key="normal" image="7EDB8C2B-698F-4C1C-A798-EF49DFDBBD67"/>
                                                 <userDefinedRuntimeAttributes>
                                                     <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
                                                         <real key="value" value="5"/>
@@ -1192,7 +1192,7 @@
                                                         </connections>
                                                     </collectionView>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Travel Gurus" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7fJ-Ei-igS">
-                                                        <rect key="frame" x="8" y="280" width="82.5" height="21"/>
+                                                        <rect key="frame" x="8" y="280" width="83" height="21"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="21" id="5n7-2x-7x3"/>
                                                         </constraints>
@@ -1207,12 +1207,13 @@
                                                         <fontDescription key="fontDescription" name="SFUIDisplay-Regular" family="SF UI Display" pointSize="12"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
-                                                    <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" prefetchingEnabled="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ezQ-yk-oCz">
-                                                        <rect key="frame" x="0.0" y="324" width="600" height="200"/>
+                                                    <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" userInteractionEnabled="NO" contentMode="scaleToFill" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" prefetchingEnabled="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ezQ-yk-oCz">
+                                                        <rect key="frame" x="0.0" y="324" width="600" height="220"/>
+                                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                         <constraints>
-                                                            <constraint firstAttribute="height" constant="200" id="Oh0-JM-kSf"/>
+                                                            <constraint firstAttribute="height" constant="220" id="Oh0-JM-kSf"/>
                                                         </constraints>
-                                                        <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="0.0" minimumInteritemSpacing="7" id="coq-tE-udM">
+                                                        <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="7" minimumInteritemSpacing="7" id="coq-tE-udM">
                                                             <size key="itemSize" width="50" height="50"/>
                                                             <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                                             <size key="footerReferenceSize" width="0.0" height="0.0"/>
@@ -1220,17 +1221,18 @@
                                                         </collectionViewFlowLayout>
                                                         <cells>
                                                             <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" restorationIdentifier="BloggersCell" reuseIdentifier="bloggerCell" id="XsD-OT-gFU" customClass="BloggersCell" customModule="PYT" customModuleProvider="target">
-                                                                <rect key="frame" x="0.0" y="5" width="140" height="190"/>
+                                                                <rect key="frame" x="0.0" y="15" width="140" height="190"/>
                                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                                                     <rect key="frame" x="0.0" y="0.0" width="140" height="190"/>
                                                                     <autoresizingMask key="autoresizingMask"/>
                                                                     <subviews>
                                                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="img2Temp" translatesAutoresizingMaskIntoConstraints="NO" id="39Z-8S-qoS">
-                                                                            <rect key="frame" x="0.0" y="0.0" width="140" height="120"/>
+                                                                            <rect key="frame" x="0.0" y="0.0" width="140" height="123"/>
+                                                                            <color key="backgroundColor" red="0.5" green="0.89612068970000003" blue="0.53173491380000004" alpha="1" colorSpace="calibratedRGB"/>
                                                                         </imageView>
                                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jSE-pU-WBq">
-                                                                            <rect key="frame" x="0.0" y="120" width="140" height="70"/>
+                                                                            <rect key="frame" x="0.0" y="123" width="140" height="67"/>
                                                                             <subviews>
                                                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="user" translatesAutoresizingMaskIntoConstraints="NO" id="Mac-hL-v1J">
                                                                                     <rect key="frame" x="49" y="-22" width="43" height="43"/>
@@ -1241,23 +1243,23 @@
                                                                                     </constraints>
                                                                                 </imageView>
                                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="UserName" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XBV-gq-T9q">
-                                                                                    <rect key="frame" x="39" y="22" width="62" height="11"/>
-                                                                                    <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="13"/>
+                                                                                    <rect key="frame" x="40" y="22" width="60" height="16"/>
+                                                                                    <fontDescription key="fontDescription" name="SFUIDisplay-Regular" family="SF UI Display" pointSize="13"/>
                                                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                                     <nil key="highlightedColor"/>
                                                                                 </label>
                                                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="O3h-qz-dS2">
-                                                                                    <rect key="frame" x="0.0" y="38" width="140" height="12"/>
+                                                                                    <rect key="frame" x="0.0" y="43" width="140" height="12"/>
                                                                                     <subviews>
-                                                                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="likesBlogs" translatesAutoresizingMaskIntoConstraints="NO" id="VNB-DP-KR3">
-                                                                                            <rect key="frame" x="8" y="-1" width="16" height="16"/>
+                                                                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="likeblogger" translatesAutoresizingMaskIntoConstraints="NO" id="VNB-DP-KR3">
+                                                                                            <rect key="frame" x="20.5" y="1" width="12" height="12"/>
                                                                                             <constraints>
                                                                                                 <constraint firstAttribute="width" secondItem="VNB-DP-KR3" secondAttribute="height" multiplier="1:1" id="BVz-At-jr0"/>
                                                                                             </constraints>
                                                                                         </imageView>
                                                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="75 Likes" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.44999998807907104" translatesAutoresizingMaskIntoConstraints="NO" id="kwL-YC-jZv">
-                                                                                            <rect key="frame" x="26" y="0.0" width="41" height="13"/>
-                                                                                            <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="11"/>
+                                                                                            <rect key="frame" x="34.5" y="1" width="32.5" height="11"/>
+                                                                                            <fontDescription key="fontDescription" name="SFUIDisplay-Regular" family="SF UI Display" pointSize="9"/>
                                                                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                                             <nil key="highlightedColor"/>
                                                                                         </label>
@@ -1277,15 +1279,15 @@
                                                                                                 </mask>
                                                                                             </variation>
                                                                                         </label>
-                                                                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="blogsCountSearch" translatesAutoresizingMaskIntoConstraints="NO" id="n7A-Of-ElO">
+                                                                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="postblogger" translatesAutoresizingMaskIntoConstraints="NO" id="n7A-Of-ElO">
                                                                                             <rect key="frame" x="74" y="2" width="10" height="10"/>
                                                                                             <constraints>
                                                                                                 <constraint firstAttribute="width" secondItem="n7A-Of-ElO" secondAttribute="height" multiplier="1:1" id="aS4-zI-JJz"/>
                                                                                             </constraints>
                                                                                         </imageView>
-                                                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="230 Post" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="LPT-Vp-Yif">
-                                                                                            <rect key="frame" x="91" y="0.0" width="48" height="13"/>
-                                                                                            <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="11"/>
+                                                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="230 Post" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LPT-Vp-Yif">
+                                                                                            <rect key="frame" x="87" y="1" width="52" height="11"/>
+                                                                                            <fontDescription key="fontDescription" name="SFUIDisplay-Regular" family="SF UI Display" pointSize="9"/>
                                                                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                                             <nil key="highlightedColor"/>
                                                                                         </label>
@@ -1329,8 +1331,8 @@
                                                                                 <constraint firstItem="Mac-hL-v1J" firstAttribute="top" secondItem="jSE-pU-WBq" secondAttribute="top" constant="-15" id="ZLK-kf-ekO"/>
                                                                                 <constraint firstItem="Mac-hL-v1J" firstAttribute="centerX" secondItem="jSE-pU-WBq" secondAttribute="centerX" id="bih-Av-wJQ"/>
                                                                                 <constraint firstAttribute="bottom" secondItem="O3h-qz-dS2" secondAttribute="bottom" constant="5" id="hwE-XH-n7N"/>
-                                                                                <constraint firstAttribute="bottom" secondItem="O3h-qz-dS2" secondAttribute="bottom" constant="20" symbolic="YES" id="okT-h4-oRt"/>
-                                                                                <constraint firstAttribute="height" constant="70" id="pfH-5q-o84"/>
+                                                                                <constraint firstAttribute="bottom" relation="lessThanOrEqual" secondItem="O3h-qz-dS2" secondAttribute="bottom" constant="20" symbolic="YES" id="okT-h4-oRt"/>
+                                                                                <constraint firstAttribute="height" constant="67" id="pfH-5q-o84"/>
                                                                                 <constraint firstItem="XBV-gq-T9q" firstAttribute="top" secondItem="Mac-hL-v1J" secondAttribute="bottom" constant="1" id="sV6-ni-Bzh"/>
                                                                             </constraints>
                                                                             <variation key="default">
@@ -1343,6 +1345,7 @@
                                                                         </view>
                                                                     </subviews>
                                                                 </view>
+                                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                                 <constraints>
                                                                     <constraint firstItem="jSE-pU-WBq" firstAttribute="top" secondItem="39Z-8S-qoS" secondAttribute="bottom" id="6Bs-fe-VHe"/>
                                                                     <constraint firstItem="39Z-8S-qoS" firstAttribute="top" secondItem="XsD-OT-gFU" secondAttribute="top" id="6hj-JM-xNX"/>
@@ -1364,9 +1367,13 @@
                                                                 </connections>
                                                             </collectionViewCell>
                                                         </cells>
+                                                        <connections>
+                                                            <outlet property="dataSource" destination="KAY-jN-Eo5" id="JaU-Sm-kU9"/>
+                                                            <outlet property="delegate" destination="KAY-jN-Eo5" id="2ml-DI-Tk1"/>
+                                                        </connections>
                                                     </collectionView>
                                                     <label hidden="YES" opaque="NO" userInteractionEnabled="NO" alpha="0.34999999999999998" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CHn-jF-a8u">
-                                                        <rect key="frame" x="-0.5" y="324" width="600" height="200"/>
+                                                        <rect key="frame" x="-0.5" y="324" width="600" height="220"/>
                                                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="15"/>
                                                         <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -2613,7 +2620,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="4CF17C45-A662-4A01-8238-14ABCD13CB00" width="16" height="16">
+        <image name="7EDB8C2B-698F-4C1C-A798-EF49DFDBBD67" width="16" height="16">
             <mutableData key="keyedArchiveRepresentation">
 YnBsaXN0MDDUAQIDBAUGPT5YJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK4HCBMU
 GR4fIyQrLjE3OlUkbnVsbNUJCgsMDQ4PEBESVk5TU2l6ZVYkY2xhc3NcTlNJbWFnZUZsYWdzVk5TUmVw
@@ -2694,7 +2701,6 @@ Di0OMA5CDkUOSgAAAAAAAAIBAAAAAAAAAEEAAAAAAAAAAAAAAAAAAA5MA
         <image name="Search" width="22" height="22"/>
         <image name="Searchgredient" width="307" height="69"/>
         <image name="back" width="22" height="22"/>
-        <image name="blogsCountSearch" width="16" height="16"/>
         <image name="chat" width="25" height="25"/>
         <image name="chatactive" width="25" height="25"/>
         <image name="cross" width="20" height="20"/>
@@ -2703,9 +2709,10 @@ Di0OMA5CDkUOSgAAAAAAAAIBAAAAAAAAAEEAAAAAAAAAAAAAAAAAAA5MA
         <image name="india" width="472" height="300"/>
         <image name="interest" width="25" height="25"/>
         <image name="interestactive" width="25" height="25"/>
-        <image name="likesBlogs" width="16" height="16"/>
+        <image name="likeblogger" width="12" height="12"/>
         <image name="overLay" width="307" height="69"/>
         <image name="post" width="74" height="74"/>
+        <image name="postblogger" width="12" height="12"/>
         <image name="travelplanbutton" width="17" height="17"/>
         <image name="user" width="16" height="16"/>
     </resources>
