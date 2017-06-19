@@ -946,32 +946,201 @@
                                                 <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="WDl-KR-64s">
-                                                <rect key="frame" x="180" y="361" width="240" height="128"/>
-                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            </imageView>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="W2c-54-9AO" customClass="CustomButton" customModule="PYT" customModuleProvider="target">
-                                                <rect key="frame" x="217.5" y="94" width="165" height="164.5"/>
-                                                <color key="backgroundColor" red="0.98039215686274506" green="0.98039215686274506" blue="0.98039215686274506" alpha="1" colorSpace="calibratedRGB"/>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mvO-Np-T6l" customClass="CustomView" customModule="PYT" customModuleProvider="target">
+                                                <rect key="frame" x="35" y="94" width="164.5" height="164.5"/>
+                                                <subviews>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3pT-Kf-dgU" customClass="CustomButton" customModule="PYT" customModuleProvider="target">
+                                                        <rect key="frame" x="0.0" y="0.0" width="164.5" height="164.5"/>
+                                                        <color key="backgroundColor" red="0.98039215686274506" green="0.98039215686274506" blue="0.98039215686274506" alpha="0.68378767730496459" colorSpace="calibratedRGB"/>
+                                                        <fontDescription key="fontDescription" name="SFUIDisplay-Bold" family="SF UI Display" pointSize="14"/>
+                                                        <inset key="titleEdgeInsets" minX="0.0" minY="55" maxX="0.0" maxY="0.0"/>
+                                                        <state key="normal" image="Add"/>
+                                                        <userDefinedRuntimeAttributes>
+                                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                                <real key="value" value="5"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                        </userDefinedRuntimeAttributes>
+                                                    </button>
+                                                    <view userInteractionEnabled="NO" alpha="0.69999999999999996" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xpK-GF-hph" customClass="GradientView" customModule="PYT" customModuleProvider="target">
+                                                        <rect key="frame" x="0.0" y="82.5" width="164" height="82"/>
+                                                    </view>
+                                                </subviews>
+                                                <color key="backgroundColor" red="0.94901960784313721" green="0.94901960784313721" blue="0.94901960784313721" alpha="1" colorSpace="calibratedRGB"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="width" secondItem="W2c-54-9AO" secondAttribute="height" multiplier="1:1" id="WWq-MN-pha"/>
+                                                    <constraint firstAttribute="bottom" secondItem="xpK-GF-hph" secondAttribute="bottom" id="835-DP-TkE"/>
+                                                    <constraint firstAttribute="width" secondItem="mvO-Np-T6l" secondAttribute="height" multiplier="1:1" id="WYv-S8-B54"/>
+                                                    <constraint firstAttribute="bottom" secondItem="3pT-Kf-dgU" secondAttribute="bottom" id="WuI-9h-aMp"/>
+                                                    <constraint firstAttribute="trailing" secondItem="xpK-GF-hph" secondAttribute="trailing" id="d7O-7B-uhX"/>
+                                                    <constraint firstAttribute="trailing" secondItem="3pT-Kf-dgU" secondAttribute="trailing" id="fNc-Wu-JSj"/>
+                                                    <constraint firstItem="xpK-GF-hph" firstAttribute="top" secondItem="3pT-Kf-dgU" secondAttribute="bottom" multiplier="0.5" id="jKe-5g-1xN"/>
+                                                    <constraint firstItem="3pT-Kf-dgU" firstAttribute="top" secondItem="mvO-Np-T6l" secondAttribute="top" id="si5-1P-f8g"/>
+                                                    <constraint firstItem="xpK-GF-hph" firstAttribute="leading" secondItem="mvO-Np-T6l" secondAttribute="leading" id="xYN-fi-qem"/>
+                                                    <constraint firstItem="3pT-Kf-dgU" firstAttribute="leading" secondItem="mvO-Np-T6l" secondAttribute="leading" id="z7L-Dd-9Ij"/>
                                                 </constraints>
-                                                <fontDescription key="fontDescription" name="SFUIDisplay-Bold" family="SF UI Display" pointSize="14"/>
-                                                <inset key="titleEdgeInsets" minX="0.0" minY="55" maxX="0.0" maxY="0.0"/>
-                                                <state key="normal" image="99B8D883-0C8A-490C-8D77-78ABCC8A1FC3"/>
                                                 <userDefinedRuntimeAttributes>
                                                     <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                                        <real key="value" value="5"/>
+                                                        <real key="value" value="7"/>
                                                     </userDefinedRuntimeAttribute>
                                                 </userDefinedRuntimeAttributes>
-                                            </button>
-                                            <label opaque="NO" userInteractionEnabled="NO" alpha="0.10000000000000001" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZMw-sh-15w">
-                                                <rect key="frame" x="217.5" y="94" width="165" height="164.5"/>
-                                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                <nil key="textColor"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
+                                            </view>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="a7s-he-KVf" customClass="CustomView" customModule="PYT" customModuleProvider="target">
+                                                <rect key="frame" x="217.5" y="94" width="164.5" height="164.5"/>
+                                                <subviews>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="W2c-54-9AO" customClass="CustomButton" customModule="PYT" customModuleProvider="target">
+                                                        <rect key="frame" x="-0.5" y="0.0" width="165" height="164.5"/>
+                                                        <color key="backgroundColor" red="0.98039215686274506" green="0.98039215686274506" blue="0.98039215686274506" alpha="1" colorSpace="calibratedRGB"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="width" secondItem="W2c-54-9AO" secondAttribute="height" multiplier="1:1" id="WWq-MN-pha"/>
+                                                        </constraints>
+                                                        <fontDescription key="fontDescription" name="SFUIDisplay-Bold" family="SF UI Display" pointSize="14"/>
+                                                        <inset key="titleEdgeInsets" minX="0.0" minY="55" maxX="0.0" maxY="0.0"/>
+                                                        <state key="normal" image="95F7ECDE-A2D4-4A15-8AC4-B35650BFB7C9"/>
+                                                        <userDefinedRuntimeAttributes>
+                                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                                <real key="value" value="5"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                        </userDefinedRuntimeAttributes>
+                                                    </button>
+                                                    <view userInteractionEnabled="NO" alpha="0.69999999999999996" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2YY-D4-3pW" customClass="GradientView" customModule="PYT" customModuleProvider="target">
+                                                        <rect key="frame" x="0.0" y="82.5" width="165" height="82"/>
+                                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                    </view>
+                                                </subviews>
+                                                <color key="backgroundColor" red="0.94901960784313721" green="0.94901960784313721" blue="0.94901960784313721" alpha="1" colorSpace="calibratedRGB"/>
+                                                <constraints>
+                                                    <constraint firstItem="W2c-54-9AO" firstAttribute="leading" secondItem="a7s-he-KVf" secondAttribute="leading" constant="-0.5" id="4f2-lV-K91"/>
+                                                    <constraint firstAttribute="trailing" secondItem="2YY-D4-3pW" secondAttribute="trailing" id="5DF-4j-IdG"/>
+                                                    <constraint firstAttribute="trailing" secondItem="W2c-54-9AO" secondAttribute="trailing" id="5xQ-hx-ah1"/>
+                                                    <constraint firstAttribute="bottom" secondItem="2YY-D4-3pW" secondAttribute="bottom" id="8J8-XO-YeP"/>
+                                                    <constraint firstItem="2YY-D4-3pW" firstAttribute="top" secondItem="W2c-54-9AO" secondAttribute="bottom" multiplier="0.5" id="FWH-ND-U5n"/>
+                                                    <constraint firstItem="2YY-D4-3pW" firstAttribute="leading" secondItem="a7s-he-KVf" secondAttribute="leading" id="IDd-2D-6lu"/>
+                                                    <constraint firstAttribute="width" secondItem="a7s-he-KVf" secondAttribute="height" multiplier="1:1" id="Jh1-Dg-WEg"/>
+                                                    <constraint firstAttribute="bottom" secondItem="W2c-54-9AO" secondAttribute="bottom" id="fNv-1E-M7Y"/>
+                                                    <constraint firstItem="W2c-54-9AO" firstAttribute="top" secondItem="a7s-he-KVf" secondAttribute="top" id="y6v-KT-pXe"/>
+                                                </constraints>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                        <real key="value" value="7"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
+                                            </view>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZdU-rW-FRu" customClass="CustomView" customModule="PYT" customModuleProvider="target">
+                                                <rect key="frame" x="400.5" y="94" width="164.5" height="164.5"/>
+                                                <subviews>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cwO-8r-9cQ" customClass="CustomButton" customModule="PYT" customModuleProvider="target">
+                                                        <rect key="frame" x="0.0" y="0.0" width="164.5" height="164.5"/>
+                                                        <color key="backgroundColor" red="0.98039215686274506" green="0.98039215686274506" blue="0.98039215686274506" alpha="0.68378767730496459" colorSpace="calibratedRGB"/>
+                                                        <fontDescription key="fontDescription" name="SFUIDisplay-Bold" family="SF UI Display" pointSize="14"/>
+                                                        <inset key="titleEdgeInsets" minX="0.0" minY="55" maxX="0.0" maxY="0.0"/>
+                                                        <state key="normal" image="Add"/>
+                                                        <userDefinedRuntimeAttributes>
+                                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                                <real key="value" value="5"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                        </userDefinedRuntimeAttributes>
+                                                    </button>
+                                                    <view userInteractionEnabled="NO" alpha="0.69999999999999996" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DfG-sT-Tzf" customClass="GradientView" customModule="PYT" customModuleProvider="target">
+                                                        <rect key="frame" x="0.0" y="82.5" width="164" height="82"/>
+                                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                    </view>
+                                                </subviews>
+                                                <color key="backgroundColor" red="0.94901960784313721" green="0.94901960784313721" blue="0.94901960784313721" alpha="1" colorSpace="calibratedRGB"/>
+                                                <constraints>
+                                                    <constraint firstItem="DfG-sT-Tzf" firstAttribute="top" secondItem="cwO-8r-9cQ" secondAttribute="bottom" multiplier="0.5" id="5C9-TQ-fdg"/>
+                                                    <constraint firstAttribute="bottom" secondItem="cwO-8r-9cQ" secondAttribute="bottom" id="GyB-gq-qnL"/>
+                                                    <constraint firstItem="DfG-sT-Tzf" firstAttribute="leading" secondItem="ZdU-rW-FRu" secondAttribute="leading" id="R5a-I4-zWS"/>
+                                                    <constraint firstAttribute="bottom" secondItem="DfG-sT-Tzf" secondAttribute="bottom" id="RCt-ok-gvO"/>
+                                                    <constraint firstAttribute="trailing" secondItem="DfG-sT-Tzf" secondAttribute="trailing" id="UM4-bZ-GMo"/>
+                                                    <constraint firstAttribute="trailing" secondItem="cwO-8r-9cQ" secondAttribute="trailing" id="cNv-q2-Zhr"/>
+                                                    <constraint firstItem="cwO-8r-9cQ" firstAttribute="leading" secondItem="ZdU-rW-FRu" secondAttribute="leading" id="f3n-Ca-WPL"/>
+                                                    <constraint firstItem="cwO-8r-9cQ" firstAttribute="top" secondItem="ZdU-rW-FRu" secondAttribute="top" id="qUL-Mv-tWA"/>
+                                                    <constraint firstAttribute="width" secondItem="ZdU-rW-FRu" secondAttribute="height" multiplier="1:1" id="wBB-LI-QHJ"/>
+                                                </constraints>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                        <real key="value" value="7"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
+                                            </view>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OZQ-CP-nhM" customClass="CustomView" customModule="PYT" customModuleProvider="target">
+                                                <rect key="frame" x="125.5" y="278.5" width="164.5" height="164.5"/>
+                                                <subviews>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZIp-hY-KmT" customClass="CustomButton" customModule="PYT" customModuleProvider="target">
+                                                        <rect key="frame" x="0.0" y="0.0" width="164.5" height="165"/>
+                                                        <color key="backgroundColor" red="0.98039215686274506" green="0.98039215686274506" blue="0.98039215686274506" alpha="0.68378767730496459" colorSpace="calibratedRGB"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="width" secondItem="ZIp-hY-KmT" secondAttribute="height" multiplier="1:1" id="S1T-ef-93g"/>
+                                                        </constraints>
+                                                        <fontDescription key="fontDescription" name="SFUIDisplay-Bold" family="SF UI Display" pointSize="14"/>
+                                                        <inset key="titleEdgeInsets" minX="0.0" minY="55" maxX="0.0" maxY="0.0"/>
+                                                        <state key="normal" image="Add"/>
+                                                        <userDefinedRuntimeAttributes>
+                                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                                <real key="value" value="5"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                        </userDefinedRuntimeAttributes>
+                                                    </button>
+                                                    <view userInteractionEnabled="NO" alpha="0.69999999999999996" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xjG-Pd-N4V" customClass="GradientView" customModule="PYT" customModuleProvider="target">
+                                                        <rect key="frame" x="0.0" y="82.5" width="164" height="82.5"/>
+                                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                    </view>
+                                                </subviews>
+                                                <color key="backgroundColor" red="0.94901960784313721" green="0.94901960784313721" blue="0.94901960784313721" alpha="1" colorSpace="calibratedRGB"/>
+                                                <constraints>
+                                                    <constraint firstItem="xjG-Pd-N4V" firstAttribute="leading" secondItem="OZQ-CP-nhM" secondAttribute="leading" id="037-sj-8LK"/>
+                                                    <constraint firstItem="ZIp-hY-KmT" firstAttribute="top" secondItem="OZQ-CP-nhM" secondAttribute="top" id="Fvj-pN-XmB"/>
+                                                    <constraint firstAttribute="bottom" secondItem="xjG-Pd-N4V" secondAttribute="bottom" id="IZO-Fm-cRn"/>
+                                                    <constraint firstItem="ZIp-hY-KmT" firstAttribute="leading" secondItem="OZQ-CP-nhM" secondAttribute="leading" id="ON7-vM-S1A"/>
+                                                    <constraint firstAttribute="width" secondItem="OZQ-CP-nhM" secondAttribute="height" multiplier="1:1" id="P05-0A-Zfv"/>
+                                                    <constraint firstAttribute="bottom" secondItem="ZIp-hY-KmT" secondAttribute="bottom" id="Vhj-kX-wDG"/>
+                                                    <constraint firstAttribute="trailing" secondItem="xjG-Pd-N4V" secondAttribute="trailing" id="WAV-I9-jaw"/>
+                                                    <constraint firstAttribute="trailing" secondItem="ZIp-hY-KmT" secondAttribute="trailing" id="apw-0w-KUO"/>
+                                                    <constraint firstItem="xjG-Pd-N4V" firstAttribute="top" secondItem="ZIp-hY-KmT" secondAttribute="bottom" multiplier="0.5" id="lJW-or-zpJ"/>
+                                                </constraints>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                        <real key="value" value="7"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
+                                            </view>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BhE-yR-LYC" customClass="CustomView" customModule="PYT" customModuleProvider="target">
+                                                <rect key="frame" x="310" y="278.5" width="164.5" height="164.5"/>
+                                                <subviews>
+                                                    <view userInteractionEnabled="NO" alpha="0.69999999999999996" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="N8N-IE-8sq" customClass="GradientView" customModule="PYT" customModuleProvider="target">
+                                                        <rect key="frame" x="0.0" y="82.5" width="164.5" height="81.5"/>
+                                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                    </view>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7lN-Gv-dEo" customClass="CustomButton" customModule="PYT" customModuleProvider="target">
+                                                        <rect key="frame" x="0.0" y="0.0" width="164.5" height="165"/>
+                                                        <color key="backgroundColor" red="0.98039215686274506" green="0.98039215686274506" blue="0.98039215686274506" alpha="0.68378767730496459" colorSpace="calibratedRGB"/>
+                                                        <fontDescription key="fontDescription" name="SFUIDisplay-Regular" family="SF UI Display" pointSize="14"/>
+                                                        <inset key="titleEdgeInsets" minX="0.0" minY="55" maxX="0.0" maxY="0.0"/>
+                                                        <state key="normal" image="Add"/>
+                                                        <userDefinedRuntimeAttributes>
+                                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                                <real key="value" value="5"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                        </userDefinedRuntimeAttributes>
+                                                    </button>
+                                                </subviews>
+                                                <color key="backgroundColor" red="0.94901960784313721" green="0.94901960784313721" blue="0.94901960784313721" alpha="1" colorSpace="calibratedRGB"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" secondItem="BhE-yR-LYC" secondAttribute="height" multiplier="1:1" id="60a-KN-H5n"/>
+                                                    <constraint firstItem="7lN-Gv-dEo" firstAttribute="leading" secondItem="BhE-yR-LYC" secondAttribute="leading" id="DFG-nZ-EhD"/>
+                                                    <constraint firstItem="N8N-IE-8sq" firstAttribute="leading" secondItem="BhE-yR-LYC" secondAttribute="leading" id="GLl-xt-Sex"/>
+                                                    <constraint firstAttribute="bottom" secondItem="7lN-Gv-dEo" secondAttribute="bottom" id="OXS-35-ane"/>
+                                                    <constraint firstAttribute="trailing" secondItem="7lN-Gv-dEo" secondAttribute="trailing" id="VSU-RV-4MH"/>
+                                                    <constraint firstItem="N8N-IE-8sq" firstAttribute="top" secondItem="7lN-Gv-dEo" secondAttribute="bottom" multiplier="0.5" id="fq2-ap-i9l"/>
+                                                    <constraint firstItem="7lN-Gv-dEo" firstAttribute="top" secondItem="BhE-yR-LYC" secondAttribute="top" id="ldc-l9-L8Q"/>
+                                                    <constraint firstAttribute="bottom" secondItem="N8N-IE-8sq" secondAttribute="bottom" id="tPj-Qj-kMT"/>
+                                                    <constraint firstAttribute="trailing" secondItem="N8N-IE-8sq" secondAttribute="trailing" id="w63-MV-mOI"/>
+                                                </constraints>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                        <real key="value" value="7"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
+                                            </view>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7M7-b1-aP5" customClass="CustomButton" customModule="PYT" customModuleProvider="target">
                                                 <rect key="frame" x="367.5" y="81" width="25" height="25"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -986,28 +1155,6 @@
                                                     </userDefinedRuntimeAttribute>
                                                 </userDefinedRuntimeAttributes>
                                             </button>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cwO-8r-9cQ" customClass="CustomButton" customModule="PYT" customModuleProvider="target">
-                                                <rect key="frame" x="400.5" y="94" width="164.5" height="164.5"/>
-                                                <color key="backgroundColor" red="0.98039215686274506" green="0.98039215686274506" blue="0.98039215686274506" alpha="0.68378767730496459" colorSpace="calibratedRGB"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="width" secondItem="cwO-8r-9cQ" secondAttribute="height" multiplier="1:1" id="K7O-ld-KXy"/>
-                                                </constraints>
-                                                <fontDescription key="fontDescription" name="SFUIDisplay-Bold" family="SF UI Display" pointSize="14"/>
-                                                <inset key="titleEdgeInsets" minX="0.0" minY="55" maxX="0.0" maxY="0.0"/>
-                                                <state key="normal" image="Add"/>
-                                                <userDefinedRuntimeAttributes>
-                                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                                        <real key="value" value="5"/>
-                                                    </userDefinedRuntimeAttribute>
-                                                </userDefinedRuntimeAttributes>
-                                            </button>
-                                            <label opaque="NO" userInteractionEnabled="NO" alpha="0.10000000149011612" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="D5c-qx-xxg">
-                                                <rect key="frame" x="400.5" y="94" width="164.5" height="164.5"/>
-                                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                <nil key="textColor"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aYd-Ui-xPI" customClass="CustomButton" customModule="PYT" customModuleProvider="target">
                                                 <rect key="frame" x="550" y="81" width="25" height="25"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -1018,28 +1165,6 @@
                                                     </userDefinedRuntimeAttribute>
                                                 </userDefinedRuntimeAttributes>
                                             </button>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3pT-Kf-dgU" customClass="CustomButton" customModule="PYT" customModuleProvider="target">
-                                                <rect key="frame" x="35" y="94" width="164.5" height="164.5"/>
-                                                <color key="backgroundColor" red="0.98039215686274506" green="0.98039215686274506" blue="0.98039215686274506" alpha="0.68378767730496459" colorSpace="calibratedRGB"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="width" secondItem="3pT-Kf-dgU" secondAttribute="height" multiplier="1:1" id="gOZ-dt-0Zf"/>
-                                                </constraints>
-                                                <fontDescription key="fontDescription" name="SFUIDisplay-Bold" family="SF UI Display" pointSize="14"/>
-                                                <inset key="titleEdgeInsets" minX="0.0" minY="55" maxX="0.0" maxY="0.0"/>
-                                                <state key="normal" image="Add"/>
-                                                <userDefinedRuntimeAttributes>
-                                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                                        <real key="value" value="5"/>
-                                                    </userDefinedRuntimeAttribute>
-                                                </userDefinedRuntimeAttributes>
-                                            </button>
-                                            <label opaque="NO" userInteractionEnabled="NO" alpha="0.10000000149011612" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5rg-QU-EB5">
-                                                <rect key="frame" x="35.5" y="94" width="164.5" height="164.5"/>
-                                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                <nil key="textColor"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VEc-RQ-T7Y" customClass="CustomButton" customModule="PYT" customModuleProvider="target">
                                                 <rect key="frame" x="184.5" y="81" width="25" height="25"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -1050,30 +1175,8 @@
                                                     </userDefinedRuntimeAttribute>
                                                 </userDefinedRuntimeAttributes>
                                             </button>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZIp-hY-KmT" customClass="CustomButton" customModule="PYT" customModuleProvider="target">
-                                                <rect key="frame" x="116.5" y="278.5" width="164.5" height="165"/>
-                                                <color key="backgroundColor" red="0.98039215686274506" green="0.98039215686274506" blue="0.98039215686274506" alpha="0.68378767730496459" colorSpace="calibratedRGB"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="width" secondItem="ZIp-hY-KmT" secondAttribute="height" multiplier="1:1" id="S1T-ef-93g"/>
-                                                </constraints>
-                                                <fontDescription key="fontDescription" name="SFUIDisplay-Bold" family="SF UI Display" pointSize="14"/>
-                                                <inset key="titleEdgeInsets" minX="0.0" minY="55" maxX="0.0" maxY="0.0"/>
-                                                <state key="normal" image="Add"/>
-                                                <userDefinedRuntimeAttributes>
-                                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                                        <real key="value" value="5"/>
-                                                    </userDefinedRuntimeAttribute>
-                                                </userDefinedRuntimeAttributes>
-                                            </button>
-                                            <label opaque="NO" userInteractionEnabled="NO" alpha="0.10000000149011612" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TxX-hF-p8k">
-                                                <rect key="frame" x="116.5" y="278.5" width="164.5" height="165"/>
-                                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                <nil key="textColor"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9dz-jy-Rev" customClass="CustomButton" customModule="PYT" customModuleProvider="target">
-                                                <rect key="frame" x="266" y="265.5" width="25" height="25"/>
+                                                <rect key="frame" x="275" y="265.5" width="25" height="25"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                 <state key="normal" image="cross"/>
                                                 <userDefinedRuntimeAttributes>
@@ -1082,27 +1185,8 @@
                                                     </userDefinedRuntimeAttribute>
                                                 </userDefinedRuntimeAttributes>
                                             </button>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7lN-Gv-dEo" customClass="CustomButton" customModule="PYT" customModuleProvider="target">
-                                                <rect key="frame" x="299" y="278.5" width="164.5" height="165"/>
-                                                <color key="backgroundColor" red="0.98039215686274506" green="0.98039215686274506" blue="0.98039215686274506" alpha="0.68378767730496459" colorSpace="calibratedRGB"/>
-                                                <fontDescription key="fontDescription" name="SFUIDisplay-Regular" family="SF UI Display" pointSize="14"/>
-                                                <inset key="titleEdgeInsets" minX="0.0" minY="55" maxX="0.0" maxY="0.0"/>
-                                                <state key="normal" image="Add"/>
-                                                <userDefinedRuntimeAttributes>
-                                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                                        <real key="value" value="5"/>
-                                                    </userDefinedRuntimeAttribute>
-                                                </userDefinedRuntimeAttributes>
-                                            </button>
-                                            <label opaque="NO" userInteractionEnabled="NO" alpha="0.10000000149011612" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="N9Z-zi-Vne">
-                                                <rect key="frame" x="299" y="278.5" width="164.5" height="165"/>
-                                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                <nil key="textColor"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HjE-ki-S41" customClass="CustomButton" customModule="PYT" customModuleProvider="target">
-                                                <rect key="frame" x="448.5" y="265.5" width="25" height="25"/>
+                                                <rect key="frame" x="458.5" y="265.5" width="25" height="25"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                 <state key="normal" image="cross"/>
                                                 <userDefinedRuntimeAttributes>
@@ -1134,6 +1218,7 @@
                                                     </label>
                                                     <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" prefetchingEnabled="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cPa-a3-Wmf">
                                                         <rect key="frame" x="0.0" y="52" width="600" height="220"/>
+                                                        <color key="backgroundColor" red="0.94901960784313721" green="0.94901960784313721" blue="0.94901960784313721" alpha="1" colorSpace="calibratedRGB"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="220" id="KbJ-ZS-A5W"/>
                                                         </constraints>
@@ -1151,13 +1236,13 @@
                                                                     <rect key="frame" x="0.0" y="0.0" width="200" height="200"/>
                                                                     <autoresizingMask key="autoresizingMask"/>
                                                                     <subviews>
-                                                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="ZOC-A6-qZZ">
+                                                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="ZOC-A6-qZZ">
                                                                             <rect key="frame" x="0.0" y="0.0" width="200" height="199"/>
                                                                         </imageView>
-                                                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="overLay" translatesAutoresizingMaskIntoConstraints="NO" id="iuN-wj-7BW">
-                                                                            <rect key="frame" x="0.0" y="131" width="200" height="69"/>
+                                                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Bo3-dx-AJl" customClass="GradientView" customModule="PYT" customModuleProvider="target">
+                                                                            <rect key="frame" x="0.0" y="149.5" width="200" height="49.5"/>
                                                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                                                        </imageView>
+                                                                        </view>
                                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Manali India" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Y2w-In-1iP">
                                                                             <rect key="frame" x="10" y="172" width="187" height="17"/>
                                                                             <fontDescription key="fontDescription" name="SFUIDisplay-Regular" family="SF UI Display" pointSize="14"/>
@@ -1170,17 +1255,19 @@
                                                                 <constraints>
                                                                     <constraint firstItem="ZOC-A6-qZZ" firstAttribute="leading" secondItem="ijV-SS-pTK" secondAttribute="leading" id="1jA-Z1-x35"/>
                                                                     <constraint firstAttribute="trailing" secondItem="ZOC-A6-qZZ" secondAttribute="trailing" id="Auk-B4-Wpg"/>
-                                                                    <constraint firstAttribute="bottom" secondItem="iuN-wj-7BW" secondAttribute="bottom" id="Lms-pJ-SGc"/>
+                                                                    <constraint firstItem="Bo3-dx-AJl" firstAttribute="bottom" secondItem="ZOC-A6-qZZ" secondAttribute="bottom" id="LU6-m6-JJm"/>
                                                                     <constraint firstItem="ZOC-A6-qZZ" firstAttribute="top" secondItem="ijV-SS-pTK" secondAttribute="top" id="N9a-9e-ANs"/>
                                                                     <constraint firstAttribute="bottom" secondItem="ZOC-A6-qZZ" secondAttribute="bottom" constant="1" id="OB3-zH-1LV"/>
-                                                                    <constraint firstAttribute="trailing" secondItem="iuN-wj-7BW" secondAttribute="trailing" id="j7T-TH-BmH"/>
-                                                                    <constraint firstItem="iuN-wj-7BW" firstAttribute="leading" secondItem="ijV-SS-pTK" secondAttribute="leading" id="jbF-eD-lF8"/>
+                                                                    <constraint firstItem="Bo3-dx-AJl" firstAttribute="trailing" secondItem="ZOC-A6-qZZ" secondAttribute="trailing" id="Y0E-YE-sBf"/>
+                                                                    <constraint firstItem="Bo3-dx-AJl" firstAttribute="leading" secondItem="ZOC-A6-qZZ" secondAttribute="leading" id="eRd-it-tun"/>
+                                                                    <constraint firstItem="Bo3-dx-AJl" firstAttribute="top" secondItem="ZOC-A6-qZZ" secondAttribute="bottom" multiplier="0.75" id="f30-fm-woW"/>
                                                                     <constraint firstAttribute="bottom" secondItem="Y2w-In-1iP" secondAttribute="bottom" constant="11" id="vXM-aI-kJF"/>
                                                                     <constraint firstAttribute="trailing" secondItem="Y2w-In-1iP" secondAttribute="trailing" constant="3" id="zSP-5T-BuQ"/>
                                                                     <constraint firstItem="Y2w-In-1iP" firstAttribute="leading" secondItem="ijV-SS-pTK" secondAttribute="leading" constant="10" id="zse-Ol-xeR"/>
                                                                 </constraints>
                                                                 <size key="customSize" width="200" height="200"/>
                                                                 <connections>
+                                                                    <outlet property="gradientView" destination="Bo3-dx-AJl" id="jSb-xA-l2B"/>
                                                                     <outlet property="locationImage" destination="ZOC-A6-qZZ" id="Jdp-MO-5yM"/>
                                                                     <outlet property="locationLabel" destination="Y2w-In-1iP" id="FWf-eD-Vw2"/>
                                                                 </connections>
@@ -1408,73 +1495,56 @@
                                         </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <constraints>
-                                            <constraint firstItem="HjE-ki-S41" firstAttribute="top" secondItem="7lN-Gv-dEo" secondAttribute="top" constant="-13" id="12z-hf-8mc"/>
-                                            <constraint firstItem="7M7-b1-aP5" firstAttribute="trailing" secondItem="W2c-54-9AO" secondAttribute="trailing" constant="10" id="2GS-HQ-dk6"/>
-                                            <constraint firstItem="ZIp-hY-KmT" firstAttribute="top" secondItem="W2c-54-9AO" secondAttribute="bottom" constant="20" id="34J-zx-KPD"/>
                                             <constraint firstItem="HjE-ki-S41" firstAttribute="width" secondItem="7M7-b1-aP5" secondAttribute="width" id="3FT-6m-Hfg"/>
-                                            <constraint firstItem="aYd-Ui-xPI" firstAttribute="top" secondItem="cwO-8r-9cQ" secondAttribute="top" constant="-13" id="4Tj-5Q-eJZ"/>
-                                            <constraint firstAttribute="centerX" secondItem="ZIp-hY-KmT" secondAttribute="trailing" multiplier="1.07" id="5Cg-hE-OzA"/>
-                                            <constraint firstItem="W2c-54-9AO" firstAttribute="height" secondItem="3pT-Kf-dgU" secondAttribute="height" id="5nI-eP-1HC"/>
-                                            <constraint firstItem="3pT-Kf-dgU" firstAttribute="leading" secondItem="Pqy-1M-Ome" secondAttribute="leading" constant="35" id="6l2-mW-4rK"/>
-                                            <constraint firstItem="5rg-QU-EB5" firstAttribute="centerY" secondItem="3pT-Kf-dgU" secondAttribute="centerY" id="72O-hI-IbI"/>
+                                            <constraint firstItem="ZdU-rW-FRu" firstAttribute="centerY" secondItem="mvO-Np-T6l" secondAttribute="centerY" id="3Q3-cS-FJd"/>
+                                            <constraint firstAttribute="trailing" secondItem="ZdU-rW-FRu" secondAttribute="trailing" constant="35" id="4VC-qS-rsL"/>
+                                            <constraint firstItem="ZdU-rW-FRu" firstAttribute="top" secondItem="aYd-Ui-xPI" secondAttribute="bottom" constant="-12" id="5pk-PH-3dO"/>
+                                            <constraint firstAttribute="centerX" secondItem="OZQ-CP-nhM" secondAttribute="trailing" multiplier="1.035" id="7Wy-Ps-bes"/>
+                                            <constraint firstItem="BhE-yR-LYC" firstAttribute="leading" secondItem="OZQ-CP-nhM" secondAttribute="trailing" constant="20" id="7ur-Fc-ebh"/>
                                             <constraint firstItem="AOw-yV-9vP" firstAttribute="top" secondItem="uVi-VL-6Zb" secondAttribute="bottom" constant="16" id="8Ej-Od-ECN"/>
-                                            <constraint firstItem="cwO-8r-9cQ" firstAttribute="height" secondItem="3pT-Kf-dgU" secondAttribute="height" id="8VA-g0-1SA"/>
-                                            <constraint firstItem="aYd-Ui-xPI" firstAttribute="trailing" secondItem="cwO-8r-9cQ" secondAttribute="trailing" constant="10" id="8g3-eV-n0n"/>
-                                            <constraint firstItem="N9Z-zi-Vne" firstAttribute="centerX" secondItem="7lN-Gv-dEo" secondAttribute="centerX" id="C9X-vA-mc6"/>
+                                            <constraint firstItem="OZQ-CP-nhM" firstAttribute="top" secondItem="9dz-jy-Rev" secondAttribute="bottom" constant="-12" id="8ZN-wX-bXA"/>
+                                            <constraint firstItem="BhE-yR-LYC" firstAttribute="top" secondItem="HjE-ki-S41" secondAttribute="bottom" constant="-12" id="BJ2-9T-Xa6"/>
+                                            <constraint firstItem="a7s-he-KVf" firstAttribute="top" secondItem="7M7-b1-aP5" secondAttribute="bottom" constant="-12" id="Cd8-uK-OYl"/>
                                             <constraint firstItem="VEc-RQ-T7Y" firstAttribute="height" secondItem="7M7-b1-aP5" secondAttribute="height" id="D94-O0-Zou"/>
-                                            <constraint firstItem="ZMw-sh-15w" firstAttribute="height" secondItem="W2c-54-9AO" secondAttribute="height" id="DCn-wp-gZy"/>
-                                            <constraint firstItem="VEc-RQ-T7Y" firstAttribute="trailing" secondItem="3pT-Kf-dgU" secondAttribute="trailing" constant="10" id="Edi-Ne-iof"/>
-                                            <constraint firstItem="W2c-54-9AO" firstAttribute="centerY" secondItem="3pT-Kf-dgU" secondAttribute="centerY" id="IoW-w1-PBb"/>
+                                            <constraint firstItem="aYd-Ui-xPI" firstAttribute="leading" secondItem="ZdU-rW-FRu" secondAttribute="trailing" constant="-15" id="Ek3-0m-vhz"/>
                                             <constraint firstItem="9dz-jy-Rev" firstAttribute="height" secondItem="7M7-b1-aP5" secondAttribute="height" id="JOo-Zc-9ka"/>
-                                            <constraint firstItem="ZIp-hY-KmT" firstAttribute="height" secondItem="3pT-Kf-dgU" secondAttribute="height" id="KrO-Zt-paa"/>
-                                            <constraint firstItem="ZIp-hY-KmT" firstAttribute="width" secondItem="3pT-Kf-dgU" secondAttribute="width" id="Nc9-Gw-gY6"/>
-                                            <constraint firstItem="W2c-54-9AO" firstAttribute="centerX" secondItem="Pqy-1M-Ome" secondAttribute="centerX" id="OD9-t8-ncZ"/>
-                                            <constraint firstItem="D5c-qx-xxg" firstAttribute="height" secondItem="cwO-8r-9cQ" secondAttribute="height" id="Ofm-9h-BFd"/>
+                                            <constraint firstItem="ZdU-rW-FRu" firstAttribute="height" secondItem="mvO-Np-T6l" secondAttribute="height" id="LhD-iA-e8k"/>
+                                            <constraint firstItem="a7s-he-KVf" firstAttribute="width" secondItem="mvO-Np-T6l" secondAttribute="width" id="N6i-dm-x1P"/>
+                                            <constraint firstItem="ZdU-rW-FRu" firstAttribute="width" secondItem="mvO-Np-T6l" secondAttribute="width" id="NTw-1t-NEr"/>
+                                            <constraint firstItem="ZdU-rW-FRu" firstAttribute="width" secondItem="OZQ-CP-nhM" secondAttribute="width" id="OwU-cQ-zWg"/>
                                             <constraint firstItem="uVi-VL-6Zb" firstAttribute="centerX" secondItem="Pqy-1M-Ome" secondAttribute="centerX" id="P4M-6e-REV"/>
-                                            <constraint firstItem="5rg-QU-EB5" firstAttribute="centerX" secondItem="3pT-Kf-dgU" secondAttribute="centerX" id="PDC-BF-wxm"/>
-                                            <constraint firstItem="W2c-54-9AO" firstAttribute="centerY" secondItem="cwO-8r-9cQ" secondAttribute="centerY" id="PlY-uY-Vrg"/>
-                                            <constraint firstItem="ZMw-sh-15w" firstAttribute="centerY" secondItem="W2c-54-9AO" secondAttribute="centerY" id="QW3-Mq-fOs"/>
-                                            <constraint firstItem="5rg-QU-EB5" firstAttribute="width" secondItem="3pT-Kf-dgU" secondAttribute="width" id="R2y-Vk-uQj"/>
+                                            <constraint firstItem="7M7-b1-aP5" firstAttribute="leading" secondItem="a7s-he-KVf" secondAttribute="trailing" constant="-14.5" id="QKN-ks-YHs"/>
+                                            <constraint firstItem="ZdU-rW-FRu" firstAttribute="height" secondItem="OZQ-CP-nhM" secondAttribute="height" id="QoV-Ip-5gL"/>
+                                            <constraint firstItem="ZdU-rW-FRu" firstAttribute="leading" secondItem="7M7-b1-aP5" secondAttribute="trailing" constant="8" id="Rnr-FB-TmA"/>
                                             <constraint firstAttribute="bottom" secondItem="AOw-yV-9vP" secondAttribute="bottom" id="UnK-6S-XnN"/>
-                                            <constraint firstAttribute="trailing" secondItem="cwO-8r-9cQ" secondAttribute="trailing" constant="35" id="Uom-eU-Csb"/>
-                                            <constraint firstItem="ZMw-sh-15w" firstAttribute="width" secondItem="W2c-54-9AO" secondAttribute="width" id="Ux0-23-hoo"/>
+                                            <constraint firstItem="VEc-RQ-T7Y" firstAttribute="leading" secondItem="mvO-Np-T6l" secondAttribute="trailing" constant="-15" id="VPU-jd-jmF"/>
+                                            <constraint firstItem="a7s-he-KVf" firstAttribute="height" secondItem="mvO-Np-T6l" secondAttribute="height" id="WiT-fI-8nb"/>
                                             <constraint firstItem="aYd-Ui-xPI" firstAttribute="width" secondItem="7M7-b1-aP5" secondAttribute="width" id="XLb-pI-yj2"/>
-                                            <constraint firstItem="7M7-b1-aP5" firstAttribute="top" secondItem="W2c-54-9AO" secondAttribute="top" constant="-13" id="Xes-0j-7Cn"/>
                                             <constraint firstItem="HjE-ki-S41" firstAttribute="height" secondItem="7M7-b1-aP5" secondAttribute="height" id="Ypi-Hr-3zJ"/>
-                                            <constraint firstItem="ZIp-hY-KmT" firstAttribute="centerY" secondItem="7lN-Gv-dEo" secondAttribute="centerY" id="aJ5-6L-LRT"/>
-                                            <constraint firstItem="cwO-8r-9cQ" firstAttribute="leading" secondItem="W2c-54-9AO" secondAttribute="trailing" constant="18" id="abn-Vw-Qkb"/>
-                                            <constraint firstItem="HjE-ki-S41" firstAttribute="trailing" secondItem="7lN-Gv-dEo" secondAttribute="trailing" constant="10" id="apO-LB-U2q"/>
+                                            <constraint firstItem="ZdU-rW-FRu" firstAttribute="leading" secondItem="a7s-he-KVf" secondAttribute="trailing" constant="18.5" id="aN9-6W-1Ud"/>
                                             <constraint firstAttribute="trailing" secondItem="AOw-yV-9vP" secondAttribute="trailing" id="b2E-L2-fpf"/>
                                             <constraint firstItem="VEc-RQ-T7Y" firstAttribute="width" secondItem="7M7-b1-aP5" secondAttribute="width" id="bMh-1P-rvI"/>
-                                            <constraint firstItem="5rg-QU-EB5" firstAttribute="height" secondItem="3pT-Kf-dgU" secondAttribute="height" id="beT-JT-jtl"/>
-                                            <constraint firstItem="7lN-Gv-dEo" firstAttribute="height" secondItem="3pT-Kf-dgU" secondAttribute="height" id="bjR-D1-DSd"/>
-                                            <constraint firstItem="D5c-qx-xxg" firstAttribute="width" secondItem="cwO-8r-9cQ" secondAttribute="width" id="clB-jg-xbQ"/>
-                                            <constraint firstItem="uVi-VL-6Zb" firstAttribute="top" secondItem="7lN-Gv-dEo" secondAttribute="bottom" constant="15" id="d4P-Pw-sCK"/>
-                                            <constraint firstItem="TxX-hF-p8k" firstAttribute="centerY" secondItem="ZIp-hY-KmT" secondAttribute="centerY" id="dVi-08-Wbz"/>
-                                            <constraint firstItem="TxX-hF-p8k" firstAttribute="width" secondItem="ZIp-hY-KmT" secondAttribute="width" id="dz1-YI-c8W"/>
-                                            <constraint firstItem="W2c-54-9AO" firstAttribute="top" secondItem="gqW-IF-1Me" secondAttribute="bottom" constant="25" id="fMG-eu-dow"/>
+                                            <constraint firstItem="BhE-yR-LYC" firstAttribute="width" secondItem="OZQ-CP-nhM" secondAttribute="width" id="cAK-aC-kFb"/>
+                                            <constraint firstItem="OZQ-CP-nhM" firstAttribute="top" secondItem="ZdU-rW-FRu" secondAttribute="bottom" constant="20" id="eco-gx-797"/>
                                             <constraint firstItem="9dz-jy-Rev" firstAttribute="width" secondItem="7M7-b1-aP5" secondAttribute="width" id="fXE-6c-Tst"/>
                                             <constraint firstItem="aYd-Ui-xPI" firstAttribute="height" secondItem="7M7-b1-aP5" secondAttribute="height" id="gOx-cP-4RT"/>
-                                            <constraint firstItem="N9Z-zi-Vne" firstAttribute="height" secondItem="7lN-Gv-dEo" secondAttribute="height" id="h0J-qi-Y8V"/>
-                                            <constraint firstItem="D5c-qx-xxg" firstAttribute="centerX" secondItem="cwO-8r-9cQ" secondAttribute="centerX" id="hEw-Im-Dwo"/>
-                                            <constraint firstItem="N9Z-zi-Vne" firstAttribute="width" secondItem="7lN-Gv-dEo" secondAttribute="width" id="ipB-5n-sYB"/>
-                                            <constraint firstItem="W2c-54-9AO" firstAttribute="width" secondItem="3pT-Kf-dgU" secondAttribute="width" id="mHH-Ef-AHi"/>
-                                            <constraint firstItem="VEc-RQ-T7Y" firstAttribute="top" secondItem="3pT-Kf-dgU" secondAttribute="top" constant="-13" id="nSm-Uh-rv5"/>
-                                            <constraint firstItem="W2c-54-9AO" firstAttribute="leading" secondItem="3pT-Kf-dgU" secondAttribute="trailing" constant="18" id="npi-iy-RpR"/>
+                                            <constraint firstItem="uVi-VL-6Zb" firstAttribute="top" secondItem="BhE-yR-LYC" secondAttribute="bottom" constant="15.5" id="iGw-DE-vyk"/>
+                                            <constraint firstItem="a7s-he-KVf" firstAttribute="centerX" secondItem="Pqy-1M-Ome" secondAttribute="centerX" id="kFo-Dq-aTf"/>
+                                            <constraint firstItem="HjE-ki-S41" firstAttribute="leading" secondItem="BhE-yR-LYC" secondAttribute="trailing" constant="-16" id="oBd-i9-OJI"/>
                                             <constraint firstItem="gqW-IF-1Me" firstAttribute="top" secondItem="Pqy-1M-Ome" secondAttribute="top" constant="25" id="p4F-XC-rQu"/>
-                                            <constraint firstItem="9dz-jy-Rev" firstAttribute="trailing" secondItem="ZIp-hY-KmT" secondAttribute="trailing" constant="10" id="p8n-nx-bVI"/>
-                                            <constraint firstItem="TxX-hF-p8k" firstAttribute="centerX" secondItem="ZIp-hY-KmT" secondAttribute="centerX" id="pRS-dZ-Ud5"/>
-                                            <constraint firstItem="D5c-qx-xxg" firstAttribute="centerY" secondItem="cwO-8r-9cQ" secondAttribute="centerY" id="rqC-v1-mz6"/>
-                                            <constraint firstItem="cwO-8r-9cQ" firstAttribute="width" secondItem="3pT-Kf-dgU" secondAttribute="width" id="tQy-mc-zdN"/>
-                                            <constraint firstItem="ZMw-sh-15w" firstAttribute="centerX" secondItem="W2c-54-9AO" secondAttribute="centerX" id="tT5-R4-Zut"/>
-                                            <constraint firstItem="9dz-jy-Rev" firstAttribute="top" secondItem="ZIp-hY-KmT" secondAttribute="top" constant="-13" id="txb-9O-gZq"/>
-                                            <constraint firstItem="TxX-hF-p8k" firstAttribute="height" secondItem="ZIp-hY-KmT" secondAttribute="height" id="u5U-iz-azO"/>
-                                            <constraint firstItem="7lN-Gv-dEo" firstAttribute="width" secondItem="3pT-Kf-dgU" secondAttribute="width" id="wch-GJ-Ls5"/>
+                                            <constraint firstItem="a7s-he-KVf" firstAttribute="top" secondItem="gqW-IF-1Me" secondAttribute="bottom" constant="25" id="q5G-IV-tzP"/>
+                                            <constraint firstItem="a7s-he-KVf" firstAttribute="centerY" secondItem="mvO-Np-T6l" secondAttribute="centerY" id="qKW-Qs-hJm"/>
+                                            <constraint firstItem="a7s-he-KVf" firstAttribute="leading" secondItem="VEc-RQ-T7Y" secondAttribute="trailing" constant="8" id="r03-tD-YDc"/>
+                                            <constraint firstItem="mvO-Np-T6l" firstAttribute="leading" secondItem="Pqy-1M-Ome" secondAttribute="leading" constant="35" id="r4u-ms-vDK"/>
+                                            <constraint firstItem="mvO-Np-T6l" firstAttribute="top" secondItem="VEc-RQ-T7Y" secondAttribute="bottom" constant="-12" id="sKs-UA-jIB"/>
+                                            <constraint firstItem="BhE-yR-LYC" firstAttribute="centerY" secondItem="OZQ-CP-nhM" secondAttribute="centerY" id="smo-p5-jL5"/>
+                                            <constraint firstItem="9dz-jy-Rev" firstAttribute="leading" secondItem="OZQ-CP-nhM" secondAttribute="trailing" constant="-15" id="uvv-TN-09B"/>
                                             <constraint firstItem="AOw-yV-9vP" firstAttribute="leading" secondItem="Pqy-1M-Ome" secondAttribute="leading" id="xCL-0P-9Zi"/>
                                             <constraint firstAttribute="height" constant="850" id="xMS-r8-ChI"/>
                                             <constraint firstItem="gqW-IF-1Me" firstAttribute="centerX" secondItem="Pqy-1M-Ome" secondAttribute="centerX" id="xa2-w7-3XC"/>
-                                            <constraint firstItem="N9Z-zi-Vne" firstAttribute="centerY" secondItem="7lN-Gv-dEo" secondAttribute="centerY" id="ybG-BA-A5e"/>
-                                            <constraint firstItem="7lN-Gv-dEo" firstAttribute="leading" secondItem="ZIp-hY-KmT" secondAttribute="trailing" constant="18" id="z5L-Sz-IzY"/>
+                                            <constraint firstItem="a7s-he-KVf" firstAttribute="leading" secondItem="mvO-Np-T6l" secondAttribute="trailing" constant="18" id="xup-bj-aFe"/>
+                                            <constraint firstItem="OZQ-CP-nhM" firstAttribute="top" secondItem="a7s-he-KVf" secondAttribute="bottom" constant="20" id="y1l-PA-3xa"/>
+                                            <constraint firstItem="BhE-yR-LYC" firstAttribute="height" secondItem="OZQ-CP-nhM" secondAttribute="height" id="yeo-T3-PtL"/>
                                         </constraints>
                                     </view>
                                 </subviews>
@@ -1606,12 +1676,12 @@
                     <connections>
                         <outlet property="autoPromptTable" destination="bMu-Bk-Waa" id="hRX-AO-XG4"/>
                         <outlet property="autoPromptView" destination="mz9-At-Idg" id="E4k-ca-25E"/>
-                        <outlet property="blackLabel2" destination="ZMw-sh-15w" id="9zS-Ps-rkm"/>
-                        <outlet property="blackLabel3" destination="D5c-qx-xxg" id="HNu-EF-AwA"/>
-                        <outlet property="blackLabel5" destination="N9Z-zi-Vne" id="xI0-eq-v33"/>
-                        <outlet property="blacklabel1" destination="5rg-QU-EB5" id="0Zx-Kf-njl"/>
-                        <outlet property="blacklabel4" destination="TxX-hF-p8k" id="EMq-ih-2Ab"/>
                         <outlet property="bloggersCollectionView" destination="ezQ-yk-oCz" id="z7P-RJ-DmI"/>
+                        <outlet property="btn1Overlay" destination="xpK-GF-hph" id="SFu-1Y-YN2"/>
+                        <outlet property="btn2Overlay" destination="2YY-D4-3pW" id="5P6-IQ-WoB"/>
+                        <outlet property="btn3Overlay" destination="DfG-sT-Tzf" id="RLU-Ta-eQw"/>
+                        <outlet property="btn4Overlay" destination="xjG-Pd-N4V" id="k0h-kh-etq"/>
+                        <outlet property="btn5Overlay" destination="N8N-IE-8sq" id="tl8-QG-r8L"/>
                         <outlet property="button1" destination="3pT-Kf-dgU" id="Jz2-4i-avq"/>
                         <outlet property="button2" destination="W2c-54-9AO" id="A2L-dD-g29"/>
                         <outlet property="button3" destination="cwO-8r-9cQ" id="uTw-KN-ux0"/>
@@ -2613,7 +2683,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="99B8D883-0C8A-490C-8D77-78ABCC8A1FC3" width="16" height="16">
+        <image name="95F7ECDE-A2D4-4A15-8AC4-B35650BFB7C9" width="16" height="16">
             <mutableData key="keyedArchiveRepresentation">
 YnBsaXN0MDDUAQIDBAUGPT5YJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK4HCBMU
 GR4fIyQrLjE3OlUkbnVsbNUJCgsMDQ4PEBESVk5TU2l6ZVYkY2xhc3NcTlNJbWFnZUZsYWdzVk5TUmVw
@@ -2704,7 +2774,6 @@ Di0OMA5CDkUOSgAAAAAAAAIBAAAAAAAAAEEAAAAAAAAAAAAAAAAAAA5MA
         <image name="interest" width="25" height="25"/>
         <image name="interestactive" width="25" height="25"/>
         <image name="likesBlogs" width="16" height="16"/>
-        <image name="overLay" width="307" height="69"/>
         <image name="post" width="74" height="74"/>
         <image name="travelplanbutton" width="17" height="17"/>
         <image name="user" width="16" height="16"/>
