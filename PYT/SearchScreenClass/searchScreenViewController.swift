@@ -583,7 +583,7 @@ class searchScreenViewController: UIViewController, UINavigationControllerDelega
             print(trendingPlacesCollectionView.frame.height)
             
             let width1 = collectionView.frame.size.width/1.16
-            let height3: CGFloat = trendingPlacesCollectionView.frame.height - 20
+            let height3: CGFloat = trendingPlacesCollectionView.frame.height 
             
             return CGSize(width: width1 , height: height3)
             

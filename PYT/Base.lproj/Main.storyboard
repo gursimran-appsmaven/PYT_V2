@@ -321,7 +321,7 @@
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="GTN-Gr-G2c" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="lJP-BG-Gho">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="lJP-BG-Gho">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -927,11 +927,11 @@
                         <viewControllerLayoutGuide type="bottom" id="S47-8T-Vna"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="dkd-X1-QI0">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="750"/>
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="1000"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="a7P-31-naB">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="750"/>
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="1000"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Pqy-1M-Ome">
                                         <rect key="frame" x="0.0" y="0.0" width="600" height="850"/>
@@ -958,7 +958,7 @@
                                                 </constraints>
                                                 <fontDescription key="fontDescription" name="SFUIDisplay-Bold" family="SF UI Display" pointSize="14"/>
                                                 <inset key="titleEdgeInsets" minX="0.0" minY="55" maxX="0.0" maxY="0.0"/>
-                                                <state key="normal" image="F9EEC57E-C328-4FB0-9D34-C8CBA88DBE09"/>
+                                                <state key="normal" image="99B8D883-0C8A-490C-8D77-78ABCC8A1FC3"/>
                                                 <userDefinedRuntimeAttributes>
                                                     <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
                                                         <real key="value" value="5"/>
@@ -1115,7 +1115,7 @@
                                                 <rect key="frame" x="0.0" y="505.5" width="600" height="344.5"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Trending Destinations" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LTM-Z5-MGe">
-                                                        <rect key="frame" x="8" y="4" width="150" height="21"/>
+                                                        <rect key="frame" x="8" y="8" width="150" height="21"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" constant="150" id="IkG-5y-U6o"/>
                                                             <constraint firstAttribute="height" constant="21" id="rhq-N1-oLL"/>
@@ -1124,7 +1124,7 @@
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" alpha="0.75" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Destinations which are loved by travellers" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="a04-pO-JuN">
-                                                        <rect key="frame" x="8" y="25" width="220" height="17"/>
+                                                        <rect key="frame" x="8" y="29" width="220" height="17"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" constant="220" id="IB0-mu-gSE"/>
                                                             <constraint firstAttribute="height" constant="17" id="s6G-vq-ZUQ"/>
@@ -1133,10 +1133,9 @@
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" prefetchingEnabled="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cPa-a3-Wmf">
-                                                        <rect key="frame" x="0.0" y="52" width="600" height="240"/>
-                                                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        <rect key="frame" x="0.0" y="52" width="600" height="220"/>
                                                         <constraints>
-                                                            <constraint firstAttribute="height" constant="240" id="KbJ-ZS-A5W"/>
+                                                            <constraint firstAttribute="height" constant="220" id="KbJ-ZS-A5W"/>
                                                         </constraints>
                                                         <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="7" minimumInteritemSpacing="7" id="oNO-gb-nUr">
                                                             <size key="itemSize" width="50" height="50"/>
@@ -1146,7 +1145,7 @@
                                                         </collectionViewFlowLayout>
                                                         <cells>
                                                             <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" restorationIdentifier="locationsCell" reuseIdentifier="trendingCell" id="ijV-SS-pTK" customClass="locationsCell" customModule="PYT" customModuleProvider="target">
-                                                                <rect key="frame" x="0.0" y="20" width="200" height="200"/>
+                                                                <rect key="frame" x="0.0" y="10" width="200" height="200"/>
                                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                                                     <rect key="frame" x="0.0" y="0.0" width="200" height="200"/>
@@ -1193,7 +1192,7 @@
                                                         </connections>
                                                     </collectionView>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Travel Gurus" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7fJ-Ei-igS">
-                                                        <rect key="frame" x="8" y="301" width="83" height="21"/>
+                                                        <rect key="frame" x="8" y="280" width="82.5" height="21"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="21" id="5n7-2x-7x3"/>
                                                         </constraints>
@@ -1201,7 +1200,7 @@
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" alpha="0.75" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Inspiration from the best travel bloggers" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oM1-B3-Teh">
-                                                        <rect key="frame" x="8" y="322" width="214" height="17"/>
+                                                        <rect key="frame" x="8" y="301" width="206" height="17"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="17" id="waw-LU-zYL"/>
                                                         </constraints>
@@ -1209,12 +1208,11 @@
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" prefetchingEnabled="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ezQ-yk-oCz">
-                                                        <rect key="frame" x="0.0" y="348" width="600" height="200"/>
-                                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                        <rect key="frame" x="0.0" y="324" width="600" height="200"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="200" id="Oh0-JM-kSf"/>
                                                         </constraints>
-                                                        <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="7" minimumInteritemSpacing="7" id="coq-tE-udM">
+                                                        <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="0.0" minimumInteritemSpacing="7" id="coq-tE-udM">
                                                             <size key="itemSize" width="50" height="50"/>
                                                             <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                                             <size key="footerReferenceSize" width="0.0" height="0.0"/>
@@ -1368,7 +1366,7 @@
                                                         </cells>
                                                     </collectionView>
                                                     <label hidden="YES" opaque="NO" userInteractionEnabled="NO" alpha="0.34999999999999998" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CHn-jF-a8u">
-                                                        <rect key="frame" x="-0.5" y="348" width="600" height="200"/>
+                                                        <rect key="frame" x="-0.5" y="324" width="600" height="200"/>
                                                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="15"/>
                                                         <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -1383,14 +1381,14 @@
                                                     <constraint firstItem="CHn-jF-a8u" firstAttribute="centerY" secondItem="ezQ-yk-oCz" secondAttribute="centerY" id="IHY-PA-kcd"/>
                                                     <constraint firstItem="cPa-a3-Wmf" firstAttribute="leading" secondItem="AOw-yV-9vP" secondAttribute="leading" id="K0a-zZ-Ks7"/>
                                                     <constraint firstItem="ezQ-yk-oCz" firstAttribute="leading" secondItem="cPa-a3-Wmf" secondAttribute="leading" id="Lwq-qv-lGS"/>
-                                                    <constraint firstItem="LTM-Z5-MGe" firstAttribute="top" secondItem="AOw-yV-9vP" secondAttribute="top" constant="4" id="N9Y-wK-Qke"/>
-                                                    <constraint firstItem="ezQ-yk-oCz" firstAttribute="top" secondItem="oM1-B3-Teh" secondAttribute="bottom" constant="9" id="WIY-pW-0Y9"/>
+                                                    <constraint firstItem="LTM-Z5-MGe" firstAttribute="top" secondItem="AOw-yV-9vP" secondAttribute="top" constant="8" id="N9Y-wK-Qke"/>
+                                                    <constraint firstItem="ezQ-yk-oCz" firstAttribute="top" secondItem="oM1-B3-Teh" secondAttribute="bottom" constant="6" id="WIY-pW-0Y9"/>
                                                     <constraint firstItem="7fJ-Ei-igS" firstAttribute="leading" secondItem="LTM-Z5-MGe" secondAttribute="leading" id="Zxp-Ce-EUX"/>
-                                                    <constraint firstItem="cPa-a3-Wmf" firstAttribute="top" secondItem="a04-pO-JuN" secondAttribute="bottom" constant="10" id="a1F-ky-mbm"/>
+                                                    <constraint firstItem="cPa-a3-Wmf" firstAttribute="top" secondItem="a04-pO-JuN" secondAttribute="bottom" constant="6" id="a1F-ky-mbm"/>
                                                     <constraint firstItem="CHn-jF-a8u" firstAttribute="width" secondItem="ezQ-yk-oCz" secondAttribute="width" id="bEz-w7-qZb"/>
                                                     <constraint firstItem="oM1-B3-Teh" firstAttribute="leading" secondItem="a04-pO-JuN" secondAttribute="leading" id="h17-Sc-iMi"/>
                                                     <constraint firstItem="ezQ-yk-oCz" firstAttribute="trailing" secondItem="cPa-a3-Wmf" secondAttribute="trailing" id="hta-MI-9aL"/>
-                                                    <constraint firstItem="7fJ-Ei-igS" firstAttribute="top" secondItem="cPa-a3-Wmf" secondAttribute="bottom" constant="9" id="lPq-ui-Nat"/>
+                                                    <constraint firstItem="7fJ-Ei-igS" firstAttribute="top" secondItem="cPa-a3-Wmf" secondAttribute="bottom" constant="8" id="lPq-ui-Nat"/>
                                                     <constraint firstItem="CHn-jF-a8u" firstAttribute="centerX" secondItem="ezQ-yk-oCz" secondAttribute="centerX" id="pgb-Dj-8sD"/>
                                                     <constraint firstItem="a04-pO-JuN" firstAttribute="top" secondItem="LTM-Z5-MGe" secondAttribute="bottom" id="sje-RC-5yD"/>
                                                     <constraint firstItem="a04-pO-JuN" firstAttribute="leading" secondItem="AOw-yV-9vP" secondAttribute="leading" constant="8" id="val-XB-A0d"/>
@@ -1489,11 +1487,11 @@
                                     <constraint firstItem="Pqy-1M-Ome" firstAttribute="centerX" secondItem="a7P-31-naB" secondAttribute="centerX" id="pnq-PI-kSb"/>
                                 </constraints>
                             </scrollView>
-                            <view hidden="YES" tag="5556" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mz9-At-Idg">
-                                <rect key="frame" x="0.0" y="220" width="600" height="530"/>
+                            <view hidden="YES" tag="5556" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="mz9-At-Idg">
+                                <rect key="frame" x="0.0" y="-1000" width="600" height="530"/>
                                 <subviews>
                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="50" sectionHeaderHeight="1" sectionFooterHeight="1" translatesAutoresizingMaskIntoConstraints="NO" id="bMu-Bk-Waa">
-                                        <rect key="frame" x="0.0" y="49" width="600" height="481"/>
+                                        <rect key="frame" x="0.0" y="49" width="600" height="731"/>
                                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="0.77992021280000001" colorSpace="custom" customColorSpace="sRGB"/>
                                         <prototypes>
                                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="promptCell" id="o1P-2y-2M0">
@@ -1522,7 +1520,7 @@
                                         </connections>
                                     </tableView>
                                     <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sks-Fl-Lh9">
-                                        <rect key="frame" x="0.0" y="49" width="600" height="481"/>
+                                        <rect key="frame" x="0.0" y="49" width="600" height="731"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="No Location Found" textAlignment="center" lineBreakMode="middleTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SmF-4n-V5e">
                                                 <rect key="frame" x="194" y="246" width="212" height="30"/>
@@ -1604,7 +1602,7 @@
                         </constraints>
                     </view>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-                    <size key="freeformSize" width="600" height="750"/>
+                    <size key="freeformSize" width="600" height="1000"/>
                     <connections>
                         <outlet property="autoPromptTable" destination="bMu-Bk-Waa" id="hRX-AO-XG4"/>
                         <outlet property="autoPromptView" destination="mz9-At-Idg" id="E4k-ca-25E"/>
@@ -2615,10 +2613,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="Add" width="16" height="16"/>
-        <image name="Discover" width="25" height="25"/>
-        <image name="Discoveractive" width="25" height="25"/>
-        <image name="F9EEC57E-C328-4FB0-9D34-C8CBA88DBE09" width="16" height="16">
+        <image name="99B8D883-0C8A-490C-8D77-78ABCC8A1FC3" width="16" height="16">
             <mutableData key="keyedArchiveRepresentation">
 YnBsaXN0MDDUAQIDBAUGPT5YJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK4HCBMU
 GR4fIyQrLjE3OlUkbnVsbNUJCgsMDQ4PEBESVk5TU2l6ZVYkY2xhc3NcTlNJbWFnZUZsYWdzVk5TUmVw
@@ -2686,6 +2681,9 @@ ALsAvQDCANkA2wDdDX8NhA2PDZgNqw2vDboNww3IDdAN0w3YDecN6w3yDfoOBw4MDg4OEA4VDh0OIA4l
 Di0OMA5CDkUOSgAAAAAAAAIBAAAAAAAAAEEAAAAAAAAAAAAAAAAAAA5MA
 </mutableData>
         </image>
+        <image name="Add" width="16" height="16"/>
+        <image name="Discover" width="25" height="25"/>
+        <image name="Discoveractive" width="25" height="25"/>
         <image name="Like" width="22" height="22"/>
         <image name="Logo" width="188" height="121"/>
         <image name="LogoBlack" width="16" height="16"/>
@@ -2707,6 +2705,8 @@ Di0OMA5CDkUOSgAAAAAAAAIBAAAAAAAAAEEAAAAAAAAAAAAAAAAAAA5MA
         <image name="interestactive" width="25" height="25"/>
         <image name="likesBlogs" width="16" height="16"/>
         <image name="overLay" width="307" height="69"/>
+        <image name="post" width="74" height="74"/>
+        <image name="travelplanbutton" width="17" height="17"/>
         <image name="user" width="16" height="16"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
