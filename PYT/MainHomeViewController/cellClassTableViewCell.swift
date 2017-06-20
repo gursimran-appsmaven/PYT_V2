@@ -34,8 +34,8 @@ class cellClassTableViewCell: UITableViewCell{
     override func awakeFromNib() {
         super.awakeFromNib()
               
-        ChatButton.layer.cornerRadius = 10.0
-        ChatButton.clipsToBounds = true
+//        ChatButton.layer.cornerRadius = 10.0
+//        ChatButton.clipsToBounds = true
         
         userProfilePic.layer.cornerRadius = userProfilePic.frame.size.width/2
         userProfilePic.clipsToBounds=true
@@ -134,6 +134,7 @@ class collectionViewCellClassFeed: UICollectionViewCell {
     @IBOutlet weak var likeButton: UIButton!
     @IBOutlet weak var menuButton: UIButton!
     @IBOutlet weak var planButton: UIButton!
+    @IBOutlet weak var overlay: GradientView!
     
     
     

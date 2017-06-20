@@ -352,6 +352,10 @@ class mainHomeViewController: UIViewController, SDWebImageManagerDelegate, apiCl
         if ArrToSeperate.count>0 {
             globalLocation=ArrToSeperate[0] as String as NSString
         }
+       
+        
+        
+
         
       
         
@@ -505,17 +509,18 @@ class mainHomeViewController: UIViewController, SDWebImageManagerDelegate, apiCl
        
         
         segmentControl.clipsToBounds=true
-        segmentControl.sectionTitles = temAr as! [String]
         segmentControl.autoresizingMask = [.flexibleRightMargin, .flexibleWidth]
         segmentControl.selectionStyle = HMSegmentedControlSelectionStyle.fullWidthStripe
         segmentControl.selectionIndicatorLocation = HMSegmentedControlSelectionIndicatorLocation.down
-        segmentControl.selectionIndicatorColor = UIColor(red: 157/255, green: 194/255, blue: 134/255, alpha: 1.0)
+        segmentControl.selectionIndicatorColor = UIColor(red: 255/255, green: 80/255, blue: 80/255, alpha: 1.0)
         segmentControl.selectionIndicatorHeight=3.0
         segmentControl.isVerticalDividerEnabled = true
         segmentControl.verticalDividerColor = UIColor.clear
         segmentControl.verticalDividerWidth = 0.8
         segmentControl.backgroundColor = UIColor.clear
-        //segmentControl.selectedSegmentIndex=selectedindxSearch
+        segmentControl.titleTextAttributes = [NSFontAttributeName: UIFont(name: "SFUIDisplay-Regular", size: 13.0)! ]
+         segmentControl.selectedTitleTextAttributes = [NSFontAttributeName: UIFont(name: "SFUIDisplay-Bold", size: 13.0)! ]
+        segmentControl.selectionStyle = HMSegmentedControlSelectionStyle.fullWidthStripe
         segmentControl.setSelectedSegmentIndex(UInt(selectedindxSearch), animated: true)
     
         segmentControl.addTarget(self, action: #selector(self.segmentedControlChangedValue), for: .valueChanged)
@@ -1102,8 +1107,8 @@ class mainHomeViewController: UIViewController, SDWebImageManagerDelegate, apiCl
         if indexPath.row < dataArray.count
         {
             let widthTotal = self.view.frame.size.width / 2
-             self.imagesTableView.rowHeight = widthTotal + 77
-            return widthTotal + 77
+             self.imagesTableView.rowHeight = widthTotal + 100
+            return widthTotal + 100
         }
         else
         {
@@ -3508,8 +3513,8 @@ extension mainHomeViewController: UICollectionViewDelegate, UICollectionViewData
           
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cellCollectionView",for: indexPath) as! collectionViewCellClassFeed
            
-            cell.layer.cornerRadius=8
-            cell.clipsToBounds=true
+//            cell.layer.cornerRadius=0
+//            cell.clipsToBounds=true
             
             if self.arrayOfimages1.count<1 {
                 
@@ -3628,7 +3633,7 @@ extension mainHomeViewController: UICollectionViewDelegate, UICollectionViewData
                     
                 }
                 
-                
+
                                
                 
                 let activityIndicatorView = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.gray)
@@ -4010,8 +4015,11 @@ extension mainHomeViewController: UICollectionViewDelegate, UICollectionViewData
                 
                 locationimage.sd_setImage(with: url2, placeholderImage: UIImage (named: "backgroundImage"))
                 
+                let gradient = cell.viewWithTag(7499) as! GradientView
                 
-                
+                gradient.gradientLayer.colors = [UIColor.black.withAlphaComponent(0.5).cgColor, UIColor.clear.cgColor]
+                gradient.gradientLayer.gradient = GradientPoint.bottomTop.draw()
+
                 
                 
                 
@@ -4073,12 +4081,12 @@ extension mainHomeViewController: UICollectionViewDelegate, UICollectionViewData
     }
     
     
-     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAtIndex section: Int) -> UIEdgeInsets {
-        // return UIEdgeInsetsMake(0,8,0,8);  // top, left, bottom, right
-        
-        return UIEdgeInsetsMake(0, 4, 0, 4)
-        // top, left, bottom, right
-    }
+//     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAtIndex section: Int) -> UIEdgeInsets {
+//        // return UIEdgeInsetsMake(0,8,0,8);  // top, left, bottom, right
+//        
+//        return UIEdgeInsetsMake(0, 0, 0, 0)
+//        // top, left, bottom, right
+//    }
     
     
    
