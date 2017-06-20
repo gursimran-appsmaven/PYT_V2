@@ -34,7 +34,7 @@ class storyCountClass: NSObject
         if isConnectedInternet
         {
            
-            var urlString = NSString(string:"\(appUrl)get_story_count")
+            var urlString = NSString(string:"\(appUrl)get_story")
          
             
             
@@ -95,9 +95,9 @@ class storyCountClass: NSObject
                                     
                                    // if jsonArray.count>0{
                                         countArray=basicInfo
-                                        
-                                        print(countArray.value(forKey: "storyCount"))
-                                        print(countArray.value(forKey: "storyImages"))
+                                        print(basicInfo)
+                                        print(countArray.value(forKey: "storyCount")!)
+                                        print(countArray.value(forKey: "storyImages")!)
                                         
                                         bucketListTotalCount = "0"
                                         if countArray.object(forKey: "bucketCount") != nil {
