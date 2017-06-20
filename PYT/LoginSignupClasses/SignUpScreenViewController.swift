@@ -276,9 +276,9 @@ class SignUpScreenViewController: UIViewController, apiClassDelegate {
                     let accessToken = token! // set access token to global for use
                     
                     
-                    let defaults = UserDefaults.standard
-                    defaults.set(accessToken, forKey: "faceBookAccessToken")
-                    defaults.set("", forKey: "instagramAccessToken")
+                   
+                    Udefaults.set(accessToken, forKey: "faceBookAccessToken")
+                    Udefaults.set("", forKey: "instagramAccessToken")
                     
                     self.getFBUserData(id: token2! as NSString, token: token! as NSString) // call  api for testing
                     
@@ -311,14 +311,14 @@ class SignUpScreenViewController: UIViewController, apiClassDelegate {
     func getFBUserData(id:NSString,token:NSString)
     {
         
-        let tokendevice = defaults.string(forKey: "deviceToken")!
+        let tokendevice = Udefaults.string(forKey: "deviceToken")!
         print(tokendevice)
         
         if((FBSDKAccessToken.current()) != nil)
         {
             
-            defaults.set(true, forKey: "social")
-            defaults.synchronize()
+            Udefaults.set(true, forKey: "social")
+            Udefaults.synchronize()
             
             
             let parameterDict: NSDictionary = ["fbId": id, "accessToken": token, "deviceToken": ["token": "", "device": "iphone"]]
@@ -359,9 +359,9 @@ class SignUpScreenViewController: UIViewController, apiClassDelegate {
                 print(pytUserId)
                 let pytUserName = jsonResult.value(forKey: "name") as? String ?? ""
                 let pytUserProfilePic = jsonResult.value(forKey: "profilePic") as? String ?? ""
-                defaults.set(pytUserId, forKey: "userLoginId")
-                defaults.set(pytUserName, forKey: "userLoginName")
-                defaults.set(pytUserProfilePic, forKey: "userProfilePic")
+                Udefaults.set(pytUserId, forKey: "userLoginId")
+                Udefaults.set(pytUserName, forKey: "userLoginName")
+                Udefaults.set(pytUserProfilePic, forKey: "userProfilePic")
                 
                 
                 
@@ -426,7 +426,7 @@ class SignUpScreenViewController: UIViewController, apiClassDelegate {
             else
             {
                 
-                defaults.set("", forKey: "userLoginId")
+                Udefaults.set("", forKey: "userLoginId")
                 
                 CommonFunctionsClass.sharedInstance().showAlert(title: "Session Expire", text: "Your session is expired, Please login again", imageName: "alertDelete")
                 
@@ -444,7 +444,7 @@ class SignUpScreenViewController: UIViewController, apiClassDelegate {
     
     func moveinsideApp() -> Void
     {
-        let uId = defaults .string(forKey: "userLoginId")
+        let uId = Udefaults .string(forKey: "userLoginId")
         
         
         

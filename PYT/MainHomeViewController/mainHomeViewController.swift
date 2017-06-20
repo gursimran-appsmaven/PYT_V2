@@ -26,6 +26,8 @@ class mainHomeViewController: UIViewController, SDWebImageManagerDelegate, apiCl
     var showTooltips = Bool()
     var showApiHitted = Bool()
     var segmentBool = Bool()
+    var planAllLocation = Bool()
+    
     
     //Main View outlets
     @IBOutlet var imagesTableView: UITableView!
@@ -117,7 +119,7 @@ class mainHomeViewController: UIViewController, SDWebImageManagerDelegate, apiCl
     var likeCount = NSMutableArray()//Array to temporary save the likes
     var reuseData = NSMutableDictionary()//dictionary to avoid again and again call the api of search
     var pageNumber:Int = 1
-    var defaults = UserDefaults.standard
+    //var defaults = UserDefaults.standard
     var uId = ""
     
    
@@ -155,7 +157,7 @@ class mainHomeViewController: UIViewController, SDWebImageManagerDelegate, apiCl
             //Ensures that views are not underneath the tab bar
          apiClass.sharedInstance().delegate=self //delegate for response api
         
-        let tagsArr: NSMutableArray = defaults.mutableArrayValue(forKey: "categoriesFromWeb")
+        let tagsArr: NSMutableArray = Udefaults.mutableArrayValue(forKey: "categoriesFromWeb")
         
         if tagsArr.count<1
         {
@@ -178,49 +180,13 @@ class mainHomeViewController: UIViewController, SDWebImageManagerDelegate, apiCl
         self.tabBarController?.tabBar.isHidden = false
        
        
-
-        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + Double(Int64(1 * NSEC_PER_SEC)) / Double(NSEC_PER_SEC), execute: {() -> Void in
-            
-           //print(countArray)
-            
-            //self.storyListCount.text="0"
-            
-            if countArray.object(forKey: "storyCount") != nil {
-                if let stCount = countArray.value(forKey: "storyCount"){
-                    
-                    //self.storyListCount.text=String(describing: stCount)
-                }
-
-            }
-            
-            
-            
-            
-            if countArray.object(forKey: "bucketCount") != nil {
-                if let bktCount = countArray.value(forKey: "bucketCount"){
-                    
-                    bucketListTotalCount=String(describing: bktCount)
-                }
-                
-            }
-            
-           
-            
-            
-           // self.bucketListCount.text = bucketListTotalCount
-            
-            
-            
-        })
         
         
         
         
         
-        //Manage tool tips 
-        
-        if defaults.integer(forKey: "indexToolTips") == 5 || defaults.integer(forKey: "indexToolTips") == 6 {
-         //Not show the tool tips of story and bucket
+        //Manage tool tips
+        if Udefaults.integer(forKey: "indexToolTips") == 5 || Udefaults.integer(forKey: "indexToolTips") == 6 {
         }
         else{
         self.manageToolsTipsShow()
@@ -243,51 +209,51 @@ class mainHomeViewController: UIViewController, SDWebImageManagerDelegate, apiCl
     {
         //mange tool tips
         
-        if defaults .integer(forKey: "indexToolTips") < 7 {
+        if Udefaults .integer(forKey: "indexToolTips") < 7 {
             showTooltips = true
             
-            //defaults.setInteger(9, forKey: "indexToolTips")
+            //Udefaults.setInteger(9, forKey: "indexToolTips")
             
             if userDetailArray.count > 0 {
                 
-                if defaults.integer(forKey: "indexToolTips") == 0
+                if Udefaults.integer(forKey: "indexToolTips") == 0
                 {
                // toolTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(self.addToolTip), userInfo: nil, repeats: false)
                 }
                     
-                else if defaults.integer(forKey: "indexToolTips") == 1
+                else if Udefaults.integer(forKey: "indexToolTips") == 1
                 {
                    // toolTimer = Timer.scheduledTimer(timeInterval: 2, target: self, selector: #selector(self.addToolTip), userInfo: nil, repeats: false)
                     
                 }
                     
-                else if  defaults.integer(forKey: "indexToolTips") == 2
+                else if  Udefaults.integer(forKey: "indexToolTips") == 2
                 {
                     
                    // toolTimer = Timer.scheduledTimer(timeInterval: 3, target: self, selector: #selector(self.addToolTip), userInfo: nil, repeats: false)
                     
                 }
                     
-                else if defaults.integer(forKey: "indexToolTips") == 3
+                else if Udefaults.integer(forKey: "indexToolTips") == 3
                 {
                    // toolTimer = Timer.scheduledTimer(timeInterval: 3, target: self, selector: #selector(self.addToolTip), userInfo: nil, repeats: false)
                     
                 }
                     
-                else if defaults.integer(forKey: "indexToolTips") == 4
+                else if Udefaults.integer(forKey: "indexToolTips") == 4
                 {
                    // toolTimer = Timer.scheduledTimer(timeInterval: 3, target: self, selector: #selector(self.addToolTip), userInfo: nil, repeats: false)
                   
                 }
                     
                     
-                else if defaults.integer(forKey: "indexToolTips") == 5
+                else if Udefaults.integer(forKey: "indexToolTips") == 5
                 {
                     //toolTimer = Timer.scheduledTimer(timeInterval: 1.5, target: self, selector: #selector(self.addToolTip), userInfo: nil, repeats: false)
                     
                 }
                     
-                else if defaults.integer(forKey: "indexToolTips") == 6
+                else if Udefaults.integer(forKey: "indexToolTips") == 6
                 {
                    // toolTimer = Timer.scheduledTimer(timeInterval: 1.5, target: self, selector: #selector(self.addToolTip), userInfo: nil, repeats: false)
                     
@@ -299,7 +265,7 @@ class mainHomeViewController: UIViewController, SDWebImageManagerDelegate, apiCl
                 else
                 {
                     
-                    //self.addToolTip(defaults .integerForKey("indexToolTips"))
+                    //self.addToolTip(Udefaults .integerForKey("indexToolTips"))
                 }
                 
                 
@@ -336,6 +302,19 @@ class mainHomeViewController: UIViewController, SDWebImageManagerDelegate, apiCl
     //MARK:-
     func segmentedControlChangedValue(_ segmentedControl: HMSegmentedControl) {
         
+        planAllLocation = false
+        if countArray.count>0 {
+            
+            let placeIds = (countArray.value(forKey: "_id")) as! NSArray
+            print(placeIds)
+            print(globalPlaceid)
+            if placeIds.contains("58c3c09336f8b6180feea0c6"){//(globalPlaceid) {
+                print("Contains story")
+                
+                storyCollectionView .reloadData()
+            }
+            
+        }
         
         segmentBool = true
         storedOffsets.removeAll()
@@ -372,8 +351,8 @@ class mainHomeViewController: UIViewController, SDWebImageManagerDelegate, apiCl
         
         ////Set true to reload the data in iterest screen
         
-        defaults.set(true, forKey: "refreshInterest")
-      defaults.synchronize()
+        Udefaults.set(true, forKey: "refreshInterest")
+      Udefaults.synchronize()
         
         //call api
         
@@ -409,9 +388,9 @@ class mainHomeViewController: UIViewController, SDWebImageManagerDelegate, apiCl
           apiClass.sharedInstance().delegate=self //delegate for response api
     
         
-        uId = defaults .string(forKey: "userLoginId")!
+        uId = Udefaults .string(forKey: "userLoginId")!
         
-        print(defaults .integer(forKey: "indexToolTips"))
+        print(Udefaults .integer(forKey: "indexToolTips"))
        
        
         
@@ -434,8 +413,8 @@ class mainHomeViewController: UIViewController, SDWebImageManagerDelegate, apiCl
         
        ////---- get data of saved intrests -----///////
         
-        tabledata = defaults.array(forKey: "arrayOfIntrest") as! NSMutableArray
-        //(UserDefaults.standard.array(forKey: "arrayOfIntrest")! as [Any])
+        tabledata = Udefaults.array(forKey: "arrayOfIntrest") as! NSMutableArray
+        //(Userdefaults.standard.array(forKey: "arrayOfIntrest")! as [Any])
         //print(tabledata)
         
         globalLocation = (tabledata .object(at: selectedindxSearch) as AnyObject).value(forKey: "location") as! NSString
@@ -561,6 +540,11 @@ class mainHomeViewController: UIViewController, SDWebImageManagerDelegate, apiCl
 
          NotificationCenter.default.addObserver(self, selector: #selector(mainHomeViewController.loadCount(_:)),name:NSNotification.Name(rawValue: "loadCount"), object: nil)
 
+       // let notName = NSNotification.Name("loadCount")
+        //NotificationCenter.default.addObserver(self, selector: #selector(self.loadCount(_:)), name: notName, object: nil)
+        
+        
+        
         
         
         NotificationCenter.default.addObserver(self, selector: #selector(mainHomeViewController.loadDeletedCell(_:)),name:NSNotification.Name(rawValue: "loadDeleteinHome"), object: nil)
@@ -588,11 +572,12 @@ class mainHomeViewController: UIViewController, SDWebImageManagerDelegate, apiCl
     
     //Function to add tooltips into the controller
     
-    func addToolTip() {
+    func addToolTip()
+    {
+    let tipsNumber = Udefaults .integer(forKey: "indexToolTips")
         
-    let tipsNumber = self.defaults .integer(forKey: "indexToolTips")
-        
-        for view in self.tipsView.subviews {
+        for view in self.tipsView.subviews
+        {
             view.removeFromSuperview()
         }
         
@@ -627,7 +612,7 @@ class mainHomeViewController: UIViewController, SDWebImageManagerDelegate, apiCl
             buttonTips.addTarget(self, action: #selector(self.tempLike), for: UIControlEvents .touchUpInside)
             tipsView .addSubview(buttonTips)
             
-            defaults .set(1, forKey: "indexToolTips")
+            Udefaults .set(1, forKey: "indexToolTips")
             
 
             
@@ -652,7 +637,7 @@ class mainHomeViewController: UIViewController, SDWebImageManagerDelegate, apiCl
             buttonTips.addTarget(self, action: #selector(mainHomeViewController.tempMore), for: UIControlEvents .touchUpInside)
             tipsView .addSubview(buttonTips)
             
-            defaults .set(2, forKey: "indexToolTips")
+            Udefaults .set(2, forKey: "indexToolTips")
             
             
            
@@ -679,7 +664,7 @@ class mainHomeViewController: UIViewController, SDWebImageManagerDelegate, apiCl
             buttonTips.addTarget(self, action: #selector(self.tempchat), for: UIControlEvents .touchUpInside)
             tipsView .addSubview(buttonTips)
             
-            defaults .set(3, forKey: "indexToolTips")
+            Udefaults .set(3, forKey: "indexToolTips")
             
             break
             
@@ -698,7 +683,7 @@ class mainHomeViewController: UIViewController, SDWebImageManagerDelegate, apiCl
             buttonTips.addTarget(self, action: #selector(mainHomeViewController.tempSearch), for: UIControlEvents .touchUpInside)
             tipsView .addSubview(buttonTips)
             
-            defaults .set(4, forKey: "indexToolTips")
+            Udefaults .set(4, forKey: "indexToolTips")
             
             
             
@@ -723,7 +708,7 @@ class mainHomeViewController: UIViewController, SDWebImageManagerDelegate, apiCl
             buttonTips.addTarget(self, action: #selector(mainHomeViewController.tempPostScreen), for: UIControlEvents .touchUpInside)
             tipsView .addSubview(buttonTips)
             
-            defaults .set(5, forKey: "indexToolTips")
+            Udefaults .set(5, forKey: "indexToolTips")
             //
             
            
@@ -747,7 +732,7 @@ class mainHomeViewController: UIViewController, SDWebImageManagerDelegate, apiCl
             buttonTips.addTarget(self, action: #selector(mainHomeViewController.tempStoryScreen), for: UIControlEvents .touchUpInside)
             tipsView .addSubview(buttonTips)
             
-            defaults .set(6, forKey: "indexToolTips")
+            Udefaults .set(6, forKey: "indexToolTips")
             
             
             
@@ -769,7 +754,7 @@ class mainHomeViewController: UIViewController, SDWebImageManagerDelegate, apiCl
             buttonTips.addTarget(self, action: #selector(mainHomeViewController.tempBucket), for: UIControlEvents .touchUpInside)
             tipsView .addSubview(buttonTips)
             
-            defaults .set(7, forKey: "indexToolTips")
+            Udefaults .set(7, forKey: "indexToolTips")
             
             break
         
@@ -947,26 +932,50 @@ class mainHomeViewController: UIViewController, SDWebImageManagerDelegate, apiCl
     func loadCount(_ notification: Notification){
         //load data here
         
-       // self.storyListCount.text="0"
+      
+       print(countArray.count)
       
         
-        if countArray.object(forKey: "storyCount") != nil {
-            if let stCount = countArray.value(forKey: "storyCount"){
+        if countArray.count>0 {
+            
+            let placeIds = (countArray.value(forKey: "_id")) as! NSArray
+            
+            if placeIds.contains(globalPlaceid) {
+                print("Contains story")
                 
-               // self.storyListCount.text=String(describing: stCount)
             }
             
+            storyCollectionView.reloadData()
         }
         
-        if countArray.object(forKey: "bucketCount") != nil {
-            if let stCount = countArray.value(forKey: "bucketCount"){
-                
-                bucketListTotalCount=String(describing: stCount)
-            }
-            
-        }
+       
         
-       // bucketListCount.text=bucketListTotalCount
+        
+        
+       
+        
+        
+//        if countArray.object(forKey: "storyCount") != nil {
+//            if let stCount = countArray.value(forKey: "storyCount"){
+//                
+//               // self.storyListCount.text=String(describing: stCount)
+//            }
+//            
+//        }
+//        
+//        if countArray.object(forKey: "bucketCount") != nil {
+//            if let stCount = countArray.value(forKey: "bucketCount"){
+//                
+//                bucketListTotalCount=String(describing: stCount)
+//            }
+//            
+//        }
+        
+        
+        
+        
+        
+       
     }
 
     
@@ -1027,11 +1036,11 @@ class mainHomeViewController: UIViewController, SDWebImageManagerDelegate, apiCl
             
             imagesTableView.isUserInteractionEnabled = false
             //check the count of story is avaliable or not
-             if countArray.object(forKey: "storyImages") != nil  {
+             if countArray.count < 1  {
                 
                 self.callApi(globalPlaceid, type: globalType)
                 
-                //self.callApi(globalLocation, latitide: globalLatitide, longitude: globalLongitude, type: globalType, country: globalCountry)
+               
             }
                 
              else
@@ -1626,19 +1635,6 @@ class mainHomeViewController: UIViewController, SDWebImageManagerDelegate, apiCl
         countst = 0
        
         
-        if countArray.object(forKey: "storyCount") != nil  {
-           
-            countst = countArray.value(forKey: "storyCount") as! NSNumber
-            
-            
-           //print(countst)
-        
-        }
-        
-        
-            
-       
-        
         
         
         if  addStoryLabelInPopup.text=="Add To Plan" {
@@ -1700,7 +1696,7 @@ class mainHomeViewController: UIViewController, SDWebImageManagerDelegate, apiCl
         
         self.tempFunc()
         
-        if defaults.integer(forKey: "indexToolTips") == 5 {
+        if Udefaults.integer(forKey: "indexToolTips") == 5 {
              self.manageToolsTipsShow()
         }
        
@@ -1854,7 +1850,7 @@ class mainHomeViewController: UIViewController, SDWebImageManagerDelegate, apiCl
         var arrId = NSArray()
         arrId = (self.arrayOfimages1[tableIndex] as AnyObject).value(forKey: "id") as! NSArray
         let imageId = arrId[collectionIndex] as? String ?? ""
-        let userNameMy = defaults.string(forKey: "userLoginName")
+        let userNameMy = Udefaults.string(forKey: "userLoginName")
         
         let otherUserId = (userDetailArray.object(at: tableIndex) as AnyObject).value(forKey: "id") as? String ?? ""
         
@@ -2094,7 +2090,7 @@ class mainHomeViewController: UIViewController, SDWebImageManagerDelegate, apiCl
         
         self.tempFunc()
         
-        if defaults.integer(forKey: "indexToolTips") == 6 {
+        if Udefaults.integer(forKey: "indexToolTips") == 6 {
             self.manageToolsTipsShow()
         }
 
@@ -2378,7 +2374,7 @@ class mainHomeViewController: UIViewController, SDWebImageManagerDelegate, apiCl
         //// hide the view
         if showView==false {
             
-            if defaults.integer(forKey: "indexToolTips") < 5 {
+            if Udefaults.integer(forKey: "indexToolTips") < 5 {
                  self.manageToolsTipsShow()
             }
            
@@ -2577,8 +2573,8 @@ class mainHomeViewController: UIViewController, SDWebImageManagerDelegate, apiCl
           OperationQueue.main.cancelAllOperations() //clear all the queues
             
         
-        defaults.set(true, forKey: "refreshInterest")
-        defaults.synchronize()
+        Udefaults.set(true, forKey: "refreshInterest")
+        Udefaults.synchronize()
         
         let arrayOfKeys:NSArray = self.reuseData.allKeys as NSArray
         if (arrayOfKeys.contains(self.globalLocation)) {
@@ -2750,7 +2746,7 @@ class mainHomeViewController: UIViewController, SDWebImageManagerDelegate, apiCl
                 {
                     if showTooltips == true
                     {
-                        let indxtoolTip = defaults .integer(forKey: "indexToolTips")
+                        let indxtoolTip = Udefaults .integer(forKey: "indexToolTips")
                         
                         //toolTimer = Timer.scheduledTimer(timeInterval: 2, target: self, selector: #selector(self.addToolTip), userInfo: nil, repeats: false)
                         
@@ -2785,8 +2781,8 @@ class mainHomeViewController: UIViewController, SDWebImageManagerDelegate, apiCl
                 logOut = true
                 
                 
-                let uId = defaults .string(forKey: "userLoginId")!
-                let token = defaults.string(forKey: "deviceToken")!
+                let uId = Udefaults .string(forKey: "userLoginId")!
+                let token = Udefaults.string(forKey: "deviceToken")!
                 
                 let deviceTokenDict = NSMutableDictionary()
                 
@@ -2799,9 +2795,9 @@ class mainHomeViewController: UIViewController, SDWebImageManagerDelegate, apiCl
                 
                 //nxtObj2.logoutApi(parameter)
                 
-                defaults.set("", forKey: "userLoginId")
-                defaults.set("", forKey: "userLoginName")
-                defaults.set("", forKey: "userProfilePic")
+                Udefaults.set("", forKey: "userLoginId")
+                Udefaults.set("", forKey: "userLoginName")
+                Udefaults.set("", forKey: "userProfilePic")
                 
                 
                 
@@ -3031,25 +3027,25 @@ class mainHomeViewController: UIViewController, SDWebImageManagerDelegate, apiCl
             
             })
         
-        
-        if countArray.object(forKey: "storyCount") != nil {
-            if let stCount = countArray.value(forKey: "storyCount"){
-                
-              //  self.storyListCount.text=String(describing: stCount)
-            }
-            
-        }
-        
-        
-        
-        
-        if countArray.object(forKey: "bucketCount") != nil {
-            if let bktCount = countArray.value(forKey: "bucketCount"){
-                
-                bucketListTotalCount=String(describing: bktCount)
-            }
-            
-        }
+//        
+//        if countArray.object(forKey: "storyCount") != nil {
+//            if let stCount = countArray.value(forKey: "storyCount"){
+//                
+//              //  self.storyListCount.text=String(describing: stCount)
+//            }
+//            
+//        }
+//        
+//        
+//        
+//        
+//        if countArray.object(forKey: "bucketCount") != nil {
+//            if let bktCount = countArray.value(forKey: "bucketCount"){
+//                
+//                bucketListTotalCount=String(describing: bktCount)
+//            }
+//            
+//        }
         
         
         
@@ -3480,11 +3476,14 @@ extension mainHomeViewController: UICollectionViewDelegate, UICollectionViewData
     {
         
         if collectionView == storyCollectionView {
-            
-            return 3
+            if planAllLocation == false {
+                return countArray.count // returen the plans of selected location
+            }
+            return countArray.count //return the whole plans
         }
-        else{
-        
+            
+        else
+        {
         let show = (arrayOfimages1[collectionView.tag] as AnyObject).value(forKey: "showMore") as! Int
         
     if show == 0 {
@@ -4221,7 +4220,7 @@ extension mainHomeViewController: UICollectionViewDelegate, UICollectionViewData
         
         
         
-        defaults.set(true, forKey: "refreshStory")
+        Udefaults.set(true, forKey: "refreshStory")
         
 
         
@@ -4237,7 +4236,7 @@ extension mainHomeViewController: UICollectionViewDelegate, UICollectionViewData
  
    func doubleTap(_ sender: GestureViewClass) {
  
- let userNameMy = defaults.string(forKey: "userLoginName")
+ let userNameMy = Udefaults.string(forKey: "userLoginName")
  
     let fullName = sender.gestureData as String
     let fullNameArr = fullName.characters.split{$0 == " "}.map(String.init)
@@ -4733,7 +4732,7 @@ extension mainHomeViewController: UICollectionViewDelegate, UICollectionViewData
     //MARK: Press left like button
     func imageTapped(_ sender: UIButton)
     {
-        let userNameMy = defaults.string(forKey: "userLoginName")
+        let userNameMy = Udefaults.string(forKey: "userLoginName")
         
         print(sender.tag)
         let a:Int? = (sender.tag) / 1000
@@ -4956,53 +4955,53 @@ extension mainHomeViewController: UICollectionViewDelegate, UICollectionViewData
         
         
         
-        if countArray.object(forKey: "storyImages") != nil  {
-            
-            //let countst = countArray.valueForKey("storyCount") as! NSNumber
-            let countst = countArray.value(forKey: "storyImages") as! NSArray
-            addStoryLabelInPopup.text="Add To Plan"
-            
-            addToStory.image=UIImage (named: "selectionStory")
-            
-            if countst.count>0 {
-                
-                //print(countst)
-                if countst.contains(imageId) {
-                    
-                    addStoryLabelInPopup.text="Remove From Plan"
-                    addToStory.image=UIImage (named: "removeStory")
-                    
-                }
-                
-                
-            }
-            
-            
-            
-        }
+//        if countArray.object(forKey: "storyImages") != nil  {
+//            
+//            //let countst = countArray.valueForKey("storyCount") as! NSNumber
+//            let countst = countArray.value(forKey: "storyImages") as! NSArray
+//            addStoryLabelInPopup.text="Add To Plan"
+//            
+//            addToStory.image=UIImage (named: "selectionStory")
+//            
+//            if countst.count>0 {
+//                
+//                //print(countst)
+//                if countst.contains(imageId) {
+//                    
+//                    addStoryLabelInPopup.text="Remove From Plan"
+//                    addToStory.image=UIImage (named: "removeStory")
+//                    
+//                }
+//                
+//                
+//            }
+//            
+//            
+//            
+//        }
         addToBucketLblInPopup.text="Add To Bucket List"
         addToBucket.isUserInteractionEnabled=true
-        if countArray.object(forKey: "bucketImages") != nil  {
-            
-            //let countst = countArray.valueForKey("storyCount") as! NSNumber
-            let countBkt = countArray.value(forKey: "bucketImages") as! NSArray
-            
-            if countBkt.count>0 {
-                
-                //print(countBkt)
-                if countBkt.contains(imageId) {
-                    
-                    addToBucketLblInPopup.text="Remove From Bucket"//"Bucketed"
-                    addToBucket.isUserInteractionEnabled=false
-                    
-                }
-                
-                
-            }
-            
-            
-            
-        }
+//        if countArray.object(forKey: "bucketImages") != nil  {
+//            
+//            //let countst = countArray.valueForKey("storyCount") as! NSNumber
+//            let countBkt = countArray.value(forKey: "bucketImages") as! NSArray
+//            
+//            if countBkt.count>0 {
+//                
+//                //print(countBkt)
+//                if countBkt.contains(imageId) {
+//                    
+//                    addToBucketLblInPopup.text="Remove From Bucket"//"Bucketed"
+//                    addToBucket.isUserInteractionEnabled=false
+//                    
+//                }
+//                
+//                
+//            }
+//            
+//            
+//            
+//        }
         
         
         

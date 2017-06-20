@@ -760,7 +760,7 @@ class apiClass: NSObject {
                             let tagsArr = rslt.value(forKey: "data") as! NSMutableArray
                             
                            
-                            let tagsArrOld = defaults.mutableArrayValue(forKey: "categoriesFromWeb")
+                            let tagsArrOld = Udefaults.mutableArrayValue(forKey: "categoriesFromWeb")
                             
                             
                             
@@ -774,9 +774,9 @@ class apiClass: NSObject {
                             else
                             {
                                   print("New categories are added")
-                                defaults .setValue(nil , forKey: "Interests")
-                                defaults .setValue(nil , forKey: "IntrestsId")
-                                defaults .setValue(tagsArr, forKey: "categoriesFromWeb")//
+                                Udefaults .setValue(nil , forKey: "Interests")
+                                Udefaults .setValue(nil , forKey: "IntrestsId")
+                                Udefaults .setValue(tagsArr, forKey: "categoriesFromWeb")//
                             }
                             
                         }
@@ -889,7 +889,7 @@ class apiClass: NSObject {
                                 
                                DispatchQueue.global(qos: .background).async {
                               
-                                    let uId = defaults .string(forKey: "userLoginId")
+                                    let uId = Udefaults .string(forKey: "userLoginId")
                                     let objt = storyCountClass()
                                 
                                 let dic:NSDictionary = ["userId": uId!]

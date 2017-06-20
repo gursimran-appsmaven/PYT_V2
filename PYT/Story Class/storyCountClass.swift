@@ -14,7 +14,7 @@ import SystemConfiguration
 
 
 
-var countArray = NSDictionary()
+var countArray = NSMutableArray()
 var bucketImagesArrayGlobal = NSMutableArray()
 
 
@@ -97,8 +97,7 @@ class storyCountClass: NSObject
                                 if status == 1
                                 {
                                    // if jsonArray.count>0{
-                                        countArray=basicInfo
-                                        print(basicInfo)
+                                        countArray=basicInfo.value(forKey: "data") as! NSMutableArray
                                     
                                         
 //                                        bucketListTotalCount = "0"
@@ -108,6 +107,12 @@ class storyCountClass: NSObject
 //                                                
 //                                                bucketListTotalCount = "\(bktCount)"
 //                                            }
+                                    
+                                    
+                                    // Post notification
+                                    
+//                                    let notName = Notification.Name("loadCount")
+//                                    NotificationCenter.default.post(name: notName, object: nil)
                                     
                                         NotificationCenter.default.post(name: NSNotification.Name(rawValue: "loadCount"), object: nil)
                                     

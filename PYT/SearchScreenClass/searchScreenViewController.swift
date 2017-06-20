@@ -251,7 +251,7 @@ class searchScreenViewController: UIViewController, UINavigationControllerDelega
             
             
             
-            let uId = defaults .string(forKey: "userLoginId")
+            let uId = Udefaults .string(forKey: "userLoginId")
             
             
             
@@ -326,10 +326,10 @@ class searchScreenViewController: UIViewController, UINavigationControllerDelega
         
         //MANAGE DEVICETOKEN
         
-        let tokendevice = defaults.string(forKey: "deviceToken")!
+        let tokendevice = Udefaults.string(forKey: "deviceToken")!
         print(tokendevice)
-       // let uId = defaults .string(forKey: "userLoginId")
-        if defaults.bool(forKey: "savedDeviceToken") == true {
+       // let uId = Udefaults .string(forKey: "userLoginId")
+        if Udefaults.bool(forKey: "savedDeviceToken") == true {
             
         }
             
@@ -1016,7 +1016,7 @@ class searchScreenViewController: UIViewController, UINavigationControllerDelega
                 // promptIndicator.isHidden=false
                 // promptIndicator.startAnimating()
                 
-                let uId = defaults .string(forKey: "userLoginId")
+                let uId = Udefaults .string(forKey: "userLoginId")
                 
                 
                 if task != nil {
@@ -1190,7 +1190,7 @@ class searchScreenViewController: UIViewController, UINavigationControllerDelega
                 promptIndicator.isHidden=false
                 promptIndicator.startAnimating()
                 
-                let uId = defaults .string(forKey: "userLoginId")
+                let uId = Udefaults .string(forKey: "userLoginId")
                 
 //                
 //                if task != nil {
@@ -1516,7 +1516,7 @@ class searchScreenViewController: UIViewController, UINavigationControllerDelega
         else
         {
             //hit api
-            let uId = defaults .string(forKey: "userLoginId")
+            let uId = Udefaults .string(forKey: "userLoginId")
             
             
             
@@ -1788,11 +1788,6 @@ class searchScreenViewController: UIViewController, UINavigationControllerDelega
     
     
     
-    func tableView(_ tableView: (UITableView!), commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: (NSIndexPath!)) {
-        
-    }
-    
-   
     
     
     
@@ -2215,7 +2210,7 @@ class searchScreenViewController: UIViewController, UINavigationControllerDelega
                             print("save the token")
                             
                             
-                            defaults.set(true, forKey: "savedDeviceToken")
+                            Udefaults.set(true, forKey: "savedDeviceToken")
                             
                             
                         }
