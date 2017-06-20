@@ -18,6 +18,9 @@ class ViewController: UIViewController, apiClassDelegate , UIScrollViewDelegate,
     @IBOutlet var passwordTextField: UITextField!
     
    
+    @IBOutlet weak var fbBtn: UIButton!
+    @IBOutlet weak var signInBtn: CustomButton!
+    @IBOutlet weak var signInHeight: NSLayoutConstraint!
     
     var loginType = String()
     var accessToken = ""

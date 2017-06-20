@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" colorMatched="YES" initialViewController="4hR-jc-i78">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" colorMatched="YES" initialViewController="GTN-Gr-G2c">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -307,7 +307,10 @@
                     <size key="freeformSize" width="600" height="750"/>
                     <connections>
                         <outlet property="emailTextField" destination="2wd-b3-owE" id="lAe-pe-FT1"/>
+                        <outlet property="fbBtn" destination="JtD-MU-clT" id="jEh-Gi-vDl"/>
                         <outlet property="passwordTextField" destination="fwH-nZ-Mv0" id="05e-Mc-l0E"/>
+                        <outlet property="signInBtn" destination="pOe-sC-Tgw" id="gtI-L3-Ivs"/>
+                        <outlet property="signInHeight" destination="Wzg-Kg-wzX" id="yZT-kc-fAQ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4zk-F7-Mmi" sceneMemberID="firstResponder"/>
@@ -1327,7 +1330,7 @@
                                                         </connections>
                                                     </collectionView>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Travel Gurus" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7fJ-Ei-igS">
-                                                        <rect key="frame" x="8" y="280" width="82.5" height="21"/>
+                                                        <rect key="frame" x="8" y="280" width="78.5" height="21"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="21" id="5n7-2x-7x3"/>
                                                         </constraints>
@@ -1335,7 +1338,7 @@
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" alpha="0.75" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Inspiration from the best travel bloggers" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oM1-B3-Teh">
-                                                        <rect key="frame" x="8" y="301" width="206" height="17"/>
+                                                        <rect key="frame" x="8" y="301" width="214" height="17"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="17" id="waw-LU-zYL"/>
                                                         </constraints>
@@ -1862,7 +1865,6 @@
                                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="clip" translatesAutoresizingMaskIntoConstraints="NO" id="PCs-TX-3fi">
                                                                     <rect key="frame" x="329" y="13" width="46" height="25"/>
                                                                     <constraints>
-                                                                        <constraint firstAttribute="height" constant="25" id="NNy-qK-hVN"/>
                                                                         <constraint firstAttribute="width" constant="46" id="TOo-Ch-Odo"/>
                                                                     </constraints>
                                                                     <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="14"/>
@@ -2092,7 +2094,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="80"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Discover" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GW8-b6-oXy">
-                                        <rect key="frame" x="156" y="30" width="63" height="21"/>
+                                        <rect key="frame" x="156.5" y="30" width="62.5" height="21"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="21" id="dKf-6p-nNM"/>
                                         </constraints>
@@ -2326,7 +2328,6 @@
                                                                     <rect key="frame" x="313" y="13" width="46" height="25"/>
                                                                     <constraints>
                                                                         <constraint firstAttribute="width" constant="46" id="dUc-9k-kOU"/>
-                                                                        <constraint firstAttribute="height" constant="25" id="drh-pq-2wf"/>
                                                                     </constraints>
                                                                     <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="14"/>
                                                                     <inset key="titleEdgeInsets" minX="19" minY="0.0" maxX="9" maxY="0.0"/>
@@ -2564,7 +2565,7 @@
                                         </constraints>
                                     </view>
                                 </subviews>
-                                <color key="backgroundColor" red="0.92941176470588238" green="0.92941176470588238" blue="0.92941176470588238" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.10145168439716312" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstItem="lfU-7s-s5p" firstAttribute="top" secondItem="k7Y-Ne-hzV" secondAttribute="top" constant="2" id="5TJ-ga-V18"/>
                                     <constraint firstItem="y9b-eU-uCJ" firstAttribute="centerX" secondItem="k7Y-Ne-hzV" secondAttribute="centerX" id="Sgb-gr-3nr"/>
