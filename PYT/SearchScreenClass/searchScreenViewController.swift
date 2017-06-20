@@ -468,16 +468,7 @@ class searchScreenViewController: UIViewController, UINavigationControllerDelega
     
     
     
-    //MANAGE the add button from the list of added locationsk
-    
-    func addMoreDestinations(sender: UIButton) {
-        
-        search_Bar.becomeFirstResponder()
-        
-        
-    }
-    
-    
+  
     
     
     
@@ -1118,7 +1109,7 @@ class searchScreenViewController: UIViewController, UINavigationControllerDelega
         
         
         print(sender.tag)
-        
+        buttonPressedTag = sender.tag
         if autoPromptView.isHidden==true
         {
             self.showTheView()
@@ -1912,10 +1903,20 @@ class searchScreenViewController: UIViewController, UINavigationControllerDelega
                         self .apiToGetTheLocationPhoto(parameters: fullName)
                     }
                     
-                    self.arrayOfIntrest .add(dict)
-                     UserDefaults.standard.set(arrayOfIntrest, forKey: "arrayOfIntrest")
-                    selectedindxSearch=0
                     
+                    
+                    
+                    if buttonPressedTag <= self.arrayOfIntrest.count-1 {
+                        self.arrayOfIntrest.removeObject(at: buttonPressedTag)
+                        self.arrayOfIntrest.insert(dict, at: buttonPressedTag)
+                    }
+                    else
+                    {
+                        self.arrayOfIntrest .add(dict)
+                    }
+                    
+                    UserDefaults.standard.set(arrayOfIntrest, forKey: "arrayOfIntrest")
+                    selectedindxSearch=0
                     
                     for i in 0..<self.arrayOfIntrest.count
                     {
