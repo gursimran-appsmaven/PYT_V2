@@ -511,6 +511,7 @@ class mainHomeViewController: UIViewController, SDWebImageManagerDelegate, apiCl
         segmentControl.clipsToBounds=true
         segmentControl.autoresizingMask = [.flexibleRightMargin, .flexibleWidth]
         segmentControl.selectionStyle = HMSegmentedControlSelectionStyle.fullWidthStripe
+    
         segmentControl.selectionIndicatorLocation = HMSegmentedControlSelectionIndicatorLocation.down
         segmentControl.selectionIndicatorColor = UIColor(red: 255/255, green: 80/255, blue: 80/255, alpha: 1.0)
         segmentControl.selectionIndicatorHeight=3.0

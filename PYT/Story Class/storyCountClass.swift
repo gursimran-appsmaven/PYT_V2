@@ -84,35 +84,40 @@ class storyCountClass: NSObject
                             {
                                 let anyObj: Any = try JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.mutableContainers)
                                 
+                                let result = NSString(data: data!, encoding:String.Encoding.ascii.rawValue)!
+                                print("Body: Result from story count \(result)")
 
+                                
                                 
                                 basicInfo = NSMutableDictionary()
                                 basicInfo = anyObj as! NSMutableDictionary
                                 
                                 let status = basicInfo.value(forKey: "status") as! NSNumber
                                 
-                                if status == 1{
-                                    
+                                if status == 1
+                                {
                                    // if jsonArray.count>0{
                                         countArray=basicInfo
                                         print(basicInfo)
-                                        print(countArray.value(forKey: "storyCount")!)
-                                        print(countArray.value(forKey: "storyImages")!)
+                                    
                                         
-                                        bucketListTotalCount = "0"
-                                        if countArray.object(forKey: "bucketCount") != nil {
-                                            if let bktCount = countArray.value(forKey: "bucketCount"){
-                                                
-                                                bucketListTotalCount = "\(bktCount)"
-                                            }
-                                        
+//                                        bucketListTotalCount = "0"
+//                                        if countArray.object(forKey: "bucketCount") != nil
+//                                        {
+//                                            if let bktCount = countArray.value(forKey: "bucketCount"){
+//                                                
+//                                                bucketListTotalCount = "\(bktCount)"
+//                                            }
+                                    
                                         NotificationCenter.default.post(name: NSNotification.Name(rawValue: "loadCount"), object: nil)
                                     
                                     
                                     
                                // }
-                                    }
+                                    //}
+ 
                                 }
+ 
                                 else if(status == 5){
                                     
                                 }
