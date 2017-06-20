@@ -499,7 +499,7 @@ class mainHomeViewController: UIViewController, SDWebImageManagerDelegate, apiCl
         segmentControl.verticalDividerColor = UIColor.clear
         segmentControl.verticalDividerWidth = 0.8
         segmentControl.backgroundColor = UIColor.clear
-        segmentControl.titleTextAttributes = [NSFontAttributeName: UIFont(name: "SFUIDisplay-Regular", size: 13.0)! , NSForegroundColorAttributeName : UIColor.black]
+        segmentControl.titleTextAttributes = [NSFontAttributeName: UIFont(name: "SFUIDisplay-Bold", size: 13.0)! , NSForegroundColorAttributeName : UIColor.black.withAlphaComponent(0.5)]
          segmentControl.selectedTitleTextAttributes = [NSFontAttributeName: UIFont(name: "SFUIDisplay-Bold", size: 13.0)! , NSForegroundColorAttributeName : UIColor.black]
         segmentControl.selectionStyle = HMSegmentedControlSelectionStyle.fullWidthStripe
         segmentControl.setSelectedSegmentIndex(UInt(selectedindxSearch), animated: true)
