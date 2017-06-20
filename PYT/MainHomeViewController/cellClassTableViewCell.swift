@@ -115,25 +115,7 @@ class cellClassTableViewCell: UITableViewCell{
          //queue.addOperation(op1)
         
     }
-    
-   
-   
-    
-//    func scrollViewDidEndDecelerating(scrollView: UIScrollView) {
-//        for cell in imagesCollectionView.visibleCells()  as [UICollectionViewCell]    {
-//            let indexPath = imagesCollectionView.indexPathForCell(cell as UICollectionViewCell)
-//            
-//           print(indexPath)
-//        }
-//    }
-   
-    
-    
-    
-    
-
-    
-    
+        
     
     */
 }
@@ -149,10 +131,9 @@ class collectionViewCellClassFeed: UICollectionViewCell {
     @IBOutlet weak var selectView: UIImageView!
     @IBOutlet weak var likeimg: UIImageView!
     @IBOutlet weak var likecountlbl: UILabel!
-    @IBOutlet weak var whiteView: UIView!
     @IBOutlet weak var likeButton: UIButton!
     @IBOutlet weak var menuButton: UIButton!
-    
+    @IBOutlet weak var planButton: UIButton!
     
     
     

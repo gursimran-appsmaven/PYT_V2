@@ -186,11 +186,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "PYT/SearchScreenClass/searchScreenViewController.swift"
-            timestampString = "519566836.267603"
+            timestampString = "519630106.957561"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "613"
-            endingLineNumber = "613"
+            startingLineNumber = "634"
+            endingLineNumber = "634"
             landmarkName = "collectionView(_:layout:sizeForItemAt:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -202,11 +202,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "PYT/SearchScreenClass/searchScreenViewController.swift"
-            timestampString = "519566836.267603"
+            timestampString = "519627824.132692"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "507"
-            endingLineNumber = "507"
+            startingLineNumber = "510"
+            endingLineNumber = "510"
             landmarkName = "collectionView(_:cellForItemAt:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -218,11 +218,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "PYT/SearchScreenClass/searchScreenViewController.swift"
-            timestampString = "519566836.267603"
+            timestampString = "519630106.957561"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "626"
-            endingLineNumber = "626"
+            startingLineNumber = "647"
+            endingLineNumber = "647"
             landmarkName = "collectionView(collectionView:layout:sizeForItemAtIndexPath:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -234,11 +234,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "PYT/SearchScreenClass/searchScreenViewController.swift"
-            timestampString = "519566836.267603"
+            timestampString = "519630106.957561"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1071"
-            endingLineNumber = "1071"
+            startingLineNumber = "1092"
+            endingLineNumber = "1092"
             landmarkName = "cancelSearchFunction()"
             landmarkType = "7">
             <Locations>
@@ -250,11 +250,11 @@
                   moduleName = "PYT"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/osx/Documents/PYT_V2/PYT/SearchScreenClass/searchScreenViewController.swift"
-                  timestampString = "519560475.490615"
+                  timestampString = "519635422.5061"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "1059"
-                  endingLineNumber = "1059"
+                  startingLineNumber = "1094"
+                  endingLineNumber = "1094"
                   offsetFromSymbolStart = "15">
                </Location>
                <Location
@@ -265,11 +265,11 @@
                   moduleName = "PYT"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/osx/Documents/PYT_V2/PYT/SearchScreenClass/searchScreenViewController.swift"
-                  timestampString = "519560475.492492"
+                  timestampString = "519635422.508085"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "1061"
-                  endingLineNumber = "1061"
+                  startingLineNumber = "1096"
+                  endingLineNumber = "1096"
                   offsetFromSymbolStart = "22">
                </Location>
             </Locations>
@@ -282,11 +282,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "PYT/SearchScreenClass/searchScreenViewController.swift"
-            timestampString = "519566836.267603"
+            timestampString = "519630106.957561"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1537"
-            endingLineNumber = "1537"
+            startingLineNumber = "1568"
+            endingLineNumber = "1568"
             landmarkName = "nextPageAction(sender:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -298,11 +298,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "PYT/SearchScreenClass/searchScreenViewController.swift"
-            timestampString = "519566836.267603"
+            timestampString = "519630106.957561"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1106"
-            endingLineNumber = "1106"
+            startingLineNumber = "1127"
+            endingLineNumber = "1127"
             landmarkName = "searchLocationAction(_:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -314,11 +314,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "PYT/SearchScreenClass/searchScreenViewController.swift"
-            timestampString = "519566836.267603"
+            timestampString = "519630106.957561"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1382"
-            endingLineNumber = "1382"
+            startingLineNumber = "1413"
+            endingLineNumber = "1413"
             landmarkName = "postApiForAutoPromptLocations(searchString:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -330,11 +330,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "PYT/SearchScreenClass/searchScreenViewController.swift"
-            timestampString = "519566836.267603"
+            timestampString = "519630106.957561"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1414"
-            endingLineNumber = "1414"
+            startingLineNumber = "1445"
+            endingLineNumber = "1445"
             landmarkName = "postApiForAutoPromptLocations(searchString:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -346,11 +346,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "PYT/SearchScreenClass/searchScreenViewController.swift"
-            timestampString = "519566836.267603"
+            timestampString = "519630106.957561"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1778"
-            endingLineNumber = "1778"
+            startingLineNumber = "1826"
+            endingLineNumber = "1826"
             landmarkName = "tableView(_:didSelectRowAt:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -362,11 +362,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "PYT/SearchScreenClass/searchScreenViewController.swift"
-            timestampString = "519566836.267603"
+            timestampString = "519627824.132692"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "236"
-            endingLineNumber = "236"
+            startingLineNumber = "239"
+            endingLineNumber = "239"
             landmarkName = "viewDidLoad()"
             landmarkType = "7">
          </BreakpointContent>
@@ -378,11 +378,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "PYT/SearchScreenClass/searchScreenViewController.swift"
-            timestampString = "519566836.267603"
+            timestampString = "519630106.957561"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1740"
-            endingLineNumber = "1740"
+            startingLineNumber = "1788"
+            endingLineNumber = "1788"
             landmarkName = "tableView(_:cellForRowAt:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -394,11 +394,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "PYT/SearchScreenClass/searchScreenViewController.swift"
-            timestampString = "519566836.267603"
+            timestampString = "519630106.957561"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1491"
-            endingLineNumber = "1491"
+            startingLineNumber = "1522"
+            endingLineNumber = "1522"
             landmarkName = "nextPageAction(sender:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -410,11 +410,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "PYT/MainHomeViewController/mainHomeViewController.swift"
-            timestampString = "519569385.095611"
+            timestampString = "519634960.494959"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1625"
-            endingLineNumber = "1625"
+            startingLineNumber = "1615"
+            endingLineNumber = "1615"
             landmarkName = "storyImageTapped()"
             landmarkType = "7">
          </BreakpointContent>
@@ -422,16 +422,48 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "PYT/MainHomeViewController/mainHomeViewController.swift"
-            timestampString = "519569385.095611"
+            timestampString = "519635422.060986"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "3488"
-            endingLineNumber = "3488"
-            landmarkName = "collectionView(_:numberOfItemsInSection:)"
+            startingLineNumber = "3494"
+            endingLineNumber = "3494"
+            landmarkName = "collectionView(_:cellForItemAt:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "PYT/MainHomeViewController/mainHomeViewController.swift"
+            timestampString = "519634960.494959"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "1133"
+            endingLineNumber = "1133"
+            landmarkName = "tableView(_:cellForRowAtIndexPath:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "PYT/MainHomeViewController/mainHomeViewController.swift"
+            timestampString = "519634928.87546"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "1131"
+            endingLineNumber = "1131"
+            landmarkName = "tableView(_:cellForRowAtIndexPath:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

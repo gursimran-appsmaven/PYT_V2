@@ -32,10 +32,11 @@ class mainHomeViewController: UIViewController, SDWebImageManagerDelegate, apiCl
     @IBOutlet weak var searchButtonOutlet: UIButton!
     @IBOutlet var segmentControl: HMSegmentedControl!
     
+    @IBOutlet weak var storyCollectionView: UICollectionView!
     
     
     
-    @IBOutlet weak var emptyView: UIView!
+   // @IBOutlet weak var emptyView: UIView!
     @IBOutlet var firstView: UIView!
     
     //View open on long tap
@@ -234,17 +235,13 @@ class mainHomeViewController: UIViewController, SDWebImageManagerDelegate, apiCl
     }
     
     
-    
-    
-    
-    
-    
-    
-    
-    func manageToolsTipsShow() {
         
+    
+    
+    
+    func manageToolsTipsShow()
+    {
         //mange tool tips
-        
         
         if defaults .integer(forKey: "indexToolTips") < 7 {
             showTooltips = true
@@ -255,53 +252,45 @@ class mainHomeViewController: UIViewController, SDWebImageManagerDelegate, apiCl
                 
                 if defaults.integer(forKey: "indexToolTips") == 0
                 {
-                toolTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(self.addToolTip), userInfo: nil, repeats: false)
+               // toolTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(self.addToolTip), userInfo: nil, repeats: false)
                 }
                     
                 else if defaults.integer(forKey: "indexToolTips") == 1
                 {
-                    toolTimer = Timer.scheduledTimer(timeInterval: 2, target: self, selector: #selector(self.addToolTip), userInfo: nil, repeats: false)
+                   // toolTimer = Timer.scheduledTimer(timeInterval: 2, target: self, selector: #selector(self.addToolTip), userInfo: nil, repeats: false)
                     
                 }
                     
                 else if  defaults.integer(forKey: "indexToolTips") == 2
                 {
                     
-                    toolTimer = Timer.scheduledTimer(timeInterval: 3, target: self, selector: #selector(self.addToolTip), userInfo: nil, repeats: false)
+                   // toolTimer = Timer.scheduledTimer(timeInterval: 3, target: self, selector: #selector(self.addToolTip), userInfo: nil, repeats: false)
                     
                 }
                     
                 else if defaults.integer(forKey: "indexToolTips") == 3
                 {
-                    toolTimer = Timer.scheduledTimer(timeInterval: 3, target: self, selector: #selector(self.addToolTip), userInfo: nil, repeats: false)
+                   // toolTimer = Timer.scheduledTimer(timeInterval: 3, target: self, selector: #selector(self.addToolTip), userInfo: nil, repeats: false)
                     
                 }
                     
                 else if defaults.integer(forKey: "indexToolTips") == 4
                 {
-                    toolTimer = Timer.scheduledTimer(timeInterval: 3, target: self, selector: #selector(self.addToolTip), userInfo: nil, repeats: false)
-                    //                    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, Int64(4.0 * Double(NSEC_PER_SEC))), dispatch_get_main_queue()) { () -> Void in
-                    //
-                    //                        self.addToolTip(self.defaults .integerForKey("indexToolTips"))
-                    //
-                    //                    }
+                   // toolTimer = Timer.scheduledTimer(timeInterval: 3, target: self, selector: #selector(self.addToolTip), userInfo: nil, repeats: false)
+                  
                 }
                     
                     
                 else if defaults.integer(forKey: "indexToolTips") == 5
                 {
-                    toolTimer = Timer.scheduledTimer(timeInterval: 1.5, target: self, selector: #selector(self.addToolTip), userInfo: nil, repeats: false)
+                    //toolTimer = Timer.scheduledTimer(timeInterval: 1.5, target: self, selector: #selector(self.addToolTip), userInfo: nil, repeats: false)
                     
                 }
                     
                 else if defaults.integer(forKey: "indexToolTips") == 6
                 {
-                    toolTimer = Timer.scheduledTimer(timeInterval: 1.5, target: self, selector: #selector(self.addToolTip), userInfo: nil, repeats: false)
-                    //                    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, Int64(4.0 * Double(NSEC_PER_SEC))), dispatch_get_main_queue()) { () -> Void in
-                    //
-                    //                        self.addToolTip(self.defaults .integerForKey("indexToolTips"))
-                    //
-                    //                    }
+                   // toolTimer = Timer.scheduledTimer(timeInterval: 1.5, target: self, selector: #selector(self.addToolTip), userInfo: nil, repeats: false)
+                    
                 }
                     
                     
@@ -796,8 +785,8 @@ class mainHomeViewController: UIViewController, SDWebImageManagerDelegate, apiCl
     
     func tempLike() {
         
-        tipsView.isHidden = true
-         toolTimer = Timer.scheduledTimer(timeInterval: 2, target: self, selector: #selector(self.addToolTip), userInfo: nil, repeats: false)
+       // tipsView.isHidden = true
+        // toolTimer = Timer.scheduledTimer(timeInterval: 2, target: self, selector: #selector(self.addToolTip), userInfo: nil, repeats: false)
         
         
 //        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, Int64(2.0 * Double(NSEC_PER_SEC))), dispatch_get_main_queue()) { () -> Void in
@@ -810,20 +799,20 @@ class mainHomeViewController: UIViewController, SDWebImageManagerDelegate, apiCl
     
     func tempMore() {
         tipsView.isHidden = true
-        toolTimer = Timer.scheduledTimer(timeInterval: 3, target: self, selector: #selector(self.addToolTip), userInfo: nil, repeats: false)
+       // toolTimer = Timer.scheduledTimer(timeInterval: 3, target: self, selector: #selector(self.addToolTip), userInfo: nil, repeats: false)
         
     }
     
     func tempchat() {
          tipsView.isHidden = true
-        toolTimer = Timer.scheduledTimer(timeInterval: 3, target: self, selector: #selector(self.addToolTip), userInfo: nil, repeats: false)
+       // toolTimer = Timer.scheduledTimer(timeInterval: 3, target: self, selector: #selector(self.addToolTip), userInfo: nil, repeats: false)
         
     }
     
     
     func tempSearch() {
          tipsView.isHidden = true
-        toolTimer = Timer.scheduledTimer(timeInterval: 5, target: self, selector: #selector(self.addToolTip), userInfo: nil, repeats: false)
+       // toolTimer = Timer.scheduledTimer(timeInterval: 5, target: self, selector: #selector(self.addToolTip), userInfo: nil, repeats: false)
         
     }
     
@@ -1136,9 +1125,10 @@ class mainHomeViewController: UIViewController, SDWebImageManagerDelegate, apiCl
             cell.useraddressLabel.text = (self.userDetailArray .object(at: indexPath.row) as AnyObject).value(forKey: "email") as? String
             cell.useraddressLabel.isHidden=true
             
-            let pImage : UIImage = UIImage(named:"profileDummy")! //placeholder image
+            let pImage : UIImage = UIImage(named:"dummyBackground2")! //placeholder image
             
             /////------ user profile pics---/////
+            print(self.userDetailArray.object(at: indexPath.row))
             
             let profileImage = (self.userDetailArray .object(at: indexPath.row) as AnyObject).value(forKey: "profile")! as! NSString
 
@@ -1180,8 +1170,8 @@ class mainHomeViewController: UIViewController, SDWebImageManagerDelegate, apiCl
             
             cell.ChatButton.layer.cornerRadius=cell.ChatButton.frame.size.height/2
             cell.ChatButton.clipsToBounds=true
-            cell.arrowBackButton.tag = indexPath.row
-            cell.arrowBackButton .addTarget(self, action: #selector(mainHomeViewController.moveToIndex), for: UIControlEvents.touchUpInside)
+           // cell.arrowBackButton.tag = indexPath.row
+          //  cell.arrowBackButton .addTarget(self, action: #selector(mainHomeViewController.moveToIndex), for: UIControlEvents.touchUpInside)
             
             
             
@@ -1929,7 +1919,7 @@ class mainHomeViewController: UIViewController, SDWebImageManagerDelegate, apiCl
                     
                     
                     
-                    likeimg.image=UIImage (named: "like_count")
+                    likeimg.image=UIImage (named: "likefill")
                     
                     let dat: NSDictionary = ["userId": "\(uId)", "photoId":"\(imageId)", "userLiked":"\(uId)", "status":"0", "imageOwn": "\(otherUserId)", "userName": "\(userNameMy!)"]
                    //print("Post to like picture---- \(dat)")
@@ -1949,7 +1939,7 @@ class mainHomeViewController: UIViewController, SDWebImageManagerDelegate, apiCl
                     
                    //print(likeCount.lastObject)
                     
-                    likeimg.image=UIImage (named: "likedCount")
+                    likeimg.image=UIImage (named: "likefill")
                     
                     let dat: NSDictionary = ["userId": "\(uId)", "photoId":"\(imageId)", "userLiked":"\(uId)", "status":"1", "imageOwn": "\(otherUserId)", "userName": "\(userNameMy!)"]
                     
@@ -1965,7 +1955,7 @@ class mainHomeViewController: UIViewController, SDWebImageManagerDelegate, apiCl
             else{
                 likeCount .add(["userId":uId, "imageId":imageId, "like":true, "count": self.addTheLikes(countLik)])
                 likecountlbl.text=String(self.addTheLikes(countLik))
-                likeimg.image=UIImage (named: "likedCount")
+                likeimg.image=UIImage (named: "likefill")
                 
                 let dat: NSDictionary = ["userId": "\(uId)", "photoId":"\(imageId)", "userLiked":"\(uId)", "status":"1", "imageOwn": "\(otherUserId)", "userName": "\(userNameMy!)"]
                 
@@ -1984,7 +1974,7 @@ class mainHomeViewController: UIViewController, SDWebImageManagerDelegate, apiCl
             
             likeCount .add(["userId":uId, "count":self.addTheLikes(countLik), "like": true, "imageId": imageId])
             likecountlbl.text=String(self.addTheLikes(countLik))
-            likeimg.image=UIImage (named: "likedCount")
+            likeimg.image=UIImage (named: "likefill")
             
             let dat: NSDictionary = ["userId": "\(uId)", "photoId":"\(imageId)", "userLiked":"\(uId)", "status":"1", "imageOwn": "\(otherUserId)", "userName": "\(userNameMy!)"]
             
@@ -2598,7 +2588,7 @@ class mainHomeViewController: UIViewController, SDWebImageManagerDelegate, apiCl
             
         OperationQueue.main.cancelAllOperations() //clear all the queues
             DispatchQueue.main.async(execute: {
-                self.emptyView.isHidden=true
+                //self.emptyView.isHidden=true
                 self.imagesTableView.backgroundColor = UIColor (colorLiteralRed: 240/255, green: 240/255, blue: 240/255, alpha: 1)
                 self.shortData()
             })
@@ -2743,7 +2733,7 @@ class mainHomeViewController: UIViewController, SDWebImageManagerDelegate, apiCl
                 if dataArray.count<1
                 {
                     
-                    self.emptyView.isHidden=false
+                   // self.emptyView.isHidden=false
                     self.imagesTableView.backgroundColor = UIColor.clear
                     self.view .bringSubview(toFront: self.imagesTableView)
                     MBProgressHUD.hide(for: self.view, animated: true)
@@ -2755,13 +2745,13 @@ class mainHomeViewController: UIViewController, SDWebImageManagerDelegate, apiCl
                     {
                         let indxtoolTip = defaults .integer(forKey: "indexToolTips")
                         
-                        toolTimer = Timer.scheduledTimer(timeInterval: 2, target: self, selector: #selector(self.addToolTip), userInfo: nil, repeats: false)
+                        //toolTimer = Timer.scheduledTimer(timeInterval: 2, target: self, selector: #selector(self.addToolTip), userInfo: nil, repeats: false)
                         
                     }
                     
                     
                     
-                    self.emptyView.isHidden=true
+                   // self.emptyView.isHidden=true
                     self.imagesTableView.backgroundColor = UIColor (colorLiteralRed: 240/255, green: 240/255, blue: 240/255, alpha: 1)
                  
                     //self.viewWillAppear(true)
@@ -2838,7 +2828,7 @@ class mainHomeViewController: UIViewController, SDWebImageManagerDelegate, apiCl
             {
                 MBProgressHUD.hide(for: self.view, animated: true)
                 
-                self.emptyView.isHidden=false
+               // self.emptyView.isHidden=false
                 self.imagesTableView.backgroundColor = UIColor.clear
                 self.view .bringSubview(toFront: self.imagesTableView)
                 MBProgressHUD.hide(for: self.view, animated: true)
@@ -2993,15 +2983,20 @@ class mainHomeViewController: UIViewController, SDWebImageManagerDelegate, apiCl
             
                 name = nameSt as NSString
            
-                email = ""//(((self.dataArray.object(at: i) as AnyObject).value(forKey: "userId")! as AnyObject).object(at: 0) as AnyObject).value(forKey: "email") as? String ?? ""
+               let emailst = (((self.dataArray.object(at: i) as AnyObject).value(forKey: "userId")! as AnyObject).object(at: 0) as AnyObject).value(forKey: "email") as? String ?? ""
+                
+                email = emailst as NSString
                 
         
             // if profile picture is avaliable in the code
             if ((((self.dataArray.object(at: i) as AnyObject).value(forKey: "userId")! as AnyObject).object(at: 0) as AnyObject).value(forKey: "picture") != nil)
             {
                 
-            profile = ""//(((self.dataArray.object(at: i) as AnyObject).value(forKey: "userId")! as AnyObject).object(at: 0) as AnyObject).value(forKey: "picture") as? String ?? ""
+           let profilest = (((self.dataArray.object(at: i) as AnyObject).value(forKey: "userId")! as AnyObject).object(at: 0) as AnyObject).value(forKey: "picture") as? String ?? "" //(((self.dataArray.object(at: i) as AnyObject).value(forKey: "userId")! as AnyObject).object(at: 0) as AnyObject).value(forKey: "picture") as? String ?? ""
                
+                profile = profilest as NSString
+                
+                
                 self.userDetailArray.add(["id":id, "email":email, "name":name, "profile":profile ])
             }
             else
@@ -3055,13 +3050,13 @@ class mainHomeViewController: UIViewController, SDWebImageManagerDelegate, apiCl
         if dataArray.count<1
         {
             
-            self.emptyView.isHidden=false
+           // self.emptyView.isHidden=false
             self.imagesTableView.backgroundColor = UIColor.clear
             self.view .bringSubview(toFront: self.imagesTableView)
         }
         else
         {
-            self.emptyView.isHidden=true
+           // self.emptyView.isHidden=true
             self.imagesTableView.backgroundColor = UIColor (colorLiteralRed: 240/255, green: 240/255, blue: 240/255, alpha: 1)
         }
         
@@ -3634,16 +3629,7 @@ extension mainHomeViewController: UICollectionViewDelegate, UICollectionViewData
                 }
                 
                 
-                
-                //let catglbl = cell.viewWithTag(7461) as! UILabel // category label
-                cell.catglbl.text=categ
-                
-                
-                //let cityLabel = cell.viewWithTag(7462) as! UILabel
-                cell.cityLabel.text = cityName.capitalized
-                
-                
-                
+                               
                 
                 let activityIndicatorView = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.gray)
                 cell.backgroundView = activityIndicatorView
@@ -3659,47 +3645,15 @@ extension mainHomeViewController: UICollectionViewDelegate, UICollectionViewData
                 ///select view is for show the typr of image facebook, PYT, Checkin
                 
                 //let selectView = cell.viewWithTag(7458)! as! UIImageView
-                cell.selectView.isHidden=false
-                let source = (self.arrayOfimages1[collectionView.tag] as AnyObject).value(forKey: "source") as! NSArray
+               // cell.selectView.isHidden=false
+               // let source = (self.arrayOfimages1[collectionView.tag] as AnyObject).value(forKey: "source") as! NSArray
                 
-                let sourcetype = (self.arrayOfimages1[collectionView.tag] as AnyObject).value(forKey: "sourceType") as! NSArray
-                
-                
-                cell.selectView.image=UIImage (named: "MoreInfo") //"pytsc")
-                
-//                if source[indexPath.row] as? NSNull != NSNull()  {
-//                    
-//                    
-//                    let sourceStr = source.objectAtIndex(indexPath.row) as? String ?? ""
-//                    let sourcetypestr = sourcetype.objectAtIndex(indexPath.row) as! NSNumber
-//                    
-//                    if sourceStr == "facebook" {
-//                        
-//                        selectView.image=UIImage (named: "fbsc")
-//                        if sourcetypestr != 1 {
-//                            selectView.image=UIImage (named: "checkInsc")
-//                        }
-//                        
-//                        
-//                        
-//                    }
-//                    else if sourceStr == "PYT"{
-//                        selectView.image=UIImage (named: "pytsc")
-//                        
-//                    }
-//                    else if sourceStr == "instagram"{
-//                        selectView.image=UIImage (named: "instasc")
-//                        if sourcetypestr != 1 {
-//                            selectView.image=UIImage (named: "checkInsc")
-//                        }
-//                    }
-//                    else{
-//                        selectView.image=UIImage (named: "checkInsc")
-//                    }
-//                    
-//                }
+                //let sourcetype = (self.arrayOfimages1[collectionView.tag] as AnyObject).value(forKey: "sourceType") as! NSArray
                 
                 
+               // cell.selectView.image=UIImage (named: "MoreInfo") //"pytsc")
+                
+
                 
                 
                 
@@ -3725,8 +3679,7 @@ extension mainHomeViewController: UICollectionViewDelegate, UICollectionViewData
                 }
                 
                 
-               // let likeimg = cell.viewWithTag(7477) as! UIImageView
-                //let likecountlbl = cell.viewWithTag(7478) as! UILabel
+             
                 
                 
                 
@@ -3736,7 +3689,7 @@ extension mainHomeViewController: UICollectionViewDelegate, UICollectionViewData
                 
                 //SHOW THE COUNT OF LIKED
                 cell.likecountlbl.text=String(describing: countLik)
-                cell.likeimg.image=UIImage (named: "like_count")
+                cell.likeimg.image=UIImage (named: "likefill")
                 
                 
                 ///////-  Show liked by me-/////
@@ -3751,7 +3704,7 @@ extension mainHomeViewController: UICollectionViewDelegate, UICollectionViewData
                             let indexOfImageId = (self.likeCount.value(forKey: "imageId") as AnyObject).index(of: imageId2)
                             
                             if (self.likeCount.object(at: indexOfImageId) as AnyObject).value(forKey: "like") as! Bool == true {
-                                cell.likeimg.image=UIImage (named: "likedCount")
+                                cell.likeimg.image=UIImage (named: "likefill")
                                 let staticCount = (self.likeCount.object(at: indexOfImageId) as AnyObject).value(forKey: "count") as? NSNumber
                                 cell.likecountlbl.text=String(describing: staticCount!)// String(self.addTheLikes(staticCount!))
                                 
@@ -3759,7 +3712,7 @@ extension mainHomeViewController: UICollectionViewDelegate, UICollectionViewData
                                 
                             }
                             else{
-                                cell.likeimg.image=UIImage (named: "like_count")
+                                cell.likeimg.image=UIImage (named: "likefill")
                                 let staticCount = (self.likeCount.object(at: indexOfImageId) as AnyObject).value(forKey: "count") as? NSNumber
                                 cell.likecountlbl.text=String(describing: staticCount!) //(self.addTheLikes(staticCount!))
                             }
@@ -3771,7 +3724,7 @@ extension mainHomeViewController: UICollectionViewDelegate, UICollectionViewData
                             self.likeCount .add(["imageId":imageId2,"userId":self.uId, "like": true, "count": countLik])
                             //print(self.likeCount)
                             cell.likecountlbl.text=String(describing: countLik)
-                            cell.likeimg.image=UIImage (named: "likedCount")
+                            cell.likeimg.image=UIImage (named: "likefill")
                         }
                         
                         
@@ -3785,7 +3738,7 @@ extension mainHomeViewController: UICollectionViewDelegate, UICollectionViewData
                             let indexOfImageId = (self.likeCount.value(forKey: "imageId") as AnyObject).index(of: imageId2)
                             
                             if (self.likeCount.object(at: indexOfImageId) as AnyObject).value(forKey: "like") as! Bool == true {
-                                cell.likeimg.image=UIImage (named: "likedCount")
+                                cell.likeimg.image=UIImage (named: "likefill")
                                 let staticCount = (self.likeCount.object(at: indexOfImageId) as AnyObject).value(forKey: "count") as? NSNumber
                                 cell.likecountlbl.text=String(describing: staticCount!)
                                 
@@ -3793,7 +3746,7 @@ extension mainHomeViewController: UICollectionViewDelegate, UICollectionViewData
                             else{
                                 let staticCount = (self.likeCount.object(at: indexOfImageId) as AnyObject).value(forKey: "count") as? NSNumber
                                 cell.likecountlbl.text=String(describing: staticCount!)
-                                cell.likeimg.image=UIImage (named: "like_count")
+                                cell.likeimg.image=UIImage (named: "likefill")
                             }
                         }
                         
@@ -3811,7 +3764,7 @@ extension mainHomeViewController: UICollectionViewDelegate, UICollectionViewData
                         let indexOfImageId = (self.likeCount.value(forKey: "imageId") as AnyObject).index(of: imageId2)
                         
                         if (self.likeCount.object(at: indexOfImageId) as AnyObject).value(forKey: "like") as! Bool == true {
-                            cell.likeimg.image=UIImage (named: "likedCount")
+                            cell.likeimg.image=UIImage (named: "likefill")
                             let staticCount = (self.likeCount.object(at: indexOfImageId) as AnyObject).value(forKey: "count") as? NSNumber
                             cell.likecountlbl.text=String(describing: staticCount!)
                             
@@ -3819,7 +3772,7 @@ extension mainHomeViewController: UICollectionViewDelegate, UICollectionViewData
                         else{
                             let staticCount = (self.likeCount.object(at: indexOfImageId) as AnyObject).value(forKey: "count") as? NSNumber
                             cell.likecountlbl.text=String(describing: staticCount!)
-                            cell.likeimg.image=UIImage (named: "like_count")
+                            cell.likeimg.image=UIImage (named: "likefill")
                         }
                     }
                     
@@ -3871,9 +3824,9 @@ extension mainHomeViewController: UICollectionViewDelegate, UICollectionViewData
                 //cell .addSubview(longView)
                 
                 
-                let longTapGest = LongPressGesture(target: self, action: #selector(mainHomeViewController.longTap(_:)))
+                //let longTapGest = LongPressGesture(target: self, action: #selector(mainHomeViewController.longTap(_:)))
                 
-                cell.addGestureRecognizer(longTapGest)
+               // cell.addGestureRecognizer(longTapGest)
                 
                 
                 
@@ -3883,8 +3836,8 @@ extension mainHomeViewController: UICollectionViewDelegate, UICollectionViewData
                 
                 /// for bo
                 //let whiteView = cell.viewWithTag(7460)
-                cell.whiteView?.layer.cornerRadius=5
-                cell.whiteView?.clipsToBounds=true
+//                cell.whiteView?.layer.cornerRadius=5
+//                cell.whiteView?.clipsToBounds=true
                 
                 
                 
@@ -3896,7 +3849,7 @@ extension mainHomeViewController: UICollectionViewDelegate, UICollectionViewData
                 //cell.menuButton.backgroundColor = UIColor .greenColor()
                 cell.menuButton.tag = 1000*collectionView.tag+indexPath.row
                 
-                cell.menuButton.addTarget(self, action: #selector(self.openLongTap(_:)), for: UIControlEvents .touchUpInside)
+                //cell.menuButton.addTarget(self, action: #selector(self.openLongTap(_:)), for: UIControlEvents .touchUpInside)
              
                 
                 
@@ -4019,22 +3972,9 @@ extension mainHomeViewController: UICollectionViewDelegate, UICollectionViewData
         else{
            
         }
-        
-        
-        
+    
     }
     
-//    func scrollViewWillBeginDragging(scrollView: UIScrollView) {
-//     
-//        
-//        if scrollView==imagesTableView {
-//            
-//        }
-//        else{
-//            
-//        }
-//        
-//    }
     
     
     
@@ -4050,13 +3990,7 @@ extension mainHomeViewController: UICollectionViewDelegate, UICollectionViewData
             
             if indexPath.row < ((arrayOfimages1[collectionView.tag] as AnyObject).value(forKey: "id")! as AnyObject) .count {
             
-                //  if cell.reuseIdentifier == "showMoreCell" {
-                //      print("Other cell")
-                
-                
-                //  }
-                //  else
-                //  {
+               
                 
                 
                 var arrImg2 = NSArray()
@@ -4268,7 +4202,7 @@ extension mainHomeViewController: UICollectionViewDelegate, UICollectionViewData
    
     let likeimg = viewTaped?.viewWithTag(7477) as! UIImageView
     
-    let likeimglbl = viewTaped?.viewWithTag(7488) as! UILabel
+   // let likeimglbl = viewTaped?.viewWithTag(7488) as! UILabel
     
     
     
@@ -4308,7 +4242,7 @@ extension mainHomeViewController: UICollectionViewDelegate, UICollectionViewData
     
    //print("like image tapped")
     
-    likeimglbl.text="You Liked This!!!"
+   // likeimglbl.text="You Liked This!!!"
     
     if self.likeCount.count>0 {
         if (self.likeCount.value(forKey: "imageId") as AnyObject).contains(imageId) {
@@ -4322,7 +4256,7 @@ extension mainHomeViewController: UICollectionViewDelegate, UICollectionViewData
                 
                 
                 self.likeCount .removeObject(at: index)
-                  likeimglbl.text="You Unliked This!!!"
+                 // likeimglbl.text="You Unliked This!!!"
                 self.likeCount .add(["userId":uId, "imageId":imageId, "like":false, "count": self.subtractTheLikes(staticCount!)])
                //print(self.likeCount.lastObject)
                 
@@ -4334,7 +4268,7 @@ extension mainHomeViewController: UICollectionViewDelegate, UICollectionViewData
                 
                 
                 
-                likeimg.image=UIImage (named: "like_count")
+                likeimg.image=UIImage (named: "likefill")
                 
                 let dat: NSDictionary = ["userId": "\(uId)", "photoId":"\(imageId)", "userLiked":"\(uId)", "status":"0", "imageOwn": "\(otherUserId)", "userName": "\(userNameMy!)"]
                //print("Post to like picture---- \(dat)")
@@ -4354,7 +4288,7 @@ extension mainHomeViewController: UICollectionViewDelegate, UICollectionViewData
                 
                //print(self.likeCount.lastObject)
                 
-                likeimg.image=UIImage (named: "likedCount")
+                likeimg.image=UIImage (named: "likefill")
                 likedView?.alpha = 1
                 let dat: NSDictionary = ["userId": "\(uId)", "photoId":"\(imageId)", "userLiked":"\(uId)", "status":"1", "imageOwn": "\(otherUserId)", "userName": "\(userNameMy!)"]
                 
@@ -4374,7 +4308,7 @@ extension mainHomeViewController: UICollectionViewDelegate, UICollectionViewData
         else{
             self.likeCount .add(["userId":uId, "imageId":imageId, "like":true, "count": self.addTheLikes(countLik)])
             likedView?.alpha = 1
-            likeimg.image=UIImage (named: "likedCount")
+            likeimg.image=UIImage (named: "likefill")
              likecountlbl.text=String(self.addTheLikes(countLik))
             let dat: NSDictionary = ["userId": "\(uId)", "photoId":"\(imageId)", "userLiked":"\(uId)", "status":"1", "imageOwn": "\(otherUserId)", "userName": "\(userNameMy!)"]
           
@@ -4397,7 +4331,7 @@ extension mainHomeViewController: UICollectionViewDelegate, UICollectionViewData
         
         self.likeCount .add(["userId":uId, "count":self.addTheLikes(countLik), "like": true, "imageId": imageId])
         likecountlbl.text=String(self.addTheLikes(countLik))
-        likeimg.image=UIImage (named: "likedCount")
+        likeimg.image=UIImage (named: "likefill")
         likedView?.alpha = 1
         let dat: NSDictionary = ["userId": "\(uId)", "photoId":"\(imageId)", "userLiked":"\(uId)", "status":"1", "imageOwn": "\(otherUserId)", "userName": "\(userNameMy!)"]
         
@@ -4761,7 +4695,7 @@ extension mainHomeViewController: UICollectionViewDelegate, UICollectionViewData
         
         let likeimg = viewTaped?.viewWithTag(7477) as! UIImageView
         
-        let likeimglbl = viewTaped?.viewWithTag(7488) as! UILabel
+       // let likeimglbl = viewTaped?.viewWithTag(7488) as! UILabel
         
         
         
@@ -4801,7 +4735,7 @@ extension mainHomeViewController: UICollectionViewDelegate, UICollectionViewData
         
         //print("like image tapped")
         
-        likeimglbl.text="You Liked This!!!"
+       // likeimglbl.text="You Liked This!!!"
         
         if self.likeCount.count>0 {
             if (self.likeCount.value(forKey: "imageId") as AnyObject).contains(imageId) {
@@ -4815,7 +4749,7 @@ extension mainHomeViewController: UICollectionViewDelegate, UICollectionViewData
                     
                     
                     self.likeCount .removeObject(at: index)
-                    likeimglbl.text="You Unliked This!!!"
+                    //likeimglbl.text="You Unliked This!!!"
                     self.likeCount .add(["userId":uId, "imageId":imageId, "like":false, "count": self.subtractTheLikes(staticCount!)])
                     //print(self.likeCount.lastObject)
                     
@@ -4827,7 +4761,7 @@ extension mainHomeViewController: UICollectionViewDelegate, UICollectionViewData
                     
                     
                     
-                    likeimg.image=UIImage (named: "like_count")
+                    likeimg.image=UIImage (named: "likefill")
                     
                     let dat: NSDictionary = ["userId": "\(uId)", "photoId":"\(imageId)", "userLiked":"\(uId)", "status":"0", "imageOwn": "\(otherUserId)", "userName": "\(userNameMy!)"]
                     print("Post to like picture---- \(dat)")
@@ -4847,7 +4781,7 @@ extension mainHomeViewController: UICollectionViewDelegate, UICollectionViewData
                     
                     //print(self.likeCount.lastObject)
                     
-                    likeimg.image=UIImage (named: "likedCount")
+                    likeimg.image=UIImage (named: "likefill")
                     likedView?.alpha = 1
                     let dat: NSDictionary = ["userId": "\(uId)", "photoId":"\(imageId)", "userLiked":"\(uId)", "status":"1", "imageOwn": "\(otherUserId)", "userName": "\(userNameMy!)"]
                     
@@ -4867,7 +4801,7 @@ extension mainHomeViewController: UICollectionViewDelegate, UICollectionViewData
             else{
                 self.likeCount .add(["userId":uId, "imageId":imageId, "like":true, "count": self.addTheLikes(countLik)])
                 likedView?.alpha = 1
-                likeimg.image=UIImage (named: "likedCount")
+                likeimg.image=UIImage (named: "likefill")
                 likecountlbl.text=String(self.addTheLikes(countLik))
                 let dat: NSDictionary = ["userId": "\(uId)", "photoId":"\(imageId)", "userLiked":"\(uId)", "status":"1", "imageOwn": "\(otherUserId)", "userName": "\(userNameMy!)"]
                 
@@ -4890,7 +4824,7 @@ extension mainHomeViewController: UICollectionViewDelegate, UICollectionViewData
             
             self.likeCount .add(["userId":uId, "count":self.addTheLikes(countLik), "like": true, "imageId": imageId])
             likecountlbl.text=String(self.addTheLikes(countLik))
-            likeimg.image=UIImage (named: "likedCount")
+            likeimg.image=UIImage (named: "likefill")
             likedView?.alpha = 1
             let dat: NSDictionary = ["userId": "\(uId)", "photoId":"\(imageId)", "userLiked":"\(uId)", "status":"1", "imageOwn": "\(otherUserId)", "userName": "\(userNameMy!)"]
             
