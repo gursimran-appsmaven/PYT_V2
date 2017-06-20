@@ -3477,6 +3477,12 @@ extension mainHomeViewController: UICollectionViewDelegate, UICollectionViewData
     func collectionView(_ collectionView: UICollectionView,numberOfItemsInSection section: Int) -> Int
     {
         
+        if collectionView == storyCollectionView {
+            
+            return 3
+        }
+        else{
+        
         let show = (arrayOfimages1[collectionView.tag] as AnyObject).value(forKey: "showMore") as! Int
         
     if show == 0 {
@@ -3485,7 +3491,7 @@ extension mainHomeViewController: UICollectionViewDelegate, UICollectionViewData
         else{
             return ((arrayOfimages1[collectionView.tag] as AnyObject).value(forKey: "id")! as AnyObject) .count + 1
         }
-        
+        }
     
     }
     
@@ -3495,6 +3501,18 @@ extension mainHomeViewController: UICollectionViewDelegate, UICollectionViewData
     
     func collectionView(_ collectionView: UICollectionView,cellForItemAt indexPath: IndexPath) -> UICollectionViewCell
     {
+        
+        if collectionView == storyCollectionView {
+            
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "planCell",for: indexPath) as! planCollectionViewCell
+        
+            return cell
+            
+        }
+        else
+        {
+        
+        
         
         if arrayOfimages1.count<1 {
             
@@ -3610,7 +3628,8 @@ extension mainHomeViewController: UICollectionViewDelegate, UICollectionViewData
                     var stCat = (newCatRr.object(at: ll) as AnyObject).value(forKey: "displayName") as? String ?? ""
                     
                     
-                    if stCat == "Random" || stCat == "random" {
+                    if stCat == "Random" || stCat == "random"
+                    {
                         stCat = "Others"
                     }
                     newcat2 .add(stCat)
@@ -3925,6 +3944,7 @@ extension mainHomeViewController: UICollectionViewDelegate, UICollectionViewData
         }
             
         }
+        }
     }
     
     
@@ -3945,6 +3965,11 @@ extension mainHomeViewController: UICollectionViewDelegate, UICollectionViewData
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath){
         
+        if collectionView == storyCollectionView {
+            
+        }
+        
+        
         
         //print("collectionviewtag:\(collectionView.tag) +  indexpathrow:\(indexPath.row)")
        
@@ -3957,35 +3982,32 @@ extension mainHomeViewController: UICollectionViewDelegate, UICollectionViewData
     
     func collectionView(_ collectionView: UICollectionView, didEndDisplaying cell: UICollectionViewCell, forItemAt indexPath: IndexPath)
     {
+        if collectionView == storyCollectionView {
+            
+        }
+        else
+        {
         for recognizer in cell.gestureRecognizers ?? [] {
             cell.removeGestureRecognizer(recognizer)
         }
-        
-        
-        
-        
-        
+        }
         
     }
     
     
-    
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        if scrollView==imagesTableView {
-           
-        }
-        else{
-           
-        }
-    
-    }
+   
     
     
     
     
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath){
         
-        
+        if collectionView == storyCollectionView {
+            
+        }
+        else
+        {
+    
         if self.arrayOfimages1.count<1 {
             
         }
@@ -4053,6 +4075,7 @@ extension mainHomeViewController: UICollectionViewDelegate, UICollectionViewData
             }
 
         }
+        }
         
     }
     
@@ -4068,6 +4091,12 @@ extension mainHomeViewController: UICollectionViewDelegate, UICollectionViewData
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: IndexPath) -> CGSize {
         
+        if collectionView != storyCollectionView {
+            
+        //}
+       // else
+       // {
+        
         var width1 = collectionView.frame.size.width/1.25   //1.8
         
         let height3 : CGFloat = self.imagesTableView.rowHeight - 56
@@ -4078,6 +4107,12 @@ extension mainHomeViewController: UICollectionViewDelegate, UICollectionViewData
         }
         
         return CGSize(width: width1 , height: height3) // The size of one cell
+            
+        }
+        
+        else{
+            return CGSize(width: 70 , height: 61)
+        }
     }
     
     
@@ -4090,6 +4125,24 @@ extension mainHomeViewController: UICollectionViewDelegate, UICollectionViewData
     
     
    
+    
+    
+    
+///Plan header cell
+    
+    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        var reusableview: UICollectionReusableView? = nil
+        if kind == UICollectionElementKindSectionHeader{
+            let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionElementKindSectionHeader, withReuseIdentifier: "planHeader", for: indexPath) as! planCollectionViewHeaderCell
+           
+            
+            
+            reusableview = headerView
+        }
+        
+        return reusableview!
+    }
+    
     
     
     

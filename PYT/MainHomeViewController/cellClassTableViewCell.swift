@@ -120,7 +120,7 @@ class cellClassTableViewCell: UITableViewCell{
     */
 }
 
-
+// locations on feed cell
 class collectionViewCellClassFeed: UICollectionViewCell {
     
     @IBOutlet weak var likeView: UIView!
@@ -140,6 +140,26 @@ class collectionViewCellClassFeed: UICollectionViewCell {
     
     
 }
+
+
+//plan cell
+class planCollectionViewCell: UICollectionViewCell {
+    
+    //planCell
+    
+    
+    
+}
+
+//plan header cell
+class planCollectionViewHeaderCell: UICollectionViewCell {
+    
+    //planHeader
+    
+    
+    
+}
+
 
 
 

@@ -2143,8 +2143,8 @@
                                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                                 </collectionViewFlowLayout>
                                                 <cells>
-                                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="cS5-ls-fSo">
-                                                        <rect key="frame" x="75" y="3" width="70" height="61"/>
+                                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="planCell" id="cS5-ls-fSo" customClass="planCollectionViewCell" customModule="PYT" customModuleProvider="target">
+                                                        <rect key="frame" x="75" y="2.5" width="70" height="61"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                                             <rect key="frame" x="0.0" y="0.0" width="70" height="61"/>
@@ -2201,7 +2201,7 @@
                                                         </constraints>
                                                     </collectionViewCell>
                                                 </cells>
-                                                <collectionReusableView key="sectionHeaderView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="DIe-wg-6rj">
+                                                <collectionReusableView key="sectionHeaderView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="planHeader" id="DIe-wg-6rj" customClass="planCollectionViewHeaderCell" customModule="PYT" customModuleProvider="target">
                                                     <rect key="frame" x="0.0" y="0.0" width="75" height="66"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <subviews>
@@ -2255,6 +2255,10 @@
                                                         <constraint firstAttribute="trailing" secondItem="bqB-A3-RbO" secondAttribute="trailing" constant="17" id="pXI-9O-KDZ"/>
                                                     </constraints>
                                                 </collectionReusableView>
+                                                <connections>
+                                                    <outlet property="dataSource" destination="gHH-58-bjG" id="EVO-Rz-CvT"/>
+                                                    <outlet property="delegate" destination="gHH-58-bjG" id="17g-Nc-2o5"/>
+                                                </connections>
                                             </collectionView>
                                         </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
