@@ -291,15 +291,15 @@ class ViewController: UIViewController, apiClassDelegate , UIScrollViewDelegate,
                     
                     if (tabledata?.count)! < 1
                     {
-                        //let nxtObj = self.storyboard?.instantiateViewControllerWithIdentifier("firstMainScreenViewController") as! firstMainScreenViewController
+                        let nxtObj = self.storyboard?.instantiateViewController(withIdentifier: "searchScreenViewController") as! searchScreenViewController
                         
-                        //self.navigationController?.pushViewController(nxtObj, animated: true)
+                        self.navigationController?.pushViewController(nxtObj, animated: true)
                     }
                     else
                     {
-                       // let nxtObj = self.storyboard?.instantiateViewControllerWithIdentifier("MainTabBarViewController") as! MainTabBarViewController
+                        let nxtObj = self.storyboard?.instantiateViewController(withIdentifier: "MainTabBarViewController") as! MainTabBarViewController
                         
-                       // self.navigationController?.pushViewController(nxtObj, animated: true)
+                        self.navigationController?.pushViewController(nxtObj, animated: true)
                     }
                     
                 }

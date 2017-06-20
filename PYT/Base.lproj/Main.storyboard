@@ -324,7 +324,7 @@
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="GTN-Gr-G2c" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="lJP-BG-Gho">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="lJP-BG-Gho">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -1335,7 +1335,7 @@
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" alpha="0.75" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Inspiration from the best travel bloggers" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oM1-B3-Teh">
-                                                        <rect key="frame" x="8" y="301" width="206" height="17"/>
+                                                        <rect key="frame" x="8" y="301" width="214" height="17"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="17" id="waw-LU-zYL"/>
                                                         </constraints>
@@ -1546,6 +1546,9 @@
                                                 <state key="normal" title="Explore">
                                                     <color key="titleColor" red="0.96470588239999999" green="0.31764705879999999" blue="0.31372549020000001" alpha="1" colorSpace="calibratedRGB"/>
                                                 </state>
+                                                <connections>
+                                                    <action selector="nextPageAction:" destination="KAY-jN-Eo5" eventType="touchUpInside" id="PTQ-9V-SvI"/>
+                                                </connections>
                                             </button>
                                         </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -2471,7 +2474,7 @@
                                                                     </connections>
                                                                 </collectionViewCell>
                                                                 <collectionViewCell clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="showMoreCell" id="PhN-8W-hPd">
-                                                                    <rect key="frame" x="193" y="8" width="150" height="145"/>
+                                                                    <rect key="frame" x="182" y="14" width="150" height="145"/>
                                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                                     <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                                                         <rect key="frame" x="0.0" y="0.0" width="150" height="145"/>
@@ -2591,8 +2594,8 @@
         <!--Main Tab Bar View Controller-->
         <scene sceneID="Dt3-7n-OFV">
             <objects>
-                <tabBarController storyboardIdentifier="MainTabBarViewController" id="4hR-jc-i78" customClass="MainTabBarViewController" customModule="PYT" customModuleProvider="target" sceneMemberID="viewController">
-                    <tabBar key="tabBar" contentMode="scaleToFill" translucent="NO" id="B2E-H1-Lgq">
+                <tabBarController storyboardIdentifier="MainTabBarViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="4hR-jc-i78" customClass="MainTabBarViewController" customModule="PYT" customModuleProvider="target" sceneMemberID="viewController">
+                    <tabBar key="tabBar" contentMode="scaleToFill" id="B2E-H1-Lgq">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="49"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>

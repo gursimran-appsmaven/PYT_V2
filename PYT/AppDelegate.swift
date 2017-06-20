@@ -393,19 +393,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 
                 
                 
-                //
-                //                let objt = storyCountClass()
-                //                let objt2 = UserProfileDetailClass()
-                //                ///story count
-                //
-                //                print("This is run on the background queue")
-                //                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, Int64(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), {() -> Void in
-                //                    let dic:NSDictionary = ["userId": uId]
-                //                    objt.postRequestForcountStory(dic)
-                //
-                //                    objt2.postRequestForGetTheUserProfileData(uId)
-                //
-                //                })
+                
+                                let objt = storyCountClass()
+                               // let objt2 = UserProfileDetailClass()
+                                ///story count
+                
+                                print("This is run on the background queue")
+                
+                 DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
+                                    let dic:NSDictionary = ["userId": uId]
+                                    objt.postRequestForcountStory(parameterString: dic)
+                
+                                    //objt2.postRequestForGetTheUserProfileData(uId)
+                
+                                }
                 
                 
                 

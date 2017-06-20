@@ -1503,13 +1503,15 @@ class searchScreenViewController: UIViewController, UINavigationControllerDelega
     
     //// action of proceed button to move next third
     
-    @IBAction func nextPageAction(sender: AnyObject)
+    
+    @IBAction func nextPageAction(_ sender: Any)
     {
+    
         if arrayOfIntrest.count<1
         {
             CommonFunctionsClass.sharedInstance().showAlert(title: "Opps!", text: "Please add minimum one location.", imageName: "alertFill")
             
-            //CommonFunctionsClass.sharedInstance().alertViewOpen("Please add minimum one interest", viewController: self)
+           
         }
         else
         {
@@ -1526,12 +1528,11 @@ class searchScreenViewController: UIViewController, UINavigationControllerDelega
                 //    print((arrayOfIntrest.objectAtIndex(i) as AnyObject).valueForKey("location"))
                 
                 
-                let locName = ((arrayOfIntrest.object(at: i)) as AnyObject).value(forKey: "fullName") as? String ?? "" // arrayOfIntrest.objectAtIndex(i).valueForKey("fullName") as? String ?? ""
-                
+                let locName = ((arrayOfIntrest.object(at: i)) as AnyObject).value(forKey: "fullName") as? String ?? ""
                 let locType = ((arrayOfIntrest.object(at: i)) as AnyObject).value(forKey: "type") as? String ?? ""
-                //arrayOfIntrest.objectAtIndex(i).valueForKey("type") as? String ?? ""
+               
                 
-                let locId = ((arrayOfIntrest.object(at: i)) as AnyObject).value(forKey: "placeId") as? String ?? ""//arrayOfIntrest.objectAtIndex(i).valueForKey("placeId") as? String ?? ""
+                let locId = ((arrayOfIntrest.object(at: i)) as AnyObject).value(forKey: "placeId") as? String ?? ""
                 
                 
                 typeArr .add(["type": locType, "placeId": locId, "fullName": locName])
@@ -1560,14 +1561,14 @@ class searchScreenViewController: UIViewController, UINavigationControllerDelega
             
             UserDefaults.standard.set(arrayOfIntrest, forKey: "arrayOfIntrest")
             
-            // let nxtObj = self.storyboard?.instantiateViewControllerWithIdentifier("MainTabBarViewController") as! MainTabBarViewController
+             let nxtObj = self.storyboard?.instantiateViewController(withIdentifier: "MainTabBarViewController") as! MainTabBarViewController
             
             
             
             
             
-            //self.navigationController! .pushViewController(nxtObj, animated: true)
-            // self.dismissViewControllerAnimated(true, completion: {})
+            self.navigationController! .pushViewController(nxtObj, animated: true)
+            self.dismiss(animated: true, completion: {})
             URLCache.shared.removeAllCachedResponses()
             
             
