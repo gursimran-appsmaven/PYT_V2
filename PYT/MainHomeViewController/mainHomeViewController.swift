@@ -509,8 +509,8 @@ class mainHomeViewController: UIViewController, SDWebImageManagerDelegate, apiCl
        
         
         segmentControl.clipsToBounds=true
+        segmentControl.sectionTitles = temAr as! [String]
         segmentControl.autoresizingMask = [.flexibleRightMargin, .flexibleWidth]
-        segmentControl.selectionStyle = HMSegmentedControlSelectionStyle.fullWidthStripe
         segmentControl.selectionIndicatorLocation = HMSegmentedControlSelectionIndicatorLocation.down
         segmentControl.selectionIndicatorColor = UIColor(red: 255/255, green: 80/255, blue: 80/255, alpha: 1.0)
         segmentControl.selectionIndicatorHeight=3.0
@@ -518,8 +518,8 @@ class mainHomeViewController: UIViewController, SDWebImageManagerDelegate, apiCl
         segmentControl.verticalDividerColor = UIColor.clear
         segmentControl.verticalDividerWidth = 0.8
         segmentControl.backgroundColor = UIColor.clear
-        segmentControl.titleTextAttributes = [NSFontAttributeName: UIFont(name: "SFUIDisplay-Regular", size: 13.0)! ]
-         segmentControl.selectedTitleTextAttributes = [NSFontAttributeName: UIFont(name: "SFUIDisplay-Bold", size: 13.0)! ]
+        segmentControl.titleTextAttributes = [NSFontAttributeName: UIFont(name: "SFUIDisplay-Regular", size: 13.0)! , NSForegroundColorAttributeName : UIColor.black]
+         segmentControl.selectedTitleTextAttributes = [NSFontAttributeName: UIFont(name: "SFUIDisplay-Bold", size: 13.0)! , NSForegroundColorAttributeName : UIColor.black]
         segmentControl.selectionStyle = HMSegmentedControlSelectionStyle.fullWidthStripe
         segmentControl.setSelectedSegmentIndex(UInt(selectedindxSearch), animated: true)
     

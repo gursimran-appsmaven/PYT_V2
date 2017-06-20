@@ -93,11 +93,11 @@ class storyCountClass: NSObject
                                 
                                 if status == 1{
                                     
-                                   // if jsonArray.count>0{
+                                 /*  // if jsonArray.count>0{
                                         countArray=basicInfo
                                         print(basicInfo)
                                         print(countArray.value(forKey: "storyCount")!)
-                                        print(countArray.value(forKey: "storyImages")!)
+                                         print(countArray.value(forKey: "storyImages")!)
                                         
                                         bucketListTotalCount = "0"
                                         if countArray.object(forKey: "bucketCount") != nil {
@@ -111,7 +111,7 @@ class storyCountClass: NSObject
                                     
                                     
                                // }
-                                    }
+                                    } */
                                 }
                                 else if(status == 5){
                                     
