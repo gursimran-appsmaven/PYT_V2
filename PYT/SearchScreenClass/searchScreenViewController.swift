@@ -101,18 +101,21 @@ class searchScreenViewController: UIViewController, UINavigationControllerDelega
     @IBOutlet weak var btn5Overlay: GradientView!
     
     //Cross buttons
-    
-    
     @IBOutlet weak var deleteBtn1: CustomButton!
     @IBOutlet weak var deleteBtn2: CustomButton!
     @IBOutlet weak var deleteBtn3: CustomButton!
     @IBOutlet weak var deleteBtn4: CustomButton!
     @IBOutlet weak var deleteBtn5: CustomButton!
     
+    //Labels outlet
     
     var buttonPressedTag = Int()
     
-    
+    @IBOutlet weak var locLabel1: UILabel!
+    @IBOutlet weak var locLabel2: UILabel!
+    @IBOutlet weak var locLabel3: UILabel!
+    @IBOutlet weak var locLabel4: UILabel!
+    @IBOutlet weak var locLabel5: UILabel!
     
     
     override func viewWillAppear(_ animated: Bool)
@@ -566,11 +569,29 @@ class searchScreenViewController: UIViewController, UINavigationControllerDelega
             cell.userNameLbl.text = "Blogger Name"
             cell.userImageProfile.layer.cornerRadius = cell.userImageProfile.frame.size.width/2
             cell.locationImage.contentMode = .scaleAspectFill
+            //cell.locationImage.layer.masksToBounds = true
             cell.locationImage.clipsToBounds = true
-            cell.locationImage.backgroundColor = UIColor .green
+            
+            if indexPath.row == 0 {
+                cell.locationImage.image = UIImage (named: "dummyBackground1")
+                cell.userImageProfile.image = UIImage (named: "dummyProfile1")
+            }
+            else if indexPath.row == 1
+            {
+                cell.userImageProfile.image = UIImage (named: "dummyProfile2")
+                cell.locationImage.image = UIImage (named: "dummyBackground2")
+            }
+            else{
+                cell.userImageProfile.image = UIImage (named: "dummyProfile1")
+                cell.locationImage.image = UIImage (named: "dummyBackground1")
+            }
+            
+            cell.userImageProfile.contentMode = .scaleAspectFill
+         
             cell.userImageProfile.clipsToBounds = true
-            cell.userImageProfile.image = UIImage (named: "profile")
-            cell.userImageProfile.backgroundColor = UIColor .yellow
+            
+            cell.layoutSubviews()
+            cell.setNeedsLayout()
             
             return cell
         }
@@ -1229,39 +1250,49 @@ class searchScreenViewController: UIViewController, UINavigationControllerDelega
             
             button1 .setImage(nil, for: .normal) //imageView?.image = nil
             button1.backgroundColor = UIColor .red
-            button1 .setTitle(LocationNameString, for: .normal)
+            locLabel1.text = LocationNameString
+            //button1 .setTitle(LocationNameString, for: .normal)
             deleteBtn1.tag = 0
             deleteBtn1.isHidden = false
+            btn1Overlay.isHidden = false
+            
             break
         case 1:
             button2.setImage(nil, for: .normal)
             button2.backgroundColor = UIColor .red
-            button2 .setTitle(LocationNameString, for: .normal)
+            locLabel2.text = LocationNameString
+            //button2 .setTitle(LocationNameString, for: .normal)
             deleteBtn2.tag = 1
             deleteBtn2.isHidden = false
+            btn2Overlay.isHidden = false
             break
         case 2:
             button3.setImage(nil, for: .normal)
             button3.backgroundColor = UIColor .red
-            button3 .setTitle(LocationNameString, for: .normal)
+            locLabel3.text = LocationNameString
+            //button3 .setTitle(LocationNameString, for: .normal)
             deleteBtn3.tag = 2
             deleteBtn3.isHidden = false
+            btn3Overlay.isHidden = false
             break
         case 3:
             button4.setImage(nil, for: .normal)
             button4.backgroundColor = UIColor .red
-            button4 .setTitle(LocationNameString, for: .normal)
+            locLabel4.text = LocationNameString
+            //button4 .setTitle(LocationNameString, for: .normal)
             deleteBtn4.tag = 3
             deleteBtn4.isHidden = false
+            btn4Overlay.isHidden = false
             break
        
         default:
             button5.setImage(nil, for: .normal)
             button5.backgroundColor = UIColor .red
-            button5 .setTitle(LocationNameString, for: .normal)
+            locLabel5.text = LocationNameString
+            //button5 .setTitle(LocationNameString, for: .normal)
             deleteBtn5.tag = 4
             deleteBtn5.isHidden = false
-            
+            btn5Overlay.isHidden = false
             break
         }
         
@@ -1614,35 +1645,40 @@ class searchScreenViewController: UIViewController, UINavigationControllerDelega
         case 0:
             button1 .setImage(UIImage (named: "Add") , for: .normal) //
             button1.backgroundColor = UIColor .lightGray.withAlphaComponent(0.2)
-            button1.setTitle("", for: .normal)
+            locLabel1.text = ""
+            //button1.setTitle("", for: .normal)
             deleteBtn1.isHidden = true
             break
             
         case 1:
             button2 .setImage(UIImage (named: "Add") , for: .normal) //
             button2.backgroundColor = UIColor .lightGray.withAlphaComponent(0.2)
-            button2.setTitle("", for: .normal)
+            locLabel2.text = ""
+            //button2.setTitle("", for: .normal)
             deleteBtn2.isHidden = true
             break
             
         case 2:
             button3 .setImage(UIImage (named: "Add") , for: .normal) //
             button3.backgroundColor = UIColor .lightGray.withAlphaComponent(0.2)
-            button3.setTitle("", for: .normal)
+            locLabel3.text = ""
+            //button3.setTitle("", for: .normal)
             deleteBtn3.isHidden = true
             break
             
         case 3:
             button4 .setImage(UIImage (named: "Add") , for: .normal) //
             button4.backgroundColor = UIColor .lightGray.withAlphaComponent(0.2)
-            button4.setTitle("", for: .normal)
+            locLabel4.text = ""
+            //button4.setTitle("", for: .normal)
             deleteBtn4.isHidden = true
             break
             
         default:
             button5 .setImage(UIImage (named: "Add") , for: .normal) //
             button5.backgroundColor = UIColor .lightGray.withAlphaComponent(0.2)
-            button5.setTitle("", for: .normal)
+            locLabel5.text = ""
+            //button5.setTitle("", for: .normal)
             deleteBtn5.isHidden = true
             break
         }
@@ -1671,27 +1707,39 @@ class searchScreenViewController: UIViewController, UINavigationControllerDelega
         deleteBtn3.isHidden = true
         deleteBtn4.isHidden = true
         deleteBtn5.isHidden = true
+       
+        btn1Overlay.isHidden = true
+        btn2Overlay.isHidden = true
+        btn3Overlay.isHidden = true
+        btn4Overlay.isHidden = true
+        btn5Overlay.isHidden = true
+        
         
         
         button1 .setImage(UIImage (named: "Add") , for: .normal) //
-        button1.backgroundColor = UIColor (colorLiteralRed: 250/255, green: 250/255, blue: 250/255, alpha: 1) //.lightGray
-        button1.setTitle("", for: .normal)
+        button1.backgroundColor = UIColor .lightGray.withAlphaComponent(0.2)
+       // button1.setTitle("", for: .normal)
+        locLabel1.text = ""
         
         button2 .setImage(UIImage (named: "Add") , for: .normal) //
-        button2.backgroundColor = UIColor (colorLiteralRed: 250/255, green: 250/255, blue: 250/255, alpha: 1) //.lightGray
-        button2.setTitle("", for: .normal)
+        button2.backgroundColor = UIColor .lightGray.withAlphaComponent(0.2)
+        locLabel2.text = ""
+        // button2.setTitle("", for: .normal)
         
         button3 .setImage(UIImage (named: "Add") , for: .normal) //
-        button3.backgroundColor = UIColor (colorLiteralRed: 250/255, green: 250/255, blue: 250/255, alpha: 1)//.lightGray
-        button3.setTitle("", for: .normal)
+        button3.backgroundColor = UIColor .lightGray.withAlphaComponent(0.2)
+        locLabel3.text = ""
+        //button3.setTitle("", for: .normal)
         
         button4 .setImage(UIImage (named: "Add") , for: .normal) //
-        button4.backgroundColor = UIColor (colorLiteralRed: 250/255, green: 250/255, blue: 250/255, alpha: 1)//UIColor .lightGray
-        button4.setTitle("", for: .normal)
+        button4.backgroundColor = UIColor .lightGray.withAlphaComponent(0.2)
+        locLabel4.text = ""
+        //button4.setTitle("", for: .normal)
         
         button5 .setImage(UIImage (named: "Add") , for: .normal) //
-        button5.backgroundColor = UIColor (colorLiteralRed: 250/255, green: 250/255, blue: 250/255, alpha: 1)//UIColor .lightGray
-        button5.setTitle("", for: .normal)
+        button5.backgroundColor = UIColor .lightGray.withAlphaComponent(0.2)
+        locLabel5.text = ""
+        //button5.setTitle("", for: .normal)
         
     }
     
