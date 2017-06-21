@@ -41,9 +41,14 @@ class mainHomeViewController: UIViewController, SDWebImageManagerDelegate, apiCl
    // @IBOutlet weak var emptyView: UIView!
     @IBOutlet var firstView: UIView!
     
-    //View open on long tap
+    //View open on More options
     @IBOutlet var detailView: UIView!
-    
+    @IBOutlet weak var dynamicDetailSubview: CustomView!
+    @IBOutlet weak var likeButtonDetailView: UIButton!
+    @IBOutlet weak var commentButtonDetailView: UIButton!
+    @IBOutlet weak var addToPlanBtn: UIButton!
+    @IBOutlet weak var addToBucketBtn: UIButton!
+    @IBOutlet weak var editButtonDetailview: UIButton!
     
     
     
@@ -91,16 +96,10 @@ class mainHomeViewController: UIViewController, SDWebImageManagerDelegate, apiCl
     
     ////////Pop up View items to Story, Edit, Like, Bucket
     
-    @IBOutlet var addToStory: UIImageView!
+   
     var storyBool = Bool()
-    @IBOutlet var addStoryLabelInPopup: UILabel!
     
-    @IBOutlet var likeLabelPopup: UILabel!
-    @IBOutlet weak var addToBucketLblInPopup: UILabel!
     
-    @IBOutlet var likeImage: UIImageView!
-    @IBOutlet var addToBucket: UIImageView!
-    @IBOutlet var deleteImage: UIImageView!
     
     var storyBucketBool = Bool()
     
@@ -1435,10 +1434,10 @@ class mainHomeViewController: UIViewController, SDWebImageManagerDelegate, apiCl
         
         let nxtObj = self.storyboard?.instantiateViewController(withIdentifier: "searchScreenViewController") as! searchScreenViewController
        
-         DispatchQueue.main.async(execute: {
+         //DispatchQueue.main.async(execute: {
             self.navigationController! .pushViewController(nxtObj, animated: true)
             nxtObj.hidesBottomBarWhenPushed = true
-        })
+       // })
         
     }
     
@@ -1636,13 +1635,10 @@ class mainHomeViewController: UIViewController, SDWebImageManagerDelegate, apiCl
        
         
         
-        
+       /*
         if  addStoryLabelInPopup.text=="Add To Plan" {
             
-      
-
-            
-            let dat: NSDictionary = ["userId": "\(uId)", "imageId": imageId, "placeId": globalPlaceid, "placeType": self.globalType, "ownerId": ownersId ]
+        let dat: NSDictionary = ["userId": "\(uId)", "imageId": imageId, "placeId": globalPlaceid, "placeType": self.globalType, "ownerId": ownersId ]
             
             
             //type=self,globaltype
@@ -1686,7 +1682,7 @@ class mainHomeViewController: UIViewController, SDWebImageManagerDelegate, apiCl
                 })
            // storyListCount.text=String(self.subtractTheLikes(countst))
             
-        }
+        } */
         
         
         
@@ -2036,44 +2032,44 @@ class mainHomeViewController: UIViewController, SDWebImageManagerDelegate, apiCl
        
         
         
-        
-        if  addToBucketLblInPopup.text=="Add To Bucket List"
-        {
-            
-            let parameterDic: NSDictionary = ["userId": uId,"imageOwn": otherUserId, "imageId": imageId ]
-           //print("parameter of add t0 bucket=\(parameterString)")
-            
-        
-            
-            
-            
-            
-            DispatchQueue.global(qos: DispatchQoS.QoSClass.background).async(execute: {
-               // bucketListApiClass.sharedInstance().postRequestForAddBucket(parameterDic, viewController: self)
-                
-                
-
-    
-                
-            })
-            
-            
-            self.proceedBtnAction(tableIndex, collectionViewIndex: collectionIndex)
-
-            
-           
-            
-        }
-        else
-        {
-            
-            let parameter: NSDictionary = ["userId": uId, "imageId": imageId]
-            
-           // bucketListApiClass.sharedInstance().postRequestForDeletBucketListFromFeed(parameter, viewController: self)
-            
-            
-            
-        }
+//        
+//        if  addToBucketLblInPopup.text=="Add To Bucket List"
+//        {
+//            
+//            let parameterDic: NSDictionary = ["userId": uId,"imageOwn": otherUserId, "imageId": imageId ]
+//           //print("parameter of add t0 bucket=\(parameterString)")
+//            
+//        
+//            
+//            
+//            
+//            
+//            DispatchQueue.global(qos: DispatchQoS.QoSClass.background).async(execute: {
+//               // bucketListApiClass.sharedInstance().postRequestForAddBucket(parameterDic, viewController: self)
+//                
+//                
+//
+//    
+//                
+//            })
+//            
+//            
+//            self.proceedBtnAction(tableIndex, collectionViewIndex: collectionIndex)
+//
+//            
+//           
+//            
+//        }
+//        else
+//        {
+//            
+//            let parameter: NSDictionary = ["userId": uId, "imageId": imageId]
+//            
+//           // bucketListApiClass.sharedInstance().postRequestForDeletBucketListFromFeed(parameter, viewController: self)
+//            
+//            
+//            
+//        }
         
         
         
@@ -2373,6 +2369,9 @@ class mainHomeViewController: UIViewController, SDWebImageManagerDelegate, apiCl
         
         //// hide the view
         if showView==false {
+            self.detailView.isHidden = true
+
+            /*
             
             if Udefaults.integer(forKey: "indexToolTips") < 5 {
                  self.manageToolsTipsShow()
@@ -2403,7 +2402,7 @@ class mainHomeViewController: UIViewController, SDWebImageManagerDelegate, apiCl
                     
                     popUpView?.transform = CGAffineTransform.identity
             })
-            
+            */
             
         }
             
@@ -2411,14 +2410,14 @@ class mainHomeViewController: UIViewController, SDWebImageManagerDelegate, apiCl
         else
         {
             
-            toolTimer.invalidate()
+           // toolTimer.invalidate()
             
             self.detailView.isHidden=false
-            self.tabBarController?.tabBar.isHidden = true
+            //self.tabBarController?.tabBar.isHidden = true
            
             
             
-            
+            /*
             let popUpView = detailView
             let centre : CGPoint = CGPoint(x: self.view.center.x, y: self.view.center.y)
             //let centre : CGPoint = CGPoint(x: (self.tabBarController?.view.center.x)!, y: (self.tabBarController?.view.center.y)!)
@@ -2439,7 +2438,7 @@ class mainHomeViewController: UIViewController, SDWebImageManagerDelegate, apiCl
                     
             })
             
-            
+            */
             
             
             
@@ -2452,38 +2451,7 @@ class mainHomeViewController: UIViewController, SDWebImageManagerDelegate, apiCl
             
             detailView.addGestureRecognizer(tapGestureRecognizer)
             
-            
-            
-            let tapGestureRecognizer2 = UITapGestureRecognizer(target:self, action:#selector(mainHomeViewController.storyImageTapped))
-            addToStory.isUserInteractionEnabled = true
-            addToStory.addGestureRecognizer(tapGestureRecognizer2)
-            
-            self.detailView.bringSubview(toFront: addToStory)
-            
-            
-            
-            let tapGestureRecognizer3 = UITapGestureRecognizer(target:self, action:#selector(mainHomeViewController.likeImageTapped))
-            likeImage.isUserInteractionEnabled = true
-            likeImage.addGestureRecognizer(tapGestureRecognizer3)
-            
-            self.detailView.bringSubview(toFront: likeImage)
-            
-            
-            
-            let tapGestureRecognizer4 = UITapGestureRecognizer(target:self, action:#selector(mainHomeViewController.bucketImageTapped))
-            addToBucket.isUserInteractionEnabled = true
-            addToBucket.addGestureRecognizer(tapGestureRecognizer4)
-            
-            self.detailView.bringSubview(toFront: addToBucket)
-            
-            
-            let tapGestureRecognizer5 = UITapGestureRecognizer(target:self, action:#selector(mainHomeViewController.deleteImageTapped))
-            deleteImage.isUserInteractionEnabled = true
-            deleteImage.addGestureRecognizer(tapGestureRecognizer5)
-            
-            self.detailView.bringSubview(toFront: deleteImage)
-            
-            
+        
             
         }
         
@@ -3991,6 +3959,7 @@ extension mainHomeViewController: UICollectionViewDelegate, UICollectionViewData
                 //cell.menuButton.backgroundColor = UIColor .greenColor()
                 cell.menuButton.tag = 1000*collectionView.tag+indexPath.row
                 
+                cell.menuButton.addTarget(self, action: #selector(self.openLongTap(_:event:)), for: UIControlEvents .touchUpInside)
                 //cell.menuButton.addTarget(self, action: #selector(self.openLongTap(_:)), for: UIControlEvents .touchUpInside)
              
                 
@@ -5058,8 +5027,43 @@ extension mainHomeViewController: UICollectionViewDelegate, UICollectionViewData
     
     
     
-    func openLongTap(_ sender: UIButton)
+    func openLongTap(_ sender: UIButton, event: UIEvent)
     {
+        
+        
+        let touches: Set<AnyHashable>? = event.allTouches
+        let touch: UITouch? = touches?.first as! UITouch?
+        var currentTouchPosition: CGPoint? = touch?.location(in: imagesTableView)
+
+        print(currentTouchPosition)
+        print("width: \(dynamicDetailSubview.frame.size.width), height: \(dynamicDetailSubview.frame.size.height),tableView.y + 160:\(dynamicDetailSubview.frame.size.height + 160)")
+        
+        var xframe = CGFloat()
+        var yframe = CGFloat()
+        if (currentTouchPosition?.x)! < dynamicDetailSubview.frame.size.width + 5 {
+            xframe = (currentTouchPosition?.x)! + 5 //+ dynamicDetailSubview.frame.size.width + 3
+        }
+        else{
+            xframe = (currentTouchPosition?.x)! - dynamicDetailSubview.frame.size.width + 5
+        }
+        
+        if (currentTouchPosition?.y)! < dynamicDetailSubview.frame.size.height + 160 {
+            yframe = (currentTouchPosition?.y)! - 5 //+ dynamicDetailSubview.frame.size.height + 3
+            
+        }else{
+            yframe = (currentTouchPosition?.y)! - dynamicDetailSubview.frame.size.height
+        }
+        
+        print("x:\(xframe), y:\(yframe)")
+        
+        
+        dynamicDetailSubview.frame = CGRect(x: xframe, y: yframe, width: dynamicDetailSubview.frame.size.width, height: dynamicDetailSubview.frame.size.height)
+        print(dynamicDetailSubview.frame)
+        detailView .layoutIfNeeded()
+        detailView.layoutSubviews()
+        
+        
+        
         print(sender.tag)
         let a:Int? = (sender.tag) / 1000
         let b:Int? = (sender.tag) % 1000
@@ -5119,8 +5123,8 @@ extension mainHomeViewController: UICollectionViewDelegate, UICollectionViewData
 //            
 //            
 //        }
-        addToBucketLblInPopup.text="Add To Bucket List"
-        addToBucket.isUserInteractionEnabled=true
+        addToBucketBtn.setTitle("Add To Bucket", for: UIControlState .normal) 
+        //addToBucket.isUserInteractionEnabled=true
 //        if countArray.object(forKey: "bucketImages") != nil  {
 //            
 //            //let countst = countArray.valueForKey("storyCount") as! NSNumber
@@ -5199,17 +5203,16 @@ extension mainHomeViewController: UICollectionViewDelegate, UICollectionViewData
         
         ////For like unlike
         
-        likeLabelPopup.text="Like"
-        likeImage.image=UIImage (named: "selectionLike")
-        if (likeCount.value(forKey: "imageId") as AnyObject).contains(imageId) {
-            
-            
-            
+        likeButtonDetailView.setTitle("Like", for: UIControlState .normal)
+        
+        let likeCountArr = likeCount.value(forKey: "imageId") as! NSArray
+       // if (likeCount.value(forKey: "imageId") as AnyObject).contains(imageId) {
+        if likeCountArr.contains(imageId)
+        {
             let index = (self.likeCount.value(forKey: "imageId") as AnyObject).index(of: imageId)
             
             if (self.likeCount.object(at: index) as AnyObject).value(forKey: "like") as! Bool == true {
-                likeLabelPopup.text="Unlike"
-                likeImage.image=UIImage (named: "unlikeSelection")
+                likeButtonDetailView.setTitle("Unlike", for: UIControlState .normal)
             }
             
         }
