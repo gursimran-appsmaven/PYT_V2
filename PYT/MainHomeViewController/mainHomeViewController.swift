@@ -504,36 +504,15 @@ class mainHomeViewController: UIViewController, SDWebImageManagerDelegate, apiCl
         segmentControl.setSelectedSegmentIndex(UInt(selectedindxSearch), animated: true)
     
         segmentControl.addTarget(self, action: #selector(self.segmentedControlChangedValue), for: .valueChanged)
-        
-       
-        
-        
-        //////-------- Gradient background color ----/////////
-        
-//        let layer = CAGradientLayer()
-//        layer.frame = CGRect(x: 0, y: 0, width: mainViewWithGradient.frame.size.width, height: self.firstView.frame.origin.y+self.firstView.frame.size.height)
-//        let blueColor = UIColor(red: 0/255, green: 146/255, blue: 198/255, alpha: 1.0).cgColor as CGColor
-//        let purpleColor = UIColor(red: 117/255, green: 42/255, blue: 211/255, alpha: 1.0).cgColor as CGColor
-//        layer.colors = [purpleColor, blueColor]
-//        layer.startPoint = CGPoint(x: 0.1, y: 0.5)
-//        layer.endPoint = CGPoint(x: 1.0, y: 0.5)
-//        layer.locations = [0.25,1.0]
-//        self.mainViewWithGradient.layer.addSublayer(layer)
-//        
-//       
-//        self.view .bringSubview(toFront: firstView)
-
-        
+    
         
         
         
        
         
-                let widthTotal = self.view.frame.size.width / 2
+        //let widthTotal = self.view.frame.size.width / 2
         
-        self.imagesTableView.rowHeight = widthTotal + 78
-        
-        
+        //self.imagesTableView.rowHeight = widthTotal + 78
         
         NotificationCenter.default.addObserver(self, selector: #selector(mainHomeViewController.loadList(_:)),name:NSNotification.Name(rawValue: "load"), object: nil)
 
@@ -558,9 +537,12 @@ class mainHomeViewController: UIViewController, SDWebImageManagerDelegate, apiCl
         
         
         
-        ////// Mange the tool tips here
-        
-     
+      //add actions to the popup buttons
+        likeButtonDetailView.addTarget(self, action: #selector(self.likeButtonPressed(_:)), for: .touchUpInside)
+        commentButtonDetailView.addTarget(self, action: #selector(self.addCommentTapped(_:)), for: .touchUpInside)
+        addToPlanBtn.addTarget(self, action: #selector(self.storyButtonTapped(_:)), for: .touchUpInside)
+        addToBucketBtn.addTarget(self, action: #selector(self.bucketButtonTapped(_:)), for: .touchUpInside)
+        editButtonDetailview.addTarget(self, action: #selector(self.editButtonTapped(_:)), for: .touchUpInside)
 
       
         
@@ -954,14 +936,8 @@ class mainHomeViewController: UIViewController, SDWebImageManagerDelegate, apiCl
        
         
         
-//        if countArray.object(forKey: "storyCount") != nil {
-//            if let stCount = countArray.value(forKey: "storyCount"){
-//                
-//               // self.storyListCount.text=String(describing: stCount)
-//            }
-//            
-//        }
-//        
+
+//        countDictionary
 //        if countArray.object(forKey: "bucketCount") != nil {
 //            if let stCount = countArray.value(forKey: "bucketCount"){
 //                
@@ -1049,6 +1025,7 @@ class mainHomeViewController: UIViewController, SDWebImageManagerDelegate, apiCl
                
                 let dic:NSDictionary = ["userId": uId]
                 objt.postRequestForcountStory(parameterString: dic)
+                objt.postRequestForcountStoryandBucket(dic)
                 //objt2.postRequestForGetTheUserProfileData(uId)
         
                 self.callApi(globalPlaceid, type: globalType)
@@ -1509,125 +1486,203 @@ class mainHomeViewController: UIViewController, SDWebImageManagerDelegate, apiCl
     
     
     
-    ///MARK:- Story image tapped
     
-    func storyImageTapped()
-    {
+    
+    
+    
+    //MARK: Like Button tapped
+    func likeButtonPressed(_ sender: UIButton)  {
+        
+        
+        //    func likeImageTapped()
+        //{
         // Your action
         
-       //print("Story image tapped")
         
-        storyBucketBool = true //make true when add to story
-        
-        
-        
-        var imageName2 = NSString()
-        var thumbnailImage = NSString()
-        var imageId = NSString()
-        var desc = NSString()
-        var categ = NSString()
-        var nameUser = NSString()
-        var country = NSString()
-        var lat = NSNumber()
-        var long = NSNumber()
-        var cityName = NSString()
-        
-        var arrImg2 = NSArray()
-        arrImg2 = (self.arrayOfimages1[tableIndex] as AnyObject).value(forKey: "largeImage") as! NSArray
-        
-        var ownersId: NSString = ""//= (userDetailArray.object(at: tableIndex) as AnyObject).value(forKey: "id") as? String ?? ""
-    
-        
-        
-        var ThumbArray = NSArray()
-        ThumbArray = (self.arrayOfimages1[tableIndex] as AnyObject).value(forKey: "thumbnails") as! NSArray
         
         var arrId = NSArray()
         arrId = (self.arrayOfimages1[tableIndex] as AnyObject).value(forKey: "id") as! NSArray
+        let imageId = arrId[collectionIndex] as? String ?? ""
+        let userNameMy = Udefaults.string(forKey: "userLoginName")
         
-        var arrDesc = NSArray()
-        arrDesc = (self.arrayOfimages1[tableIndex] as AnyObject).value(forKey: "description") as! NSArray
+        let otherUserId = (userDetailArray.object(at: tableIndex) as AnyObject).value(forKey: "id") as? String ?? ""
         
-        var arrCategory = NSArray()
-        arrCategory = (self.arrayOfimages1[tableIndex] as AnyObject).value(forKey: "category") as! NSArray
         
-        nameUser = ""//(self.userDetailArray[tableIndex] as AnyObject).value(forKey: "name") as? String ?? ""
-        
-        let geoTag = (self.arrayOfimages1[tableIndex] as AnyObject).value(forKey: "geoTag") as! NSArray
-        
-        var arrCountry = NSArray()
-        arrCountry = (self.arrayOfimages1[tableIndex] as AnyObject).value(forKey: "country") as! NSArray
-        country = arrCountry[collectionIndex] as! NSString
+        //print("like image tapped")
         
         
         
         
-        let source = (self.arrayOfimages1[tableIndex] as AnyObject).value(forKey: "source") as! NSArray
-        var sourceStr = "Other"
-        if source[collectionIndex] as? NSNull != NSNull()  {
+        
+        let likecountlbl = longTapedView.viewWithTag(7478) as! UILabel
+        
+        // hide and show the view of like
+        
+        
+        let likeimg = longTapedView.viewWithTag(7477) as! UIImageView
+        
+        
+        
+        //MARK: LIKE COUNT MANAGE
+        
+        var countLik = NSNumber()
+        
+        let likeCountValue = (self.arrayOfimages1[tableIndex] as AnyObject).value(forKey: "likeCount") as! NSArray
+        //print(likeCountValue)
+        if likeCountValue[collectionIndex] as? NSNull != NSNull()  {
+            
+            countLik = likeCountValue[collectionIndex] as! NSNumber  //as? String ?? "0.0"
             
             
-             sourceStr = source.object(at: collectionIndex) as? String ?? ""
-           
-            
-        }
-        
-        
-        
-        
-        //MANAGE from the crash
-        let latArr = (self.arrayOfimages1[tableIndex] as AnyObject).value(forKey: "latitude") as! NSArray
-        if latArr[collectionIndex] as? NSNull != NSNull()  {
-            
-            lat = latArr[collectionIndex] as! NSNumber  //as? String ?? "0.0"
-            
-            let longArr = (self.arrayOfimages1[tableIndex] as AnyObject).value(forKey: "longitude") as! NSArray
-            long = longArr[collectionIndex] as! NSNumber //as? String ?? "0.0"
-        }
-        else
+        }else
         {
-            lat=0
-            long=0
-        }
-        
-        
-        //city name
-        cityName = ""
-        let cityArr = (self.arrayOfimages1[tableIndex] as AnyObject).value(forKey: "location") as! NSArray
-        if cityArr[collectionIndex] as? NSNull != NSNull()  {
-            
-            cityName = cityArr[collectionIndex] as? String as NSString? ?? ""
+            countLik=0
             
         }
         
         
+        
+        if likeCount.count>0 {
+            let likecountarr = likeCount.value(forKey: "imageId") as! NSArray
+            if likecountarr.contains(imageId) {
+                
+                // if (likeCount.value(forKey: "imageId") as AnyObject).contains(imageId) {
+                
+                let index = (self.likeCount.value(forKey: "imageId") as AnyObject).index(of: imageId)
+                
+                if (likeCount.object(at: index) as AnyObject).value(forKey: "like") as! Bool == true {
+                    
+                    let staticCount = (likeCount.object(at: index) as AnyObject).value(forKey: "count") as? NSNumber
+                    likecountlbl.text=String(self.subtractTheLikes(staticCount!))
+                    
+                    
+                    likeCount .removeObject(at: index)
+                    
+                    likeCount .add(["userId":uId, "imageId":imageId, "like":false, "count": self.subtractTheLikes(staticCount!)])
+                    
+                    
+                    
+                    
+                    likeimg.image=UIImage (named: "Like")
+                    
+                    let dat: NSDictionary = ["userId": "\(uId)", "photoId":"\(imageId)", "userLiked":"\(uId)", "status":"0", "imageOwn": "\(otherUserId)", "userName": "\(userNameMy!)"]
+                    //print("Post to like picture---- \(dat)")
+                    DispatchQueue.main.async(execute: {
+                        apiClass.sharedInstance().postRequestLikeUnlikeImage(parameters: dat, viewController: self)
+                    })
+                    
+                }
+                else
+                {
+                    let staticCount = (likeCount.object(at: index) as AnyObject).value(forKey: "count") as? NSNumber
+                    likecountlbl.text=String(self.addTheLikes(staticCount!))
+                    
+                    likeCount .removeObject(at: index)
+                    likeCount .add(["userId":uId, "imageId":imageId, "like":true, "count": self.addTheLikes(staticCount!)])
+                    
+                    
+                    //print(likeCount.lastObject)
+                    
+                    likeimg.image=UIImage (named: "likefill")
+                    
+                    let dat: NSDictionary = ["userId": "\(uId)", "photoId":"\(imageId)", "userLiked":"\(uId)", "status":"1", "imageOwn": "\(otherUserId)", "userName": "\(userNameMy!)"]
+                    
+                    
+                    //print("Post to like picture---- \(dat)")
+                    DispatchQueue.main.async(execute: {
+                        apiClass.sharedInstance().postRequestLikeUnlikeImage(parameters: dat, viewController: self)
+                    })
+                    
+                }
+            }
+                // if not liked already
+            else{
+                likeCount .add(["userId":uId, "imageId":imageId, "like":true, "count": self.addTheLikes(countLik)])
+                likecountlbl.text=String(self.addTheLikes(countLik))
+                likeimg.image=UIImage (named: "likefill")
+                
+                let dat: NSDictionary = ["userId": "\(uId)", "photoId":"\(imageId)", "userLiked":"\(uId)", "status":"1", "imageOwn": "\(otherUserId)", "userName": "\(userNameMy!)"]
+                
+                
+                //print("Post to like picture---- \(dat)")
+                DispatchQueue.main.async(execute: {
+                    apiClass.sharedInstance().postRequestLikeUnlikeImage(parameters: dat, viewController: self)
+                })
+            }
+            
+        }
+            
+        else
+            
+        {
+            
+            likeCount .add(["userId":uId, "count":self.addTheLikes(countLik), "like": true, "imageId": imageId])
+            likecountlbl.text=String(self.addTheLikes(countLik))
+            likeimg.image=UIImage (named: "likefill")
+            
+            let dat: NSDictionary = ["userId": "\(uId)", "photoId":"\(imageId)", "userLiked":"\(uId)", "status":"1", "imageOwn": "\(otherUserId)", "userName": "\(userNameMy!)"]
+            
+            
+            //print("Post to like picture---- \(dat)")
+            DispatchQueue.main.async(execute: {
+                apiClass.sharedInstance().postRequestLikeUnlikeImage(parameters: dat, viewController: self)
+            })
+        }
+        
+        
+        
+        
+        
+        
+        
+        
+        self.tempFunc()
+        
+        
+        
+        
+        
+    }
+    
+    
+    //MARK: Add comment button Tapped
+    
+    func addCommentTapped(_ sender: UIButton) {
+        
+         self.tempFunc()
+        
+        
+    }
+    
+    
+    
+    
+    ///MARK:- Story Button tapped
+    
+    func storyButtonTapped(_ sender: AnyObject)
+    {
+        // Your action
+        
+       //"Story image tapped")
+        
+        storyBucketBool = true //make true when add to story
+        
+        var imageId = NSString()
+        
+        let ownersId = (userDetailArray.object(at: tableIndex) as AnyObject).value(forKey: "id") as? String ?? ""
+        var arrId = NSArray()
+        arrId = (self.arrayOfimages1[tableIndex] as AnyObject).value(forKey: "id") as! NSArray
+        
+        
+      
+        
+        
+        
+        
+        imageId = arrId[collectionIndex] as! String as NSString
+       
         
        
-        //print(arrCategory)
-        
-        imageName2 = arrImg2[collectionIndex] as! String as NSString
-        imageId = arrId[collectionIndex] as! String as NSString
-        thumbnailImage = ThumbArray[collectionIndex] as! String as NSString
-        
-        if let descc = arrDesc[collectionIndex] as? String {
-            desc = descc as NSString
-        }
-        else{
-            desc = "NA"
-        }
-        
-        
-        
-        
-        
-        
-        
-        categ = "" //(arrCategory[collectionIndex] as AnyObject).componentsJoined(by: ",")
-        //let location = "\(geoTag[collectionIndex] as? String ?? "")"
-        
-       //  let profileImage = self.userDetailArray .objectAtIndex(tableIndex) .valueForKey("profile")! as? NSString ?? ""
-        
-        
         
         
         var countst = NSNumber()
@@ -1635,8 +1690,8 @@ class mainHomeViewController: UIViewController, SDWebImageManagerDelegate, apiCl
        
         
         
-       /*
-        if  addStoryLabelInPopup.text=="Add To Plan" {
+       
+        if  addToPlanBtn.titleLabel?.text=="Add To Plan" {
             
         let dat: NSDictionary = ["userId": "\(uId)", "imageId": imageId, "placeId": globalPlaceid, "placeType": self.globalType, "ownerId": ownersId ]
             
@@ -1668,25 +1723,17 @@ class mainHomeViewController: UIViewController, SDWebImageManagerDelegate, apiCl
         else
         {
             
-            
-            //let dataStr = "userId=\(uId)&imageId=\(imageId)&place=\(self.globalLocation)&cityName=\(cityName)"
-            
-            
             let dataStr: NSDictionary = ["userId": uId, "imageId": imageId]
             print(dataStr)
             
-           //print(dataStr)
+           //print(dataStr) delete story
             DispatchQueue.global(qos: DispatchQoS.QoSClass.background).async(execute: {
-           // apiClassStory.sharedInstance().postRequestDeleteStory(dataStr, viewController: self)
+            //apiClassStory.sharedInstance().postRequestDeleteStory(dataStr, viewController: self)
                 
                 })
            // storyListCount.text=String(self.subtractTheLikes(countst))
             
-        } */
-        
-        
-        
-        
+        }
         
        
         
@@ -1709,12 +1756,287 @@ class mainHomeViewController: UIViewController, SDWebImageManagerDelegate, apiCl
     
     
     
+    //MARK:bucket image tapped
+    //MARK:
+    
+    func bucketButtonTapped(_ sender: UIButton)
+    {
+        // Your action
+        
+        //print("bucket image tapped")
+        
+        storyBucketBool = false //make false when add to bucket
+        
+        
+        var imageId = NSString()
+        var otherUserId = NSString()
+        
+        
+        
+        
+        var arrId = NSArray()
+        arrId = (self.arrayOfimages1[tableIndex] as AnyObject).value(forKey: "id") as! NSArray
+        otherUserId = ""
+        //(self.userDetailArray[tableIndex] as AnyObject).value(forKey: "id") as? String ?? ""
+        
+        imageId = arrId.object(at: collectionIndex) as? String as NSString? ?? ""
+        
+        
+        
+        //
+        //        if  addToBucketLblInPopup.text=="Add To Bucket List"
+        //        {
+        //
+        //            let parameterDic: NSDictionary = ["userId": uId,"imageOwn": otherUserId, "imageId": imageId ]
+        //           //print("parameter of add t0 bucket=\(parameterString)")
+        //
+        //
+        //
+        //
+        //
+        //
+        //            DispatchQueue.global(qos: DispatchQoS.QoSClass.background).async(execute: {
+        //               // bucketListApiClass.sharedInstance().postRequestForAddBucket(parameterDic, viewController: self)
+        //
+        //
+        //
+        //
+        //
+        //            })
+        //
+        //
+        //            self.proceedBtnAction(tableIndex, collectionViewIndex: collectionIndex)
+        //
+        //
+        //
+        //
+        //        }
+        //        else
+        //        {
+        //
+        //            let parameter: NSDictionary = ["userId": uId, "imageId": imageId]
+        //
+        //           // bucketListApiClass.sharedInstance().postRequestForDeletBucketListFromFeed(parameter, viewController: self)
+        //
+        //
+        //
+        //        }
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        self.detailSelectBtnAction(true)
+        
+        
+        
+        
+        self.tempFunc()
+        
+        if Udefaults.integer(forKey: "indexToolTips") == 6 {
+            self.manageToolsTipsShow()
+        }
+        
+        
+        
+    }
+    
+    
+    
+    //MARK: Edit Image Tapped
+    
+    func editButtonTapped(_ sender: UIButton)
+    {
+        self.tempFunc()
+        
+        
+        
+        
+        // let nxtObj2 = self.storyboard?.instantiateViewController(withIdentifier: "imageEditViewController") as! imageEditViewController
+        
+        // nxtObj2.screenName = "Feed"
+        
+        
+        //print(self.arrayOfimages1[self.tableIndex])
+        
+        
+        var arrImg2 = NSArray()
+        arrImg2 = (self.arrayOfimages1[self.tableIndex] as AnyObject).value(forKey: "largeImage") as! NSArray
+        
+        var ThumbArray = NSArray()
+        ThumbArray = (self.arrayOfimages1[self.tableIndex] as AnyObject).value(forKey: "thumbnails") as! NSArray
+        
+        var geoTagArr = NSArray()
+        geoTagArr = (self.arrayOfimages1[self.tableIndex] as AnyObject).value(forKey: "geoTag") as! NSArray
+        
+        var descriptionArr = NSArray()
+        descriptionArr = (self.arrayOfimages1[self.tableIndex] as AnyObject).value(forKey: "description") as! NSArray
+        
+        var categoryArr = NSArray()
+        categoryArr = (self.arrayOfimages1[self.tableIndex] as AnyObject).value(forKey: "category") as! NSArray
+        
+        var arrId = NSArray()
+        arrId = (self.arrayOfimages1[self.tableIndex] as AnyObject).value(forKey: "id") as! NSArray
+        
+        
+        let imageUrl = arrImg2[self.collectionIndex] as! String
+        let imageId = arrId[self.collectionIndex] as! String
+        let geoTagStr = geoTagArr[self.collectionIndex] as? String ?? ""
+        let thumbnailStr = ThumbArray[self.collectionIndex] as? String ?? ""
+        let descriptionStr = descriptionArr[self.collectionIndex] as? String ?? ""
+        let cateArr = categoryArr[self.collectionIndex] as! NSMutableArray
+        
+        
+        
+        
+        let dictionaryToEditdata = NSMutableDictionary()
+        dictionaryToEditdata.setValue(geoTagStr, forKey: "geoTag")
+        dictionaryToEditdata.setValue(thumbnailStr, forKey: "thumbnail")
+        dictionaryToEditdata.setValue(imageUrl, forKey: "large")
+        dictionaryToEditdata.setValue(descriptionStr, forKey: "description")
+        dictionaryToEditdata.setValue(cateArr, forKey: "category")
+        dictionaryToEditdata.setValue("public", forKey: "privacy")
+        dictionaryToEditdata.setValue(imageId, forKey: "imgId")
+        
+        
+        //print(dictionaryToEditdata)
+        //  nxtObj2.dataDictionary = dictionaryToEditdata
+        //  nxtObj2.screenName = "Feed"
+        
+        // self.navigationController! .pushViewController(nxtObj2, animated: true)
+        
+        
+        
+        
+        //
+        //        SweetAlert().showAlert("PYT", subTitle: "Are you sure to delete this image?", style: AlertStyle.Warning, buttonTitle:"Cancel", buttonColor: UIColor .redColor() , otherButtonTitle:  "Ok", otherButtonColor: UIColor .greenColor()) { (isOtherButton) -> Void in
+        //            if isOtherButton == true {
+        //
+        //                NSLog("Cancel Pressed")
+        //
+        //
+        //            }
+        //            else {
+        //
+        //                //Retry function
+        //               //print("delete image tapped")
+        //
+        //
+        //                var arrImg2 = NSArray()
+        //                arrImg2 = self.arrayOfimages1[self.tableIndex] .valueForKey("largeImage") as! NSArray
+        //
+        //                var ThumbArray = NSArray()
+        //                ThumbArray = self.arrayOfimages1[self.tableIndex].valueForKey("thumbnails") as! NSArray
+        //
+        //                var arrId = NSArray()
+        //                arrId = self.arrayOfimages1[self.tableIndex] .valueForKey("id") as! NSArray
+        //
+        //
+        //                let imageUrl = arrImg2[self.collectionIndex] as! String
+        //                let imageId = arrId[self.collectionIndex] as! String
+        //
+        //
+        //
+        //
+        //
+        //
+        //                let parameterString = "userId=\(self.uId)&photoId=\(imageId)&imageUrl=\(imageUrl)"
+        //               //print(parameterString)
+        //
+        //                MBProgressHUD.showHUDAddedTo(self.view, animated: true)
+        //                apiClass.sharedInstance().postRequestDeleteImagePyt(parameterString, viewController: self)
+        //
+        //            }
+        //}
+        
+        
+        
+        
+        
+        //
+        //        // Create the alert controller
+        //        let alertController = UIAlertController(title: "Pyt", message: "Are you sure to delete this image?", preferredStyle: .Alert)
+        //
+        //        // Create the actions
+        //        let okAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default) {
+        //            UIAlertAction in
+        //
+        //           //print("delete image tapped")
+        //
+        //
+        //            var arrImg2 = NSArray()
+        //            arrImg2 = self.arrayOfimages1[self.tableIndex] .valueForKey("largeImage") as! NSArray
+        //
+        //            var ThumbArray = NSArray()
+        //            ThumbArray = self.arrayOfimages1[self.tableIndex].valueForKey("thumbnails") as! NSArray
+        //
+        //            var arrId = NSArray()
+        //            arrId = self.arrayOfimages1[self.tableIndex] .valueForKey("id") as! NSArray
+        //
+        //
+        //            let imageUrl = arrImg2[self.collectionIndex] as! String
+        //            let imageId = arrId[self.collectionIndex] as! String
+        //
+        //
+        //
+        //
+        //
+        //
+        //            let parameterString = "userId=\(self.uId)&photoId=\(imageId)&imageUrl=\(imageUrl)"
+        //           //print(parameterString)
+        //
+        //            MBProgressHUD.showHUDAddedTo(self.view, animated: true)
+        //            apiClass.sharedInstance().postRequestDeleteImagePyt(parameterString, viewController: self)
+        //
+        //
+        //            
+        //            
+        ////            let cancelAction = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel) {
+        ////                UIAlertAction in
+        ////                NSLog("Cancel Pressed")
+        ////                
+        //            
+        //            }
+        
+        
+        //                    let cancelAction = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel) {
+        //                        UIAlertAction in
+        //                        NSLog("Cancel Pressed")
+        //        
+        //        
+        //            }
+        //        
+        //        
+        //            // Add the actions
+        //            alertController.addAction(okAction)
+        //            alertController.addAction(cancelAction)
+        //        
+        //        self.presentViewController(alertController, animated: true, completion: nil)
+        
+        
+        
+        
+        
+        
+        
+    }
+    
+    
+    
+    
+    
+    
+    
+    
     //MARK:- Action to add the image to story & Bucket
     
     func proceedBtnAction(_ tableViewIndex: Int, collectionViewIndex: Int)
     {
-       // let tableIndex = selectedCell .valueForKey("index").objectAtIndex(selectedCell.count-1) as! Int
-       // let collectionIndex = selectedCell .valueForKey("collectionIndex").objectAtIndex(selectedCell.count-1) as! Int
+      
         let indexPathTable = IndexPath(row: tableViewIndex, section: 0)
         let indexPathCollection = IndexPath(row: collectionViewIndex, section: 0)
         
@@ -1835,444 +2157,9 @@ class mainHomeViewController: UIViewController, SDWebImageManagerDelegate, apiCl
     
     
     
-    //MARK: Like image tapped
-    
-    func likeImageTapped()
-    {
-        // Your action
-        
-        
-        
-        var arrId = NSArray()
-        arrId = (self.arrayOfimages1[tableIndex] as AnyObject).value(forKey: "id") as! NSArray
-        let imageId = arrId[collectionIndex] as? String ?? ""
-        let userNameMy = Udefaults.string(forKey: "userLoginName")
-        
-        let otherUserId = (userDetailArray.object(at: tableIndex) as AnyObject).value(forKey: "id") as? String ?? ""
-        
-        
-       //print("like image tapped")
-        
-        
-        
-        
-        ///MANAGE LIKE View
-        
-        
-       // let cell = collectionView.dequeueReusableCellWithReuseIdentifier("cellCollectionView",forIndexPath: indexPath) as! collectionViewCellClassFeed
-        
-        
-        let likecountlbl = longTapedView.viewWithTag(7478) as! UILabel
-        
-        // hide and show the view of like
-        
-        
-        let likeimg = longTapedView.viewWithTag(7477) as! UIImageView
-        
-        
-        
-        
-        
-        
-        
-        
-        //MARK: LIKE COUNT MANAGE
-        
-        var countLik = NSNumber()
-        
-       //print(tableIndex)
-       //print(collectionIndex)
-        
-        
-        
-        let likeCountValue = (self.arrayOfimages1[tableIndex] as AnyObject).value(forKey: "likeCount") as! NSArray
-       //print(likeCountValue)
-        if likeCountValue[collectionIndex] as? NSNull != NSNull()  {
-            
-            countLik = likeCountValue[collectionIndex] as! NSNumber  //as? String ?? "0.0"
-            
-            
-        }else
-        {
-            countLik=0
-            
-        }
-        
-        
-        
-        if likeCount.count>0 {
-            if (likeCount.value(forKey: "imageId") as AnyObject).contains(imageId) {
-                
-                let index = (self.likeCount.value(forKey: "imageId") as AnyObject).index(of: imageId)
-                
-                if (likeCount.object(at: index) as AnyObject).value(forKey: "like") as! Bool == true {
-                    
-                    let staticCount = (likeCount.object(at: index) as AnyObject).value(forKey: "count") as? NSNumber
-                    likecountlbl.text=String(self.subtractTheLikes(staticCount!))
-                    
-                    
-                    likeCount .removeObject(at: index)
-                    
-                    likeCount .add(["userId":uId, "imageId":imageId, "like":false, "count": self.subtractTheLikes(staticCount!)])
-                    
-                    
-                    
-                    
-                    likeimg.image=UIImage (named: "likefill")
-                    
-                    let dat: NSDictionary = ["userId": "\(uId)", "photoId":"\(imageId)", "userLiked":"\(uId)", "status":"0", "imageOwn": "\(otherUserId)", "userName": "\(userNameMy!)"]
-                   //print("Post to like picture---- \(dat)")
-                    DispatchQueue.main.async(execute: {
-                        apiClass.sharedInstance().postRequestLikeUnlikeImage(parameters: dat, viewController: self)
-                    })
-                    
-                }
-                else
-                {
-                    let staticCount = (likeCount.object(at: index) as AnyObject).value(forKey: "count") as? NSNumber
-                    likecountlbl.text=String(self.addTheLikes(staticCount!))
-                    
-                    likeCount .removeObject(at: index)
-                    likeCount .add(["userId":uId, "imageId":imageId, "like":true, "count": self.addTheLikes(staticCount!)])
-                    
-                    
-                   //print(likeCount.lastObject)
-                    
-                    likeimg.image=UIImage (named: "likefill")
-                    
-                    let dat: NSDictionary = ["userId": "\(uId)", "photoId":"\(imageId)", "userLiked":"\(uId)", "status":"1", "imageOwn": "\(otherUserId)", "userName": "\(userNameMy!)"]
-                    
-                    
-                   //print("Post to like picture---- \(dat)")
-                    DispatchQueue.main.async(execute: {
-                        apiClass.sharedInstance().postRequestLikeUnlikeImage(parameters: dat, viewController: self)
-                    })
-                    
-                }
-            }
-                // if not liked already
-            else{
-                likeCount .add(["userId":uId, "imageId":imageId, "like":true, "count": self.addTheLikes(countLik)])
-                likecountlbl.text=String(self.addTheLikes(countLik))
-                likeimg.image=UIImage (named: "likefill")
-                
-                let dat: NSDictionary = ["userId": "\(uId)", "photoId":"\(imageId)", "userLiked":"\(uId)", "status":"1", "imageOwn": "\(otherUserId)", "userName": "\(userNameMy!)"]
-                
-                
-               //print("Post to like picture---- \(dat)")
-                DispatchQueue.main.async(execute: {
-                    apiClass.sharedInstance().postRequestLikeUnlikeImage(parameters: dat, viewController: self)
-                })
-            }
-            
-        }
-            
-        else
-            
-        {
-            
-            likeCount .add(["userId":uId, "count":self.addTheLikes(countLik), "like": true, "imageId": imageId])
-            likecountlbl.text=String(self.addTheLikes(countLik))
-            likeimg.image=UIImage (named: "likefill")
-            
-            let dat: NSDictionary = ["userId": "\(uId)", "photoId":"\(imageId)", "userLiked":"\(uId)", "status":"1", "imageOwn": "\(otherUserId)", "userName": "\(userNameMy!)"]
-            
-            
-           //print("Post to like picture---- \(dat)")
-            DispatchQueue.main.async(execute: {
-                apiClass.sharedInstance().postRequestLikeUnlikeImage(parameters: dat, viewController: self)
-            })
-        }
-        
-        
-        
-        
-        
-        
-        
-        
-        self.tempFunc()
-        
-        
-        
-        
-        
-    }
     
     
     
-    
-    
-    
-    
-    //MARK:bucket image tapped
-    //MARK:
-    
-    func bucketImageTapped()
-    {
-        // Your action
-        
-               //print("bucket image tapped")
-        
-        storyBucketBool = false //make false when add to bucket
-        
-      
-        var imageId = NSString()
-        var otherUserId = NSString()
-        
-        
-       
-       
-        var arrId = NSArray()
-        arrId = (self.arrayOfimages1[tableIndex] as AnyObject).value(forKey: "id") as! NSArray
-        otherUserId = ""
-        //(self.userDetailArray[tableIndex] as AnyObject).value(forKey: "id") as? String ?? ""
-        
-        imageId = arrId.object(at: collectionIndex) as? String as NSString? ?? ""
-       
-        
-        
-//        
-//        if  addToBucketLblInPopup.text=="Add To Bucket List"
-//        {
-//            
-//            let parameterDic: NSDictionary = ["userId": uId,"imageOwn": otherUserId, "imageId": imageId ]
-//           //print("parameter of add t0 bucket=\(parameterString)")
-//            
-//        
-//            
-//            
-//            
-//            
-//            DispatchQueue.global(qos: DispatchQoS.QoSClass.background).async(execute: {
-//               // bucketListApiClass.sharedInstance().postRequestForAddBucket(parameterDic, viewController: self)
-//                
-//                
-//
-//    
-//                
-//            })
-//            
-//            
-//            self.proceedBtnAction(tableIndex, collectionViewIndex: collectionIndex)
-//
-//            
-//           
-//            
-//        }
-//        else
-//        {
-//            
-//            let parameter: NSDictionary = ["userId": uId, "imageId": imageId]
-//            
-//           // bucketListApiClass.sharedInstance().postRequestForDeletBucketListFromFeed(parameter, viewController: self)
-//            
-//            
-//            
-//        }
-        
-        
-        
-        
-        
-        
-        
-       
-        
-        self.detailSelectBtnAction(true)
-       
-        
-        
-        
-        self.tempFunc()
-        
-        if Udefaults.integer(forKey: "indexToolTips") == 6 {
-            self.manageToolsTipsShow()
-        }
-
-       
-        
-    }
-    
-    
-    
-    //MARK: Edit Image Tapped
-    
-    func deleteImageTapped()
-    {
-              self.tempFunc()
-        
-        
-        
-        
-       // let nxtObj2 = self.storyboard?.instantiateViewController(withIdentifier: "imageEditViewController") as! imageEditViewController
-        
-       // nxtObj2.screenName = "Feed"
-        
-        
-       //print(self.arrayOfimages1[self.tableIndex])
-        
-        
-                        var arrImg2 = NSArray()
-                        arrImg2 = (self.arrayOfimages1[self.tableIndex] as AnyObject).value(forKey: "largeImage") as! NSArray
-        
-                        var ThumbArray = NSArray()
-                        ThumbArray = (self.arrayOfimages1[self.tableIndex] as AnyObject).value(forKey: "thumbnails") as! NSArray
-        
-        var geoTagArr = NSArray()
-        geoTagArr = (self.arrayOfimages1[self.tableIndex] as AnyObject).value(forKey: "geoTag") as! NSArray
-        
-        var descriptionArr = NSArray()
-        descriptionArr = (self.arrayOfimages1[self.tableIndex] as AnyObject).value(forKey: "description") as! NSArray
-        
-        var categoryArr = NSArray()
-        categoryArr = (self.arrayOfimages1[self.tableIndex] as AnyObject).value(forKey: "category") as! NSArray
-        
-                        var arrId = NSArray()
-                        arrId = (self.arrayOfimages1[self.tableIndex] as AnyObject).value(forKey: "id") as! NSArray
-        
-        
-    let imageUrl = arrImg2[self.collectionIndex] as! String
-    let imageId = arrId[self.collectionIndex] as! String
-    let geoTagStr = geoTagArr[self.collectionIndex] as? String ?? ""
-    let thumbnailStr = ThumbArray[self.collectionIndex] as? String ?? ""
-    let descriptionStr = descriptionArr[self.collectionIndex] as? String ?? ""
-    let cateArr = categoryArr[self.collectionIndex] as! NSMutableArray
-    
-        
-        
-        
-        let dictionaryToEditdata = NSMutableDictionary()
-        dictionaryToEditdata.setValue(geoTagStr, forKey: "geoTag")
-        dictionaryToEditdata.setValue(thumbnailStr, forKey: "thumbnail")
-        dictionaryToEditdata.setValue(imageUrl, forKey: "large")
-        dictionaryToEditdata.setValue(descriptionStr, forKey: "description")
-        dictionaryToEditdata.setValue(cateArr, forKey: "category")
-        dictionaryToEditdata.setValue("public", forKey: "privacy")
-        dictionaryToEditdata.setValue(imageId, forKey: "imgId")
-        
-        
-       //print(dictionaryToEditdata)
-     //  nxtObj2.dataDictionary = dictionaryToEditdata
-      //  nxtObj2.screenName = "Feed"
-        
-       // self.navigationController! .pushViewController(nxtObj2, animated: true)
-        
-        
-        
-        
-//        
-//        SweetAlert().showAlert("PYT", subTitle: "Are you sure to delete this image?", style: AlertStyle.Warning, buttonTitle:"Cancel", buttonColor: UIColor .redColor() , otherButtonTitle:  "Ok", otherButtonColor: UIColor .greenColor()) { (isOtherButton) -> Void in
-//            if isOtherButton == true {
-//               
-//                NSLog("Cancel Pressed")
-//               
-//                
-//            }
-//            else {
-//                
-//                //Retry function
-//               //print("delete image tapped")
-//                
-//                
-//                var arrImg2 = NSArray()
-//                arrImg2 = self.arrayOfimages1[self.tableIndex] .valueForKey("largeImage") as! NSArray
-//                
-//                var ThumbArray = NSArray()
-//                ThumbArray = self.arrayOfimages1[self.tableIndex].valueForKey("thumbnails") as! NSArray
-//                
-//                var arrId = NSArray()
-//                arrId = self.arrayOfimages1[self.tableIndex] .valueForKey("id") as! NSArray
-//                
-//                
-//                let imageUrl = arrImg2[self.collectionIndex] as! String
-//                let imageId = arrId[self.collectionIndex] as! String
-//                
-//                
-//                
-//                
-//                
-//                
-//                let parameterString = "userId=\(self.uId)&photoId=\(imageId)&imageUrl=\(imageUrl)"
-//               //print(parameterString)
-//                
-//                MBProgressHUD.showHUDAddedTo(self.view, animated: true)
-//                apiClass.sharedInstance().postRequestDeleteImagePyt(parameterString, viewController: self)
-//                
-//            }
-        //}
-        
-        
-        
-        
-        
-//        
-//        // Create the alert controller
-//        let alertController = UIAlertController(title: "Pyt", message: "Are you sure to delete this image?", preferredStyle: .Alert)
-//        
-//        // Create the actions
-//        let okAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default) {
-//            UIAlertAction in
-//            
-//           //print("delete image tapped")
-//            
-//            
-//            var arrImg2 = NSArray()
-//            arrImg2 = self.arrayOfimages1[self.tableIndex] .valueForKey("largeImage") as! NSArray
-//            
-//            var ThumbArray = NSArray()
-//            ThumbArray = self.arrayOfimages1[self.tableIndex].valueForKey("thumbnails") as! NSArray
-//            
-//            var arrId = NSArray()
-//            arrId = self.arrayOfimages1[self.tableIndex] .valueForKey("id") as! NSArray
-//            
-//            
-//            let imageUrl = arrImg2[self.collectionIndex] as! String
-//            let imageId = arrId[self.collectionIndex] as! String
-//            
-//            
-//           
-//            
-//            
-//            
-//            let parameterString = "userId=\(self.uId)&photoId=\(imageId)&imageUrl=\(imageUrl)"
-//           //print(parameterString)
-//           
-//            MBProgressHUD.showHUDAddedTo(self.view, animated: true)
-//            apiClass.sharedInstance().postRequestDeleteImagePyt(parameterString, viewController: self)
-//            
-//            
-//            
-//            
-////            let cancelAction = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel) {
-////                UIAlertAction in
-////                NSLog("Cancel Pressed")
-////                
-//            
-//            }
-        
-        
-//                    let cancelAction = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel) {
-//                        UIAlertAction in
-//                        NSLog("Cancel Pressed")
-//        
-//        
-//            }
-//        
-//        
-//            // Add the actions
-//            alertController.addAction(okAction)
-//            alertController.addAction(cancelAction)
-//        
-//        self.presentViewController(alertController, animated: true, completion: nil)
-        
-    
-        
-        
-        
-       
-        
-    }
     
     
     
@@ -2995,25 +2882,25 @@ class mainHomeViewController: UIViewController, SDWebImageManagerDelegate, apiCl
             
             })
         
-//        
-//        if countArray.object(forKey: "storyCount") != nil {
-//            if let stCount = countArray.value(forKey: "storyCount"){
-//                
-//              //  self.storyListCount.text=String(describing: stCount)
-//            }
-//            
-//        }
-//        
-//        
-//        
-//        
-//        if countArray.object(forKey: "bucketCount") != nil {
-//            if let bktCount = countArray.value(forKey: "bucketCount"){
-//                
-//                bucketListTotalCount=String(describing: bktCount)
-//            }
-//            
-//        }
+        
+        if countsDictionary.object(forKey: "storyCount") != nil {
+            if let stCount = countsDictionary.value(forKey: "storyCount"){
+                
+              //  self.storyListCount.text=String(describing: stCount)
+            }
+            
+        }
+        
+        
+        
+        
+        if countsDictionary.object(forKey: "bucketCount") != nil {
+            if let bktCount = countsDictionary.value(forKey: "bucketCount"){
+                
+                bucketListTotalCount=String(describing: bktCount)
+            }
+            
+        }
         
         
         
@@ -3956,14 +3843,37 @@ extension mainHomeViewController: UICollectionViewDelegate, UICollectionViewData
                 cell.likeButton.tag = 1000*collectionView.tag+indexPath.row
                 cell.likeButton.addTarget(self, action: #selector(self.imageTapped(_:)), for: UIControlEvents .touchUpInside)
                 
-                //cell.menuButton.backgroundColor = UIColor .greenColor()
                 cell.menuButton.tag = 1000*collectionView.tag+indexPath.row
                 
                 cell.menuButton.addTarget(self, action: #selector(self.openLongTap(_:event:)), for: UIControlEvents .touchUpInside)
-                //cell.menuButton.addTarget(self, action: #selector(self.openLongTap(_:)), for: UIControlEvents .touchUpInside)
              
+                cell.planButton.tag = 1000*collectionView.tag+indexPath.row
+                cell.planButton .addTarget(self, action: #selector(self.planBtnTapCollectionView(_:)), for: .touchUpInside)
                 
                 
+                if countsDictionary.object(forKey: "storyImages") != nil  {
+                    
+                    //let countst = countArray.valueForKey("storyCount") as! NSNumber
+                    let countst = countsDictionary.value(forKey: "storyImages") as! NSArray
+                    cell.planButton.setImage(UIImage (named: "travelplanbutton"), for: .normal)
+                    
+                    
+                    
+                    if countst.count>0
+                    {
+                        
+                        //print(countst)
+                        if countst.contains(imageId2) {
+                            cell.planButton.setImage(UIImage (named: "travelplanbuttonactive"), for: .normal)
+                            cell.planButton.removeTarget(nil, action: nil, for: .allEvents)
+                        }
+                        
+                        
+                    }
+                    
+                    
+                    
+                }
                 
                 
                 
@@ -5021,16 +4931,24 @@ extension mainHomeViewController: UICollectionViewDelegate, UICollectionViewData
     
     
     
+    func planBtnTapCollectionView(_ sender: UIButton) {
+        
+        print(sender.tag)
+        let a:Int? = (sender.tag) / 1000
+        let b:Int? = (sender.tag) % 1000
+        
+        collectionIndex = b!
+        tableIndex = a!
+        longTapedView = sender.superview!
+        
+        self.storyButtonTapped(self)
+    }
+    
     
     //MARK:
     
-    
-    
-    
     func openLongTap(_ sender: UIButton, event: UIEvent)
     {
-        
-        
         let touches: Set<AnyHashable>? = event.allTouches
         let touch: UITouch? = touches?.first as! UITouch?
         var currentTouchPosition: CGPoint? = touch?.location(in: imagesTableView)
@@ -5099,53 +5017,51 @@ extension mainHomeViewController: UICollectionViewDelegate, UICollectionViewData
         
         
         
-//        if countArray.object(forKey: "storyImages") != nil  {
-//            
-//            //let countst = countArray.valueForKey("storyCount") as! NSNumber
-//            let countst = countArray.value(forKey: "storyImages") as! NSArray
-//            addStoryLabelInPopup.text="Add To Plan"
-//            
-//            addToStory.image=UIImage (named: "selectionStory")
-//            
-//            if countst.count>0 {
-//                
-//                //print(countst)
-//                if countst.contains(imageId) {
-//                    
-//                    addStoryLabelInPopup.text="Remove From Plan"
-//                    addToStory.image=UIImage (named: "removeStory")
-//                    
-//                }
-//                
-//                
-//            }
-//            
-//            
-//            
-//        }
-        addToBucketBtn.setTitle("Add To Bucket", for: UIControlState .normal) 
-        //addToBucket.isUserInteractionEnabled=true
-//        if countArray.object(forKey: "bucketImages") != nil  {
-//            
-//            //let countst = countArray.valueForKey("storyCount") as! NSNumber
-//            let countBkt = countArray.value(forKey: "bucketImages") as! NSArray
-//            
-//            if countBkt.count>0 {
-//                
-//                //print(countBkt)
-//                if countBkt.contains(imageId) {
-//                    
-//                    addToBucketLblInPopup.text="Remove From Bucket"//"Bucketed"
-//                    addToBucket.isUserInteractionEnabled=false
-//                    
-//                }
-//                
-//                
-//            }
-//            
-//            
-//            
-//        }
+        if countsDictionary.object(forKey: "storyImages") != nil  {
+            
+            //let countst = countArray.valueForKey("storyCount") as! NSNumber
+            let countst = countsDictionary.value(forKey: "storyImages") as! NSArray
+            addToPlanBtn .setTitle("Add To Plan", for: .normal)
+            
+           
+            
+            if countst.count>0 {
+                
+                //print(countst)
+                if countst.contains(imageId) {
+                    addToPlanBtn .setTitle("Remove From Plan", for: .normal)
+            
+                }
+                
+                
+            }
+            
+            
+            
+        }
+
+        
+        addToBucketBtn.setTitle("Add To Bucket", for: UIControlState .normal)
+        addToBucketBtn.isUserInteractionEnabled=true
+        if countsDictionary.object(forKey: "bucketImages") != nil  {
+            
+            //let countst = countArray.valueForKey("storyCount") as! NSNumber
+            let countBkt = countsDictionary.value(forKey: "bucketImages") as! NSArray
+            
+            if countBkt.count>0 {
+                
+                //print(countBkt)
+                if countBkt.contains(imageId) {
+                    addToBucketBtn.setTitle("Remove From Bucket", for: UIControlState .normal)
+                    addToBucketBtn.isUserInteractionEnabled = false
+                }
+                
+                
+            }
+            
+            
+            
+        }
         
         
         

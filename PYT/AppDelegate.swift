@@ -62,7 +62,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         DispatchQueue.main.async
             {
                 
-                if #available(iOS 10, *) {
+                if #available(iOS 10, *)
+                {
                     
                     //Notifications get posted to the function (delegate):  func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: () -> Void)"
                     
@@ -402,7 +403,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                  DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
                                     let dic:NSDictionary = ["userId": uId]
                                     objt.postRequestForcountStory(parameterString: dic)
-                
+                                    objt.postRequestForcountStoryandBucket(dic)
                                     //objt2.postRequestForGetTheUserProfileData(uId)
                 
                                 }

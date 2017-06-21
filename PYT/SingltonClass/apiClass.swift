@@ -894,6 +894,7 @@ class apiClass: NSObject {
                                 
                                 let dic:NSDictionary = ["userId": uId!]
                                 objt.postRequestForcountStory(parameterString: dic)
+                                objt.postRequestForcountStoryandBucket(dic)
                                 
                                 }
                                 
