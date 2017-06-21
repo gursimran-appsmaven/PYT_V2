@@ -3477,8 +3477,32 @@ extension mainHomeViewController: UICollectionViewDelegate, UICollectionViewData
         
         if collectionView == storyCollectionView {
             if planAllLocation == false {
-                return countArray.count // returen the plans of selected location
+                
+                if countArray.count>0 {
+                    
+                
+                let placeIds = (countArray.value(forKey: "_id")) as! NSArray
+                
+                    if placeIds.contains(globalPlaceid){//("58c3c09336f8b6180feea0c6"){//(globalPlaceid) {
+                    print("Contains story")
+                    let indx = placeIds .index(of: globalPlaceid)
+                    print(indx)
+                    
+                let imageUrlArray = ((countArray.object(at: indx)) as AnyObject).value(forKey: "story") as! NSMutableArray
+                    if imageUrlArray.count>0 {
+                        
+                        return imageUrlArray.count
+                        
+                    }
+                    
+                    
+                    }
+                    return 0
+                }
+                return 0 // returen the plans of selected location
             }
+            
+            
             return countArray.count //return the whole plans
         }
             
@@ -3507,7 +3531,113 @@ extension mainHomeViewController: UICollectionViewDelegate, UICollectionViewData
             
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "planCell",for: indexPath) as! planCollectionViewCell
         
-            return cell
+            
+            
+            
+            
+            
+            if planAllLocation == false
+            {
+                
+                
+                let finalCellFrame = cell.frame
+                //check the scrolling direction to verify from which side of the screen the cell should come.
+                let translation = collectionView.panGestureRecognizer.translation(in: collectionView.superview!)
+                if translation.x > 0 {
+                    cell.frame = CGRect(x: finalCellFrame.origin.x - 500, y: 0, width: 0, height: 0)
+                }
+                else {
+                    cell.frame = CGRect(x: finalCellFrame.origin.x + 500, y: 0, width: 0, height: 0)
+                }
+                UIView.animate(withDuration: 0.9, animations: {() -> Void in
+                    cell.frame = finalCellFrame
+                })
+
+                
+                
+                
+            if countArray.count>0 {
+                
+                let placeIds = (countArray.value(forKey: "_id")) as! NSArray
+                
+                if placeIds.contains(globalPlaceid) {
+                    print("Contains story")
+                    let indx = placeIds .index(of: globalPlaceid )//"58c3c09336f8b6180feea0c6")
+                    print(indx)
+                    
+                    
+                    
+                    let imageUrlArray = ((countArray.object(at: indx)) as AnyObject).value(forKey: "story") as! NSMutableArray
+                    if imageUrlArray.count > 0
+                    {
+                        
+                        let imgUrl = (((imageUrlArray.object(at: indexPath.row)) as! NSDictionary).value(forKey: "image")as! NSDictionary) .value(forKey: "imageThumb") as? String ?? ""
+                        
+                        print(imgUrl)
+                        cell.planImage.sd_setImage(with: URL(string: imgUrl), placeholderImage: UIImage (named: "dummyBackground1"))
+                        
+                        let placetag = (((imageUrlArray.object(at: indexPath.row)) as! NSDictionary).value(forKey: "image")as! NSDictionary) .value(forKey: "placeTag") as? String ?? ""
+                        cell.planName.text = placetag
+                        
+                        
+                        
+                    }
+                    
+                 
+                    
+                }
+                
+            }
+                return cell
+            }
+            
+            //return cell for all locations
+            else
+            {
+                
+                let finalCellFrame = cell.frame
+                //check the scrolling direction to verify from which side of the screen the cell should come.
+                let translation = collectionView.panGestureRecognizer.translation(in: collectionView.superview!)
+                if translation.x > 0 {
+                    cell.frame = CGRect(x: finalCellFrame.origin.x + 500, y: 0, width: 0, height: 0)
+                }
+                else {
+                    cell.frame = CGRect(x: finalCellFrame.origin.x - 500, y: 0, width: 0, height: 0)
+                }
+                UIView.animate(withDuration: 0.9, animations: {() -> Void in
+                    cell.frame = finalCellFrame
+                })
+                
+                
+                let countriesName = ((countArray.object(at: indexPath.row)) as AnyObject).value(forKey: "country") as! NSArray
+                var countryname = "NA"
+                if countriesName.count > 0
+                {
+                    countryname = countriesName.object(at: 0) as! String
+                }
+                
+                
+                
+                let imgUrl = (((((countArray.object(at: indexPath.row)) as AnyObject).value(forKey: "story") as! NSArray).object(at: 0) as AnyObject).value(forKey: "image")as! NSDictionary).value(forKey: "imageThumb") as? String ?? ""
+                
+                //(((imageUrlArray.object(at: indexPath.row)) as! NSDictionary).value(forKey: "image")as! NSDictionary) .value(forKey: "imageThumb") as? String ?? ""
+                
+                print(imgUrl)
+                cell.planImage.sd_setImage(with: URL(string: imgUrl), placeholderImage: UIImage (named: "dummyBackground1"))
+                
+               
+                cell.planName.text = countryname
+                
+                
+                
+                
+                return cell
+            }
+           
+            
+            
+            
+            
             
         }
         else
@@ -3522,10 +3652,8 @@ extension mainHomeViewController: UICollectionViewDelegate, UICollectionViewData
             return cell
             
         }
-        else{
-            
-        
-        
+        else
+        {
         if indexPath.row < ((arrayOfimages1[collectionView.tag] as AnyObject).value(forKey: "id")! as AnyObject) .count  {
             
             
@@ -3535,7 +3663,8 @@ extension mainHomeViewController: UICollectionViewDelegate, UICollectionViewData
 //            cell.layer.cornerRadius=0
 //            cell.clipsToBounds=true
             
-            if self.arrayOfimages1.count<1 {
+            if self.arrayOfimages1.count<1
+            {
                 
             }
             else
@@ -3714,7 +3843,7 @@ extension mainHomeViewController: UICollectionViewDelegate, UICollectionViewData
                 
                 //SHOW THE COUNT OF LIKED
                 cell.likecountlbl.text=String(describing: countLik)
-                cell.likeimg.image=UIImage (named: "likefill")
+                cell.likeimg.image=UIImage (named: "Like")
                 
                 
                 ///////-  Show liked by me-/////
@@ -3722,7 +3851,7 @@ extension mainHomeViewController: UICollectionViewDelegate, UICollectionViewData
                 {
                     if likedByMe2.contains(self.uId)
                     {
-                        
+                        //contains photo liked by me
                         
                         if (self.likeCount.value(forKey: "imageId") as AnyObject).contains(imageId2) {
                             
@@ -3737,7 +3866,7 @@ extension mainHomeViewController: UICollectionViewDelegate, UICollectionViewData
                                 
                             }
                             else{
-                                cell.likeimg.image=UIImage (named: "likefill")
+                                cell.likeimg.image=UIImage (named: "Like")
                                 let staticCount = (self.likeCount.object(at: indexOfImageId) as AnyObject).value(forKey: "count") as? NSNumber
                                 cell.likecountlbl.text=String(describing: staticCount!) //(self.addTheLikes(staticCount!))
                             }
@@ -3768,10 +3897,11 @@ extension mainHomeViewController: UICollectionViewDelegate, UICollectionViewData
                                 cell.likecountlbl.text=String(describing: staticCount!)
                                 
                             }
-                            else{
+                            else
+                            {
                                 let staticCount = (self.likeCount.object(at: indexOfImageId) as AnyObject).value(forKey: "count") as? NSNumber
                                 cell.likecountlbl.text=String(describing: staticCount!)
-                                cell.likeimg.image=UIImage (named: "likefill")
+                                cell.likeimg.image=UIImage (named: "Like")
                             }
                         }
                         
@@ -3782,7 +3912,9 @@ extension mainHomeViewController: UICollectionViewDelegate, UICollectionViewData
                     
                     
                 }
-                else{
+                    //not liked by me
+                else
+                {
                     
                     if (self.likeCount.value(forKey: "imageId") as AnyObject).contains(imageId2) {
                         
@@ -3797,7 +3929,7 @@ extension mainHomeViewController: UICollectionViewDelegate, UICollectionViewData
                         else{
                             let staticCount = (self.likeCount.object(at: indexOfImageId) as AnyObject).value(forKey: "count") as? NSNumber
                             cell.likecountlbl.text=String(describing: staticCount!)
-                            cell.likeimg.image=UIImage (named: "likefill")
+                            cell.likeimg.image=UIImage (named: "Like")
                         }
                     }
                     
@@ -3849,22 +3981,7 @@ extension mainHomeViewController: UICollectionViewDelegate, UICollectionViewData
                 //cell .addSubview(longView)
                 
                 
-                //let longTapGest = LongPressGesture(target: self, action: #selector(mainHomeViewController.longTap(_:)))
-                
-               // cell.addGestureRecognizer(longTapGest)
-                
-                
-                
-                
-                
-                
-                
-                /// for bo
-                //let whiteView = cell.viewWithTag(7460)
-//                cell.whiteView?.layer.cornerRadius=5
-//                cell.whiteView?.clipsToBounds=true
-                
-                
+               
                 
                 
             
@@ -4072,7 +4189,6 @@ extension mainHomeViewController: UICollectionViewDelegate, UICollectionViewData
             {
                 
              
-           // }
             }
 
         }
@@ -4132,22 +4248,38 @@ extension mainHomeViewController: UICollectionViewDelegate, UICollectionViewData
 ///Plan header cell
     
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-        var reusableview: UICollectionReusableView? = nil
-        if kind == UICollectionElementKindSectionHeader{
+        //var reusableview: UICollectionReusableView? = nil
+       // if kind == UICollectionElementKindSectionHeader{
             let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionElementKindSectionHeader, withReuseIdentifier: "planHeader", for: indexPath) as! planCollectionViewHeaderCell
            
-            
-            
-            reusableview = headerView
-        }
+         headerView.changePlanButton.addTarget(self, action: #selector(mainHomeViewController.changePlans(sender:)), for: .touchUpInside)
         
-        return reusableview!
+            headerView.bringSubview(toFront: headerView.changePlanButton)
+           // headerView.changePlanButton.addTarget(self, action: #selector(mainHomeViewController.changePlans(_:)), for: .touchUpInside)
+        
+          //  reusableview = headerView
+       // }
+        
+        return headerView
     }
     
     
     
-    
-    
+    func changePlans(sender: UIButton) {
+        
+        if planAllLocation == false {
+            planAllLocation = true
+            storyCollectionView .reloadData()
+            
+        }
+        else
+        {
+            planAllLocation = false
+            storyCollectionView .reloadData()
+        }
+        
+        
+    }
     
    
     
@@ -4307,8 +4439,12 @@ extension mainHomeViewController: UICollectionViewDelegate, UICollectionViewData
    // likeimglbl.text="You Liked This!!!"
     
     if self.likeCount.count>0 {
-        if (self.likeCount.value(forKey: "imageId") as AnyObject).contains(imageId) {
-            
+        let arrLikecount = self.likeCount.value(forKey: "imageId") as! NSArray
+        //if (self.likeCount.value(forKey: "imageId") as AnyObject).contains(imageId) {
+        
+        if arrLikecount.contains(imageId) {
+        
+        
             let index = (self.likeCount.value(forKey: "imageId") as AnyObject).index(of: imageId)
             
             if (self.likeCount.object(at: index) as AnyObject).value(forKey: "like") as! Bool == true {
@@ -4329,8 +4465,7 @@ extension mainHomeViewController: UICollectionViewDelegate, UICollectionViewData
                     }, completion: nil)
                 
                 
-                
-                likeimg.image=UIImage (named: "likefill")
+                likeimg.image=UIImage (named: "Like")
                 
                 let dat: NSDictionary = ["userId": "\(uId)", "photoId":"\(imageId)", "userLiked":"\(uId)", "status":"0", "imageOwn": "\(otherUserId)", "userName": "\(userNameMy!)"]
                //print("Post to like picture---- \(dat)")
@@ -4800,7 +4935,10 @@ extension mainHomeViewController: UICollectionViewDelegate, UICollectionViewData
        // likeimglbl.text="You Liked This!!!"
         
         if self.likeCount.count>0 {
-            if (self.likeCount.value(forKey: "imageId") as AnyObject).contains(imageId) {
+            let arrLikecount = self.likeCount.value(forKey: "imageId") as! NSArray
+            //if (self.likeCount.value(forKey: "imageId") as AnyObject).contains(imageId) {
+            
+            if arrLikecount.contains(imageId) {
                 
                 let index = (self.likeCount.value(forKey: "imageId") as AnyObject).index(of: imageId)
                 
@@ -4823,7 +4961,7 @@ extension mainHomeViewController: UICollectionViewDelegate, UICollectionViewData
                     
                     
                     
-                    likeimg.image=UIImage (named: "likefill")
+                    likeimg.image=UIImage (named: "Like")
                     
                     let dat: NSDictionary = ["userId": "\(uId)", "photoId":"\(imageId)", "userLiked":"\(uId)", "status":"0", "imageOwn": "\(otherUserId)", "userName": "\(userNameMy!)"]
                     print("Post to like picture---- \(dat)")
@@ -4859,8 +4997,10 @@ extension mainHomeViewController: UICollectionViewDelegate, UICollectionViewData
                     
                 }
             }
+                
                 // if not liked already
-            else{
+            else
+            {
                 self.likeCount .add(["userId":uId, "imageId":imageId, "like":true, "count": self.addTheLikes(countLik)])
                 likedView?.alpha = 1
                 likeimg.image=UIImage (named: "likefill")

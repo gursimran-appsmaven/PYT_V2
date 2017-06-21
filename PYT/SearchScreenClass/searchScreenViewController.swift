@@ -1107,7 +1107,6 @@ class searchScreenViewController: UIViewController, UINavigationControllerDelega
     
     func searchLocationAction(_ sender: UIButton) {
         
-        
         print(sender.tag)
         buttonPressedTag = sender.tag
         if autoPromptView.isHidden==true
