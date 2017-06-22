@@ -1037,7 +1037,7 @@ class mainHomeViewController: UIViewController, SDWebImageManagerDelegate, apiCl
    
     
     //MARK:
-    /////////////////////////////////////////////////////////////////////////
+    //////////////////////////////////////////////////////////////////////////
     //MARK:-delegate and datasource of tableView
     //MARK:-
     func numberOfSectionsInTableView(_ tableView: UITableView) -> Int
