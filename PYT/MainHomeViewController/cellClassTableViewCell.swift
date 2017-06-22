@@ -136,9 +136,6 @@ class collectionViewCellClassFeed: UICollectionViewCell {
     @IBOutlet weak var planButton: UIButton!
     @IBOutlet weak var overlay: GradientView!
     
-    
-    
-    
 }
 
 
@@ -155,10 +152,12 @@ class planCollectionViewCell: UICollectionViewCell {
 class planCollectionViewHeaderCell: UICollectionViewCell {
     @IBOutlet weak var changePlanButton: UIButton!
     
+}
+class storyTableHeaderCell: UITableViewCell{
     
+    //}UICollectionViewDelegate, UICollectionViewDataSource {
+    @IBOutlet weak var storiesCollectionView: UICollectionView!
     
 }
-
-
 
 

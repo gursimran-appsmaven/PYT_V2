@@ -310,7 +310,7 @@ class mainHomeViewController: UIViewController, SDWebImageManagerDelegate, apiCl
             if placeIds.contains("58c3c09336f8b6180feea0c6"){//(globalPlaceid) {
                 print("Contains story")
                 
-                storyCollectionView .reloadData()
+//                storyCollectionView .reloadData()
             }
             
         }
@@ -380,7 +380,7 @@ class mainHomeViewController: UIViewController, SDWebImageManagerDelegate, apiCl
         super.viewDidLoad()
 
     
-        
+ 
         
         
         
@@ -926,7 +926,7 @@ class mainHomeViewController: UIViewController, SDWebImageManagerDelegate, apiCl
                 
             }
             
-            storyCollectionView.reloadData()
+//            storyCollectionView.reloadData()
         }
         
        
@@ -1040,9 +1040,12 @@ class mainHomeViewController: UIViewController, SDWebImageManagerDelegate, apiCl
     /////////////////////////////////////////////////////////////////////////
     //MARK:-delegate and datasource of tableView
     //MARK:-
-    
+    func numberOfSectionsInTableView(_ tableView: UITableView) -> Int
+    {
+        return 1
+    }
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 0.0
+        return 78.5
     }
     
     
@@ -1056,13 +1059,19 @@ class mainHomeViewController: UIViewController, SDWebImageManagerDelegate, apiCl
     
     
     
-     func numberOfSectionsInTableView(_ tableView: UITableView) -> Int
-     {
-        return 1
-      }
     
-    
-    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "storyTableHeaderCell") as! storyTableHeaderCell
+        
+        cell.storiesCollectionView.delegate = self
+        cell.storiesCollectionView.dataSource = self
+        cell.storiesCollectionView.tag = 1221
+        cell.storiesCollectionView.reloadData()
+        
+        
+        
+        return cell
+    }    
      func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int
      {
         if section > 0
@@ -3330,7 +3339,8 @@ extension mainHomeViewController: UICollectionViewDelegate, UICollectionViewData
     func collectionView(_ collectionView: UICollectionView,numberOfItemsInSection section: Int) -> Int
     {
         
-        if collectionView == storyCollectionView {
+        if collectionView.tag == 1221//storyCollectionView 
+        {
             if planAllLocation == false {
                 
                 if countArray.count>0 {
@@ -3340,7 +3350,7 @@ extension mainHomeViewController: UICollectionViewDelegate, UICollectionViewData
                 
                     if placeIds.contains(globalPlaceid){//("58c3c09336f8b6180feea0c6"){//(globalPlaceid) {
                     print("Contains story")
-                    let indx = placeIds .index(of: globalPlaceid)
+                    let indx = placeIds .index(of: self.globalPlaceid)
                     print(indx)
                     
                 let imageUrlArray = ((countArray.object(at: indx)) as AnyObject).value(forKey: "story") as! NSMutableArray
@@ -3363,14 +3373,20 @@ extension mainHomeViewController: UICollectionViewDelegate, UICollectionViewData
             
         else
         {
-        let show = (arrayOfimages1[collectionView.tag] as AnyObject).value(forKey: "showMore") as! Int
-        
-    if show == 0 {
-            return ((arrayOfimages1.object(at: collectionView.tag) as AnyObject).value(forKey: "id") as! NSArray).count //(arrayOfimages1[collectionView.tag] as AnyObject).value(forKey: "id")! .count
-        }
-        else{
-            return ((arrayOfimages1[collectionView.tag] as AnyObject).value(forKey: "id")! as AnyObject) .count + 1
-        }
+            print(collectionView.tag)
+            print(arrayOfimages1)
+            if(arrayOfimages1.count == 0)
+            {
+                return 0
+            }
+            let show = (arrayOfimages1[collectionView.tag] as AnyObject).value(forKey: "showMore") as! Int
+            
+            if show == 0 {
+                return ((arrayOfimages1.object(at: collectionView.tag) as AnyObject).value(forKey: "id") as! NSArray).count //(arrayOfimages1[collectionView.tag] as AnyObject).value(forKey: "id")! .count
+            }
+            else{
+                return ((arrayOfimages1[collectionView.tag] as AnyObject).value(forKey: "id")! as AnyObject) .count + 1
+            }
         }
     
     }
@@ -3382,7 +3398,8 @@ extension mainHomeViewController: UICollectionViewDelegate, UICollectionViewData
     func collectionView(_ collectionView: UICollectionView,cellForItemAt indexPath: IndexPath) -> UICollectionViewCell
     {
         
-        if collectionView == storyCollectionView {
+        if collectionView.tag == 1221//storyCollectionView 
+        {
             
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "planCell",for: indexPath) as! planCollectionViewCell
         
@@ -3979,7 +3996,8 @@ extension mainHomeViewController: UICollectionViewDelegate, UICollectionViewData
     
     func collectionView(_ collectionView: UICollectionView, didEndDisplaying cell: UICollectionViewCell, forItemAt indexPath: IndexPath)
     {
-        if collectionView == storyCollectionView {
+        if collectionView.tag == 1221//storyCollectionView 
+        {
             
         }
         else
@@ -3999,78 +4017,78 @@ extension mainHomeViewController: UICollectionViewDelegate, UICollectionViewData
     
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath){
         
-        if collectionView == storyCollectionView {
-            
-        }
-        else
-        {
-    
-        if self.arrayOfimages1.count<1 {
+        if collectionView.tag == 1221 {
             
         }
         else
         {
             
-            
-            if indexPath.row < ((arrayOfimages1[collectionView.tag] as AnyObject).value(forKey: "id")! as AnyObject) .count {
-            
-               
-                
-                
-                var arrImg2 = NSArray()
-                arrImg2 = (self.arrayOfimages1[collectionView.tag] as AnyObject).value(forKey: "thumbnails") as! NSArray
-                
-                
-                let imageName2 = arrImg2[indexPath.row] as! String
-                
-                ///image of that place
-                
-                let locationimage = cell.viewWithTag(7459) as! UIImageView
-                locationimage.layer.cornerRadius = 0
-                locationimage.clipsToBounds = true
-                locationimage.contentMode = .scaleAspectFill
-                
-                let url2 = URL(string: imageName2 as String)
-                
-                locationimage.sd_setImage(with: url2, placeholderImage: UIImage (named: "backgroundImage"))
-                
-                let gradient = cell.viewWithTag(7499) as! GradientView
-                
-                gradient.gradientLayer.colors = [UIColor.black.withAlphaComponent(0.5).cgColor, UIColor.clear.cgColor]
-                gradient.gradientLayer.gradient = GradientPoint.bottomTop.draw()
-
-                
-                
-                
-                if indexPath.row > 0 && indexPath.row < arrImg2.count - 1{
-                    
-                    
-                    let imageNameBack = arrImg2[indexPath.row - 1] as! String
-                    let urlBack = URL(string: imageNameBack as String)
-                    let tempImgView = UIImageView()
-                    tempImgView.isHidden=true
-                    
-                    tempImgView .sd_setImage(with: urlBack)
-                    
-                    
-                    let imageNameNext = arrImg2[indexPath.row + 1] as! String
-                    let urlNext = URL(string: imageNameNext as String)
-                    tempImgView .sd_setImage(with: urlNext)
-                    
-                    
-                    
-                    
-                }
-                
+            if self.arrayOfimages1.count<1 {
                 
             }
             else
             {
                 
-             
+                
+                if indexPath.row < ((arrayOfimages1[collectionView.tag] as AnyObject).value(forKey: "id")! as AnyObject) .count {
+                    
+                    
+                    
+                    
+                    var arrImg2 = NSArray()
+                    arrImg2 = (self.arrayOfimages1[collectionView.tag] as AnyObject).value(forKey: "thumbnails") as! NSArray
+                    
+                    
+                    let imageName2 = arrImg2[indexPath.row] as! String
+                    
+                    ///image of that place
+                    
+                    let locationimage = cell.viewWithTag(7459) as! UIImageView
+                    locationimage.layer.cornerRadius = 0
+                    locationimage.clipsToBounds = true
+                    locationimage.contentMode = .scaleAspectFill
+                    
+                    let url2 = URL(string: imageName2 as String)
+                    
+                    locationimage.sd_setImage(with: url2, placeholderImage: UIImage (named: "backgroundImage"))
+                    
+                    let gradient = cell.viewWithTag(7499) as! GradientView
+                    
+                    gradient.gradientLayer.colors = [UIColor.black.withAlphaComponent(0.5).cgColor, UIColor.clear.cgColor]
+                    gradient.gradientLayer.gradient = GradientPoint.bottomTop.draw()
+                    
+                    
+                    
+                    
+                    if indexPath.row > 0 && indexPath.row < arrImg2.count - 1{
+                        
+                        
+                        let imageNameBack = arrImg2[indexPath.row - 1] as! String
+                        let urlBack = URL(string: imageNameBack as String)
+                        let tempImgView = UIImageView()
+                        tempImgView.isHidden=true
+                        
+                        tempImgView .sd_setImage(with: urlBack)
+                        
+                        
+                        let imageNameNext = arrImg2[indexPath.row + 1] as! String
+                        let urlNext = URL(string: imageNameNext as String)
+                        tempImgView .sd_setImage(with: urlNext)
+                        
+                        
+                        
+                        
+                    }
+                    
+                    
+                }
+                else
+                {
+                    
+                    
+                }
+                
             }
-
-        }
         }
         
     }
@@ -4087,7 +4105,7 @@ extension mainHomeViewController: UICollectionViewDelegate, UICollectionViewData
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: IndexPath) -> CGSize {
         
-        if collectionView != storyCollectionView {
+        if collectionView.tag != 1221 {
             
         //}
        // else
@@ -4148,13 +4166,13 @@ extension mainHomeViewController: UICollectionViewDelegate, UICollectionViewData
         
         if planAllLocation == false {
             planAllLocation = true
-            storyCollectionView .reloadData()
+           // storyCollectionView .reloadData()
             
         }
         else
         {
             planAllLocation = false
-            storyCollectionView .reloadData()
+           // storyCollectionView .reloadData()
         }
         
         
