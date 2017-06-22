@@ -510,9 +510,9 @@ class mainHomeViewController: UIViewController, SDWebImageManagerDelegate, apiCl
         
        
         
-        //let widthTotal = self.view.frame.size.width / 2
+        let widthTotal = self.view.frame.size.width / 2
         
-        //self.imagesTableView.rowHeight = widthTotal + 78
+        self.imagesTableView.rowHeight = widthTotal + 78
         
         NotificationCenter.default.addObserver(self, selector: #selector(mainHomeViewController.loadList(_:)),name:NSNotification.Name(rawValue: "load"), object: nil)
 
