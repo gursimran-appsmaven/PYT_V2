@@ -10,7 +10,7 @@ var bucketListTotalCount = "0"
 var logOut: Bool = true
 var appUrl = "http://pictureyourtravel.com/"  //Test
 //var appUrl = "http://52.25.207.151/"// Live New server working
-var defaults = UserDefaults.standard
+var Udefaults = UserDefaults.standard
 
 
 import UIKit
@@ -36,7 +36,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     
     
-    
     func application(application: UIApplication, handleEventsForBackgroundURLSession identifier: String, completionHandler: () -> Void) {
         /*
          Store the completion handler.
@@ -53,8 +52,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         //registerForPushNotifications(application)
         
-        defaults.set("", forKey: "deviceToken")
-        defaults.set(false, forKey: "multipleCity")
+        Udefaults.set("", forKey: "deviceToken")
+        Udefaults.set(false, forKey: "multipleCity")
         
         //tool tips
         //  defaults .setInteger(0, forKey: "indexToolTips")
@@ -63,7 +62,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         DispatchQueue.main.async
             {
                 
-                if #available(iOS 10, *) {
+                if #available(iOS 10, *)
+                {
                     
                     //Notifications get posted to the function (delegate):  func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: () -> Void)"
                     
@@ -360,18 +360,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         
         
-        if  let uId = defaults .string(forKey: "userLoginId"){
+        if  let uId = Udefaults .string(forKey: "userLoginId"){
             print(uId)
             if uId != "" {
                 
-                let userName = defaults .string(forKey: "userLoginName")!
+                let userName = Udefaults .string(forKey: "userLoginName")!
                 
                 
                 Crashlytics.sharedInstance().setUserIdentifier(uId)
                 Crashlytics.sharedInstance().setUserName(userName as String)
                 
                 
-                let tagsArr: NSMutableArray = defaults.mutableArrayValue(forKey: "categoriesFromWeb")
+                let tagsArr: NSMutableArray = Udefaults.mutableArrayValue(forKey: "categoriesFromWeb")
                 
                 if tagsArr.count<1 {
                     apiClass.sharedInstance().postRequestCategories(parameterString: uId)
@@ -403,7 +403,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                  DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
                                     let dic:NSDictionary = ["userId": uId]
                                     objt.postRequestForcountStory(parameterString: dic)
-                
+                                    objt.postRequestForcountStoryandBucket(dic)
                                     //objt2.postRequestForGetTheUserProfileData(uId)
                 
                                 }
@@ -538,8 +538,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         myToken=myToken.replacingOccurrences(of: " ", with: "")
         print("DEVICE TOKEN = \(myToken)")
         
-        defaults.set(myToken, forKey: "deviceToken")
-        defaults.synchronize()
+        Udefaults.set(myToken, forKey: "deviceToken")
+        Udefaults.synchronize()
         
         
         
@@ -560,10 +560,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         
         
-        let tokendevice = defaults.string(forKey: "deviceToken")!
+        let tokendevice = Udefaults.string(forKey: "deviceToken")!
         print(tokendevice)
-        let uId = defaults .string(forKey: "userLoginId")
-        if defaults.bool(forKey: "savedDeviceToken") == true {
+        let uId = Udefaults .string(forKey: "userLoginId")
+        if Udefaults.bool(forKey: "savedDeviceToken") == true {
             
         }
             

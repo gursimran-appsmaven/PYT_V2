@@ -84,15 +84,15 @@ class ViewController: UIViewController, apiClassDelegate , UIScrollViewDelegate,
         //MARK:
         
        
-        defaults.set(true, forKey: "tutorialLaunch")
+        Udefaults.set(true, forKey: "tutorialLaunch")
         
         
         let n: Int! = self.navigationController?.viewControllers.count //check the count of controllers for show the tutorials
         if n == 1 {
-            defaults.set(false, forKey: "tutorialLaunch")
+            Udefaults.set(false, forKey: "tutorialLaunch")
         }
         
-        let firstLaunch = defaults.bool(forKey: "tutorialLaunch")
+        let firstLaunch = Udefaults.bool(forKey: "tutorialLaunch")
         whiteView.isHidden = true
         
         if firstLaunch == false
@@ -206,13 +206,13 @@ class ViewController: UIViewController, apiClassDelegate , UIScrollViewDelegate,
             apiClass.sharedInstance().delegate=self
             
             //check the access tokens for auto login into the app
-            if let name = defaults.string(forKey: "userLoginId") // check fb access token
+            if let name = Udefaults.string(forKey: "userLoginId") // check fb access token
             {
                 print(name)
                 
                 if name == ""  //if fbaccesstoken is empty check instagram token
                 {
-                    if let name2 = defaults.string(forKey: "instagramAccessToken")
+                    if let name2 = Udefaults.string(forKey: "instagramAccessToken")
                     {
                         self.accessToken = name2
                     }
@@ -280,8 +280,8 @@ class ViewController: UIViewController, apiClassDelegate , UIScrollViewDelegate,
             
             /////////////////---------- Start function -------////////
             
-            let tabledata = defaults.array(forKey: "arrayOfIntrest")
-            if let name = defaults.string(forKey: "userLoginId") // check user login id
+            let tabledata = Udefaults.array(forKey: "arrayOfIntrest")
+            if let name = Udefaults.string(forKey: "userLoginId") // check user login id
             {
                 print(name)
                 if name == ""  //if fbaccesstoken is empty check instagram token
@@ -314,7 +314,7 @@ class ViewController: UIViewController, apiClassDelegate , UIScrollViewDelegate,
         }, completion: {(finished: Bool) -> Void in
             self.whiteView.removeFromSuperview()
             
-            // defaults.setBool(true, forKey: "tutorialLaunch")//uncomment this
+            // Udefaults.setBool(true, forKey: "tutorialLaunch")//uncomment this
             
             // self.viewDidLoad() //uncomment this
         })
@@ -373,9 +373,8 @@ class ViewController: UIViewController, apiClassDelegate , UIScrollViewDelegate,
                     self.accessToken = token! // set access token to global for use
                     print(self.accessToken)
                     
-                    let defaults = UserDefaults.standard
-                    defaults.set(self.accessToken, forKey: "faceBookAccessToken")
-                    defaults.set("", forKey: "instagramAccessToken")
+                Udefaults.set(self.accessToken, forKey: "faceBookAccessToken")
+                    Udefaults.set("", forKey: "instagramAccessToken")
                     
                     self.getFBUserData(id: token2! as NSString, token: token! as NSString) // call  api for testing
                     
@@ -408,14 +407,14 @@ class ViewController: UIViewController, apiClassDelegate , UIScrollViewDelegate,
     func getFBUserData(id:NSString,token:NSString)
     {
         
-        let tokendevice = defaults.string(forKey: "deviceToken")!
+        let tokendevice = Udefaults.string(forKey: "deviceToken")!
         print(tokendevice)
         
         if((FBSDKAccessToken.current()) != nil)
         {
             
-            defaults.set(true, forKey: "social")
-            defaults.synchronize()
+            Udefaults.set(true, forKey: "social")
+            Udefaults.synchronize()
             
             if (self.accessToken == "")
             {
@@ -508,7 +507,7 @@ class ViewController: UIViewController, apiClassDelegate , UIScrollViewDelegate,
             
             if accessToken.location != NSNotFound {
                 let strAccessToken: String = "" //urlString.substringFromIndex(urlString.startIndex.advancedBy(NSMaxRange(accessToken)))
-                // Save access token to user defaults for later use.
+                // Save access token to user Udefaults for later use.
                 
                 // Add constant key #define KACCESS_TOKEN @”access_token” in constant class
                 
@@ -543,7 +542,7 @@ class ViewController: UIViewController, apiClassDelegate , UIScrollViewDelegate,
                 
                 ///////------ temp to make video
                 
-                let tokendevice = defaults.string(forKey: "deviceToken")!
+                let tokendevice = Udefaults.string(forKey: "deviceToken")!
                 print(tokendevice)
                 
                 let parameterDict: NSDictionary = ["igId":instaUserId , "accessToken": accessInsta, "deviceToken": ["token": "", "device": "iphone"]]
@@ -637,14 +636,14 @@ class ViewController: UIViewController, apiClassDelegate , UIScrollViewDelegate,
                 var userDetail = NSDictionary()
                 userDetail = jsonResult.object(forKey: "data") as! NSDictionary
                 let uEmail = userDetail.value(forKey: "email") as? String ?? ""
-                defaults.set(uEmail, forKey: "loginEmail")
+                Udefaults.set(uEmail, forKey: "loginEmail")
                 let uname = userDetail.value(forKey: "name") as? String ?? ""
-                defaults.set(uname, forKey: "userLoginName")
+                Udefaults.set(uname, forKey: "userLoginName")
                 let uid = userDetail.value(forKey: "_id") as? String ?? ""
-                defaults.set(uid, forKey: "userLoginId")
+                Udefaults.set(uid, forKey: "userLoginId")
                 let profilePic = userDetail.value(forKey: "picture") as? String ?? ""
-                defaults.set(profilePic, forKey: "userProfilePic")
-                defaults.synchronize()
+                Udefaults.set(profilePic, forKey: "userProfilePic")
+                Udefaults.synchronize()
                 
                 
                 let runtimeLocations = userDetail.value(forKey: "runTimeLocation") as! NSMutableArray
@@ -722,7 +721,7 @@ class ViewController: UIViewController, apiClassDelegate , UIScrollViewDelegate,
                 //dispatch_get_global_queue(Int(QOS_CLASS_BACKGROUND.rawValue), 0).asynchronously(execute: {
                   DispatchQueue.global(qos: .background).async {
                     
-                    let uId2 = defaults .string(forKey: "userLoginId")
+                    let uId2 = Udefaults .string(forKey: "userLoginId")
                     let objt = storyCountClass()
                     let dic:NSDictionary = ["userId": uId2!]
                     objt.postRequestForcountStory(parameterString: dic)
@@ -786,9 +785,9 @@ class ViewController: UIViewController, apiClassDelegate , UIScrollViewDelegate,
                     print(pytUserId)
                     let pytUserName = jsonResult.value(forKey: "name") as? String ?? ""
                     let pytUserProfilePic = jsonResult.value(forKey: "profilePic") as? String ?? ""
-                    defaults.set(pytUserId, forKey: "userLoginId")
-                    defaults.set(pytUserName, forKey: "userLoginName")
-                    defaults.set(pytUserProfilePic, forKey: "userProfilePic")
+                    Udefaults.set(pytUserId, forKey: "userLoginId")
+                    Udefaults.set(pytUserName, forKey: "userLoginName")
+                    Udefaults.set(pytUserProfilePic, forKey: "userProfilePic")
                     
                     
                     
@@ -853,7 +852,7 @@ class ViewController: UIViewController, apiClassDelegate , UIScrollViewDelegate,
                 else
                 {
             
-                    defaults.set("", forKey: "userLoginId")
+                    Udefaults.set("", forKey: "userLoginId")
                     
                     CommonFunctionsClass.sharedInstance().showAlert(title: "Session Expire", text: "Your session is expired, Please login again", imageName: "alertDelete")
                     
@@ -982,7 +981,7 @@ class ViewController: UIViewController, apiClassDelegate , UIScrollViewDelegate,
     func loginApi(email:NSString, password:NSString) -> Void
     {
       
-        let token = defaults.string(forKey: "deviceToken")!
+        let token = Udefaults.string(forKey: "deviceToken")!
         print(token)
         
         
@@ -997,8 +996,8 @@ class ViewController: UIViewController, apiClassDelegate , UIScrollViewDelegate,
         
         apiClass.sharedInstance().postRequestForLogin(parameterString: parameterString, viewController: self)
         
-        defaults.set(false, forKey: "social")
-        defaults.synchronize()
+        Udefaults.set(false, forKey: "social")
+        Udefaults.synchronize()
         //apiClass.sharedInstance().postRequestSearch(parameterString, viewController: self)// call api
         
         
@@ -1117,7 +1116,7 @@ class ViewController: UIViewController, apiClassDelegate , UIScrollViewDelegate,
     
     func moveinsideApp() -> Void
     {
-        let uId = defaults .string(forKey: "userLoginId")
+        let uId = Udefaults .string(forKey: "userLoginId")
         
         
       

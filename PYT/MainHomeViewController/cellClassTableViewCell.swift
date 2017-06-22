@@ -145,16 +145,15 @@ class collectionViewCellClassFeed: UICollectionViewCell {
 //plan cell
 class planCollectionViewCell: UICollectionViewCell {
     
-    //planCell
-    
-    
+    @IBOutlet weak var planImage: CustomImageView!
+    @IBOutlet weak var planName: UILabel!
+   
     
 }
 
 //plan header cell
 class planCollectionViewHeaderCell: UICollectionViewCell {
-    
-    //planHeader
+    @IBOutlet weak var changePlanButton: UIButton!
     
     
     
