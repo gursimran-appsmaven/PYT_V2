@@ -777,7 +777,7 @@ class intrestViewController: UIViewController {
 //                
 //                attributedString1.append(attributedString2)
 //                cell.locationLabel.attributedText = attributedString1
-                cell.locationLabel = locationCity
+                cell.locationLabel.text = locationCity
                 
                 
                 
