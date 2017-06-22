@@ -155,7 +155,6 @@ class searchScreenViewController: UIViewController, UINavigationControllerDelega
     override func viewDidLoad()
     {
         
-        
         super.viewDidLoad()
         
         

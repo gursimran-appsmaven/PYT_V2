@@ -402,8 +402,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 
                  DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
                                     let dic:NSDictionary = ["userId": uId]
-                                    objt.postRequestForcountStory(parameterString: dic)
-                                    objt.postRequestForcountStoryandBucket(dic)
+                    
+                      objt.postRequestForcountStoryandBucket(dic)
+                    objt.postRequestForcountStory(parameterString: dic)
+                    
                                     //objt2.postRequestForGetTheUserProfileData(uId)
                 
                                 }

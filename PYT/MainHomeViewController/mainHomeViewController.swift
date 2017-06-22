@@ -62,8 +62,6 @@ class mainHomeViewController: UIViewController, SDWebImageManagerDelegate, apiCl
     
     
     
-    
-    
     var colorArray = [
         UIColor.green.withAlphaComponent(0.5) ,
         UIColor.blue.withAlphaComponent(0.5) ,
@@ -120,22 +118,6 @@ class mainHomeViewController: UIViewController, SDWebImageManagerDelegate, apiCl
     var pageNumber:Int = 1
     //var defaults = UserDefaults.standard
     var uId = ""
-    
-   
-    @IBOutlet var heightOfContentView: NSLayoutConstraint!
-    @IBOutlet var heightOfTable: NSLayoutConstraint!
-    
-    
-    
-   
-    
-    
-    
-    
-    @IBOutlet var storyBtnOutlet: UIButton!
-   //@IBOutlet var bucketListCount: UILabel!
-   // @IBOutlet var storyListCount: UILabel!
-    
     
     
     
@@ -1181,8 +1163,9 @@ class mainHomeViewController: UIViewController, SDWebImageManagerDelegate, apiCl
             cell.imagesCollectionView.dataSource=self
             cell.imagesCollectionView.tag=indexPath.row
             
-           
+           DispatchQueue.main.async(execute: { () -> Void in
             cell.imagesCollectionView.reloadData()
+           })
             if segmentBool == true {
                 if indexPath.row > 2 {
                     self.segmentBool = false
@@ -1281,6 +1264,9 @@ class mainHomeViewController: UIViewController, SDWebImageManagerDelegate, apiCl
         }
         else
         {
+            
+            
+            
             tableViewCell.collectionViewOffset = storedOffsets[indexPath.row] ?? 0
         }
         
@@ -2885,11 +2871,11 @@ class mainHomeViewController: UIViewController, SDWebImageManagerDelegate, apiCl
         
         
         
-        DispatchQueue.main.async(execute: {
+      //  DispatchQueue.main.async(execute: {
         self.imagesTableView .reloadData()
             
             
-            })
+          //  })
         
         
         if countsDictionary.object(forKey: "storyCount") != nil {
@@ -4113,7 +4099,7 @@ extension mainHomeViewController: UICollectionViewDelegate, UICollectionViewData
         
         var width1 = collectionView.frame.size.width/1.25   //1.8
         
-        let height3 : CGFloat = self.imagesTableView.rowHeight - 56
+        let height3 : CGFloat = self.imagesTableView.rowHeight - 70
         
         
         if indexPath.row == ((arrayOfimages1[collectionView.tag] as AnyObject).value(forKey: "id")! as AnyObject) .count  {
@@ -4357,7 +4343,7 @@ extension mainHomeViewController: UICollectionViewDelegate, UICollectionViewData
                 
                  likedView?.alpha = 1
                 
-                UIView.animate(withDuration: 1.2, delay: 0.0, options: UIViewAnimationOptions.curveEaseOut, animations: {
+                UIView.animate(withDuration: 1.0, delay: 0.0, options: UIViewAnimationOptions.curveEaseOut, animations: {
                     likedView?.alpha = 0
                     }, completion: nil)
                 
@@ -4387,7 +4373,7 @@ extension mainHomeViewController: UICollectionViewDelegate, UICollectionViewData
                 let dat: NSDictionary = ["userId": "\(uId)", "photoId":"\(imageId)", "userLiked":"\(uId)", "status":"1", "imageOwn": "\(otherUserId)", "userName": "\(userNameMy!)"]
                 
                 
-                UIView.animate(withDuration: 1.2, delay: 0.0, options: UIViewAnimationOptions.curveEaseOut, animations: {
+                UIView.animate(withDuration: 1.0, delay: 0.0, options: UIViewAnimationOptions.curveEaseOut, animations: {
                     likedView?.alpha = 0
                     }, completion: nil)
                 
@@ -4406,7 +4392,7 @@ extension mainHomeViewController: UICollectionViewDelegate, UICollectionViewData
              likecountlbl.text=String(self.addTheLikes(countLik))
             let dat: NSDictionary = ["userId": "\(uId)", "photoId":"\(imageId)", "userLiked":"\(uId)", "status":"1", "imageOwn": "\(otherUserId)", "userName": "\(userNameMy!)"]
           
-            UIView.animate(withDuration: 1.2, delay: 0.0, options: UIViewAnimationOptions.curveEaseOut, animations: {
+            UIView.animate(withDuration: 1.0, delay: 0.0, options: UIViewAnimationOptions.curveEaseOut, animations: {
                 likedView?.alpha = 0
                 }, completion: nil)
             
@@ -4429,7 +4415,7 @@ extension mainHomeViewController: UICollectionViewDelegate, UICollectionViewData
         likedView?.alpha = 1
         let dat: NSDictionary = ["userId": "\(uId)", "photoId":"\(imageId)", "userLiked":"\(uId)", "status":"1", "imageOwn": "\(otherUserId)", "userName": "\(userNameMy!)"]
         
-        UIView.animate(withDuration: 1.2, delay: 0.0, options: UIViewAnimationOptions.curveEaseOut, animations: {
+        UIView.animate(withDuration: 1.0, delay: 0.0, options: UIViewAnimationOptions.curveEaseOut, animations: {
             likedView?.alpha = 0
             }, completion: nil)
         

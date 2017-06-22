@@ -86,7 +86,7 @@ class storyCountClass: NSObject
                                 let anyObj: Any = try JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.mutableContainers)
                                 
                                 let result = NSString(data: data!, encoding:String.Encoding.ascii.rawValue)!
-                                print("Body: Result from story count \(result)")
+                               // print("Body: Result from story count \(result)")
 
                                 
                                 
@@ -101,13 +101,6 @@ class storyCountClass: NSObject
                                         countArray=basicInfo.value(forKey: "data") as! NSMutableArray
                                     
                                         
-//                                        bucketListTotalCount = "0"
-//                                        if countArray.object(forKey: "bucketCount") != nil
-//                                        {
-//                                            if let bktCount = countArray.value(forKey: "bucketCount"){
-//                                                
-//                                                bucketListTotalCount = "\(bktCount)"
-//                                            }
                                     
                                     
                                     // Post notification
@@ -239,7 +232,7 @@ class storyCountClass: NSObject
                             do {
                                 
                                 let result = NSString(data: data!, encoding:String.Encoding.ascii.rawValue)!
-                                print("Body:   ENTERS HERE for story and bucket count  \(result)")
+                               // print("Body:   ENTERS HERE for story and bucket count  \(result)")
                                 
                                 let anyObj: Any = try JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.mutableContainers)
                                 

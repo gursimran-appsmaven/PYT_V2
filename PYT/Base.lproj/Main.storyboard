@@ -2042,7 +2042,7 @@
                         <viewControllerLayoutGuide type="top" id="adY-gZ-PR2"/>
                         <viewControllerLayoutGuide type="bottom" id="clB-zf-O5s"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" misplaced="YES" id="Qw4-nW-VfZ">
+                    <view key="view" contentMode="scaleToFill" id="Qw4-nW-VfZ">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="618"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
@@ -2192,7 +2192,7 @@
                                                                                 <rect key="frame" x="0.0" y="68" width="180" height="82"/>
                                                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                                             </view>
-                                                                            <imageView userInteractionEnabled="NO" alpha="0.65000000000000002" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="overLay" translatesAutoresizingMaskIntoConstraints="NO" id="nmZ-Gk-o07">
+                                                                            <imageView userInteractionEnabled="NO" alpha="0.65000000000000002" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="overLay" translatesAutoresizingMaskIntoConstraints="NO" id="nmZ-Gk-o07">
                                                                                 <rect key="frame" x="0.0" y="81" width="180" height="69"/>
                                                                             </imageView>
                                                                             <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aWi-m9-wFX">
@@ -2207,7 +2207,7 @@
                                                                                 <rect key="frame" x="7" y="108" width="27" height="30"/>
                                                                             </imageView>
                                                                             <label opaque="NO" userInteractionEnabled="NO" tag="7478" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" lineBreakMode="wordWrap" baselineAdjustment="alignBaselines" minimumFontSize="6" translatesAutoresizingMaskIntoConstraints="NO" id="Q74-72-eHr">
-                                                                                <rect key="frame" x="39" y="115" width="7" height="16"/>
+                                                                                <rect key="frame" x="39" y="115" width="6" height="16"/>
                                                                                 <constraints>
                                                                                     <constraint firstAttribute="height" constant="16" id="uro-cf-y8T"/>
                                                                                 </constraints>
