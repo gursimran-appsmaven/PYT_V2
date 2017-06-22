@@ -134,43 +134,6 @@ class searchScreenViewController: UIViewController, UINavigationControllerDelega
         btn5Overlay.gradientLayer.colors = [UIColor.black.withAlphaComponent(0.5).cgColor, UIColor.clear.cgColor]
         btn5Overlay.gradientLayer.gradient = GradientPoint.bottomTop.draw()
 
-
-    }
-    
-    override func viewDidDisappear(_ animated: Bool)
-    {
-
-        
-        //  UIApplication.sharedApplication().statusBarStyle = .LightContent
-        
-        
-    }
-    
-    
-    
-    //MARK:- ViewDidLoad method
-    //MARK:-
-    
-    
-    override func viewDidLoad()
-    {
-        
-        super.viewDidLoad()
-        
-        
-        locationAutoPrompt = "Empty"
-        autoPromptTable.rowHeight = 50
-        
-        
-        search_Bar.layer.cornerRadius = 5.0
-        search_Bar.clipsToBounds = true
-        search_Bar.barTintColor = UIColor .white
-        //[self.searchBar setReturnKeyType:UIReturnKeyDone];
-        search_Bar.returnKeyType = UIReturnKeyType .done
-        search_Bar.showsCancelButton = false
-        cancelWidth.constant = 0
-        search_Bar.delegate = self
-        
         
         
         
@@ -207,112 +170,103 @@ class searchScreenViewController: UIViewController, UINavigationControllerDelega
         
         
         
-       // DispatchQueue.main.async {
-            
-            //////////------- temp handle intrets:
+       //  DispatchQueue.main.async {
         
-       self.manageContentOfButtons()
+        //////////------- temp handle intrets:
         
-            let tabledata2 = UserDefaults.standard.array(forKey: "arrayOfIntrest")
-            if (tabledata2?.count)!<1
+       
+        
+        let tabledata2 = UserDefaults.standard.array(forKey: "arrayOfIntrest")
+        if (tabledata2?.count)!<1
+        {
+            //do nothing
+            
+            
+        }
+        else
+        {
+            let tabledata:NSMutableArray = [UserDefaults.standard.array(forKey:"arrayOfIntrest")!]
+            
+            for i in 0..<(tabledata[0] as AnyObject).count
             {
-                //do nothing
                 
+                var srrObj = NSMutableDictionary()
+                print((tabledata[0] as AnyObject).object(at: i))
+                srrObj = (tabledata[0] as AnyObject).object(at: i) as! NSMutableDictionary //((tabledata[0] as AnyObject) .object(i) as! NSMutableDictionary).mutableCopy() as! NSMutableDictionary
+                print(srrObj)
                 
-            }
-            else
-            {
-                let tabledata:NSMutableArray = [UserDefaults.standard.array(forKey:"arrayOfIntrest")!]
-            
-                for i in 0..<(tabledata[0] as AnyObject).count
-                {
-                   
-                    var srrObj = NSMutableDictionary()
-                    print((tabledata[0] as AnyObject).object(at: i))
-                    srrObj = (tabledata[0] as AnyObject).object(at: i) as! NSMutableDictionary //((tabledata[0] as AnyObject) .object(i) as! NSMutableDictionary).mutableCopy() as! NSMutableDictionary
-                    print(srrObj)
-                    
-                    self.arrayOfIntrest .add(srrObj.mutableCopy())
-                    print(self.arrayOfIntrest)
-                    self.setLocationInButtons(btnTag: i)
-                    
-                    
-                    
-                }
-                
-            }
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            let uId = Udefaults .string(forKey: "userLoginId")
-            
-            
-            
-            //get the trending places here
-            
-            let trendingDataSaved = UserDefaults.standard.object(forKey: "arrayOfTrending")
-            
-            let popularSaved = UserDefaults.standard.object(forKey: "arrayOfPopular")
-            
-            
-            if (trendingDataSaved != nil && popularSaved != nil) {
-                
-                self.trendingArray=NSMutableArray(array: trendingDataSaved as! NSArray)
-                self.popularArray=NSMutableArray(array: popularSaved as! NSArray)
-                // self.updateTrending()
-                self.trendingPlacesCollectionView.reloadData()
-                self.showPopular()
-                
-                self.adjustHeightOftableView()
-                
-                DispatchQueue.main.asyncAfter(deadline: .now() + 5.0) {
-                    self.postApiForTrendingLocationsSearch(userid: uId! as NSString)
-                    //apiClassInterest.sharedInstance().postApiForTrendingLocations(self, userid: uId!)
-                }
+                self.arrayOfIntrest .add(srrObj.mutableCopy())
+                print(self.arrayOfIntrest)
+                self.setLocationInButtons(btnTag: i)
                 
                 
                 
             }
-            else
-            {
-                self.postApiForTrendingLocationsSearch(userid: uId! as NSString) //api to get the trending and popular places
-                
-            }
             
+        }
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        let uId = Udefaults .string(forKey: "userLoginId")
+        
+        
+        
+        //get the trending places here
+        
+        let trendingDataSaved = UserDefaults.standard.object(forKey: "arrayOfTrending")
+        
+        let popularSaved = UserDefaults.standard.object(forKey: "arrayOfPopular")
+        
+        
+        if (trendingDataSaved != nil && popularSaved != nil) {
             
-            
+            self.trendingArray=NSMutableArray(array: trendingDataSaved as! NSArray)
+            self.popularArray=NSMutableArray(array: popularSaved as! NSArray)
+            // self.updateTrending()
+            self.trendingPlacesCollectionView.reloadData()
+            self.showPopular()
             
             self.adjustHeightOftableView()
             
-            URLCache.shared.removeAllCachedResponses()//clear cache
+            DispatchQueue.main.asyncAfter(deadline: .now() + 5.0) {
+                self.postApiForTrendingLocationsSearch(userid: uId! as NSString)
+                //apiClassInterest.sharedInstance().postApiForTrendingLocations(self, userid: uId!)
+            }
             
+        }
+        else
+        {
+            self.postApiForTrendingLocationsSearch(userid: uId! as NSString) //api to get the trending and popular places
             
-            
-            
-            
-            
-            
-            
-            
-            
-            self.navigationController?.isNavigationBarHidden = true
-            
-            self.tabBarController?.tabBar.isHidden = true
-            
-            
-            
-            
-            selectedindxSearch=0
-            
-            
-            
-       // }
+        }
+        
+        
+        
+        
+        self.adjustHeightOftableView()
+        
+        URLCache.shared.removeAllCachedResponses()//clear cache
+        
+        
+        
+        self.navigationController?.isNavigationBarHidden = true
+        
+        self.tabBarController?.tabBar.isHidden = true
+        
+        
+        
+        
+        selectedindxSearch=0
+        
+        
+        
+        // }
         
         
         
@@ -327,7 +281,7 @@ class searchScreenViewController: UIViewController, UINavigationControllerDelega
         
         let tokendevice = Udefaults.string(forKey: "deviceToken")!
         print(tokendevice)
-       // let uId = Udefaults .string(forKey: "userLoginId")
+        // let uId = Udefaults .string(forKey: "userLoginId")
         if Udefaults.bool(forKey: "savedDeviceToken") == true {
             
         }
@@ -372,6 +326,52 @@ class searchScreenViewController: UIViewController, UINavigationControllerDelega
         
         
         bloggersCollectionView.reloadData()
+        
+        
+        
+        
+
+    }
+    
+    override func viewDidDisappear(_ animated: Bool)
+    {
+
+        
+        //  UIApplication.sharedApplication().statusBarStyle = .LightContent
+        
+        
+    }
+    
+    
+    
+    //MARK:- ViewDidLoad method
+    //MARK:-
+    
+    
+    override func viewDidLoad()
+    {
+        
+        
+        super.viewDidLoad()
+        
+        
+        locationAutoPrompt = "Empty"
+        autoPromptTable.rowHeight = 50
+        
+        
+        search_Bar.layer.cornerRadius = 5.0
+        search_Bar.clipsToBounds = true
+        search_Bar.barTintColor = UIColor .white
+        //[self.searchBar setReturnKeyType:UIReturnKeyDone];
+        search_Bar.returnKeyType = UIReturnKeyType .done
+        search_Bar.showsCancelButton = false
+        cancelWidth.constant = 0
+        search_Bar.delegate = self
+        
+        
+         self.manageContentOfButtons()
+        
+        
         
     }
     

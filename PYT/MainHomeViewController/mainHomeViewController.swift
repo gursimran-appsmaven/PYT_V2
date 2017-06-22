@@ -1108,31 +1108,31 @@ class mainHomeViewController: UIViewController, SDWebImageManagerDelegate, apiCl
             cell.useraddressLabel.text = (self.userDetailArray .object(at: indexPath.row) as AnyObject).value(forKey: "email") as? String
             cell.useraddressLabel.isHidden=true
             
-            let pImage : UIImage = UIImage(named:"dummyBackground2")! //placeholder image
-            
-            /////------ user profile pics---/////
-            print(self.userDetailArray.object(at: indexPath.row))
-            
-            let profileImage = (self.userDetailArray .object(at: indexPath.row) as AnyObject).value(forKey: "profile")! as! NSString
-
-            //            let block: SDWebImageCompletionBlock! = {(image: UIImage!, error: NSError!, cacheType: SDImageCacheType!, imageURL: URL!) -> Void in
-//                
+//            let pImage : UIImage = UIImage(named:"dummyBackground2")! //placeholder image
+//            
+//            /////------ user profile pics---/////
+//            print(self.userDetailArray.object(at: indexPath.row))
+//            
+//            let profileImage = (self.userDetailArray .object(at: indexPath.row) as AnyObject).value(forKey: "profile")! as! NSString
+//
+//            //            let block: SDWebImageCompletionBlock! = {(image: UIImage!, error: NSError!, cacheType: SDImageCacheType!, imageURL: URL!) -> Void in
+////                
+////            }
+//            
+//            if profileImage .isEqual(to: "")
+//            {
+//                cell.userProfilePic.image = pImage
 //            }
-            
-            if profileImage .isEqual(to: "")
-            {
-                cell.userProfilePic.image = pImage
-            }
-            else
-            {
-                let url = URL(string: profileImage as String)
-                cell.userProfilePic.sd_setImage(with: url, placeholderImage: pImage) //sd_setImage(with: url, placeholderImage: pImage, completed: block)
-            }
-            
-            
-            ///////---- give a border with color to user profile picture----///////
-            
-            cell.userProfilePic.layer.borderWidth = 1.3
+//            else
+//            {
+//                let url = URL(string: profileImage as String)
+//                cell.userProfilePic.sd_setImage(with: url, placeholderImage: pImage) //sd_setImage(with: url, placeholderImage: pImage, completed: block)
+//            }
+//            
+//            
+//            ///////---- give a border with color to user profile picture----///////
+//            
+//            cell.userProfilePic.layer.borderWidth = 1.3
             let random = { () -> Int in
                 return Int(arc4random_uniform(UInt32(self.colorArray.count)))
             }
@@ -1163,7 +1163,7 @@ class mainHomeViewController: UIViewController, SDWebImageManagerDelegate, apiCl
             cell.imagesCollectionView.dataSource=self
             cell.imagesCollectionView.tag=indexPath.row
             
-           DispatchQueue.main.async(execute: { () -> Void in
+          OperationQueue.main.addOperation({ () -> Void in
             cell.imagesCollectionView.reloadData()
            })
             if segmentBool == true {
@@ -1265,6 +1265,30 @@ class mainHomeViewController: UIViewController, SDWebImageManagerDelegate, apiCl
         else
         {
             
+            let pImage : UIImage = UIImage(named:"dummyBackground2")! //placeholder image
+            
+            /////------ user profile pics---/////
+           // print(self.userDetailArray.object(at: indexPath.row))
+            
+            let profileImage = (self.userDetailArray .object(at: indexPath.row) as AnyObject).value(forKey: "profile")! as! NSString
+            
+    
+            if profileImage .isEqual(to: "")
+            {
+                tableViewCell.userProfilePic.image = pImage
+            }
+            else
+            {
+                let url = URL(string: profileImage as String)
+                tableViewCell.userProfilePic.sd_setImage(with: url, placeholderImage: pImage)
+            }
+            
+            
+            ///////---- give a border with color to user profile picture----///////
+            
+            tableViewCell.userProfilePic.layer.borderWidth = 1.3
+            
+            
             
             
             tableViewCell.collectionViewOffset = storedOffsets[indexPath.row] ?? 0
@@ -1286,7 +1310,8 @@ class mainHomeViewController: UIViewController, SDWebImageManagerDelegate, apiCl
             if indexPath.row > storedOffsets.count {
                 
             }
-            else{
+            else
+            {
                   storedOffsets[indexPath.row] = tableViewCell.collectionViewOffset
             }
            
@@ -1347,7 +1372,7 @@ class mainHomeViewController: UIViewController, SDWebImageManagerDelegate, apiCl
         
         
         
-        print(self.arrayOfimages1[sender.tag])
+       // print(self.arrayOfimages1[sender.tag])
         
         var arrImgThumbnail = NSArray()
         var arrImgLarge = NSArray()
@@ -3016,7 +3041,7 @@ class mainHomeViewController: UIViewController, SDWebImageManagerDelegate, apiCl
                                     
                                     
                                     let result = NSString(data: data!, encoding:String.Encoding.ascii.rawValue)!
-                                    print("Body: \(result)")
+                                 //   print("Body: \(result)")
                                     
                    let anyObj: Any = try JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.mutableContainers)
                                     
@@ -3040,11 +3065,11 @@ class mainHomeViewController: UIViewController, SDWebImageManagerDelegate, apiCl
                                         
                                             
                                             olderDataDict = oldArray.object(at: indx) as! NSMutableDictionary
-                                            print(olderDataDict)
+                                          //  print(olderDataDict)
                                             
                                              phot = olderDataDict .value(forKey: "photos")! as! NSMutableArray
                                             
-                                            print(phot.count)
+                                           // print(phot.count)
                                            
                                             
                                         }
@@ -3065,7 +3090,7 @@ class mainHomeViewController: UIViewController, SDWebImageManagerDelegate, apiCl
                                         
                                         
                                         
-                                    print(phot.count)
+                                   // print(phot.count)
                                         phot.addObjects(from: (dataArray2 .object(at: 0) as AnyObject).value(forKey: "photos")! as! NSMutableArray as [AnyObject])
                                         print(phot.count)
                                         
@@ -3076,7 +3101,7 @@ class mainHomeViewController: UIViewController, SDWebImageManagerDelegate, apiCl
                                         olderDataDict .setObject(phot, forKey: "photos" as NSCopying)
                                         olderDataDict .setObject(usrDataNew, forKey: "userId" as NSCopying)
                                         olderDataDict .setObject(showMorePhotos, forKey: "showMore" as NSCopying)
-                                        print(olderDataDict)
+                                       // print(olderDataDict)
                                         
                                         
                                         oldArray.removeObject(at: indx) //.objectAtIndex(indx) as! NSMutableDictionary
@@ -3360,7 +3385,7 @@ extension mainHomeViewController: UICollectionViewDelegate, UICollectionViewData
         else
         {
             print(collectionView.tag)
-            print(arrayOfimages1)
+          //  print(arrayOfimages1)
             if(arrayOfimages1.count == 0)
             {
                 return 0
@@ -3398,18 +3423,18 @@ extension mainHomeViewController: UICollectionViewDelegate, UICollectionViewData
             {
                 
                 
-                let finalCellFrame = cell.frame
-                //check the scrolling direction to verify from which side of the screen the cell should come.
-                let translation = collectionView.panGestureRecognizer.translation(in: collectionView.superview!)
-                if translation.x > 0 {
-                    cell.frame = CGRect(x: finalCellFrame.origin.x - 500, y: 0, width: 0, height: 0)
-                }
-                else {
-                    cell.frame = CGRect(x: finalCellFrame.origin.x + 500, y: 0, width: 0, height: 0)
-                }
-                UIView.animate(withDuration: 0.9, animations: {() -> Void in
-                    cell.frame = finalCellFrame
-                })
+//                let finalCellFrame = cell.frame
+//                //check the scrolling direction to verify from which side of the screen the cell should come.
+//                let translation = collectionView.panGestureRecognizer.translation(in: collectionView.superview!)
+//                if translation.x > 0 {
+//                    cell.frame = CGRect(x: finalCellFrame.origin.x - 500, y: 0, width: 0, height: 0)
+//                }
+//                else {
+//                    cell.frame = CGRect(x: finalCellFrame.origin.x + 500, y: 0, width: 0, height: 0)
+//                }
+//                UIView.animate(withDuration: 0.9, animations: {() -> Void in
+//                    cell.frame = finalCellFrame
+//                })
 
                 
                 
@@ -3453,18 +3478,18 @@ extension mainHomeViewController: UICollectionViewDelegate, UICollectionViewData
             else
             {
                 
-                let finalCellFrame = cell.frame
-                //check the scrolling direction to verify from which side of the screen the cell should come.
-                let translation = collectionView.panGestureRecognizer.translation(in: collectionView.superview!)
-                if translation.x > 0 {
-                    cell.frame = CGRect(x: finalCellFrame.origin.x + 500, y: 0, width: 0, height: 0)
-                }
-                else {
-                    cell.frame = CGRect(x: finalCellFrame.origin.x - 500, y: 0, width: 0, height: 0)
-                }
-                UIView.animate(withDuration: 0.9, animations: {() -> Void in
-                    cell.frame = finalCellFrame
-                })
+//                let finalCellFrame = cell.frame
+//                //check the scrolling direction to verify from which side of the screen the cell should come.
+//                let translation = collectionView.panGestureRecognizer.translation(in: collectionView.superview!)
+//                if translation.x > 0 {
+//                    cell.frame = CGRect(x: finalCellFrame.origin.x + 500, y: 0, width: 0, height: 0)
+//                }
+//                else {
+//                    cell.frame = CGRect(x: finalCellFrame.origin.x - 500, y: 0, width: 0, height: 0)
+//                }
+//                UIView.animate(withDuration: 0.9, animations: {() -> Void in
+//                    cell.frame = finalCellFrame
+//                })
                 
                 
                 let countriesName = ((countArray.object(at: indexPath.row)) as AnyObject).value(forKey: "country") as! NSArray
@@ -3518,8 +3543,9 @@ extension mainHomeViewController: UICollectionViewDelegate, UICollectionViewData
           
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cellCollectionView",for: indexPath) as! collectionViewCellClassFeed
            
-//            cell.layer.cornerRadius=0
-//            cell.clipsToBounds=true
+            cell.layer.shouldRasterize = true
+            cell.layer.rasterizationScale = UIScreen.main.scale
+            
             
             if self.arrayOfimages1.count<1
             {
@@ -3533,28 +3559,6 @@ extension mainHomeViewController: UICollectionViewDelegate, UICollectionViewData
                 var imageName2 = NSString()
                 var imageId2 = NSString()
                 var imgDesc = NSString()
-                
-                
-                
-                //////images in cells
-                
-                
-                
-                
-                
-                // let queue = NSOperationQueue()
-                
-                
-                
-               // var arrImg2 = NSArray()
-                
-               // arrImg2 = self.arrayOfimages1[collectionView.tag] .valueForKey("thumbnails") as! NSArray
-                
-                //imageName2 = arrImg2[indexPath.row] as! String
-                
-                
-              //  let url2 = NSURL(string: imageName2 as String)
-              
                 
                 
                 var arrId2 = NSArray()
@@ -3605,28 +3609,28 @@ extension mainHomeViewController: UICollectionViewDelegate, UICollectionViewData
                 
                 
                 
-                var arrCategory = NSArray()
-                arrCategory = (self.arrayOfimages1[collectionView.tag] as AnyObject).value(forKey: "category") as! NSArray
-                let newCatRr: NSMutableArray = arrCategory[indexPath.row] as! NSMutableArray
-                
-                let  newcat2 = NSMutableArray()
-                
-                for ll in 0..<newCatRr.count {
-                    
-                    var stCat = (newCatRr.object(at: ll) as AnyObject).value(forKey: "displayName") as? String ?? ""
-                    
-                    
-                    if stCat == "Random" || stCat == "random"
-                    {
-                        stCat = "Others"
-                    }
-                    newcat2 .add(stCat)
-                    
-                    
-                }
+//                var arrCategory = NSArray()
+//                arrCategory = (self.arrayOfimages1[collectionView.tag] as AnyObject).value(forKey: "category") as! NSArray
+//                let newCatRr: NSMutableArray = arrCategory[indexPath.row] as! NSMutableArray
+//                
+//                let  newcat2 = NSMutableArray()
+//                
+//                for ll in 0..<newCatRr.count {
+//                    
+//                    var stCat = (newCatRr.object(at: ll) as AnyObject).value(forKey: "displayName") as? String ?? ""
+//                    
+//                    
+//                    if stCat == "Random" || stCat == "random"
+//                    {
+//                        stCat = "Others"
+//                    }
+//                    newcat2 .add(stCat)
+//                    
+//                    
+//                }
                 
                 //let categ = arrCategory[indexPath.row] .componentsJoinedByString(",")
-                let categ = newcat2 .componentsJoined(by: ",")
+                //let categ = newcat2 .componentsJoined(by: ",")
                 
                 
                 var cityArr = NSArray()
@@ -3654,24 +3658,6 @@ extension mainHomeViewController: UICollectionViewDelegate, UICollectionViewData
                 
                 
                 
-                ///select view is for show the typr of image facebook, PYT, Checkin
-                
-                //let selectView = cell.viewWithTag(7458)! as! UIImageView
-               // cell.selectView.isHidden=false
-               // let source = (self.arrayOfimages1[collectionView.tag] as AnyObject).value(forKey: "source") as! NSArray
-                
-                //let sourcetype = (self.arrayOfimages1[collectionView.tag] as AnyObject).value(forKey: "sourceType") as! NSArray
-                
-                
-               // cell.selectView.image=UIImage (named: "MoreInfo") //"pytsc")
-                
-
-                
-                
-                
-                
-                
-                
                 //MARK:- MANAGE LIKE AND ITS COUNT
                 
                 // dispatch_async(dispatch_get_main_queue(), {
@@ -3689,9 +3675,6 @@ extension mainHomeViewController: UICollectionViewDelegate, UICollectionViewData
                 {
                     countLik=0
                 }
-                
-                
-             
                 
                 
                 
@@ -3882,20 +3865,14 @@ extension mainHomeViewController: UICollectionViewDelegate, UICollectionViewData
                 
                                
                 
-                cell.layer.shouldRasterize = true
-                cell.layer.rasterizationScale = UIScreen.main.scale
-                
-                
-                
+               
                 
                 
                 
                 
             }
             
-            
-
-            
+                        
             
             return cell
             
