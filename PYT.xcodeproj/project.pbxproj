@@ -44,6 +44,7 @@
 		10CD18861EF7EA780031093F /* cellClassTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10CD18851EF7EA780031093F /* cellClassTableViewCell.swift */; };
 		10CD188A1EF7FE440031093F /* GestureViewClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10CD18881EF7FE440031093F /* GestureViewClass.swift */; };
 		10CD188B1EF7FE440031093F /* LongPressGesture.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10CD18891EF7FE440031093F /* LongPressGesture.swift */; };
+		10CF89DD1EFBE02A00EE051E /* ChooseInterestVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10CF89DC1EFBE02A00EE051E /* ChooseInterestVC.swift */; };
 		10D005801EF78B81002BED25 /* mainHomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10D0057F1EF78B81002BED25 /* mainHomeViewController.swift */; };
 		3560C2CC3CCBA85BAE977F76 /* Pods_PYT.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1513D63A44D48DD66BDE374E /* Pods_PYT.framework */; };
 		3F0A1A839E646D951FB2AFE2 /* Pods_PYTTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E7F872540E6E55EA79995C4E /* Pods_PYTTests.framework */; };
@@ -113,6 +114,7 @@
 		10CD18851EF7EA780031093F /* cellClassTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = cellClassTableViewCell.swift; sourceTree = "<group>"; };
 		10CD18881EF7FE440031093F /* GestureViewClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GestureViewClass.swift; sourceTree = "<group>"; };
 		10CD18891EF7FE440031093F /* LongPressGesture.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LongPressGesture.swift; sourceTree = "<group>"; };
+		10CF89DC1EFBE02A00EE051E /* ChooseInterestVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChooseInterestVC.swift; sourceTree = "<group>"; };
 		10D0057F1EF78B81002BED25 /* mainHomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = mainHomeViewController.swift; sourceTree = "<group>"; };
 		1513D63A44D48DD66BDE374E /* Pods_PYT.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PYT.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		189BCB752BE844C72E8099AE /* Pods-PYTTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PYTTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-PYTTests/Pods-PYTTests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -190,6 +192,7 @@
 				10C4E9DC1EF3A80700E05303 /* Search Screen */,
 				1068D1591EF7A73600047942 /* Tab Bar Controller */,
 				10D0057E1EF78B81002BED25 /* MainHomeViewController */,
+				10CF89D91EFBDFCF00EE051E /* InterestController */,
 				104182691EF253DA00078527 /* Singlton Class */,
 				1041826E1EF2688F00078527 /* StoryClassVc */,
 				10CD18871EF7FE440031093F /* GestureViewClass */,
@@ -312,6 +315,15 @@
 				10CD18891EF7FE440031093F /* LongPressGesture.swift */,
 			);
 			path = GestureViewClass;
+			sourceTree = "<group>";
+		};
+		10CF89D91EFBDFCF00EE051E /* InterestController */ = {
+			isa = PBXGroup;
+			children = (
+				10CF89DC1EFBE02A00EE051E /* ChooseInterestVC.swift */,
+			);
+			name = InterestController;
+			path = MainHomeViewController;
 			sourceTree = "<group>";
 		};
 		10D0057E1EF78B81002BED25 /* MainHomeViewController */ = {
@@ -660,6 +672,7 @@
 				100EE3911EF156A7005A79C1 /* ViewController.swift in Sources */,
 				104182681EF253D400078527 /* apiClass.swift in Sources */,
 				1041826D1EF2688C00078527 /* storyCountClass.swift in Sources */,
+				10CF89DD1EFBE02A00EE051E /* ChooseInterestVC.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
