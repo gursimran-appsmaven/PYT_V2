@@ -145,6 +145,38 @@
             endingLineNumber = "5084"
             landmarkName = "manageViewLongTap()"
             landmarkType = "7">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "PYT.searchScreenViewController.(cancelSearchFunction () -&gt; ()).(closure #1)"
+                  moduleName = "PYT"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/osx/Documents/PYT_V2/PYT/SearchScreenClass/searchScreenViewController.swift"
+                  timestampString = "519832648.92462"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "1092"
+                  endingLineNumber = "1092"
+                  offsetFromSymbolStart = "955">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "PYT.searchScreenViewController.(cancelSearchFunction () -&gt; ()).(closure #1).(closure #1)"
+                  moduleName = "PYT"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/osx/Documents/PYT_V2/PYT/SearchScreenClass/searchScreenViewController.swift"
+                  timestampString = "519832648.926528"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "1092"
+                  endingLineNumber = "1092"
+                  offsetFromSymbolStart = "149">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -422,7 +454,7 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "PYT/InterestViewController/intrestViewController.swift"

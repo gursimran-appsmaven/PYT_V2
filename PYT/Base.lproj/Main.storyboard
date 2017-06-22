@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" colorMatched="YES" initialViewController="GTN-Gr-G2c">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" colorMatched="YES" initialViewController="0vk-cV-GqL">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -3189,6 +3189,7 @@
     <resources>
         <image name="Add" width="16" height="16"/>
         <image name="Button" width="140" height="62"/>
+        <image name="Close" width="22" height="22"/>
         <image name="Discover" width="25" height="25"/>
         <image name="Discoveractive" width="25" height="25"/>
         <image name="Like" width="27" height="27"/>
