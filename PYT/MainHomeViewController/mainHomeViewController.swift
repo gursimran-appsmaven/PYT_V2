@@ -34,7 +34,6 @@ class mainHomeViewController: UIViewController, SDWebImageManagerDelegate, apiCl
     @IBOutlet weak var searchButtonOutlet: UIButton!
     @IBOutlet var segmentControl: HMSegmentedControl!
     
-    @IBOutlet weak var storyCollectionView: UICollectionView!
     
     
     
@@ -3965,7 +3964,7 @@ extension mainHomeViewController: UICollectionViewDelegate, UICollectionViewData
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath){
         
-        if collectionView == storyCollectionView {
+        if collectionView.tag == 1221{
             
         }
         
