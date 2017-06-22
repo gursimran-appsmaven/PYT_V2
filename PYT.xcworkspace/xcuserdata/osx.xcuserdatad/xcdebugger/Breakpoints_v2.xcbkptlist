@@ -413,10 +413,10 @@
             timestampString = "519812271.639138"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "3515"
-            endingLineNumber = "3515"
-            landmarkName = "collectionView(_:cellForItemAt:)"
-            landmarkType = "7">
+            startingLineNumber = "4906"
+            endingLineNumber = "4906"
+            landmarkName = "mainHomeViewController"
+            landmarkType = "4">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
