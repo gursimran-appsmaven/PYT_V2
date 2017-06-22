@@ -4325,7 +4325,7 @@ extension mainHomeViewController: UICollectionViewDelegate, UICollectionViewData
                 
                  likedView?.alpha = 1
                 
-                UIView.animate(withDuration: 1.2, delay: 0.0, options: UIViewAnimationOptions.curveEaseOut, animations: {
+                UIView.animate(withDuration: 1.0, delay: 0.0, options: UIViewAnimationOptions.curveEaseOut, animations: {
                     likedView?.alpha = 0
                     }, completion: nil)
                 
@@ -4355,7 +4355,7 @@ extension mainHomeViewController: UICollectionViewDelegate, UICollectionViewData
                 let dat: NSDictionary = ["userId": "\(uId)", "photoId":"\(imageId)", "userLiked":"\(uId)", "status":"1", "imageOwn": "\(otherUserId)", "userName": "\(userNameMy!)"]
                 
                 
-                UIView.animate(withDuration: 1.2, delay: 0.0, options: UIViewAnimationOptions.curveEaseOut, animations: {
+                UIView.animate(withDuration: 1.0, delay: 0.0, options: UIViewAnimationOptions.curveEaseOut, animations: {
                     likedView?.alpha = 0
                     }, completion: nil)
                 
@@ -4374,7 +4374,7 @@ extension mainHomeViewController: UICollectionViewDelegate, UICollectionViewData
              likecountlbl.text=String(self.addTheLikes(countLik))
             let dat: NSDictionary = ["userId": "\(uId)", "photoId":"\(imageId)", "userLiked":"\(uId)", "status":"1", "imageOwn": "\(otherUserId)", "userName": "\(userNameMy!)"]
           
-            UIView.animate(withDuration: 1.2, delay: 0.0, options: UIViewAnimationOptions.curveEaseOut, animations: {
+            UIView.animate(withDuration: 1.0, delay: 0.0, options: UIViewAnimationOptions.curveEaseOut, animations: {
                 likedView?.alpha = 0
                 }, completion: nil)
             
@@ -4397,7 +4397,7 @@ extension mainHomeViewController: UICollectionViewDelegate, UICollectionViewData
         likedView?.alpha = 1
         let dat: NSDictionary = ["userId": "\(uId)", "photoId":"\(imageId)", "userLiked":"\(uId)", "status":"1", "imageOwn": "\(otherUserId)", "userName": "\(userNameMy!)"]
         
-        UIView.animate(withDuration: 1.2, delay: 0.0, options: UIViewAnimationOptions.curveEaseOut, animations: {
+        UIView.animate(withDuration: 1.0, delay: 0.0, options: UIViewAnimationOptions.curveEaseOut, animations: {
             likedView?.alpha = 0
             }, completion: nil)
         
