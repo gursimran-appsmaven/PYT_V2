@@ -119,22 +119,6 @@ class mainHomeViewController: UIViewController, SDWebImageManagerDelegate, apiCl
     //var defaults = UserDefaults.standard
     var uId = ""
     
-   
-    @IBOutlet var heightOfContentView: NSLayoutConstraint!
-    @IBOutlet var heightOfTable: NSLayoutConstraint!
-    
-    
-    
-   
-    
-    
-    
-    
-    @IBOutlet var storyBtnOutlet: UIButton!
-   //@IBOutlet var bucketListCount: UILabel!
-   // @IBOutlet var storyListCount: UILabel!
-    
-    
     
     
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator)
@@ -1170,8 +1154,9 @@ class mainHomeViewController: UIViewController, SDWebImageManagerDelegate, apiCl
             cell.imagesCollectionView.dataSource=self
             cell.imagesCollectionView.tag=indexPath.row
             
-           
+           DispatchQueue.main.async(execute: { () -> Void in
             cell.imagesCollectionView.reloadData()
+           })
             if segmentBool == true {
                 if indexPath.row > 2 {
                     self.segmentBool = false
@@ -1270,6 +1255,9 @@ class mainHomeViewController: UIViewController, SDWebImageManagerDelegate, apiCl
         }
         else
         {
+            
+            
+            
             tableViewCell.collectionViewOffset = storedOffsets[indexPath.row] ?? 0
         }
         
@@ -2874,11 +2862,11 @@ class mainHomeViewController: UIViewController, SDWebImageManagerDelegate, apiCl
         
         
         
-        DispatchQueue.main.async(execute: {
+      //  DispatchQueue.main.async(execute: {
         self.imagesTableView .reloadData()
             
             
-            })
+          //  })
         
         
         if countsDictionary.object(forKey: "storyCount") != nil {
@@ -4093,7 +4081,7 @@ extension mainHomeViewController: UICollectionViewDelegate, UICollectionViewData
         
         var width1 = collectionView.frame.size.width/1.25   //1.8
         
-        let height3 : CGFloat = self.imagesTableView.rowHeight - 56
+        let height3 : CGFloat = self.imagesTableView.rowHeight - 70
         
         
         if indexPath.row == ((arrayOfimages1[collectionView.tag] as AnyObject).value(forKey: "id")! as AnyObject) .count  {
