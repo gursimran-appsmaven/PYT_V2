@@ -228,8 +228,8 @@
 		1025FB9D1EFBD8000068B557 /* InterestViewController */ = {
 			isa = PBXGroup;
 			children = (
-				1025FB9E1EFBD8000068B557 /* apiClassInterest.swift */,
 				1025FBA01EFBD8000068B557 /* intrestViewController.swift */,
+				1025FB9E1EFBD8000068B557 /* apiClassInterest.swift */,
 			);
 			path = InterestViewController;
 			sourceTree = "<group>";

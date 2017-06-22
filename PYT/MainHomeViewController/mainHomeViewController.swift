@@ -2887,8 +2887,6 @@ class mainHomeViewController: UIViewController, SDWebImageManagerDelegate, apiCl
             
             
             
-            
-            
         }
         
         intrestArray .add(["userDetail":self.userDetailArray, "images": self.arrayOfimages1])
@@ -2938,11 +2936,8 @@ class mainHomeViewController: UIViewController, SDWebImageManagerDelegate, apiCl
         }
         
         
-        
-        
         MBProgressHUD.hide(for: self.view, animated: true)
         //bucketListCount.text = bucketListTotalCount
-        
         
        
         

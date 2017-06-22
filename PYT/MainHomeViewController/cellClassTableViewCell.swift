@@ -27,7 +27,18 @@ class cellClassTableViewCell: UITableViewCell{
     @IBOutlet var useraddressLabel: UILabel!
     @IBOutlet weak var arrowBackButton: UIButton!
     
-   
+    //Interest
+    @IBOutlet weak var locationLabel: UILabel!
+    @IBOutlet weak var categoryImage: UIImageView!
+    @IBOutlet weak var locationImage: UIImageView!
+    @IBOutlet weak var fullLocationLabel: UILabel!
+    @IBOutlet weak var moreButton: UIButton!
+    @IBOutlet weak var likeImage: UIImageView!
+    @IBOutlet weak var planButton: UIButton!
+    @IBOutlet weak var likeCountLbl: UILabel!
+    @IBOutlet weak var likeBtn: UIButton!
+    
+    
     
     
     

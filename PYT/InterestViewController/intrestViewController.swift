@@ -11,22 +11,27 @@ import HMSegmentedControl
 import SDWebImage
 import MBProgressHUD
 
-class intrestViewController: UIViewController, apiClassInterestDelegate ,UITableViewDataSource,UITableViewDelegate {
-    
+//class intrestViewController: UIViewController, apiClassInterestDelegate ,UITableViewDataSource,UITableViewDelegate {
+
+class intrestViewController: UIViewController {
+
+
     //apiClassDelegate
     
     //top views
     @IBOutlet var headerLabel: UILabel!
-    @IBOutlet var storyBtn: UIButton!
     @IBOutlet var segmentControl: HMSegmentedControl!
-    var imageOfCatgory = UIImage()
-    
     @IBOutlet var tableOfIntrests: UITableView!
-    @IBOutlet var categoryView: UIView!
     
+    
+    
+   
     @IBOutlet weak var emptyView: UIView!
     
+    
+    
     //Data Arrays
+    var imageOfCatgory = UIImage()
     var selectedLocation = NSString()
     var photosArray = NSMutableArray()
     var categorySelected = NSString()
@@ -91,27 +96,23 @@ class intrestViewController: UIViewController, apiClassInterestDelegate ,UITable
         
         self.tabBarController?.tabBar.isHidden = false
         
+        
         //self.emptyView.hidden=false
         
-        apiClassInterest.sharedInstance().delegate=self
+        //apiClassInterest.sharedInstance().delegate=self
         
-        bucketCount.layer.cornerRadius=bucketCount.frame.size.width/2
-        bucketCount.clipsToBounds=true
         
-        storyCountLabel.layer.cornerRadius=storyCountLabel.frame.size.width/2
-        storyCountLabel.clipsToBounds=true
-        
-        let defaults = UserDefaults.standard
-        let firstLaunch = defaults.bool(forKey: "refreshInterest")
+        self.segMentManage()
+        let firstLaunch = Udefaults.bool(forKey: "refreshInterest")
         
         if firstLaunch {
             print("refresh")
             
-            let defaults = UserDefaults.standard
-            defaults.set(false, forKey: "refreshInterest")
-            defaults.synchronize()
             
+            Udefaults.set(false, forKey: "refreshInterest")
+            Udefaults.synchronize()
             
+            /*
             photosArray .removeAllObjects()
             multiplePhotosArray .removeAllObjects()
             tableOfIntrests .reloadData()
@@ -304,11 +305,1027 @@ class intrestViewController: UIViewController, apiClassInterestDelegate ,UITable
             
         })
         
+        */
+        
+    }
+    
+    }
+    
+        func segMentManage() -> Void {
+            
+            /////segmentControl
+            var arrayInt = NSMutableArray()
+            arrayInt = ["Musium", "Hotel"]
+            var tabledata2 = NSArray()
+            
+            if checked.count<1 {
+                tabledata2 = arrayInt as NSArray
+            }
+            else{
+                tabledata2 = checked as NSArray
+                
+            }
+            
+            //let viewWidth = CGRectGetWidth(self.view.frame);
+            let title2 = tabledata2
+            
+            
+            print(title2)
+            
+            segmentControl.clipsToBounds=true
+            segmentControl.sectionTitles = title2 as! [String]
+            segmentControl.autoresizingMask = [.flexibleRightMargin, .flexibleWidth]
+            segmentControl.selectionStyle = HMSegmentedControlSelectionStyle.fullWidthStripe
+            
+            segmentControl.selectionIndicatorLocation = HMSegmentedControlSelectionIndicatorLocation.down
+            segmentControl.selectionIndicatorColor = UIColor(red: 255/255, green: 80/255, blue: 80/255, alpha: 1.0)
+            segmentControl.selectionIndicatorHeight=3.0
+            segmentControl.isVerticalDividerEnabled = true
+            segmentControl.verticalDividerColor = UIColor.clear
+            segmentControl.verticalDividerWidth = 0.8
+            segmentControl.backgroundColor = UIColor.clear
+            segmentControl.titleTextAttributes = [NSFontAttributeName: UIFont(name: "SFUIDisplay-Bold", size: 13.0)! , NSForegroundColorAttributeName : UIColor.black.withAlphaComponent(0.5)]
+            segmentControl.selectedTitleTextAttributes = [NSFontAttributeName: UIFont(name: "SFUIDisplay-Bold", size: 13.0)! , NSForegroundColorAttributeName : UIColor.black]
+            segmentControl.selectionStyle = HMSegmentedControlSelectionStyle.fullWidthStripe
+            
+            
+            
+//
+//            categorySelected = checked.object(at: 0) as! NSString
+            segmentControl.setSelectedSegmentIndex(0, animated: false)
+            
+           // segmentControl.addTarget(self, action: #selector(self.segmentedControlChangedValue), for: .valueChanged)
+            
+            
+        }
+        
+
+    
+    
+    
+    
+    
+    
+    
+    
+    //MARK:- Response from the interest API
+    //MARK:-
+    
+    func serverResponseArrivedInterest(_ Response:AnyObject)
+    {
+        
+        
+        
+        //////////---------- REsponse for the add and interest database-----------////////
+        
+        if interestCase==true {
+            
+            jsonResult = NSDictionary()
+            jsonResult = Response as! NSDictionary
+            
+            
+            photosArray .removeAllObjects()
+            
+            //locationarray .removeAllObjects()
+            var newTempArr = NSMutableArray()
+            
+            
+            let status = jsonResult.value(forKey: "status") as! NSNumber
+            
+            emptyView.isHidden = false
+            
+            
+            if status == 1 {
+                
+                jsonMutableArray = NSMutableArray()
+                jsonMutableArray = ((jsonResult.value(forKey: "data")! as AnyObject).object(at: 0) as AnyObject).value(forKey: "data") as! NSMutableArray
+                
+                
+                
+                if jsonMutableArray.count<1 {
+                    emptyView.isHidden = false
+                    tableOfIntrests.isHidden=true
+                    
+                }
+                else{
+                    let inter = categorySelected
+                    
+                    if categoryArray .contains(inter) {
+                        
+                    }else{
+                        categoryArray .add(inter)
+                    }
+                    
+                    //print(jsonMutableArray)
+                    
+                    
+                    var dataArray2 = NSMutableArray()
+                    let arrayOfKeys:NSArray = self.allCategoryDictionary.allKeys as NSArray
+                    if (arrayOfKeys.contains(String(describing: categId.object(at: segmentControl.selectedSegmentIndex)))) {
+                        dataArray2 = self.allCategoryDictionary .value(forKey: String(describing: categId.object(at: segmentControl.selectedSegmentIndex))) as! NSMutableArray
+                        
+                        print(dataArray2)
+                        newTempArr = dataArray2
+                        
+                    }
+                    
+                    
+                    
+                    
+                    
+                    for i in 0..<jsonMutableArray.count {
+                        
+                        
+                        
+                        let dataOfLocations = NSMutableArray()
+                        
+                        dataOfLocations .add(jsonMutableArray[i] as! NSMutableDictionary)
+                        
+                        //print(dataOfLocations.count)
+                        
+                        if dataOfLocations.count>0 {
+                            
+                            newTempArr .add(dataOfLocations)//as Array)
+                            
+                            print(newTempArr.count)
+                            
+                            
+                            
+                            //print(String(categId.objectAtIndex(segmentControl.selectedSegmentIndex)))
+                            
+                            
+                            let show = ((jsonResult.value(forKey: "data")! as AnyObject).object(at: 0) as AnyObject).value(forKey: "showMore") as! NSNumber
+                            showMore = 0
+                            if show == 1 {
+                                showMore = 1
+                            }
+                            
+                            allCategoryDictionary .setObject(newTempArr, forKey:"\(String(describing: categId.object(at: segmentControl.selectedSegmentIndex)))" as NSCopying)
+                            
+                           // allCategoryDictionary .setObject(showMore, forKey:"ShowMore\(String(describing: categId.object(at: segmentControl.selectedSegmentIndex)))" as NSCopying)
+                            
+                           
+                            allCategoryDictionary.setObject(showMore, forKey: "ShowMore\(String(describing: categId.object(at: segmentControl.selectedSegmentIndex)))" as NSCopying)
+                         
+                            
+                            
+                         
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                        }
+                        else{
+                            
+                            newTempArr .add("")
+                            allCategoryDictionary .setObject(newTempArr, forKey: "\(String(describing: categId.object(at: segmentControl.selectedSegmentIndex)))" as NSCopying)
+                            
+                            //   print(String(categId.objectAtIndex(segmentControl.selectedSegmentIndex)))
+                            
+                            // allCategoryDictionary[String(categId.objectAtIndex(segmentControl.selectedSegmentIndex))] = locationarray
+                            
+                            //print(allCategoryDictionary)
+                            
+                        }
+                        
+                        
+                        
+                    }
+                    
+                    
+                    
+                    
+                    likeCount .removeAllObjects()
+                  //  emptyView.isHidden = true
+                   // self .shortData(newTempArr)
+                    
+                    
+                }
+                
+                
+                
+                
+                
+            }
+            else if(status == 5) //5
+            {
+                
+                //logout the user from the app
+                
+               // let nxtObj2 = self.storyboard?.instantiateViewController(withIdentifier: "settingsViewController") as! settingsViewController
+                
+                self.tabBarController?.tabBar.isHidden = true
+                
+                let nxtObj = self.storyboard?.instantiateViewController(withIdentifier: "ViewController") as! ViewController
+                
+                
+                logOut = false
+                
+                let defaults = UserDefaults.standard
+                
+                let uId = defaults .string(forKey: "userLoginId")!
+                let token = defaults.string(forKey: "deviceToken")!
+                
+                let deviceTokenDict = NSMutableDictionary()
+                
+                deviceTokenDict.setValue(token, forKey: "token")
+                deviceTokenDict.setValue("iphone", forKey: "device")
+                
+                let parameter:NSMutableDictionary = ["deviceToken":deviceTokenDict ,"userId":uId]
+                
+                
+                
+              //  nxtObj2.logoutApi(parameter)
+                
+                
+                
+                
+                
+                
+                
+                
+                UserDefaults.standard.set(nil, forKey: "arrayOfIntrest")
+                
+                
+                DispatchQueue.main.async(execute: {
+                    self.dismiss(animated: true, completion: {})
+                    
+                    self.navigationController! .pushViewController(nxtObj, animated: true)
+                    OperationQueue.main.cancelAllOperations()
+                    
+                    
+                })
+                
+                
+                
+                
+                
+            }
+            else{
+                
+               // emptyView.isHidden = false
+                
+            }
+            
+            
+            
+            
+            
+            
+            
+            
+            
+        }
+        
+        
+        
+        MBProgressHUD.hide(for: self.view, animated: true)
         
     }
     
     
+
     
+    
+    
+    
+    
+    //MARK: DataSource and delegate of tableView
+    //MARK:-
+    
+    
+    
+    func numberOfSections(in tableView: UITableView) -> Int
+    {
+        return 1
+        
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int
+    {
+        //if tableView==categorytableView {
+          //  return tagsArr.count
+        //}
+            
+       // else{
+       //
+            if photosArray.count<1 {
+                return 0
+            }
+            else
+            {
+                
+                
+                if  showMore == 1 {
+                    return photosArray.count + 1
+                }
+                else{
+                    return photosArray.count
+                }
+                
+            }
+            
+        //}
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        //if tableView == categorytableView
+       // {
+        //    return 60
+       // }
+        if indexPath.row == photosArray.count {
+            return 60
+        }
+        else
+        {
+            
+            return self.view.frame.width * 0.72
+        }
+        
+        
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell
+    {
+        
+            
+       
+            
+            if indexPath.row == photosArray.count
+            {
+                let cell = UITableViewCell() //
+                cell.frame = CGRect(x: 0, y: 0, width: self.view.frame.size.width - 9, height: 50)
+                
+              
+                
+                
+                cell.layer.shouldRasterize = true
+                cell.layer.rasterizationScale = UIScreen.main.scale
+                
+                
+                let spinner = UIActivityIndicatorView()
+                
+                spinner.isHidden = false
+                
+                spinner.activityIndicatorViewStyle = .gray
+                spinner.frame = CGRect(x: cell.frame.size.width/2 - 20 , y: cell.frame.size.height/2 - 17, width: 40, height: 40)
+                cell.addSubview(spinner)
+                
+                
+                
+                spinner.startAnimating()
+                
+                
+                DispatchQueue.global(qos: DispatchQoS.QoSClass.background).async(execute: {
+                    
+                    
+                    
+                    let strarr2 = NSMutableArray()
+                    strarr2 .add(self.categId .object(at: self.segmentControl.selectedSegmentIndex))
+                    let type = UserDefaults.standard.value(forKey: "selectedLocationType") as? String ?? ""
+                    
+                    let defaults = UserDefaults.standard
+                    let uId = defaults .string(forKey: "userLoginId")
+                    
+                    
+                    let headerId = UserDefaults.standard.value(forKey: "selectedLocationId") as? String ?? ""
+                    
+                    
+                    
+                    let parameterDict: NSMutableDictionary = ["userId": uId!, "placeId": headerId, "placeType": type, "category": strarr2, "skip":self.photosArray.count ]
+                    print(parameterDict)
+                    
+                    
+                    apiClassInterest.sharedInstance().postRequestInterestWiseData(parameterDict, viewController: self)
+                    
+                    
+                    
+                    
+                })
+                
+                
+                
+                
+                
+                return cell
+                
+            }
+                //Simple cells
+            else
+            {
+                let cell:cellClassTableViewCell = tableView.dequeueReusableCell(withIdentifier: "intrestCell") as! cellClassTableViewCell
+                
+                
+               
+                
+                cell.categoryImage.image = imageOfCatgory //.setImage(imageOfCatgory, for: UIControlState())
+                
+                cell.locationLabel.text=((((photosArray.object(at: indexPath.row) as AnyObject).value(forKey: "photos")! as AnyObject).object(at: 0) as AnyObject).value(forKey: "placeTag") as? String)?.capitalized ?? ""
+                
+                
+           
+                
+                
+                
+                
+                
+                var locationCity = "\((((photosArray.object(at: indexPath.row) as AnyObject).value(forKey: "photos")! as AnyObject).object(at: 0) as AnyObject).value(forKey: "city") as? String ?? " ")".capitalized
+                
+                //// to add state if city not found
+                if locationCity == "" || locationCity == " " {
+                    
+                    locationCity = "\((((photosArray.object(at: indexPath.row) as AnyObject).value(forKey: "photos")! as AnyObject).object(at: 0) as AnyObject).value(forKey: "state") as? String ?? " ")".capitalized
+                    
+                    
+                    /////To add country if state and city not found
+                    if locationCity == "" || locationCity == " " {
+                        
+                        locationCity = "\((((photosArray.object(at: indexPath.row) as AnyObject).value(forKey: "photos")! as AnyObject).object(at: 0) as AnyObject).value(forKey: "country") as? String ?? " ")".capitalized
+                        
+                        
+                        
+                    }
+                    
+                    
+                }
+                
+                
+                
+                //let locationCountry = "\(photosArray.objectAtIndex(indexPath.row).valueForKey("country") as? String ?? "")"
+                
+                
+                
+                
+                
+                ////Attributed string---///
+//                let segAttributes: NSDictionary = [
+//                    NSForegroundColorAttributeName: UIColor.darkGray,
+//                    NSFontAttributeName: UIFont(name:"Roboto-Light", size: 12.0)!
+//                ]
+//                
+//                let segAttributes2: NSDictionary = [
+//                    NSForegroundColorAttributeName: UIColor.black,
+//                    NSFontAttributeName: UIFont(name:"Roboto-Regular", size: 14.0)!
+//                ]
+//                
+//                let attributedString1 = NSMutableAttributedString(string:"", attributes:segAttributes as? [String : AnyObject])
+//                
+//                let attributedString2 = NSMutableAttributedString(string:locationCity, attributes:segAttributes2 as? [String : AnyObject])
+//                
+//                attributedString1.append(attributedString2)
+//                cell.locationLabel.attributedText = attributedString1
+                cell.locationLabel = locationCity
+                
+                
+                
+                
+                
+                
+                let currentIndex = (indexCount.object(at: indexPath.row) as AnyObject).value(forKey: "index") as! Int
+                
+                
+                let multiImg = multiplePhotosArray.object(at: indexPath.row) as! NSMutableArray
+                
+                
+                let museumImage = (multiImg.object(at: currentIndex) as AnyObject).value(forKey: "imageThumb") as? String ?? ""
+                //photosArray.objectAtIndex(indexPath.row).valueForKey("photos")!.objectAtIndex(0).valueForKey("imageThumb")! as? String ?? "" //("imageLarge")!
+                let url2 = URL(string: museumImage )
+                
+                
+                //  let museumName = photosArray.objectAtIndex(indexPath.row).valueForKey("")
+                
+                let pImage : UIImage = UIImage(named:"backgroundImage")! //placeholder image
+                
+                
+                cell.locationImage.sd_setImage(with: url2, placeholderImage: pImage)
+                
+                //cell.layer.cornerRadius=5
+                cell.clipsToBounds=true
+                cell.locationImage.clipsToBounds=true
+                cell.locationImage.backgroundColor = UIColor.white
+                cell.tag=1000*self.segmentControl.selectedSegmentIndex+indexPath.row
+                
+                let longView = UIView()
+                longView.frame=cell.frame
+                longView.tag=1000*self.segmentControl.selectedSegmentIndex+indexPath.row
+                //cell .addSubview(longView)
+                
+                
+              //  let longTapGest = UILongPressGestureRecognizer(target: self, action: #selector(intrestViewController.longTap(_:)))
+                
+               // cell.addGestureRecognizer(longTapGest)
+                
+                
+                
+                
+                
+                
+                
+                //MARK:  ////////// MANAGE LIKE AND ITS COUNT////////
+                var countLik = NSNumber()
+                //MANAGE from the crash
+                
+             
+                
+                if (((self.photosArray.object(at: indexPath.row) as AnyObject).value(forKey: "photos")! as AnyObject).object(at: 0) as AnyObject).value(forKey: "likeCount") != nil
+                {
+                    countLik = (((self.photosArray.object(at: indexPath.row) as AnyObject).value(forKey: "photos")! as AnyObject).object(at: 0) as AnyObject).value(forKey: "likeCount") as! NSNumber
+                }
+                else
+                {
+                    countLik=0
+                }
+                
+                
+                
+                
+                let likeimg = cell.viewWithTag(7477) as! UIImageView
+                let likecountlbl = cell.viewWithTag(7478) as! UILabel
+                let defaults = UserDefaults.standard
+                let uId = defaults .string(forKey: "userLoginId")
+                
+                let imageId2 = (((self.photosArray.object(at: indexPath.row) as AnyObject).value(forKey: "photos")! as AnyObject).object(at: 0) as AnyObject).value(forKey: "photoId") as? String ?? " "
+                
+                var likedByMe2 = NSArray()
+                
+                // print(self.photosArray .objectAtIndex(indexPath.row).valueForKey("userLiked"))
+                
+                if (((self.photosArray .object(at: indexPath.row) as AnyObject).value(forKey: "photos")! as AnyObject).object(at: 0) as AnyObject).value(forKey: "userLiked") != nil { // as? NSNull != NSNull(){
+                    
+                    likedByMe2 = (((self.photosArray[indexPath.row] as AnyObject).value(forKey: "photos")! as AnyObject).object(at: 0) as AnyObject).value(forKey: "userLiked") as! NSArray
+                    
+                }
+                
+                
+                //SHOW THE COUNT OF LIKED
+                likecountlbl.text=String(describing: countLik)
+                likeimg.image=UIImage (named: "like_count")
+                
+                
+                ///////-  Show liked by me-/////
+                if likedByMe2.count>0
+                {
+                    if likedByMe2.contains(uId!)
+                    {
+                        
+                        
+                        if (likeCount.value(forKey: "imageId") as AnyObject).contains(imageId2) {
+                            
+                            let indexOfImageId = (likeCount.value(forKey: "imageId") as AnyObject).index(of: imageId2)
+                            
+                            if (likeCount.object(at: indexOfImageId) as AnyObject).value(forKey: "like") as! Bool == true {
+                                likeimg.image=UIImage (named: "likedCount")
+                                let staticCount = (likeCount.object(at: indexOfImageId) as AnyObject).value(forKey: "count") as? NSNumber
+                                likecountlbl.text=String(describing: staticCount!)// String(self.addTheLikes(staticCount!))
+                                
+                                
+                                
+                            }
+                            else{
+                                likeimg.image=UIImage (named: "like_count")
+                                let staticCount = (likeCount.object(at: indexOfImageId) as AnyObject).value(forKey: "count") as? NSNumber
+                                likecountlbl.text=String(describing: staticCount!) //(self.addTheLikes(staticCount!))
+                            }
+                        }
+                            
+                            //if not contains the imageId
+                        else
+                        {
+                            likeCount .add(["imageId":imageId2,"userId":uId!, "like": true, "count": countLik])
+                            print(likeCount)
+                            likecountlbl.text=String(describing: countLik)
+                            likeimg.image=UIImage (named: "likedCount")
+                        }
+                        
+                        
+                        
+                    }
+                        
+                    else
+                    {
+                        
+                        
+                        if (likeCount.value(forKey: "imageId") as AnyObject).contains(imageId2) {
+                            
+                            let indexOfImageId = (likeCount.value(forKey: "imageId") as AnyObject).index(of: imageId2)
+                            
+                            if (likeCount.object(at: indexOfImageId) as AnyObject).value(forKey: "like") as! Bool == true {
+                                likeimg.image=UIImage (named: "likedCount")
+                                let staticCount = (likeCount.object(at: indexOfImageId) as AnyObject).value(forKey: "count") as? NSNumber
+                                likecountlbl.text=String(describing: staticCount!)
+                                
+                            }
+                            else{
+                                let staticCount = (likeCount.object(at: indexOfImageId) as AnyObject).value(forKey: "count") as? NSNumber
+                                likecountlbl.text=String(describing: staticCount!)
+                                likeimg.image=UIImage (named: "like_count")
+                            }
+                        }
+                        
+                        
+                        
+                        
+                        
+                        
+                    }
+                    
+                    
+                    
+                }
+                else{
+                    
+                    if (likeCount.value(forKey: "imageId") as AnyObject).contains(imageId2) {
+                        
+                        let indexOfImageId = (likeCount.value(forKey: "imageId") as AnyObject).index(of: imageId2)
+                        
+                        if (likeCount.object(at: indexOfImageId) as AnyObject).value(forKey: "like") as! Bool == true {
+                            likeimg.image=UIImage (named: "likedCount")
+                            let staticCount = (likeCount.object(at: indexOfImageId) as AnyObject).value(forKey: "count") as? NSNumber
+                            likecountlbl.text=String(describing: staticCount!)
+                            
+                        }
+                        else{
+                            let staticCount = (likeCount.object(at: indexOfImageId) as AnyObject).value(forKey: "count") as? NSNumber
+                            likecountlbl.text=String(describing: staticCount!)
+                            likeimg.image=UIImage (named: "like_count")
+                        }
+                    }
+                    
+                    
+                    
+                }
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                return cell
+            }
+        //}
+    }
+    
+    
+    //    func tableView(tableView: UITableView, didDeselectRowAtIndexPath indexPath: NSIndexPath) {
+    //        if(tableView == categorytableView)
+    //        {
+    //
+    //        }
+    //
+    //    }
+    
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        if tableView == categorytableView {
+            
+            
+            
+            
+            if categId .contains((tagsArr .object(at: indexPath.row) as AnyObject).value(forKey: "_id") as! String)
+            {
+                
+                let objId = ((tagsArr .object(at: indexPath.row) as AnyObject).value(forKey: "_id") as? String ?? "")
+                
+                let objectInt = ((tagsArr .object(at: indexPath.row) as AnyObject).value(forKey: "displayName") as? String)
+                checked .remove(objectInt!)
+                categId .remove(objId)
+                
+                
+                
+            } else
+            {
+                //                let object = tagsArr .objectAtIndex(indexPath.row).valueForKey("name") as? String ?? ""
+                //                checked .addObject(object)
+                
+                print(tagsArr .object(at: indexPath.row))
+                
+                let objId = ((tagsArr .object(at: indexPath.row) as AnyObject).value(forKey: "_id") as? String ?? "")
+                let objectInt = ((tagsArr .object(at: indexPath.row) as AnyObject).value(forKey: "displayName") as? String)
+                checked .add(objectInt!)
+                categId .add(objId)
+                
+                
+                
+            }
+            
+            
+            categorytableView .reloadData()
+            
+            
+            
+            
+        }
+            
+            
+            
+            //////
+            
+        else
+            
+        {
+            
+            print(photosArray[indexPath.row])
+            
+            
+            //self.photosArray .objectAtIndex(indexPath.row).valueForKey("photos")!.objectAtIndex(0).valueForKey("userLiked")
+            
+            let str = (((self.photosArray[indexPath.row] as AnyObject).value(forKey: "photos")! as AnyObject).object(at: 0) as AnyObject).value(forKey: "description") as? String ?? "No Description Found"//description
+            let profileImage = ((((self.photosArray .object(at: indexPath.row) as AnyObject).value(forKey: "photos")! as AnyObject).object(at: 0) as AnyObject).value(forKey: "user")! as AnyObject).value(forKey: "picture")! as! NSString//profile image Link
+            
+            
+            
+            //////////////////////----------------Location----------------------------///////////////////
+            var location = NSString()
+            var sendgeoTag = (((self.photosArray[indexPath.row] as AnyObject).value(forKey: "photos")! as AnyObject).object(at: 0) as AnyObject).value(forKey: "placeTag") as? String ?? " "
+            
+            
+            let fullName22 = sendgeoTag
+            let fullNameArr22 = fullName22.characters.split{$0 == ","}.map(String.init)
+            
+            if fullNameArr22.count>0 {
+                sendgeoTag = fullNameArr22[0]
+            }
+            
+            
+            var lat = NSNumber()
+            var long = NSNumber()
+            
+            
+            if (((self.photosArray.object(at: indexPath.row) as AnyObject).value(forKey: "photos")! as AnyObject).object(at: 0) as AnyObject).value(forKey: "latitude") != nil && (self.photosArray.object(at: indexPath.row) as AnyObject).value(forKey: "latitude") as? NSNull != NSNull()   {
+                
+                lat = (((self.photosArray.object(at: indexPath.row) as AnyObject).value(forKey: "photos")! as AnyObject).object(at: 0) as AnyObject).value(forKey: "latitude") as! NSNumber  //as? String ?? "0.0"
+                
+                long = (((self.photosArray.object(at: indexPath.row) as AnyObject).value(forKey: "photos")! as AnyObject).object(at: 0) as AnyObject).value(forKey: "longitude") as! NSNumber //as? String ?? "0.0"
+            }
+            else
+            {
+                lat=0
+                long=0
+            }
+            
+            
+            
+            
+            // remove the another part of string
+            let changeStr:NSString = sendgeoTag as NSString
+            let ddd = changeStr.replacingOccurrences(of: "&", with: " and ") //replace & with and
+            sendgeoTag = ddd
+            location = ""
+            //"\(self.captitalString(sendgeoTag as? String as NSString? ?? "")), \(self.captitalString((self.photosArray.object(at: indexPath.row) as AnyObject).value(forKey: "city") as? String ?? "")), \(self.captitalString(self.photosArray.object(at: indexPath.row).value(forKey: "country") as? String ?? ""))"
+            
+            
+            var arrImg = NSString()
+            arrImg = (((self.photosArray.object(at: indexPath.row) as! NSDictionary).value(forKey: "photos")! as! NSArray).object(at: 0) as! NSDictionary).value(forKey: "imageLarge") as? String as NSString? ?? ""
+            
+            //(((self.photosArray[indexPath.row] as AnyObject).value(forKey: "photos")! as AnyObject).object(at: 0) as AnyObject).value(forKey: "imageLarge") as? String ?? "" //locationSingleImage
+            var arrImgStand = NSString()
+            //arrImgStand = (((self.photosArray[indexPath.row] as AnyObject).value(forKey: "photos")! as AnyObject).object(at: 0) as AnyObject).value(forKey: "imageThumb") as? String ?? "" // image standard
+           
+            arrImgStand = (((self.photosArray.object(at: indexPath.row) as! NSDictionary).value(forKey: "photos")! as! NSArray).object(at: 0) as! NSDictionary).value(forKey: "imageThumb") as? String as NSString? ?? "" // image standard
+            
+            
+            
+            
+            print(arrImgStand)
+            
+            
+            let name = ((((self.photosArray .object(at: indexPath.row) as AnyObject).value(forKey: "photos")! as AnyObject).object(at: 0) as AnyObject).value(forKey: "user")! as AnyObject).value(forKey: "name") as? String ?? " " //userName
+            
+            
+            
+            //MANAGE Source for images
+            
+            var sourceType = "Other"
+            
+            let Source = (((self.photosArray .object(at: indexPath.row) as AnyObject).value(forKey: "photos")! as AnyObject).object(at: 0) as AnyObject).value(forKey: "source") as? String ?? " " //source
+            if Source == "PYT" {
+                
+                
+                sourceType = Source
+                
+            }
+            
+            
+            
+            
+            
+            
+            let txt = headerLabel.text
+            
+            //print(multiplePhotosArray.objectAtIndex(indexPath.row))
+            // print(multiplePhotosArray.count)
+            let multiImg = multiplePhotosArray.object(at: indexPath.row) as! NSMutableArray
+            
+            
+            
+            // print(multiImg)
+            let newTmpArr = NSMutableArray()
+            
+            for ll in 0..<(multiImg as AnyObject).count {
+                
+                // print(multiImg.objectAtIndex(ll))
+                // print(multiImg.objectAtIndex(ll).valueForKey("imageLarge"))
+                
+                
+                
+                //newTmpArr.add(["large":"\(multiImg.object(at: ll).value(forKey: "imageLarge")! as? String ?? "")", "standard": "\(multiImg.object(at: ll).value(forKey: "imageThumb")! as? String ?? "")"])
+                
+                let imgurlLarge = ((multiImg.object(at: ll)) as AnyObject).value(forKey: "imageLarge") as? String ?? ""
+                let imgurlThumb = ((multiImg.object(at: ll)) as AnyObject).value(forKey: "imageThumb") as? String ?? ""
+                
+                newTmpArr .add(["large": imgurlLarge, "standard": imgurlThumb])
+                
+                
+                
+                
+                
+            }
+            
+            // print(newTmpArr)
+            
+            
+            
+            //let multiImgStandard: NSMutableArray = (multiplePhotosArray.objectAtIndex(indexPath.row) as? NSMutableArray)!
+            //print(arrImgStand)
+            
+            let multiImgArr = NSMutableArray()
+            let multiImgStandArr = NSMutableArray()
+            
+            for i in 0..<newTmpArr.count {
+                let imgLinkStr = (newTmpArr .object(at: i) as AnyObject).value(forKey: "large") as? String ?? ""
+                let imgLinkStandard = (newTmpArr .object(at: i) as AnyObject).value(forKey: "standard") as? String ?? ""
+                print("large===\(imgLinkStr)====== standard==\(imgLinkStandard)")
+                
+                if arrImg as String == imgLinkStr {
+                    
+                }
+                else
+                {
+                    multiImgArr .add(imgLinkStr)
+                    multiImgStandArr .add(imgLinkStandard)
+                }
+                
+                
+                
+                
+            }
+            
+            multiImgArr .insert(arrImg, at: 0)
+            multiImgStandArr .insert(arrImgStand, at: 0)
+            print(multiImgStandArr)
+            
+            let categoriesArray:NSArray = (((photosArray.object(at: indexPath.row) as AnyObject).value(forKey: "photos")! as AnyObject).object(at: 0) as AnyObject).value(forKey: "category") as! NSArray
+            let countryName = (((photosArray.object(at: indexPath.row) as AnyObject).value(forKey: "photos")! as AnyObject).object(at: 0) as AnyObject).value(forKey: "country") as? String ?? ""
+            var cityName = (((photosArray.object(at: indexPath.row) as AnyObject).value(forKey: "photos")! as AnyObject).object(at: 0) as AnyObject).value(forKey: "city") as? String ?? ""
+            
+            
+            
+            
+            
+            let arrayData = NSMutableArray()
+            
+            
+            let strcat = (categoriesArray.value(forKey: "displayName") as AnyObject).componentsJoined(by: ",")
+            print(strcat)
+            
+            
+            
+            
+            let imId = (((photosArray[indexPath.row] as AnyObject).value(forKey: "photos")! as AnyObject).object(at: 0) as AnyObject).value(forKey: "photoId") as? String ?? ""
+            
+            let type = UserDefaults.standard.value(forKey: "selectedLocationType") as? String ?? ""
+            let headerId = UserDefaults.standard.value(forKey: "selectedLocationId") as? String ?? ""
+            
+            
+            
+            
+            
+            
+            //Likes count
+            
+            var countLik = NSNumber()
+            if (((photosArray[indexPath.row] as AnyObject).value(forKey: "photos")! as AnyObject).object(at: 0) as AnyObject).value(forKey: "count") != nil  {
+                
+                countLik = (((photosArray[indexPath.row] as AnyObject).value(forKey: "photos")! as AnyObject).object(at: 0) as AnyObject).value(forKey: "likeCount") as! NSNumber  //as? String ?? "0.0"
+                
+                
+            }else
+            {
+                countLik=0
+                
+            }
+            
+            
+            
+            //            let otherUserId = photosArray[indexPath.row].valueForKey("userId")!.objectAtIndex(0).valueForKey("_id") as? String ?? ""
+            
+            let otherUserId = ((((photosArray.object(at: indexPath.row) as AnyObject).value(forKey: "photos")! as AnyObject).value(forKey: "user")! as AnyObject).object(at: 0) as AnyObject).value(forKey: "_id") as? String ?? ""
+            
+            var mutableDic = NSMutableDictionary()
+            
+            
+            if cityName=="" {
+                cityName=txt!
+            }
+            
+            
+            print("City Name=\(cityName)")
+            
+            
+            var catArrSt = NSArray()
+            
+            print(categoriesArray)
+            
+            catArrSt = categoriesArray
+            
+            
+            if self.likeCount.count>0 {
+                if (self.likeCount.value(forKey: "imageId") as AnyObject).contains(imId) {
+                    
+                    let index = (self.likeCount.value(forKey: "imageId") as AnyObject).index(of: imId)
+                    
+                    if (self.likeCount.object(at: index) as AnyObject).value(forKey: "like") as! Bool == true {
+                        
+                        mutableDic = ["Description":str, "profileImage": profileImage, "location": location, "locationImage": arrImg, "Venue": cityName, "CountryName": countryName, "geoTag": sendgeoTag,"imageId":imId ,"latitude":lat, "longitude":long, "userName":name, "Type": sourceType, "multipleImagesLarge": multiImgArr, "Category": strcat, "likeBool":true, "otherUserId":otherUserId, "likeCount":countLik, "cityName": cityName, "standardImage":arrImgStand, "multipleImagesStandard": multiImgStandArr, "categoryMainArray": catArrSt, "placeType": type, "placeId": headerId]
+                        
+                        arrayData .add(mutableDic)
+                    }
+                        
+                        
+                    else
+                    {
+                        
+                        mutableDic = ["Description":str, "profileImage": profileImage, "location": location, "locationImage": arrImg, "Venue": cityName, "CountryName": countryName, "geoTag": sendgeoTag,"imageId":imId ,"latitude":lat, "longitude":long, "userName":name, "Type": sourceType, "multipleImagesLarge": multiImgArr, "Category": strcat, "likeBool":false, "otherUserId":otherUserId, "likeCount":countLik, "cityName": cityName, "standardImage":arrImgStand, "multipleImagesStandard": multiImgStandArr, "categoryMainArray": catArrSt, "placeType": type, "placeId": headerId]
+                        
+                        arrayData .add(mutableDic)
+                        
+                        
+                    }
+                    
+                    
+                }
+                else
+                {
+                    mutableDic = ["Description":str, "profileImage": profileImage, "location": location, "locationImage": arrImg, "Venue": cityName, "CountryName": countryName, "geoTag": sendgeoTag,"imageId":imId ,"latitude":lat, "longitude":long, "userName":name, "Type": sourceType, "multipleImagesLarge": multiImgArr, "Category": strcat, "likeBool":false, "otherUserId":otherUserId, "likeCount":countLik, "cityName": cityName, "standardImage":arrImgStand, "multipleImagesStandard": multiImgStandArr, "categoryMainArray": catArrSt, "placeType": type, "placeId": headerId]
+                    
+                    arrayData .add(mutableDic)
+                }
+                
+            }
+            else
+            {
+                mutableDic = ["Description":str, "profileImage": profileImage, "location": location, "locationImage": arrImg, "Venue": cityName, "CountryName": countryName, "geoTag": sendgeoTag,"imageId":imId ,"latitude":lat, "longitude":long, "userName":name, "Type": sourceType, "multipleImagesLarge": multiImgArr, "Category": strcat, "likeBool":false, "otherUserId":otherUserId, "likeCount":countLik, "cityName": cityName, "standardImage":arrImgStand, "multipleImagesStandard": multiImgStandArr, "categoryMainArray": catArrSt, "placeType": type, "placeId": headerId]
+                
+                arrayData .add(mutableDic)
+                
+            }
+            
+            
+            
+            print(arrayData)
+            
+           
+            
+            //let nxtObj2 = self.storyboard?.instantiateViewController(withIdentifier: "detailViewController") as! detailViewController
+           // nxtObj2.arrayWithData=arrayData
+           // nxtObj2.fromStory=false
+           // nxtObj2.countLikes=likeCount
+            //nxtObj2.fromInterest = true
+            
+            DispatchQueue.main.async(execute: {
+                
+                //self.navigationController! .pushViewController(nxtObj2, animated: true)
+                self.appearBool=true
+            })
+            
+            
+        }
+        
+        
+        
+    }
+    
+    
+
+    
+    
+    
+    
+        
+        
+        
+        
+        
     
     
     ////Add this method in view did appear to get the messages
@@ -338,7 +1355,7 @@ class intrestViewController: UIViewController, apiClassInterestDelegate ,UITable
     
     
     
-    
+    /*
     
     
     //MARK:reload from another class(detailview class)
@@ -390,12 +1407,6 @@ class intrestViewController: UIViewController, apiClassInterestDelegate ,UITable
         super.viewDidLoad()
         self.navigationController?.isNavigationBarHidden=true //hide the navigationBar
         
-        
-        
-        
-        
-        
-        //        tableOfIntrests.rowHeight=250
         
         
         
@@ -687,67 +1698,7 @@ class intrestViewController: UIViewController, apiClassInterestDelegate ,UITable
     
     
     
-    func segMentManage() -> Void {
-        
-        /////segmentControl
-        var arrayInt = NSMutableArray()
-        arrayInt = ["Musium", "Hotel"]
-        var tabledata2 = NSArray()
-        
-        if checked.count<1 {
-            tabledata2 = arrayInt as NSArray
-        }
-        else{
-            tabledata2 = checked as NSArray
-            
-        }
-        
-        //let viewWidth = CGRectGetWidth(self.view.frame);
-        let title2 = tabledata2
-        
-        
-        print(title2)
-        
-        segmentControl.sectionTitles = title2 as! [String]
-        segmentControl.autoresizingMask = [.flexibleRightMargin, .flexibleWidth]
-        segmentControl.selectionStyle = HMSegmentedControlSelectionStyle.fullWidthStripe
-        segmentControl.segmentWidthStyle=HMSegmentedControlSegmentWidthStyle.fixed
-        //        segmentControl.frame = CGRectMake(0, 65, viewWidth, 30)
-        segmentControl.segmentEdgeInset = UIEdgeInsetsMake(0, 10, 0, 10)
-        
-        segmentControl.selectionIndicatorLocation = HMSegmentedControlSelectionIndicatorLocation.down
-        
-        segmentControl.selectionIndicatorColor = UIColor(red: 157/255, green: 194/255, blue: 134/255, alpha: 1.0)
-        segmentControl.selectionIndicatorHeight=3.0
-        segmentControl.isVerticalDividerEnabled = true
-        segmentControl.verticalDividerColor = UIColor.clear
-        segmentControl.verticalDividerWidth = 0.8
-        segmentControl.backgroundColor = UIColor.clear
-        
-        let selectedAttributes: NSDictionary = [
-            NSForegroundColorAttributeName: UIColor.white,
-            NSFontAttributeName: UIFont(name: "Roboto-Bold", size: 16)!
-        ]
-        
-        
-        let segAttributes: NSDictionary = [
-            NSForegroundColorAttributeName: UIColor.white,
-            NSFontAttributeName: UIFont(name:"Roboto-Regular", size: 15.0)!
-        ]
-        
-        
-        segmentControl .selectedTitleTextAttributes = selectedAttributes as! [AnyHashable: Any]
-        segmentControl .titleTextAttributes = segAttributes as! [AnyHashable: Any]
-        
-        categorySelected = checked.object(at: 0) as! NSString
-        segmentControl.setSelectedSegmentIndex(0, animated: false)
-        
-        segmentControl.addTarget(self, action: #selector(self.segmentedControlChangedValue), for: .valueChanged)
-        
-        
-    }
-    
-    
+       
     
     
     //MARK:- Btn Actions
@@ -934,766 +1885,7 @@ class intrestViewController: UIViewController, apiClassInterestDelegate ,UITable
     
     
     
-    //MARK: DataSource and delegate of tableView
-    //MARK:-
-    
-    
-    
-    func numberOfSections(in tableView: UITableView) -> Int
-    {
-        return 1
-        
-    }
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int
-    {
-        if tableView==categorytableView {
-            return tagsArr.count
-        }
-            
-        else{
-            
-            if photosArray.count<1 {
-                return 0
-            }
-            else
-            {
-                
-                
-                if  showMore == 1 {
-                    return photosArray.count + 1
-                }
-                else{
-                    return photosArray.count
-                }
-                
-            }
-            
-        }
-    }
-    
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        if tableView == categorytableView
-        {
-            return 60
-        }
-        if indexPath.row == photosArray.count {
-            return 60
-        }
-        else
-        {
-            
-             return self.view.frame.width * 0.72
-        }
-        
-       
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell
-    {
-        
-        if tableView == categorytableView {
-            let cell = tableView.dequeueReusableCell(withIdentifier: "CategoriesCell") as! CategoriesCell
-            cell.name.text = (tagsArr .object(at: indexPath.row) as AnyObject).value(forKey: "displayName") as? String
-            
-            
-            
-            
-            
-            
-            //iconImage
-            
-            cell.checkMark.layer.cornerRadius=cell.checkMark.frame.size.width/2
-            cell.checkMark.clipsToBounds=true
-            
-            
-            
-            
-            
-            
-            if categId .contains((tagsArr .object(at: indexPath.row) as AnyObject).value(forKey: "_id") as! String)
-            {
-                
-                cell.checkMark.image=UIImage (named: "searchSelect")
-                cell.checkMark.backgroundColor = UIColor.clear
-                
-            }
-            else
-            {
-                cell.checkMark.backgroundColor=UIColor.clear
-                cell.checkMark.image = UIImage (named: "searchUnselect")
-            }
-            
-            return cell
-        }
-            
-            
-        else
-        {
-            
-            if indexPath.row == photosArray.count
-            {
-                let cell = UITableViewCell() //
-                cell.frame = CGRect(x: 0, y: 0, width: self.view.frame.size.width - 9, height: 50)
-                
-               // cell.contentView.backgroundColor = UIColor .init(colorLiteralRed: 236/255, green: 236/255, blue: 236/255, alpha: 1)
-                
-                
-                cell.layer.shouldRasterize = true
-                cell.layer.rasterizationScale = UIScreen.main.scale
-                
-                
-                let spinner = UIActivityIndicatorView()
-                
-                spinner.isHidden = false
-                
-                spinner.activityIndicatorViewStyle = .gray
-                spinner.frame = CGRect(x: cell.frame.size.width/2 - 20 , y: cell.frame.size.height/2 - 17, width: 40, height: 40)
-                cell.addSubview(spinner)
-                
-                
-              
-                    spinner.startAnimating()
-              
-                
-                DispatchQueue.global(qos: DispatchQoS.QoSClass.background).async(execute: {
-                    
-                    
-                    
-                    let strarr2 = NSMutableArray()
-                    strarr2 .add(self.categId .object(at: self.segmentControl.selectedSegmentIndex))
-                let type = UserDefaults.standard.value(forKey: "selectedLocationType") as? String ?? ""
-                    
-                    let defaults = UserDefaults.standard
-                    let uId = defaults .string(forKey: "userLoginId")
-                    
-                    
-                    let headerId = UserDefaults.standard.value(forKey: "selectedLocationId") as? String ?? ""
-                    
-
-                    
-                    let parameterDict: NSMutableDictionary = ["userId": uId!, "placeId": headerId, "placeType": type, "category": strarr2, "skip":self.photosArray.count ]
-                    print(parameterDict)
-                    
-                    
-                    apiClassInterest.sharedInstance().postRequestInterestWiseData(parameterDict, viewController: self)
-                   
-                    
-                    
-                    
-                })
-                
-                
-                
-                
-                
-                return cell
-                
-            }
-                //Simple cells
-            else
-            {
-            let cell:IntrestTableViewCell = tableView.dequeueReusableCell(withIdentifier: "intrestCell") as! IntrestTableViewCell
-            
-            
-            cell.clock.layer.cornerRadius=12
-            cell.clock.clipsToBounds=true
-            cell.clock.isHidden=true
-            // print(photosArray.objectAtIndex(indexPath.row))
-            cell.categoryButton.setImage(imageOfCatgory, for: UIControlState())
-            
-            cell.museumNameLabel.text=((((photosArray.object(at: indexPath.row) as AnyObject).value(forKey: "photos")! as AnyObject).object(at: 0) as AnyObject).value(forKey: "placeTag") as? String)?.capitalized ?? ""
-            
-            
-            //  print(photosArray.objectAtIndex(indexPath.row).valueForKey("photos")!.objectAtIndex(0).valueForKey("user")!.valueForKey("name") as? String ?? "")
-            cell.beenThereLabel.text=(((((photosArray.object(at: indexPath.row) as AnyObject).value(forKey: "photos")! as AnyObject).value(forKey: "user")! as AnyObject).object(at: 0) as AnyObject).value(forKey: "name") as? String ?? "")?.capitalized ?? ""
-            
-            
-            
-            
-            
-            var locationCity = "\((((photosArray.object(at: indexPath.row) as AnyObject).value(forKey: "photos")! as AnyObject).object(at: 0) as AnyObject).value(forKey: "city") as? String ?? " ")".capitalized
-            
-            //// to add state if city not found
-            if locationCity == "" || locationCity == " " {
-                
-                locationCity = "\((((photosArray.object(at: indexPath.row) as AnyObject).value(forKey: "photos")! as AnyObject).object(at: 0) as AnyObject).value(forKey: "state") as? String ?? " ")".capitalized
-                
-                
-                /////To add country if state and city not found
-                if locationCity == "" || locationCity == " " {
-                    
-                    locationCity = "\((((photosArray.object(at: indexPath.row) as AnyObject).value(forKey: "photos")! as AnyObject).object(at: 0) as AnyObject).value(forKey: "country") as? String ?? " ")".capitalized
-                    
-                    
-                    
-                }
-                
-                
-            }
-            
-            
-            
-            //let locationCountry = "\(photosArray.objectAtIndex(indexPath.row).valueForKey("country") as? String ?? "")"
-            
-            
-            
-            
-            
-            ////Attributed string---///
-            let segAttributes: NSDictionary = [
-                NSForegroundColorAttributeName: UIColor.darkGray,
-                NSFontAttributeName: UIFont(name:"Roboto-Light", size: 12.0)!
-            ]
-            
-            let segAttributes2: NSDictionary = [
-                NSForegroundColorAttributeName: UIColor.black,
-                NSFontAttributeName: UIFont(name:"Roboto-Regular", size: 14.0)!
-            ]
-            
-            let attributedString1 = NSMutableAttributedString(string:"", attributes:segAttributes as? [String : AnyObject])
-            
-            let attributedString2 = NSMutableAttributedString(string:locationCity, attributes:segAttributes2 as? [String : AnyObject])
-            
-            attributedString1.append(attributedString2)
-            cell.locationLabel.attributedText = attributedString1
-            
-            
-            
-            
-            
-            //            cell.locationLabel.hidden=false
-            //            cell.beenThereLabel.hidden=false
-            //
-            
-            
-            let currentIndex = (indexCount.object(at: indexPath.row) as AnyObject).value(forKey: "index") as! Int
-            
-            
-            let multiImg = multiplePhotosArray.object(at: indexPath.row) as! NSMutableArray
-            
-            
-        let museumImage = (multiImg.object(at: currentIndex) as AnyObject).value(forKey: "imageThumb") as? String ?? ""
-        //photosArray.objectAtIndex(indexPath.row).valueForKey("photos")!.objectAtIndex(0).valueForKey("imageThumb")! as? String ?? "" //("imageLarge")!
-            let url2 = URL(string: museumImage )
-            
-            
-            //  let museumName = photosArray.objectAtIndex(indexPath.row).valueForKey("")
-            
-            let pImage : UIImage = UIImage(named:"backgroundImage")! //placeholder image
-            
-            
-            
-            
-            let block: SDWebImageCompletionBlock! = {(image: UIImage!, error: NSError!, cacheType: SDImageCacheType!, imageURL: URL!) -> Void in
-                
-                
-            }
-            
-            //            //completion block of the sdwebimageview
-            cell.museumImage.sd_setImage(with: url2, placeholderImage: pImage, completed: block)
-            
-            //cell.layer.cornerRadius=5
-            cell.clipsToBounds=true
-            cell.museumImage.clipsToBounds=true
-            cell.museumImage.backgroundColor = UIColor.white
-            cell.tag=1000*self.segmentControl.selectedSegmentIndex+indexPath.row
-            
-            let longView = UIView()
-            longView.frame=cell.frame
-            longView.tag=1000*self.segmentControl.selectedSegmentIndex+indexPath.row
-            //cell .addSubview(longView)
-            
-            
-            let longTapGest = UILongPressGestureRecognizer(target: self, action: #selector(intrestViewController.longTap(_:)))
-            
-            cell.addGestureRecognizer(longTapGest)
-            
-            
-            
-            
-            
-            
-            
-            //MARK:  ////////// MANAGE LIKE AND ITS COUNT////////
-            var countLik = NSNumber()
-            //MANAGE from the crash
-            
-            print((((self.photosArray.object(at: indexPath.row) as AnyObject).value(forKey: "photos")! as AnyObject).object(at: 0) as AnyObject).value(forKey: "likeCount"))
-            
-            if (((self.photosArray.object(at: indexPath.row) as AnyObject).value(forKey: "photos")! as AnyObject).object(at: 0) as AnyObject).value(forKey: "likeCount") != nil
-            {
-                countLik = (((self.photosArray.object(at: indexPath.row) as AnyObject).value(forKey: "photos")! as AnyObject).object(at: 0) as AnyObject).value(forKey: "likeCount") as! NSNumber
-            }
-            else
-            {
-                countLik=0
-            }
-            
-            
-            
-            
-            let likeimg = cell.viewWithTag(7477) as! UIImageView
-            let likecountlbl = cell.viewWithTag(7478) as! UILabel
-            let defaults = UserDefaults.standard
-            let uId = defaults .string(forKey: "userLoginId")
-            
-            let imageId2 = (((self.photosArray.object(at: indexPath.row) as AnyObject).value(forKey: "photos")! as AnyObject).object(at: 0) as AnyObject).value(forKey: "photoId") as? String ?? " "
-            
-            var likedByMe2 = NSArray()
-            
-            // print(self.photosArray .objectAtIndex(indexPath.row).valueForKey("userLiked"))
-            
-            if (((self.photosArray .object(at: indexPath.row) as AnyObject).value(forKey: "photos")! as AnyObject).object(at: 0) as AnyObject).value(forKey: "userLiked") != nil { // as? NSNull != NSNull(){
-                
-                likedByMe2 = (((self.photosArray[indexPath.row] as AnyObject).value(forKey: "photos")! as AnyObject).object(at: 0) as AnyObject).value(forKey: "userLiked") as! NSArray
-                
-            }
-            
-            
-            //SHOW THE COUNT OF LIKED
-            likecountlbl.text=String(describing: countLik)
-            likeimg.image=UIImage (named: "like_count")
-            
-            
-            ///////-  Show liked by me-/////
-            if likedByMe2.count>0
-            {
-                if likedByMe2.contains(uId!)
-                {
-                    
-                    
-                    if (likeCount.value(forKey: "imageId") as AnyObject).contains(imageId2) {
-                        
-                        let indexOfImageId = (likeCount.value(forKey: "imageId") as AnyObject).index(of: imageId2)
-                        
-                        if (likeCount.object(at: indexOfImageId) as AnyObject).value(forKey: "like") as! Bool == true {
-                            likeimg.image=UIImage (named: "likedCount")
-                            let staticCount = (likeCount.object(at: indexOfImageId) as AnyObject).value(forKey: "count") as? NSNumber
-                            likecountlbl.text=String(describing: staticCount!)// String(self.addTheLikes(staticCount!))
-                            
-                            
-                            
-                        }
-                        else{
-                            likeimg.image=UIImage (named: "like_count")
-                            let staticCount = (likeCount.object(at: indexOfImageId) as AnyObject).value(forKey: "count") as? NSNumber
-                            likecountlbl.text=String(describing: staticCount!) //(self.addTheLikes(staticCount!))
-                        }
-                    }
-                        
-                        //if not contains the imageId
-                    else
-                    {
-                        likeCount .add(["imageId":imageId2,"userId":uId!, "like": true, "count": countLik])
-                        print(likeCount)
-                        likecountlbl.text=String(describing: countLik)
-                        likeimg.image=UIImage (named: "likedCount")
-                    }
-                    
-                    
-                    
-                }
-                    
-                else
-                {
-                    
-                    
-                    if (likeCount.value(forKey: "imageId") as AnyObject).contains(imageId2) {
-                        
-                        let indexOfImageId = (likeCount.value(forKey: "imageId") as AnyObject).index(of: imageId2)
-                        
-                        if (likeCount.object(at: indexOfImageId) as AnyObject).value(forKey: "like") as! Bool == true {
-                            likeimg.image=UIImage (named: "likedCount")
-                            let staticCount = (likeCount.object(at: indexOfImageId) as AnyObject).value(forKey: "count") as? NSNumber
-                            likecountlbl.text=String(describing: staticCount!)
-                            
-                        }
-                        else{
-                            let staticCount = (likeCount.object(at: indexOfImageId) as AnyObject).value(forKey: "count") as? NSNumber
-                            likecountlbl.text=String(describing: staticCount!)
-                            likeimg.image=UIImage (named: "like_count")
-                        }
-                    }
-                    
-                    
-                    
-                    
-                    
-                    
-                }
-                
-                
-                
-            }
-            else{
-                
-                if (likeCount.value(forKey: "imageId") as AnyObject).contains(imageId2) {
-                    
-                    let indexOfImageId = (likeCount.value(forKey: "imageId") as AnyObject).index(of: imageId2)
-                    
-                    if (likeCount.object(at: indexOfImageId) as AnyObject).value(forKey: "like") as! Bool == true {
-                        likeimg.image=UIImage (named: "likedCount")
-                        let staticCount = (likeCount.object(at: indexOfImageId) as AnyObject).value(forKey: "count") as? NSNumber
-                        likecountlbl.text=String(describing: staticCount!)
-                        
-                    }
-                    else{
-                        let staticCount = (likeCount.object(at: indexOfImageId) as AnyObject).value(forKey: "count") as? NSNumber
-                        likecountlbl.text=String(describing: staticCount!)
-                        likeimg.image=UIImage (named: "like_count")
-                    }
-                }
-                
-                
-                
-            }
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            return cell
-        }
-        }
-    }
-    
-    
-    //    func tableView(tableView: UITableView, didDeselectRowAtIndexPath indexPath: NSIndexPath) {
-    //        if(tableView == categorytableView)
-    //        {
-    //
-    //        }
-    //
-    //    }
-    
-    
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
-        if tableView == categorytableView {
-            
-            
-            
-            
-            if categId .contains((tagsArr .object(at: indexPath.row) as AnyObject).value(forKey: "_id") as! String)
-            {
-                
-                let objId = ((tagsArr .object(at: indexPath.row) as AnyObject).value(forKey: "_id") as? String ?? "")
-                
-                let objectInt = ((tagsArr .object(at: indexPath.row) as AnyObject).value(forKey: "displayName") as? String)
-                checked .remove(objectInt!)
-                categId .remove(objId)
-                
-                
-                
-            } else
-            {
-                //                let object = tagsArr .objectAtIndex(indexPath.row).valueForKey("name") as? String ?? ""
-                //                checked .addObject(object)
-                
-                print(tagsArr .object(at: indexPath.row))
-                
-                let objId = ((tagsArr .object(at: indexPath.row) as AnyObject).value(forKey: "_id") as? String ?? "")
-                let objectInt = ((tagsArr .object(at: indexPath.row) as AnyObject).value(forKey: "displayName") as? String)
-                checked .add(objectInt!)
-                categId .add(objId)
-                
-                
-                
-            }
-            
-            
-            categorytableView .reloadData()
-            
-            
-            
-            
-        }
-            
-            
-            
-            //////
-            
-        else
-            
-        {
-            
-            print(photosArray[indexPath.row])
-            
-            
-            //self.photosArray .objectAtIndex(indexPath.row).valueForKey("photos")!.objectAtIndex(0).valueForKey("userLiked")
-            
-            let str = (((self.photosArray[indexPath.row] as AnyObject).value(forKey: "photos")! as AnyObject).object(at: 0) as AnyObject).value(forKey: "description") as? String ?? "No Description Found"//description
-            let profileImage = ((((self.photosArray .object(at: indexPath.row) as AnyObject).value(forKey: "photos")! as AnyObject).object(at: 0) as AnyObject).value(forKey: "user")! as AnyObject).value(forKey: "picture")! as! NSString//profile image Link
-            
-            
-            
-            //////////////////////----------------Location----------------------------///////////////////
-            var location = NSString()
-            var sendgeoTag = (((self.photosArray[indexPath.row] as AnyObject).value(forKey: "photos")! as AnyObject).object(at: 0) as AnyObject).value(forKey: "placeTag") as? String ?? " "
-            
-         
-            let fullName22 = sendgeoTag
-            let fullNameArr22 = fullName22.characters.split{$0 == ","}.map(String.init)
-            
-            if fullNameArr22.count>0 {
-                sendgeoTag = fullNameArr22[0]
-            }
-            
-            
-            var lat = NSNumber()
-            var long = NSNumber()
-            
-            
-            if (((self.photosArray.object(at: indexPath.row) as AnyObject).value(forKey: "photos")! as AnyObject).object(at: 0) as AnyObject).value(forKey: "latitude") != nil && (self.photosArray.object(at: indexPath.row) as AnyObject).value(forKey: "latitude") as? NSNull != NSNull()   {
-                
-                lat = (((self.photosArray.object(at: indexPath.row) as AnyObject).value(forKey: "photos")! as AnyObject).object(at: 0) as AnyObject).value(forKey: "latitude") as! NSNumber  //as? String ?? "0.0"
-                
-                long = (((self.photosArray.object(at: indexPath.row) as AnyObject).value(forKey: "photos")! as AnyObject).object(at: 0) as AnyObject).value(forKey: "longitude") as! NSNumber //as? String ?? "0.0"
-            }
-            else
-            {
-                lat=0
-                long=0
-            }
-            
-            
-            
-            
-            // remove the another part of string
-            let changeStr:NSString = sendgeoTag as NSString
-            let ddd = changeStr.replacingOccurrences(of: "&", with: " and ") //replace & with and
-            sendgeoTag = ddd
-            location = "\(self.captitalString(sendgeoTag as? String as NSString? ?? "")), \(self.captitalString((self.photosArray.object(at: indexPath.row) as AnyObject).value(forKey: "city") as? String ?? "")), \(self.captitalString(self.photosArray.object(at: indexPath.row).value(forKey: "country") as? String ?? ""))"
-            
-            
-            var arrImg = NSString()
-            arrImg = (((self.photosArray[indexPath.row] as AnyObject).value(forKey: "photos")! as AnyObject).object(at: 0) as AnyObject).value(forKey: "imageLarge") as? String ?? "" //locationSingleImage
-            var arrImgStand = NSString()
-            arrImgStand = (((self.photosArray[indexPath.row] as AnyObject).value(forKey: "photos")! as AnyObject).object(at: 0) as AnyObject).value(forKey: "imageThumb") as? String ?? "" // image standard
-            print(arrImgStand)
-            
-            
-            let name = ((((self.photosArray .object(at: indexPath.row) as AnyObject).value(forKey: "photos")! as AnyObject).object(at: 0) as AnyObject).value(forKey: "user")! as AnyObject).value(forKey: "name") as? String ?? " " //userName
-            
-            
-            
-            //MANAGE Source for images
-            
-            var sourceType = "Other"
-            
-            let Source = (((self.photosArray .object(at: indexPath.row) as AnyObject).value(forKey: "photos")! as AnyObject).object(at: 0) as AnyObject).value(forKey: "source") as? String ?? " " //source
-            if Source == "PYT" {
-                
-                
-                sourceType = Source
-                
-            }
-            
-            
-            
-            
-            
-            
-            let txt = headerLabel.text
-            
-            //print(multiplePhotosArray.objectAtIndex(indexPath.row))
-            // print(multiplePhotosArray.count)
-            let multiImg = multiplePhotosArray.object(at: indexPath.row)
-            
-            
-            
-            // print(multiImg)
-            let newTmpArr = NSMutableArray()
-            
-            for ll in 0..<(multiImg as AnyObject).count {
-                
-                // print(multiImg.objectAtIndex(ll))
-                // print(multiImg.objectAtIndex(ll).valueForKey("imageLarge"))
-                
-                
-                
-                newTmpArr.add(["large":"\(multiImg.object(at: ll).value(forKey: "imageLarge")! as? String ?? "")", "standard": "\(multiImg.object(at: ll).value(forKey: "imageThumb")! as? String ?? "")"])
-                
-                
-            }
-            
-            // print(newTmpArr)
-            
-            
-            
-            //let multiImgStandard: NSMutableArray = (multiplePhotosArray.objectAtIndex(indexPath.row) as? NSMutableArray)!
-            //print(arrImgStand)
-            
-            let multiImgArr = NSMutableArray()
-            let multiImgStandArr = NSMutableArray()
-            
-            for i in 0..<newTmpArr.count {
-                let imgLinkStr = (newTmpArr .object(at: i) as AnyObject).value(forKey: "large") as? String ?? ""
-                let imgLinkStandard = (newTmpArr .object(at: i) as AnyObject).value(forKey: "standard") as? String ?? ""
-                print("large===\(imgLinkStr)====== standard==\(imgLinkStandard)")
-                
-                if arrImg as String == imgLinkStr {
-                    
-                }
-                else
-                {
-                    multiImgArr .add(imgLinkStr)
-                    multiImgStandArr .add(imgLinkStandard)
-                }
-                
-                
-                
-                
-            }
-            
-            multiImgArr .insert(arrImg, at: 0)
-            multiImgStandArr .insert(arrImgStand, at: 0)
-            print(multiImgStandArr)
-            
-            let categoriesArray:NSArray = (((photosArray.object(at: indexPath.row) as AnyObject).value(forKey: "photos")! as AnyObject).object(at: 0) as AnyObject).value(forKey: "category") as! NSArray
-            let countryName = (((photosArray.object(at: indexPath.row) as AnyObject).value(forKey: "photos")! as AnyObject).object(at: 0) as AnyObject).value(forKey: "country") as? String ?? ""
-            var cityName = (((photosArray.object(at: indexPath.row) as AnyObject).value(forKey: "photos")! as AnyObject).object(at: 0) as AnyObject).value(forKey: "city") as? String ?? ""
-            
-            
-            
-            
-            
-            let arrayData = NSMutableArray()
-            
-            
-            let strcat = (categoriesArray.value(forKey: "displayName") as AnyObject).componentsJoined(by: ",")
-            print(strcat)
-            
-            
-            
-            
-            let imId = (((photosArray[indexPath.row] as AnyObject).value(forKey: "photos")! as AnyObject).object(at: 0) as AnyObject).value(forKey: "photoId") as? String ?? ""
-            
-            let type = UserDefaults.standard.value(forKey: "selectedLocationType") as? String ?? ""
-            let headerId = UserDefaults.standard.value(forKey: "selectedLocationId") as? String ?? ""
-            
-            
-            
-            
-            
-            
-            //Likes count
-            
-            var countLik = NSNumber()
-            if (((photosArray[indexPath.row] as AnyObject).value(forKey: "photos")! as AnyObject).object(at: 0) as AnyObject).value(forKey: "count") != nil  {
-                
-                countLik = (((photosArray[indexPath.row] as AnyObject).value(forKey: "photos")! as AnyObject).object(at: 0) as AnyObject).value(forKey: "likeCount") as! NSNumber  //as? String ?? "0.0"
-                
-                
-            }else
-            {
-                countLik=0
-                
-            }
-            
-            
-            
-            //            let otherUserId = photosArray[indexPath.row].valueForKey("userId")!.objectAtIndex(0).valueForKey("_id") as? String ?? ""
-            
-            let otherUserId = ((((photosArray.object(at: indexPath.row) as AnyObject).value(forKey: "photos")! as AnyObject).value(forKey: "user")! as AnyObject).object(at: 0) as AnyObject).value(forKey: "_id") as? String ?? ""
-            
-            var mutableDic = NSMutableDictionary()
-            
-            
-            if cityName=="" {
-                cityName=txt!
-            }
-            
-            
-            print("City Name=\(cityName)")
-            
-            
-            var catArrSt = NSArray()
-            
-            print(categoriesArray)
-            
-            catArrSt = categoriesArray
-            
-            
-            if self.likeCount.count>0 {
-                if (self.likeCount.value(forKey: "imageId") as AnyObject).contains(imId) {
-                    
-                    let index = (self.likeCount.value(forKey: "imageId") as AnyObject).index(of: imId)
-                    
-                    if (self.likeCount.object(at: index) as AnyObject).value(forKey: "like") as! Bool == true {
-                        
-                        mutableDic = ["Description":str, "profileImage": profileImage, "location": location, "locationImage": arrImg, "Venue": cityName, "CountryName": countryName, "geoTag": sendgeoTag,"imageId":imId ,"latitude":lat, "longitude":long, "userName":name, "Type": sourceType, "multipleImagesLarge": multiImgArr, "Category": strcat, "likeBool":true, "otherUserId":otherUserId, "likeCount":countLik, "cityName": cityName, "standardImage":arrImgStand, "multipleImagesStandard": multiImgStandArr, "categoryMainArray": catArrSt, "placeType": type, "placeId": headerId]
-                        
-                        arrayData .add(mutableDic)
-                    }
-                        
-                        
-                    else
-                    {
-                        
-                        mutableDic = ["Description":str, "profileImage": profileImage, "location": location, "locationImage": arrImg, "Venue": cityName, "CountryName": countryName, "geoTag": sendgeoTag,"imageId":imId ,"latitude":lat, "longitude":long, "userName":name, "Type": sourceType, "multipleImagesLarge": multiImgArr, "Category": strcat, "likeBool":false, "otherUserId":otherUserId, "likeCount":countLik, "cityName": cityName, "standardImage":arrImgStand, "multipleImagesStandard": multiImgStandArr, "categoryMainArray": catArrSt, "placeType": type, "placeId": headerId]
-                        
-                        arrayData .add(mutableDic)
-                        
-                        
-                    }
-                    
-                    
-                }
-                else
-                {
-                    mutableDic = ["Description":str, "profileImage": profileImage, "location": location, "locationImage": arrImg, "Venue": cityName, "CountryName": countryName, "geoTag": sendgeoTag,"imageId":imId ,"latitude":lat, "longitude":long, "userName":name, "Type": sourceType, "multipleImagesLarge": multiImgArr, "Category": strcat, "likeBool":false, "otherUserId":otherUserId, "likeCount":countLik, "cityName": cityName, "standardImage":arrImgStand, "multipleImagesStandard": multiImgStandArr, "categoryMainArray": catArrSt, "placeType": type, "placeId": headerId]
-                    
-                    arrayData .add(mutableDic)
-                }
-                
-            }
-            else
-            {
-                mutableDic = ["Description":str, "profileImage": profileImage, "location": location, "locationImage": arrImg, "Venue": cityName, "CountryName": countryName, "geoTag": sendgeoTag,"imageId":imId ,"latitude":lat, "longitude":long, "userName":name, "Type": sourceType, "multipleImagesLarge": multiImgArr, "Category": strcat, "likeBool":false, "otherUserId":otherUserId, "likeCount":countLik, "cityName": cityName, "standardImage":arrImgStand, "multipleImagesStandard": multiImgStandArr, "categoryMainArray": catArrSt, "placeType": type, "placeId": headerId]
-                
-                arrayData .add(mutableDic)
-                
-            }
-            
-            
-            
-            print(arrayData)
-            
-            /*
-             arrayData .addObject(["Description":str, "profileImage": profileImage, "location": location, "locationImage": arrImg, "Venue": txt!, "CountryName": countryName, "geoTag": sendgeoTag,"imageId":imId ,"latitude":0, "longitude":0, "userName":name, "Type": "Other", "multipleImages": multiImgArr, "Category": strcat])
-             
-             */
-            
-            let nxtObj2 = self.storyboard?.instantiateViewController(withIdentifier: "detailViewController") as! detailViewController
-            nxtObj2.arrayWithData=arrayData
-            nxtObj2.fromStory=false
-            nxtObj2.countLikes=likeCount
-            nxtObj2.fromInterest = true
-            
-            DispatchQueue.main.async(execute: {
-                
-                self.navigationController! .pushViewController(nxtObj2, animated: true)
-                self.appearBool=true
-            })
-            
-            
-        }
-        
-        
-        
-    }
-    
-    
-    
+     
     
     
     
@@ -1952,226 +2144,7 @@ class intrestViewController: UIViewController, apiClassInterestDelegate ,UITable
     
     
     
-    
-    //MARK:- Response from the interest API
-    //MARK:-
-    
-    func serverResponseArrivedInterest(_ Response:AnyObject)
-    {
-        
-        
-        
-        //////////---------- REsponse for the add and interest database-----------////////
-        
-        if interestCase==true {
-            
-            jsonResult = NSDictionary()
-            jsonResult = Response as! NSDictionary
-            
-            
-            photosArray .removeAllObjects()
-            
-            //locationarray .removeAllObjects()
-            var newTempArr = NSMutableArray()
-            
-            
-            let status = jsonResult.value(forKey: "status") as! NSNumber
-            
-            emptyView.isHidden = false
-            
-            
-            if status == 1 {
-                
-                jsonMutableArray = NSMutableArray()
-                jsonMutableArray = ((jsonResult.value(forKey: "data")! as AnyObject).object(at: 0) as AnyObject).value(forKey: "data") as! NSMutableArray
-                
-                
-                
-                if jsonMutableArray.count<1 {
-                    emptyView.isHidden = false
-                    tableOfIntrests.isHidden=true
-                    
-                }
-                else{
-                    let inter = categorySelected
-                   
-                    if categoryArray .contains(inter) {
-                        
-                    }else{
-                    categoryArray .add(inter)
-                    }
-                    
-                    //print(jsonMutableArray)
-                    
-                    
-                    var dataArray2 = NSMutableArray()
-                    let arrayOfKeys:NSArray = self.allCategoryDictionary.allKeys as NSArray
-                    if (arrayOfKeys.contains(String(describing: categId.object(at: segmentControl.selectedSegmentIndex)))) {
-                         dataArray2 = self.allCategoryDictionary .value(forKey: String(describing: categId.object(at: segmentControl.selectedSegmentIndex))) as! NSMutableArray
-                        
-                        print(dataArray2)
-                        newTempArr = dataArray2
-                        
-                    }
-
-                    
-                    
-                    
-                    
-                    for i in 0..<jsonMutableArray.count {
-                        
-                        
-                        
-                        let dataOfLocations = NSMutableArray()
-                        
-                        dataOfLocations .add(jsonMutableArray[i] as! NSMutableDictionary)
-                        
-                        //print(dataOfLocations.count)
-                        
-                        if dataOfLocations.count>0 {
-                            
-                            newTempArr .add(dataOfLocations)//as Array)
-                            
-                            print(newTempArr.count)
-                            
-                            
-                            
-                            //print(String(categId.objectAtIndex(segmentControl.selectedSegmentIndex)))
-                            
-                            
-                            let show = ((jsonResult.value(forKey: "data")! as AnyObject).object(at: 0) as AnyObject).value(forKey: "showMore") as! NSNumber
-                            showMore = 0
-                            if show == 1 {
-                                showMore = 1
-                            }
-                            
-                            allCategoryDictionary .setObject(newTempArr, forKey: String(categId.object(at: segmentControl.selectedSegmentIndex)))
-                            
-                            allCategoryDictionary .setObject(showMore, forKey:"ShowMore\(String(describing: categId.object(at: segmentControl.selectedSegmentIndex)))" as NSCopying)
-                            
-                            
-                            
-                            // allCategoryDictionary[String(categId.objectAtIndex(segmentControl.selectedSegmentIndex))] = locationarray
-                            
-                            // print(allCategoryDictionary)
-                            
-                            
-                            
-                            
-                            
-                            
-                            
-                        }
-                        else{
-                            
-                            newTempArr .add("")
-                            allCategoryDictionary .setObject(newTempArr, forKey: String( categId.object(at: segmentControl.selectedSegmentIndex)))
-                            
-                            //   print(String(categId.objectAtIndex(segmentControl.selectedSegmentIndex)))
-                            
-                            // allCategoryDictionary[String(categId.objectAtIndex(segmentControl.selectedSegmentIndex))] = locationarray
-                            
-                            //print(allCategoryDictionary)
-                            
-                        }
-                        
-                        
-                        
-                    }
-                    
-                    
-                    
-                    
-                    likeCount .removeAllObjects()
-                    emptyView.isHidden = true
-                    self .shortData(newTempArr)
-                    
-                    
-                }
-                
-                
-                
-                
-                
-            }
-            else if(status == 5) //5
-            {
-                
-                //logout the user from the app
-                
-                let nxtObj2 = self.storyboard?.instantiateViewController(withIdentifier: "settingsViewController") as! settingsViewController
-                
-                self.tabBarController?.tabBar.isHidden = true
-                
-                let nxtObj = self.storyboard?.instantiateViewController(withIdentifier: "ViewController") as! ViewController
-                
-                
-                logOut = false
-                
-                let defaults = UserDefaults.standard
-                
-                let uId = defaults .string(forKey: "userLoginId")!
-                let token = defaults.string(forKey: "deviceToken")!
-                
-                let deviceTokenDict = NSMutableDictionary()
-                
-                deviceTokenDict.setValue(token, forKey: "token")
-                deviceTokenDict.setValue("iphone", forKey: "device")
-                
-                let parameter:NSMutableDictionary = ["deviceToken":deviceTokenDict ,"userId":uId]
-                
-                
-                
-                nxtObj2.logoutApi(parameter)
-                
-                
-                
-                
-                
-                
-                
-               
-                UserDefaults.standard.set(nil, forKey: "arrayOfIntrest")
-                
-                
-                DispatchQueue.main.async(execute: {
-                    self.dismiss(animated: true, completion: {})
-                    
-                    self.navigationController! .pushViewController(nxtObj, animated: true)
-                    OperationQueue.main.cancelAllOperations()
-                    
-                    
-                })
-                
-                
-                
-                
-                
-            }
-            else{
-                
-                emptyView.isHidden = false
-                
-            }
-            
-            
-            
-            
-            
-            
-            
-            
-            
-        }
-        
-        
-        
-        MBProgressHUD.hide(for: self.view, animated: true)
-        
-    }
-    
-    
-    
+     
     
     
     
@@ -3029,7 +3002,7 @@ class intrestViewController: UIViewController, apiClassInterestDelegate ,UITable
     
     
     
-    
+    */
     
     
     
@@ -3073,16 +3046,6 @@ class intrestViewController: UIViewController, apiClassInterestDelegate ,UITable
      }
      */
     
-}
-
-
-
-class IntrestTableViewCell: UITableViewCell {
-
-
-
-
-
 }
 
 

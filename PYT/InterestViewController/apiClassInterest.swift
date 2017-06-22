@@ -98,8 +98,7 @@ class apiClassInterest: NSObject {
             
             
             
-            
-            let task = URLSession.shared.dataTask(with: request, completionHandler: { data, response, error in
+           let task = session.dataTask(with: request as URLRequest, completionHandler: {data, response, error -> Void in
                 guard error == nil && data != nil else {                                                          // check for fundamental networking error
                     print("error=\(error)")
                     return
@@ -118,17 +117,17 @@ class apiClassInterest: NSObject {
                     
                     do {
                         
-                        let result = NSString(data: data!, encoding:String.Encoding.ascii)!
+                        let result = NSString(data: data!, encoding:String.Encoding.ascii.rawValue)!
                         print("Body: \(result)")
                         
-                        let anyObj: AnyObject = try JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.mutableContainers)
+                        let anyObj: Any = try JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.mutableContainers)
                         
-                        if (viewController .isKind(of: chooseInterestsViewController.self)){
-                            
-                           MBProgressHUD.hideAllHUDs(for: viewController.view, animated: true)
-                            self.delegate.serverResponseArrivedInterest(anyObj)
-                            
-                        }
+//                        if (viewController .isKind(of: chooseInterestsViewController.self)){
+//                            
+//                           MBProgressHUD.hideAllHUDs(for: viewController.view, animated: true)
+//                            self.delegate.serverResponseArrivedInterest(anyObj)
+//                            
+//                        }
                         
                         
                         //  self.delegate.serverResponseArrived(anyObj)
@@ -138,8 +137,7 @@ class apiClassInterest: NSObject {
                         
                     } catch {
                         print("json error: \(error)")
-                        CommonFunctionsClass.sharedInstance().showAlert("Server Alert", text: "Something doesn't seem right, Please try again!", imageName: "alertServer")
-                        indicatorClass.sharedInstance().hideIndicator()
+                        CommonFunctionsClass.sharedInstance().showAlert(title: "Server Alert", text: "Something doesn't seem right, Please try again!", imageName: "alertServer")
                         
                         
                         
@@ -164,7 +162,7 @@ class apiClassInterest: NSObject {
         }
         else
         {
-            CommonFunctionsClass.sharedInstance().showAlert("No Internet Connection", text: "You are currently offline.", imageName: "alertInternet")
+            CommonFunctionsClass.sharedInstance().showAlert(title: "No Internet Connection", text: "You are currently offline.", imageName: "alertInternet")
             MBProgressHUD.hideAllHUDs(for: viewController.view, animated: true)
         }
         
@@ -220,7 +218,7 @@ class apiClassInterest: NSObject {
             //let session = NSURLSession.sharedSession()
            // session.configuration.timeoutIntervalForRequest=20
            
-            let task = URLSession.shared.dataTask(with: request, completionHandler: { data, response, error in
+           let task = URLSession.shared.dataTask(with: request as URLRequest) { data, response, error in
                 guard error == nil && data != nil else {                                                          // check for fundamental networking error
                     print("error=\(error)")
                     return
@@ -239,22 +237,21 @@ class apiClassInterest: NSObject {
                     
                     do {
                         
-                        let result = NSString(data: data!, encoding:String.Encoding.ascii)!
+                        let result = NSString(data: data!, encoding:String.Encoding.ascii.rawValue)!
                         print("Body: result in intrest screen interest wisedata \(result)")
                         
-                        let anyObj: AnyObject = try JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.mutableContainers)
+                        let anyObj: Any = try JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.mutableContainers)
                         
                         
 //                        SweetAlert().showAlert("PYT", subTitle: result as String, style: AlertStyle.Error)
                         
-                        self.delegate.serverResponseArrivedInterest(anyObj)
+                        self.delegate.serverResponseArrivedInterest(anyObj as AnyObject)
                         
                         
                     } catch
                     {
                         print("json error: \(error)")
-                        CommonFunctionsClass.sharedInstance().showAlert("Server Alert", text: "Something doesn't seem right, Please try again!", imageName: "alertServer")
-                        indicatorClass.sharedInstance().hideIndicator()
+                        CommonFunctionsClass.sharedInstance().showAlert(title: "Server Alert", text: "Something doesn't seem right, Please try again!", imageName: "alertServer")
                         
                         
                         
@@ -271,13 +268,13 @@ class apiClassInterest: NSObject {
                 
                 
                 
-            }) 
+            }
             task.resume()
             
         }
         else
         {
-            CommonFunctionsClass.sharedInstance().showAlert("No Internet Connection", text: "You are currently offline.", imageName: "alertInternet")
+            CommonFunctionsClass.sharedInstance().showAlert(title: "No Internet Connection", text: "You are currently offline.", imageName: "alertInternet")
             //MBProgressHUD.hideHUDForView(viewController.view, animated: true)
             MBProgressHUD.hideAllHUDs(for: viewController.view, animated: true)
         }
@@ -336,7 +333,7 @@ class apiClassInterest: NSObject {
 
             
 //            request.HTTPBody = userid.dataUsingEncoding(NSUTF8StringEncoding)
-            let task = URLSession.shared.dataTask(with: request, completionHandler: { data, response, error in
+            let task = URLSession.shared.dataTask(with: request as URLRequest) { data, response, error in
                 guard error == nil && data != nil else {                                                          // check for fundamental networking error
                     print("error=\(error)")
                     return
@@ -353,16 +350,16 @@ class apiClassInterest: NSObject {
                     
                     do {
                         
-                        let result = NSString(data: data!, encoding:String.Encoding.ascii)!
+                        let result = NSString(data: data!, encoding:String.Encoding.ascii.rawValue)!
                         print("Body: \(result)")
                         
-                        let anyObj: AnyObject = try JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.mutableContainers)
+                       let anyObj: Any = try JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.mutableContainers)
                         
-                        self.delegate.serverResponseArrivedInterest(anyObj)
+                        self.delegate.serverResponseArrivedInterest(anyObj as AnyObject)
                         
                     } catch {
                         print("json error: \(error)")
-                        CommonFunctionsClass.sharedInstance().showAlert("Server Alert", text: "Something doesn't seem right, Please try again!", imageName: "alertServer")
+                        CommonFunctionsClass.sharedInstance().showAlert(title: "Server Alert", text: "Something doesn't seem right, Please try again!", imageName: "alertServer")
                         
                         
                         
@@ -380,13 +377,13 @@ class apiClassInterest: NSObject {
                 
                 
                 
-            }) 
+            }
             task.resume()
             
         }
         else
         {
-            CommonFunctionsClass.sharedInstance().showAlert("No Internet Connection", text: "You are currently offline.", imageName: "alertInternet")
+            CommonFunctionsClass.sharedInstance().showAlert(title: "No Internet Connection", text: "You are currently offline.", imageName: "alertInternet")
         }
         
     }
