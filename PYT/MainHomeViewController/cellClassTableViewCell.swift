@@ -42,9 +42,6 @@ class cellClassTableViewCell: UITableViewCell{
         imagesCollectionView.clipsToBounds=true
       
         
-        
-        
-        
     }
     
     

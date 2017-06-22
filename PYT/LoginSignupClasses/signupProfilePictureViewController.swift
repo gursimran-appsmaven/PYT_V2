@@ -9,8 +9,10 @@
 import UIKit
 import IQKeyboardManager
 import MBProgressHUD
+import AWSS3
 
-class signupProfilePictureViewController: UIViewController, apiClassDelegate {
+
+class signupProfilePictureViewController: UIViewController, apiClassDelegate,UIImagePickerControllerDelegate, UINavigationControllerDelegate {
 
     @IBOutlet var nameTf: UITextField!
     var loginFromFb = Bool()
@@ -18,7 +20,8 @@ class signupProfilePictureViewController: UIViewController, apiClassDelegate {
     var password = NSString()
 
     @IBOutlet weak var profileBtn: UIButton!
-    
+    //Image picker
+    let imagePicker = UIImagePickerController()
     
     override func viewDidLoad()
     {
@@ -48,9 +51,320 @@ class signupProfilePictureViewController: UIViewController, apiClassDelegate {
     
     
     
+    //MARK: //////////////////////// profile picture change Module starts here///////////////
+    
+    
+    
+    //MARK: Photo image picker
+    
+    //MARK: Image Picker Delegates
     @IBAction func profileButtonAction(_ sender: Any) {
         
+        imagePicker.delegate = self
+        imagePicker.allowsEditing = true
+        
+        
+        
+        let alertController = UIAlertController(title: "Select Image", message: nil, preferredStyle: UIAlertControllerStyle.actionSheet)
+        
+        let libAction = UIAlertAction(title: "Select from library", style: UIAlertActionStyle.default, handler: {(alert: UIAlertAction!) in self.gallary()
+            
+        })
+        
+        let captureAction = UIAlertAction(title: "Capture image", style: UIAlertActionStyle.default, handler: {(alert: UIAlertAction!) in self.capture()
+            
+        })
+        
+        let cancelAction = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.cancel, handler: {(alert: UIAlertAction!) in print("cancel")})
+        
+        alertController.addAction(libAction)
+        alertController.addAction(captureAction)
+        alertController.addAction(cancelAction)
+        
+        self.present(alertController, animated: true, completion:{})
+        
+        
+        
     }
+    
+    
+    
+    
+    
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        dismiss(animated: true, completion: nil)
+    }
+    
+    func imagePickerController(_ picker: UIImagePickerController,didFinishPickingMediaWithInfo info: [String : Any])
+    {
+        
+        let chosenImage = info[UIImagePickerControllerEditedImage] as! UIImage!
+        
+        // let urlImg = info[UIImagePickerControllerReferenceURL]
+        
+        print(chosenImage)
+        
+        var finalImage = UIImage()
+        finalImage=chosenImage!
+        
+        profileBtn.imageView?.image = nil
+        
+        
+        let testImgView = UIImageView()
+        testImgView.image=self.scaleImage(chosenImage!, toSize: CGSize(width: 200, height: 200))// imagePostViewController().scaleImage(chosenImage, toSize: CGSize(width:200, height: 200))
+        
+        
+       // profileIndicator.isHidden=false
+       // profileIndicator.startAnimating()
+        
+       // self.startUploadingImage(testImgView.image!)
+        
+        profileBtn.imageView?.image = testImgView.image
+        
+        dismiss(animated: true, completion: nil)
+        
+        
+        
+    }
+    
+    
+    func capture() {
+        
+        
+        imagePicker.sourceType = .camera
+        present(imagePicker, animated: true, completion: nil)
+    }
+    
+    func gallary(){
+        
+        imagePicker.allowsEditing = true
+        imagePicker.sourceType = .photoLibrary
+        present(imagePicker, animated: true, completion: nil)
+        
+    }
+
+    
+    func startUploadingImage(_ profileImage:UIImage)
+    {
+        
+        
+        let amazoneUrl = "https://s3-us-west-2.amazonaws.com/"
+        
+        let myIdentityPoolId = "us-west-2:47968651-2cda-46d4-b851-aea8cbcd663f"//liveserver
+        let S3BucketName = "pytprofilepic" //change bucketname only in test server
+        
+        
+        
+        
+        //dispatch_group_enter(myGroup)
+        
+        
+        print("Different format \(Date())")
+        
+        let formatter = DateFormatter()
+        formatter.dateFormat = "ddMMyyHHmmss"
+        let stringDate: String = formatter.string(from: Date())
+        print(stringDate)
+        
+        
+        
+        
+        
+        var localFileName:String? = "profile-\(email)-\(stringDate).jpg"
+        localFileName = localFileName!.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed)!
+        
+        print(localFileName)
+        
+        
+        // Configure AWS Cognito Credentials
+        //
+        
+        
+        
+        
+        let credentialsProvider:AWSCognitoCredentialsProvider = AWSCognitoCredentialsProvider(regionType:AWSRegionType.USWest2, identityPoolId: myIdentityPoolId)
+        
+        let configuration = AWSServiceConfiguration(region:AWSRegionType.USWest2, credentialsProvider:credentialsProvider)
+        
+        AWSServiceManager.default().defaultServiceConfiguration = configuration
+        
+        // Set up AWS Transfer Manager Request
+        //            //let S3BucketName = "testpyt" // test sever
+        //            let S3BucketName = "pytphotobucket"
+        
+        print("Locatl file name= \(localFileName)")
+        
+        
+        
+        
+        
+        
+        let fileURL = URL(fileURLWithPath: NSTemporaryDirectory() + "PytProfilePicture-\(localFileName)")
+        let data = UIImageJPEGRepresentation(profileImage, 0.3)
+        try? data!.write(to: fileURL, options: [.atomic])
+        
+        
+        
+        
+        
+        
+        let remoteName = localFileName!
+        let uploadRequest = AWSS3TransferManagerUploadRequest()
+        uploadRequest?.body = fileURL
+        uploadRequest?.acl=AWSS3ObjectCannedACL.publicRead
+        uploadRequest?.key = remoteName
+        uploadRequest?.bucket = S3BucketName
+        uploadRequest?.contentType = "image/jpeg"
+        
+        
+        let transferManager = AWSS3TransferManager.default()
+        
+        
+        
+        let s3URL = URL(string: "\(amazoneUrl)\(S3BucketName)/\(uploadRequest?.key!)")!
+        print("Uploaded to:\n\(s3URL)")
+        
+        
+        /*
+        // Perform file upload
+        //transferManager.upload(uploadRequest!).continue { (task) -> AnyObject! in
+     transferManager.upload(uploadRequest!).continue(with: AWSExecutor.mainThread(), withSuccessBlock: { (taskk: AWSTask) -> Any? in
+        
+        //transferManager?.upload(uploadRequest).continue(with: AWSExecutor.mainThread(), withSuccessBlock: { (taskk: AWSTask) -> Any? in
+        
+    
+        
+            
+            DispatchQueue.main.async {
+                self.profileIndicator.isHidden=true
+                self.profileIndicator.stopAnimating()
+                
+            }
+            
+            if let exception = task.exception {
+                print("Upload failed with exception (\(exception))")
+                
+                
+                
+            }
+            
+            if task.result != nil {
+                DispatchQueue.main.async {
+                    self.profilePic.contentMode = .scaleAspectFill
+                    self.profilePic.image = profileImage
+                    print("Uploaded to:\n\(s3URL)")
+                    
+                    let parmDict: NSDictionary = ["userId":uId!, "picture": String(s3URL)]
+                    let defaults = UserDefaults.standard
+                    defaults.set(String(s3URL), forKey: "userProfilePic")
+                    
+                    print(parmDict)
+                    self.boolProfile=true
+                    self.changeUserProfileApi(parmDict)
+                    
+                    
+                }
+                
+                
+                
+            }
+            else {
+                print("Unexpected empty result.")
+                
+                
+                
+                if let error = task.error {
+                    print("Upload failed with error: (\(error.localizedDescription))")
+                    if error.localizedDescription == "The Internet connection appears to be offline."
+                    {
+                        DispatchQueue.main.async {
+                            MBProgressHUD.hideAllHUDs(for: self.view, animated: true)
+                            
+                            SweetAlert().showAlert("PYT", subTitle: "Please check internet!", style: AlertStyle.warning)
+                        }
+                    }
+                        
+                    else if(error.localizedDescription == "An SSL error has occurred and a secure connection to the server cannot be made.")
+                    {
+                        //MANAGE RETRY HERE
+                    }
+                    
+                    
+                    
+                }
+                    
+                else{
+                    
+                    
+                    //MANAGE RETRY HERE
+                    
+                    
+                }
+                
+                
+            }
+            
+            
+            
+            
+            
+            
+            return nil
+            
+            
+            
+            
+            
+            
+            
+        }
+        
+        
+        */
+        
+        
+        
+        
+        
+        
+        
+        
+        
+    }
+    
+    
+    
+    
+    
+    
+    func scaleImage(_ image: UIImage, toSize newSize: CGSize) -> UIImage {
+        var scaledSize:CGSize = newSize
+        var scaleFactor: Float = 1
+        if image.size.width > image.size.height {
+            scaleFactor = Float(image.size.width / image.size.height)
+            scaledSize.width = newSize.width
+            scaledSize.height =  newSize.height / CGFloat(scaleFactor)
+        }
+        else {
+            scaleFactor = Float(image.size.height / image.size.width)
+            scaledSize.height = newSize.height
+            scaledSize.width = newSize.width / CGFloat(scaleFactor)
+        }
+        UIGraphicsBeginImageContextWithOptions(scaledSize, false, 0.0)
+        let scaledImageRect = CGRect(x: 0.0, y: 0.0, width: scaledSize.width, height: scaledSize.height)
+        image.draw(in: scaledImageRect)
+        let scaledImage = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        
+        
+        
+        
+        
+        return scaledImage!
+    }
+    
+    
+    
     
     
     
