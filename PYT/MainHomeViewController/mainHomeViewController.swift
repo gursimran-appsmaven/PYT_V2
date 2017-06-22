@@ -62,8 +62,6 @@ class mainHomeViewController: UIViewController, SDWebImageManagerDelegate, apiCl
     
     
     
-    
-    
     var colorArray = [
         UIColor.green.withAlphaComponent(0.5) ,
         UIColor.blue.withAlphaComponent(0.5) ,
