@@ -14,6 +14,8 @@
 		100EE3A41EF156A8005A79C1 /* PYTTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 100EE3A31EF156A8005A79C1 /* PYTTests.swift */; };
 		100EE3AF1EF156A8005A79C1 /* PYTUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 100EE3AE1EF156A8005A79C1 /* PYTUITests.swift */; };
 		100EE3BE1EF15F1E005A79C1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 100EE3BD1EF15F1E005A79C1 /* AppDelegate.swift */; };
+		1025FBA11EFBD8000068B557 /* apiClassInterest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1025FB9E1EFBD8000068B557 /* apiClassInterest.swift */; };
+		1025FBA31EFBD8000068B557 /* intrestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1025FBA01EFBD8000068B557 /* intrestViewController.swift */; };
 		104182681EF253D400078527 /* apiClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 104182671EF253D400078527 /* apiClass.swift */; };
 		1041826B1EF25D4300078527 /* CommonFunctionsClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1041826A1EF25D4300078527 /* CommonFunctionsClass.swift */; };
 		1041826D1EF2688C00078527 /* storyCountClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1041826C1EF2688C00078527 /* storyCountClass.swift */; };
@@ -81,6 +83,8 @@
 		100EE3AE1EF156A8005A79C1 /* PYTUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PYTUITests.swift; sourceTree = "<group>"; };
 		100EE3B01EF156A8005A79C1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		100EE3BD1EF15F1E005A79C1 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		1025FB9E1EFBD8000068B557 /* apiClassInterest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = apiClassInterest.swift; sourceTree = "<group>"; };
+		1025FBA01EFBD8000068B557 /* intrestViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = intrestViewController.swift; sourceTree = "<group>"; };
 		104182671EF253D400078527 /* apiClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = apiClass.swift; path = SingltonClass/apiClass.swift; sourceTree = "<group>"; };
 		1041826A1EF25D4300078527 /* CommonFunctionsClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CommonFunctionsClass.swift; path = SingltonClass/CommonFunctionsClass.swift; sourceTree = "<group>"; };
 		1041826C1EF2688C00078527 /* storyCountClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = storyCountClass.swift; path = "Story Class/storyCountClass.swift"; sourceTree = "<group>"; };
@@ -190,6 +194,7 @@
 				10C4E9DC1EF3A80700E05303 /* Search Screen */,
 				1068D1591EF7A73600047942 /* Tab Bar Controller */,
 				10D0057E1EF78B81002BED25 /* MainHomeViewController */,
+				1025FB9D1EFBD8000068B557 /* InterestViewController */,
 				104182691EF253DA00078527 /* Singlton Class */,
 				1041826E1EF2688F00078527 /* StoryClassVc */,
 				10CD18871EF7FE440031093F /* GestureViewClass */,
@@ -218,6 +223,15 @@
 				100EE3B01EF156A8005A79C1 /* Info.plist */,
 			);
 			path = PYTUITests;
+			sourceTree = "<group>";
+		};
+		1025FB9D1EFBD8000068B557 /* InterestViewController */ = {
+			isa = PBXGroup;
+			children = (
+				1025FB9E1EFBD8000068B557 /* apiClassInterest.swift */,
+				1025FBA01EFBD8000068B557 /* intrestViewController.swift */,
+			);
+			path = InterestViewController;
 			sourceTree = "<group>";
 		};
 		104182691EF253DA00078527 /* Singlton Class */ = {
@@ -643,8 +657,10 @@
 				10CD18861EF7EA780031093F /* cellClassTableViewCell.swift in Sources */,
 				10CD188A1EF7FE440031093F /* GestureViewClass.swift in Sources */,
 				1089A5A91EF3EAFC006197FE /* signupProfilePictureViewController.swift in Sources */,
+				1025FBA31EFBD8000068B557 /* intrestViewController.swift in Sources */,
 				100EE3BE1EF15F1E005A79C1 /* AppDelegate.swift in Sources */,
 				104182721EF26A4600078527 /* objectiveCFile.m in Sources */,
+				1025FBA11EFBD8000068B557 /* apiClassInterest.swift in Sources */,
 				1068D15B1EF7A73600047942 /* MainTabBarViewController.swift in Sources */,
 				104182B11EF26AEC00078527 /* UIColor+CreateMethods.m in Sources */,
 				10D005801EF78B81002BED25 /* mainHomeViewController.swift in Sources */,

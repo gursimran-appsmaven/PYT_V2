@@ -20,9 +20,7 @@ class IntrestTableViewCell: UITableViewCell {
     
     @IBOutlet var beenThereLabel: UILabel!
     
-    @IBOutlet var outsideView: UIView!
     
-    @IBOutlet var clock: UIButton!
     
     @IBOutlet weak var categoryButton: UIButton!
     
@@ -34,14 +32,6 @@ class IntrestTableViewCell: UITableViewCell {
         museumImage.contentMode = .scaleAspectFill
         museumImage.layer.cornerRadius=0
         museumImage.clipsToBounds=true
-        
-        outsideView.layer.cornerRadius=3
-        outsideView.clipsToBounds=true
-       // outsideView.layer.shadowColor = UIColor .blueColor().CGColor
-        outsideView.layer.shadowOffset = CGSize(width: 0, height: 2.5)
-        outsideView.layer.shadowOpacity = 0.7
-        outsideView.layer.shadowRadius = 3.0
-        
         
         
         //            let maskPath = UIBezierPath(roundedRect: cell.bottomView.bounds, byRoundingCorners: ([.BottomLeft, .BottomRight]), cornerRadii: CGSizeMake(8.0, 8.0))

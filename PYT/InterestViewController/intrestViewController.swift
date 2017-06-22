@@ -2804,80 +2804,18 @@ class intrestViewController: UIViewController, apiClassInterestDelegate ,UITable
         self.tempFunc()
         
         
-        let nxtObj2 = self.storyboard?.instantiateViewController(withIdentifier: "imageEditViewController") as! imageEditViewController
-        nxtObj2.screenName = "Interest"
+      //  let nxtObj2 = self.storyboard?.instantiateViewController(withIdentifier: "imageEditViewController") as! imageEditViewController
+        //nxtObj2.screenName = "Interest"
         
         
         
        // print(self.photosArray.objectAtIndex(self.index2))
         
         
-       
-
+        //self.navigationController! .pushViewController(nxtObj2, animated: true)
         
         
-        self.navigationController! .pushViewController(nxtObj2, animated: true)
         
-        /*
-         
-         
-         // Create the alert controller
-         let alertController = UIAlertController(title: "Pyt", message: "Are you sure to delete this image?", preferredStyle: .Alert)
-         
-         // Create the actions
-         let okAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default) {
-         UIAlertAction in
-         
-         print("delete image tapped")
-         
-         let source = self.photosArray.objectAtIndex(self.index2).valueForKey("source") as? String ?? ""
-         let imageId = self.photosArray.objectAtIndex(self.index2).valueForKey("id") as? String ?? ""
-         let imageUrl = self.photosArray.objectAtIndex(self.index2).valueForKey("imageLarge") as? String ?? ""
-         
-         
-         let defaults = NSUserDefaults.standardUserDefaults()
-         let uId = defaults .stringForKey("userLoginId")
-         
-         
-         
-         let parameterString = "userId=\(uId!)&photoId=\(imageId)&imageUrl=\(imageUrl)"
-         print(parameterString)
-         
-         MBProgressHUD.showHUDAddedTo(self.view, animated: true)
-         apiClass.sharedInstance().postRequestDeleteImagePytFromInterest(parameterString, viewController: self)
-         
-         
-         
-         //self.deletImageManage()
-         
-         
-         
-         
-         
-         
-         
-         
-         }
-         
-         
-         let cancelAction = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel) {
-         UIAlertAction in
-         NSLog("Cancel Pressed")
-         
-         
-         }
-         
-         
-         // Add the actions
-         alertController.addAction(okAction)
-         alertController.addAction(cancelAction)
-         
-         self.presentViewController(alertController, animated: true, completion: nil)
-         
-         
-         
-         
-         */
         
         
         
@@ -2885,11 +2823,9 @@ class intrestViewController: UIViewController, apiClassInterestDelegate ,UITable
     
     
     
-    func deletImageManage() {
-        
-        
-        
-        
+    func deletImageManage()
+    {
+    
         
         let strarr = self.categId .object(at: 0) //.componentsJoinedByString(",")
         let type = UserDefaults.standard.value(forKey: "selectedLocationType") as? String ?? ""
@@ -3138,3 +3074,20 @@ class intrestViewController: UIViewController, apiClassInterestDelegate ,UITable
      */
     
 }
+
+
+
+class IntrestTableViewCell: UITableViewCell {
+
+
+
+
+
+}
+
+
+
+
+
+
+
