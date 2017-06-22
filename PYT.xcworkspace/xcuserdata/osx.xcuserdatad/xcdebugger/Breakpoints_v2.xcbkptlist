@@ -351,8 +351,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "4906"
             endingLineNumber = "4906"
-            landmarkName = "imageTapped(_:)"
-            landmarkType = "7">
+            landmarkName = "mainHomeViewController"
+            landmarkType = "4">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
