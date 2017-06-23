@@ -748,6 +748,7 @@ class intrestViewController: UIViewController, apiClassInterestDelegate ,UITable
                 
                 //cell.layer.cornerRadius=5
                 cell.clipsToBounds=true
+                cell.locationImage.contentMode = .scaleAspectFill
                 cell.locationImage.clipsToBounds=true
                 cell.locationImage.backgroundColor = UIColor.white
                 cell.tag=1000*self.segmentControl.selectedSegmentIndex+indexPath.row
