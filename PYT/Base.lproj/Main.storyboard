@@ -1312,7 +1312,7 @@
                                                         </connections>
                                                     </collectionView>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Travel Gurus" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7fJ-Ei-igS">
-                                                        <rect key="frame" x="8" y="280" width="82.5" height="21"/>
+                                                        <rect key="frame" x="8" y="280" width="78.5" height="21"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="21" id="5n7-2x-7x3"/>
                                                         </constraints>
@@ -1320,7 +1320,7 @@
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" alpha="0.75" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Inspiration from the best travel bloggers" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oM1-B3-Teh">
-                                                        <rect key="frame" x="8" y="301" width="206" height="17"/>
+                                                        <rect key="frame" x="8" y="301" width="214" height="17"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="17" id="waw-LU-zYL"/>
                                                         </constraints>
@@ -2079,7 +2079,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="80"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Discover" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GW8-b6-oXy">
-                                        <rect key="frame" x="156.5" y="30" width="62.5" height="21"/>
+                                        <rect key="frame" x="154.5" y="30" width="66.5" height="21"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="21" id="dKf-6p-nNM"/>
                                         </constraints>
