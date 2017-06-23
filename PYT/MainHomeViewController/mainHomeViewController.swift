@@ -4009,6 +4009,8 @@ extension mainHomeViewController: UICollectionViewDelegate, UICollectionViewData
                     
                     locationimage.sd_setImage(with: url2, placeholderImage: UIImage (named: "backgroundImage"))
                     
+                    locationimage.focusOnFaces = true
+                    
                     let gradient = cell.viewWithTag(7499) as! GradientView
                     
                     gradient.gradientLayer.colors = [UIColor.black.withAlphaComponent(0.5).cgColor, UIColor.clear.cgColor]

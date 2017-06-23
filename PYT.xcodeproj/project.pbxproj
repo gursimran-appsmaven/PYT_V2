@@ -26,6 +26,7 @@
 		104182981EF26AEC00078527 /* FBSDKShareKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 104182791EF26AEC00078527 /* FBSDKShareKit.framework */; };
 		104182B01EF26AEC00078527 /* SweetAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 104182921EF26AEC00078527 /* SweetAlert.swift */; };
 		104182B11EF26AEC00078527 /* UIColor+CreateMethods.m in Sources */ = {isa = PBXBuildFile; fileRef = 104182941EF26AEC00078527 /* UIColor+CreateMethods.m */; };
+		105ED8DD1EFCE11400C133D0 /* UIImageView+FaceAware.swift in Sources */ = {isa = PBXBuildFile; fileRef = 105ED8DC1EFCE11400C133D0 /* UIImageView+FaceAware.swift */; };
 		1068D15B1EF7A73600047942 /* MainTabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1068D15A1EF7A73600047942 /* MainTabBarViewController.swift */; };
 		1089A5A81EF3EAFC006197FE /* ForgotPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1089A5A41EF3EAFC006197FE /* ForgotPasswordViewController.swift */; };
 		1089A5A91EF3EAFC006197FE /* signupProfilePictureViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1089A5A51EF3EAFC006197FE /* signupProfilePictureViewController.swift */; };
@@ -98,6 +99,7 @@
 		104182931EF26AEC00078527 /* UIColor+CreateMethods.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+CreateMethods.h"; sourceTree = "<group>"; };
 		104182941EF26AEC00078527 /* UIColor+CreateMethods.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+CreateMethods.m"; sourceTree = "<group>"; };
 		104182B21EF26DB100078527 /* PYT-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "PYT-Bridging-Header.h"; sourceTree = "<group>"; };
+		105ED8DC1EFCE11400C133D0 /* UIImageView+FaceAware.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImageView+FaceAware.swift"; sourceTree = "<group>"; };
 		1068D15A1EF7A73600047942 /* MainTabBarViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainTabBarViewController.swift; sourceTree = "<group>"; };
 		1089A5A41EF3EAFC006197FE /* ForgotPasswordViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ForgotPasswordViewController.swift; path = LoginSignupClasses/ForgotPasswordViewController.swift; sourceTree = "<group>"; };
 		1089A5A51EF3EAFC006197FE /* signupProfilePictureViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = signupProfilePictureViewController.swift; path = LoginSignupClasses/signupProfilePictureViewController.swift; sourceTree = "<group>"; };
@@ -190,6 +192,7 @@
 			children = (
 				100EE3921EF156A7005A79C1 /* Main.storyboard */,
 				10B3A3231EF3DE890053989C /* SF_Font */,
+				105ED8DB1EFCE11400C133D0 /* FaceAware */,
 				100EE3BD1EF15F1E005A79C1 /* AppDelegate.swift */,
 				100EE3901EF156A7005A79C1 /* ViewController.swift */,
 				10940A701EF2CC9900864242 /* LoginSignupClasses */,
@@ -276,6 +279,14 @@
 				104182941EF26AEC00078527 /* UIColor+CreateMethods.m */,
 			);
 			path = socialFramework;
+			sourceTree = "<group>";
+		};
+		105ED8DB1EFCE11400C133D0 /* FaceAware */ = {
+			isa = PBXGroup;
+			children = (
+				105ED8DC1EFCE11400C133D0 /* UIImageView+FaceAware.swift */,
+			);
+			path = FaceAware;
 			sourceTree = "<group>";
 		};
 		1068D1591EF7A73600047942 /* Tab Bar Controller */ = {
@@ -677,6 +688,7 @@
 				1089A5AA1EF3EAFC006197FE /* SignUpScreenViewController.swift in Sources */,
 				1041826B1EF25D4300078527 /* CommonFunctionsClass.swift in Sources */,
 				1089A5A81EF3EAFC006197FE /* ForgotPasswordViewController.swift in Sources */,
+				105ED8DD1EFCE11400C133D0 /* UIImageView+FaceAware.swift in Sources */,
 				100EE3911EF156A7005A79C1 /* ViewController.swift in Sources */,
 				104182681EF253D400078527 /* apiClass.swift in Sources */,
 				1041826D1EF2688C00078527 /* storyCountClass.swift in Sources */,
