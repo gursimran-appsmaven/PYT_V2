@@ -48,6 +48,7 @@
 		10CD188A1EF7FE440031093F /* GestureViewClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10CD18881EF7FE440031093F /* GestureViewClass.swift */; };
 		10CD188B1EF7FE440031093F /* LongPressGesture.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10CD18891EF7FE440031093F /* LongPressGesture.swift */; };
 		10D005801EF78B81002BED25 /* mainHomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10D0057F1EF78B81002BED25 /* mainHomeViewController.swift */; };
+		10F6B4911EFC0CB5001010F5 /* ChooseInterestVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10F6B4901EFC0CB5001010F5 /* ChooseInterestVC.swift */; };
 		3560C2CC3CCBA85BAE977F76 /* Pods_PYT.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1513D63A44D48DD66BDE374E /* Pods_PYT.framework */; };
 		3F0A1A839E646D951FB2AFE2 /* Pods_PYTTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E7F872540E6E55EA79995C4E /* Pods_PYTTests.framework */; };
 		D40763B2F488B3119D99F30D /* Pods_PYTUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DF1CBD5A76A6F2CFB3117474 /* Pods_PYTUITests.framework */; };
@@ -120,6 +121,7 @@
 		10CD18881EF7FE440031093F /* GestureViewClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GestureViewClass.swift; sourceTree = "<group>"; };
 		10CD18891EF7FE440031093F /* LongPressGesture.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LongPressGesture.swift; sourceTree = "<group>"; };
 		10D0057F1EF78B81002BED25 /* mainHomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = mainHomeViewController.swift; sourceTree = "<group>"; };
+		10F6B4901EFC0CB5001010F5 /* ChooseInterestVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChooseInterestVC.swift; sourceTree = "<group>"; };
 		1513D63A44D48DD66BDE374E /* Pods_PYT.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PYT.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		189BCB752BE844C72E8099AE /* Pods-PYTTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PYTTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-PYTTests/Pods-PYTTests.debug.xcconfig"; sourceTree = "<group>"; };
 		339B98DE012895F7805568E9 /* Pods-PYTUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PYTUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-PYTUITests/Pods-PYTUITests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -676,6 +678,7 @@
 				104182B11EF26AEC00078527 /* UIColor+CreateMethods.m in Sources */,
 				10D005801EF78B81002BED25 /* mainHomeViewController.swift in Sources */,
 				10B3A3371EF3E5980053989C /* extensions.swift in Sources */,
+				10F6B4911EFC0CB5001010F5 /* ChooseInterestVC.swift in Sources */,
 				10C4E9E81EF3BBE800E05303 /* searchScreenViewController.swift in Sources */,
 				104182B01EF26AEC00078527 /* SweetAlert.swift in Sources */,
 				10C4E9E21EF3B76600E05303 /* searchTableCell.swift in Sources */,

@@ -1320,7 +1320,7 @@
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" alpha="0.75" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Inspiration from the best travel bloggers" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oM1-B3-Teh">
-                                                        <rect key="frame" x="8" y="301" width="206" height="17"/>
+                                                        <rect key="frame" x="8" y="301" width="214" height="17"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="17" id="waw-LU-zYL"/>
                                                         </constraints>
@@ -1784,6 +1784,9 @@
                                         </constraints>
                                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="10" maxY="0.0"/>
                                         <state key="normal" image="addinterest"/>
+                                        <connections>
+                                            <action selector="chooseInterestAction:" destination="Y5h-VW-IeB" eventType="touchUpInside" id="DI0-qf-sgO"/>
+                                        </connections>
                                     </button>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wu8-uL-vHw" customClass="HMSegmentedControl">
                                         <rect key="frame" x="0.0" y="55" width="375" height="25"/>
@@ -2272,7 +2275,7 @@
                                                                                 <rect key="frame" x="0.0" y="1" width="180" height="149"/>
                                                                                 <subviews>
                                                                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="biglike" translatesAutoresizingMaskIntoConstraints="NO" id="BDl-RI-Tqy">
-                                                                                        <rect key="frame" x="40" y="25.5" width="100" height="100"/>
+                                                                                        <rect key="frame" x="40" y="25" width="100" height="100"/>
                                                                                     </imageView>
                                                                                 </subviews>
                                                                                 <color key="backgroundColor" red="0.098657852559999995" green="0.098657852559999995" blue="0.098657852559999995" alpha="0.66171875000000002" colorSpace="custom" customColorSpace="sRGB"/>
@@ -3209,7 +3212,7 @@
         <!--Choose InterestVC-->
         <scene sceneID="gBM-yW-nrf">
             <objects>
-                <viewController storyboardIdentifier="ChooseInterestVC" id="eUn-OU-sH5" customClass="ChooseInterestVC" customModule="PYT" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ChooseInterestVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="eUn-OU-sH5" customClass="ChooseInterestVC" customModule="PYT" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="SJm-uv-IZt"/>
                         <viewControllerLayoutGuide type="bottom" id="TC0-Bu-JpB"/>
@@ -3237,6 +3240,9 @@
                                         </constraints>
                                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="10" maxY="0.0"/>
                                         <state key="normal" image="Close"/>
+                                        <connections>
+                                            <action selector="closeButton:" destination="eUn-OU-sH5" eventType="touchUpInside" id="klm-F2-gxg"/>
+                                        </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" alpha="0.75" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Interest you choose help us to create personalized experience for you" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="78A-JS-kYh">
                                         <rect key="frame" x="56" y="67" width="262" height="33"/>
@@ -3317,6 +3323,9 @@
                                 <state key="normal" title="Done">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <connections>
+                                    <action selector="doneButton:" destination="eUn-OU-sH5" eventType="touchUpInside" id="IEj-oI-Fvw"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>

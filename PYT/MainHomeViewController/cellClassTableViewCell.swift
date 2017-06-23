@@ -48,9 +48,8 @@ class cellClassTableViewCell: UITableViewCell{
 //        ChatButton.layer.cornerRadius = 10.0
 //        ChatButton.clipsToBounds = true
         
-        userProfilePic.layer.cornerRadius = userProfilePic.frame.size.width/2
-        userProfilePic.clipsToBounds=true
-        imagesCollectionView.clipsToBounds=true
+
+//        imagesCollectionView.clipsToBounds=true
       
         
     }
