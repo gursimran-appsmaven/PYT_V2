@@ -753,6 +753,12 @@ class intrestViewController: UIViewController, apiClassInterestDelegate ,UITable
                 cell.locationImage.backgroundColor = UIColor.white
                 cell.tag=1000*self.segmentControl.selectedSegmentIndex+indexPath.row
                 
+                let gradient = cell.viewWithTag(7499) as! GradientView
+                
+                gradient.gradientLayer.colors = [UIColor.black.withAlphaComponent(0.75).cgColor, UIColor.clear.cgColor]
+                gradient.gradientLayer.gradient = GradientPoint.bottomTop.draw()
+
+                
              cell.likeBtn.tag=1000*self.segmentControl.selectedSegmentIndex+indexPath.row
              cell.likeBtn.addTarget(self, action: #selector(intrestViewController.LikeTapped(_:)), for: .touchUpInside)
                 
