@@ -357,7 +357,7 @@ class intrestViewController: UIViewController, apiClassInterestDelegate ,UITable
             categorySelected = checked.object(at: 0) as! NSString
             segmentControl.setSelectedSegmentIndex(0, animated: false)
             
-           // segmentControl.addTarget(self, action: #selector(self.segmentedControlChangedValue), for: .valueChanged)
+            segmentControl.addTarget(self, action: #selector(self.segmentedControlChangedValue), for: .valueChanged)
             
             
         }
@@ -761,28 +761,8 @@ class intrestViewController: UIViewController, apiClassInterestDelegate ,UITable
                 
                 
                 
-                ////Attributed string---///
-//                let segAttributes: NSDictionary = [
-//                    NSForegroundColorAttributeName: UIColor.darkGray,
-//                    NSFontAttributeName: UIFont(name:"Roboto-Light", size: 12.0)!
-//                ]
-//                
-//                let segAttributes2: NSDictionary = [
-//                    NSForegroundColorAttributeName: UIColor.black,
-//                    NSFontAttributeName: UIFont(name:"Roboto-Regular", size: 14.0)!
-//                ]
-//                
-//                let attributedString1 = NSMutableAttributedString(string:"", attributes:segAttributes as? [String : AnyObject])
-//                
-//                let attributedString2 = NSMutableAttributedString(string:locationCity, attributes:segAttributes2 as? [String : AnyObject])
-//                
-//                attributedString1.append(attributedString2)
-//                cell.locationLabel.attributedText = attributedString1
+          
                 cell.locationLabel.text = locationCity
-                
-                
-                
-                
                 
                 
                 let currentIndex = (indexCount.object(at: indexPath.row) as AnyObject).value(forKey: "index") as! Int
@@ -809,15 +789,7 @@ class intrestViewController: UIViewController, apiClassInterestDelegate ,UITable
                 cell.locationImage.backgroundColor = UIColor.white
                 cell.tag=1000*self.segmentControl.selectedSegmentIndex+indexPath.row
                 
-                let longView = UIView()
-                longView.frame=cell.frame
-                longView.tag=1000*self.segmentControl.selectedSegmentIndex+indexPath.row
-                //cell .addSubview(longView)
-                
-                
-              //  let longTapGest = UILongPressGestureRecognizer(target: self, action: #selector(intrestViewController.longTap(_:)))
-                
-               // cell.addGestureRecognizer(longTapGest)
+             cell.likeBtn.tag=1000*self.segmentControl.selectedSegmentIndex+indexPath.row
                 
                 
                 
@@ -863,7 +835,7 @@ class intrestViewController: UIViewController, apiClassInterestDelegate ,UITable
                 
                 //SHOW THE COUNT OF LIKED
                 likecountlbl.text=String(describing: countLik)
-                likeimg.image=UIImage (named: "like_count")
+                likeimg.image=UIImage (named: "Like")
                 
                 
                 ///////-  Show liked by me-/////
@@ -879,7 +851,8 @@ class intrestViewController: UIViewController, apiClassInterestDelegate ,UITable
                             let indexOfImageId = (likeCount.value(forKey: "imageId") as AnyObject).index(of: imageId2)
                             
                             if (likeCount.object(at: indexOfImageId) as AnyObject).value(forKey: "like") as! Bool == true {
-                                likeimg.image=UIImage (named: "likedCount")
+                                likeimg.image=UIImage (named: "likefill")//Like
+                                
                                 let staticCount = (likeCount.object(at: indexOfImageId) as AnyObject).value(forKey: "count") as? NSNumber
                                 likecountlbl.text=String(describing: staticCount!)// String(self.addTheLikes(staticCount!))
                                 
@@ -887,7 +860,7 @@ class intrestViewController: UIViewController, apiClassInterestDelegate ,UITable
                                 
                             }
                             else{
-                                likeimg.image=UIImage (named: "like_count")
+                                likeimg.image=UIImage (named: "Like")//unlike
                                 let staticCount = (likeCount.object(at: indexOfImageId) as AnyObject).value(forKey: "count") as? NSNumber
                                 likecountlbl.text=String(describing: staticCount!) //(self.addTheLikes(staticCount!))
                             }
@@ -899,7 +872,7 @@ class intrestViewController: UIViewController, apiClassInterestDelegate ,UITable
                             likeCount .add(["imageId":imageId2,"userId":uId!, "like": true, "count": countLik])
                             print(likeCount)
                             likecountlbl.text=String(describing: countLik)
-                            likeimg.image=UIImage (named: "likedCount")
+                            likeimg.image=UIImage (named: "likefill")
                         }
                         
                         
@@ -917,7 +890,7 @@ class intrestViewController: UIViewController, apiClassInterestDelegate ,UITable
                             let indexOfImageId = (likeCount.value(forKey: "imageId") as AnyObject).index(of: imageId2)
                             
                             if (likeCount.object(at: indexOfImageId) as AnyObject).value(forKey: "like") as! Bool == true {
-                                likeimg.image=UIImage (named: "likedCount")
+                                likeimg.image=UIImage (named: "likefill")
                                 let staticCount = (likeCount.object(at: indexOfImageId) as AnyObject).value(forKey: "count") as? NSNumber
                                 likecountlbl.text=String(describing: staticCount!)
                                 
@@ -925,7 +898,7 @@ class intrestViewController: UIViewController, apiClassInterestDelegate ,UITable
                             else{
                                 let staticCount = (likeCount.object(at: indexOfImageId) as AnyObject).value(forKey: "count") as? NSNumber
                                 likecountlbl.text=String(describing: staticCount!)
-                                likeimg.image=UIImage (named: "like_count")
+                                likeimg.image=UIImage (named: "Like")
                             }
                         }
                         
@@ -949,7 +922,7 @@ class intrestViewController: UIViewController, apiClassInterestDelegate ,UITable
                         let indexOfImageId = (likeCount.value(forKey: "imageId") as AnyObject).index(of: imageId2)
                         
                         if (likeCount.object(at: indexOfImageId) as AnyObject).value(forKey: "like") as! Bool == true {
-                            likeimg.image=UIImage (named: "likedCount")
+                            likeimg.image=UIImage (named: "likefill")
                             let staticCount = (likeCount.object(at: indexOfImageId) as AnyObject).value(forKey: "count") as? NSNumber
                             likecountlbl.text=String(describing: staticCount!)
                             
@@ -957,7 +930,7 @@ class intrestViewController: UIViewController, apiClassInterestDelegate ,UITable
                         else{
                             let staticCount = (likeCount.object(at: indexOfImageId) as AnyObject).value(forKey: "count") as? NSNumber
                             likecountlbl.text=String(describing: staticCount!)
-                            likeimg.image=UIImage (named: "like_count")
+                            likeimg.image=UIImage (named: "Like")
                         }
                     }
                     
@@ -2323,49 +2296,7 @@ class intrestViewController: UIViewController, apiClassInterestDelegate ,UITable
             
             self.tabBarController?.view.bringSubview(toFront: popUpView)
             
-            
-            let tapGestureRecognizer = UITapGestureRecognizer()
-            tapGestureRecognizer.addTarget(self, action: #selector(intrestViewController.tempFunc))
-            
-            popUpView.addGestureRecognizer(tapGestureRecognizer)
-            
-            
-            
-            let tapGestureRecognizer2 = UITapGestureRecognizer(target:self, action:#selector(intrestViewController.storyImageTapped))
-            addToStory.isUserInteractionEnabled = true
-            addToStory.addGestureRecognizer(tapGestureRecognizer2)
-            
-            self.popUpView.bringSubview(toFront: addToStory)
-            
-            
-            
-            let tapGestureRecognizer3 = UITapGestureRecognizer(target:self, action:#selector(intrestViewController.likeImageTapped))
-            likeImage.isUserInteractionEnabled = true
-            likeImage.addGestureRecognizer(tapGestureRecognizer3)
-            
-            self.popUpView.bringSubview(toFront: likeImage)
-            
-            
-            
-            let tapGestureRecognizer4 = UITapGestureRecognizer(target:self, action:#selector(intrestViewController.bucketImageTapped))
-            addToBucket.isUserInteractionEnabled = true
-            addToBucket.addGestureRecognizer(tapGestureRecognizer4)
-            
-            self.popUpView.bringSubview(toFront: addToBucket)
-            
-            
-            
-            let tapGestureRecognizer5 = UITapGestureRecognizer(target:self, action:#selector(intrestViewController.deleteImageTapped))
-            deleteImage.isUserInteractionEnabled = true
-            deleteImage.addGestureRecognizer(tapGestureRecognizer5)
-            
-            self.popUpView.bringSubview(toFront: deleteImage)
-            
-            
-            
-            
-            //self.tabBarController?.tabBar.userInteractionEnabled=false
-            // self.tabBarController?.tabBar.alpha = 0.6
+         
             
         }
         
@@ -2465,149 +2396,7 @@ class intrestViewController: UIViewController, apiClassInterestDelegate ,UITable
     
     
     
-    ///Like image tapped
-    func likeImageTapped()
-    {
-        
-        // Your action
-        
-        print("like image tapped")
-        
     
-        let defaults = UserDefaults.standard
-        let uId = defaults .string(forKey: "userLoginId")
-        let userNameMy = defaults.string(forKey: "userLoginName")
-        let imageId = (photosArray[index2] as AnyObject).value(forKey: "id") as? String ?? ""
-        let otherUserId = (photosArray[index2] as AnyObject).value(forKey: "userId") as? String ?? ""
-        
-        
-        print("like image tapped")
-        
-        
-        
-        
-        ///MANAGE LIKE View
-        
-        
-        let likecountlbl = longTapedView.viewWithTag(7478) as! UILabel
-        
-        // hide and show the view of like
-        
-        
-        let likeimg = longTapedView.viewWithTag(7477) as! UIImageView
-        let nxtObjMain = self.storyboard?.instantiateViewController(withIdentifier: "mainHomeViewController") as! mainHomeViewController
-        
-        
-        
-        
-        //MARK: LIKE COUNT MANAGE
-        
-        var countLik = NSNumber()
-        
-        if (self.photosArray.object(at: index2) as AnyObject).value(forKey: "likeCount") != nil  {
-            
-            countLik = (self.photosArray.object(at: index2) as AnyObject).value(forKey: "likeCount") as! NSNumber  //as? String ?? "0.0"
-            
-            
-        }else
-        {
-            countLik=0
-            
-        }
-        
-        
-        
-        if likeCount.count>0 {
-            if (likeCount.value(forKey: "imageId") as AnyObject).contains(imageId) {
-                
-                let index = (self.likeCount.value(forKey: "imageId") as AnyObject).index(of: imageId)
-                
-                if (likeCount.object(at: index) as AnyObject).value(forKey: "like") as! Bool == true {
-                    
-                    let staticCount = (likeCount.object(at: index) as AnyObject).value(forKey: "count") as? NSNumber
-                    likecountlbl.text=String(nxtObjMain.subtractTheLikes(staticCount!))
-                    
-                    
-                    likeCount .removeObject(at: index)
-                    
-                    likeCount .add(["userId":uId!, "imageId":imageId, "like":false, "count": nxtObjMain.subtractTheLikes(staticCount!)])
-                    
-                    
-                    
-                    
-                    likeimg.image=UIImage (named: "like_count")
-                    
-                    let dat: NSDictionary = ["userId": "\(uId!)", "photoId":"\(imageId)", "userLiked":"\(uId!)", "status":"0", "imageOwn": "\(otherUserId)", "userName": "\(userNameMy!)"]
-                    print("Post to like picture---- \(dat)")
-                    apiClass.sharedInstance().postRequestLikeUnlikeImage(parameters: dat, viewController: self)
-                    
-                    
-                }
-                else
-                {
-                    let staticCount = (likeCount.object(at: index) as AnyObject).value(forKey: "count") as? NSNumber
-                    likecountlbl.text=String(nxtObjMain.addTheLikes(staticCount!))
-                    
-                    likeCount .removeObject(at: index)
-                    likeCount .add(["userId":uId!, "imageId":imageId, "like":true, "count": nxtObjMain.addTheLikes(staticCount!)])
-                    
-                    
-                    print(likeCount.lastObject)
-                    
-                    likeimg.image=UIImage (named: "likedCount")
-                    
-                    let dat: NSDictionary = ["userId": "\(uId!)", "photoId":"\(imageId)", "userLiked":"\(uId!)", "status":"1", "imageOwn": "\(otherUserId)", "userName": "\(userNameMy!)"]
-                    
-                    
-                    print("Post to like picture---- \(dat)")
-                    
-                    apiClass.sharedInstance().postRequestLikeUnlikeImage(parameters: dat, viewController: self)
-                    
-                    
-                }
-            }
-                // if not liked already
-            else{
-                likeCount .add(["userId":uId!, "imageId":imageId, "like":true, "count": nxtObjMain.addTheLikes(countLik)])
-                likecountlbl.text=String(nxtObjMain.addTheLikes(countLik))
-                likeimg.image=UIImage (named: "likedCount")
-                
-                let dat: NSDictionary = ["userId": "\(uId!)", "photoId":"\(imageId)", "userLiked":"\(uId!)", "status":"1", "imageOwn": "\(otherUserId)", "userName": "\(userNameMy!)"]
-                
-                
-                print("Post to like picture---- \(dat)")
-                
-                apiClass.sharedInstance().postRequestLikeUnlikeImage(parameters: dat, viewController: self)
-                
-            }
-            
-        }
-            
-        else
-            
-        {
-            
-            likeCount .add(["userId":uId!, "count":nxtObjMain.addTheLikes(countLik), "like": true, "imageId": imageId])
-            likecountlbl.text=String(nxtObjMain.addTheLikes(countLik))
-            likeimg.image=UIImage (named: "likedCount")
-            
-            let dat: NSDictionary = ["userId": "\(uId!)", "photoId":"\(imageId)", "userLiked":"\(uId!)", "status":"1", "imageOwn": "\(otherUserId)", "userName": "\(userNameMy!)"]
-            
-            
-            print("Post to like picture---- \(dat)")
-            
-            apiClass.sharedInstance().postRequestLikeUnlikeImage(parameters: dat, viewController: self)
-        }
-        
-        
-        
-        
-        
-        self.tempFunc()
-        
-        
-        
-    }
     
     
     
@@ -2922,25 +2711,161 @@ class intrestViewController: UIViewController, apiClassInterestDelegate ,UITable
     
     
     
+    //MARK: New Buttons actions start from here
     
+    func LikeTapped(_ sender: UIButton)
+    {
+        longTapedView=sender.superview!
+        //let b:Int? = (sender.view?.tag)! % 1000
+       // index2 = b!
+        
+        
+        
+    }
     
-    
-    //
-    //    func serverResponseArrived(Response:AnyObject)
-    //    {
-    //
-    //
-    //        jsonMutableArray = NSMutableArray()
-    //        jsonMutableArray = Response as! NSMutableArray
-    //
-    //        tagsArr = jsonMutableArray
-    //        let defaults = NSUserDefaults.standardUserDefaults()
-    //        defaults .setValue(tagsArr, forKey: "categoriesFromWeb")//
-    //        self.categoryBtnAction(self)
-    //        
-    //    }
-    
-    
+    ///Like image tapped
+    func likeImageTapped()
+    {
+        
+        // Your action
+        
+        print("like image tapped")
+        
+        
+        let defaults = UserDefaults.standard
+        let uId = defaults .string(forKey: "userLoginId")
+        let userNameMy = defaults.string(forKey: "userLoginName")
+        let imageId = (photosArray[index2] as AnyObject).value(forKey: "id") as? String ?? ""
+        let otherUserId = (photosArray[index2] as AnyObject).value(forKey: "userId") as? String ?? ""
+        
+        
+        print("like image tapped")
+        
+        
+        
+        
+        ///MANAGE LIKE View
+        
+        
+        let likecountlbl = longTapedView.viewWithTag(7478) as! UILabel
+        
+        // hide and show the view of like
+        
+        
+        let likeimg = longTapedView.viewWithTag(7477) as! UIImageView
+        let nxtObjMain = self.storyboard?.instantiateViewController(withIdentifier: "mainHomeViewController") as! mainHomeViewController
+        
+        
+        
+        
+        //MARK: LIKE COUNT MANAGE
+        
+        var countLik = NSNumber()
+        
+        if (self.photosArray.object(at: index2) as AnyObject).value(forKey: "likeCount") != nil  {
+            
+            countLik = (self.photosArray.object(at: index2) as AnyObject).value(forKey: "likeCount") as! NSNumber  //as? String ?? "0.0"
+            
+            
+        }else
+        {
+            countLik=0
+            
+        }
+        
+        
+        
+        if likeCount.count>0 {
+            if (likeCount.value(forKey: "imageId") as AnyObject).contains(imageId) {
+                
+                let index = (self.likeCount.value(forKey: "imageId") as AnyObject).index(of: imageId)
+                
+                if (likeCount.object(at: index) as AnyObject).value(forKey: "like") as! Bool == true {
+                    
+                    let staticCount = (likeCount.object(at: index) as AnyObject).value(forKey: "count") as? NSNumber
+                    likecountlbl.text=String(nxtObjMain.subtractTheLikes(staticCount!))
+                    
+                    
+                    likeCount .removeObject(at: index)
+                    
+                    likeCount .add(["userId":uId!, "imageId":imageId, "like":false, "count": nxtObjMain.subtractTheLikes(staticCount!)])
+                    
+                    
+                    
+                    
+                    likeimg.image=UIImage (named: "like_count")
+                    
+                    let dat: NSDictionary = ["userId": "\(uId!)", "photoId":"\(imageId)", "userLiked":"\(uId!)", "status":"0", "imageOwn": "\(otherUserId)", "userName": "\(userNameMy!)"]
+                    print("Post to like picture---- \(dat)")
+                    apiClass.sharedInstance().postRequestLikeUnlikeImage(parameters: dat, viewController: self)
+                    
+                    
+                }
+                else
+                {
+                    let staticCount = (likeCount.object(at: index) as AnyObject).value(forKey: "count") as? NSNumber
+                    likecountlbl.text=String(nxtObjMain.addTheLikes(staticCount!))
+                    
+                    likeCount .removeObject(at: index)
+                    likeCount .add(["userId":uId!, "imageId":imageId, "like":true, "count": nxtObjMain.addTheLikes(staticCount!)])
+                    
+                    
+                    print(likeCount.lastObject)
+                    
+                    likeimg.image=UIImage (named: "likedCount")
+                    
+                    let dat: NSDictionary = ["userId": "\(uId!)", "photoId":"\(imageId)", "userLiked":"\(uId!)", "status":"1", "imageOwn": "\(otherUserId)", "userName": "\(userNameMy!)"]
+                    
+                    
+                    print("Post to like picture---- \(dat)")
+                    
+                    apiClass.sharedInstance().postRequestLikeUnlikeImage(parameters: dat, viewController: self)
+                    
+                    
+                }
+            }
+                // if not liked already
+            else{
+                likeCount .add(["userId":uId!, "imageId":imageId, "like":true, "count": nxtObjMain.addTheLikes(countLik)])
+                likecountlbl.text=String(nxtObjMain.addTheLikes(countLik))
+                likeimg.image=UIImage (named: "likedCount")
+                
+                let dat: NSDictionary = ["userId": "\(uId!)", "photoId":"\(imageId)", "userLiked":"\(uId!)", "status":"1", "imageOwn": "\(otherUserId)", "userName": "\(userNameMy!)"]
+                
+                
+                print("Post to like picture---- \(dat)")
+                
+                apiClass.sharedInstance().postRequestLikeUnlikeImage(parameters: dat, viewController: self)
+                
+            }
+            
+        }
+            
+        else
+            
+        {
+            
+            likeCount .add(["userId":uId!, "count":nxtObjMain.addTheLikes(countLik), "like": true, "imageId": imageId])
+            likecountlbl.text=String(nxtObjMain.addTheLikes(countLik))
+            likeimg.image=UIImage (named: "likedCount")
+            
+            let dat: NSDictionary = ["userId": "\(uId!)", "photoId":"\(imageId)", "userLiked":"\(uId!)", "status":"1", "imageOwn": "\(otherUserId)", "userName": "\(userNameMy!)"]
+            
+            
+            print("Post to like picture---- \(dat)")
+            
+            apiClass.sharedInstance().postRequestLikeUnlikeImage(parameters: dat, viewController: self)
+        }
+        
+        
+        
+        
+        
+        self.tempFunc()
+        
+        
+        
+    }
     
     
     
