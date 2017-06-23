@@ -96,15 +96,15 @@ class intrestViewController: UIViewController, apiClassInterestDelegate ,UITable
         
         //DispatchQueue.main.async(execute: {
             self.navigationController! .pushViewController(nxtObj, animated: true)
-            self.dismiss(animated: true, completion: {})
+           // self.dismiss(animated: true, completion: {})
         //})
         
     }
     
     override func viewWillAppear(_ animated: Bool) {
         
-        self.tabBarController?.tabBar.isHidden = false
-        
+        //self.tabBarController?.tabBar.isHidden = false
+         self.tabBarController?.setTabBarVisible(visible: true, animated: true)
         
         //self.emptyView.hidden=false
         
@@ -195,9 +195,7 @@ class intrestViewController: UIViewController, apiClassInterestDelegate ,UITable
                         self.chooseInterestAction(self)
                     }
                 }
-//                else{
-//                    self.chooseInterestAction(self)
-//                }
+
                 
                 else{
                      self.segMentManage()

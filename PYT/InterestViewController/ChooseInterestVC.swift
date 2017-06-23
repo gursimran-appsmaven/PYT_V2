@@ -31,7 +31,9 @@ class ChooseInterestVC: UIViewController , UICollectionViewDelegate,UICollection
     }
     
     override func viewWillAppear(_ animated: Bool) {
-       
+       self.tabBarController?.setTabBarVisible(visible: false, animated: true)
+        
+        
         let defaults=UserDefaults.standard
         
         checked = defaults.mutableArrayValue(forKey: "Interests")
@@ -112,21 +114,39 @@ class ChooseInterestVC: UIViewController , UICollectionViewDelegate,UICollection
     
     @IBAction func doneButton(_ sender: Any)
     {
+        
+        if checked.count<1
+        {
+            CommonFunctionsClass.sharedInstance().showAlert(title: "Opps!", text: "Please select minimum one interest.", imageName: "alertFill")
+            
+        }
+        else
+        {
         Udefaults .setValue(checked, forKey: "Interests")
         Udefaults .setValue(categId, forKey: "IntrestsId")
           Udefaults.set(true, forKey: "refreshInterest")
-        let transition = CATransition()
-        transition.duration = 0.5
-        transition.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
-        transition.type = kCATransitionFade
-        self.navigationController?.view.layer.add(transition, forKey: nil)
-         self.navigationController?.popViewController(animated: false)
+//        let transition = CATransition()
+//        transition.duration = 0.5
+//        transition.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
+//        transition.type = kCATransitionFade
+//        self.navigationController?.view.layer.add(transition, forKey: nil)
+         self.navigationController?.popViewController(animated: true)
+    }
     }
     
     
     @IBAction func closeButton(_ sender: Any)
     {
-    
+    if checked.count<1
+    {
+        CommonFunctionsClass.sharedInstance().showAlert(title: "Opps!", text: "Please select minimum one interest.", imageName: "alertFill")
+        
+        }
+    else{
+        self.navigationController?.popViewController(animated: true)
+        }
+        
+        
     }
     
     

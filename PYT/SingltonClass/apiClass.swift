@@ -764,20 +764,17 @@ class apiClass: NSObject {
                             
                             
                             
-                            
-                            
-                            
-//                            if tagsArrOld .isEqual(to: tagsArr as [AnyObject]) {
-//                                  print("No new category is added")
-//                               
-//                            }
-//                            else
-//                            {
+                            if tagsArrOld .isEqual(to: tagsArr as [AnyObject]) {
+                                  print("No new category is added")
+                               
+                            }
+                            else
+                            {
                                   print("New categories are added")
                                 Udefaults .setValue(nil , forKey: "Interests")
                                 Udefaults .setValue(nil , forKey: "IntrestsId")
                                 Udefaults .setValue(tagsArr, forKey: "categoriesFromWeb")//
-//                            }
+                            }
                             
                         }
                         else{
