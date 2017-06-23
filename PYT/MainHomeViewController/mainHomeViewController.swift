@@ -4932,7 +4932,7 @@ extension mainHomeViewController: UICollectionViewDelegate, UICollectionViewData
         var currentTouchPosition: CGPoint? = touch?.location(in: imagesTableView)
 
         print(currentTouchPosition)
-        print("width: \(dynamicDetailSubview.frame.size.width), height: \(dynamicDetailSubview.frame.size.height),tableView.y + 160:\(dynamicDetailSubview.frame.size.height + 160)")
+        print("width: \(dynamicDetailSubview.frame.size.width), height: \(dynamicDetailSubview.frame.size.height),tableView.y + 160:\(dynamicDetailSubview.frame.size.height + 80)")
         
         var xframe = CGFloat()
         var yframe = CGFloat()
