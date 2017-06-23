@@ -941,7 +941,8 @@ class intrestViewController: UIViewController, apiClassInterestDelegate ,UITable
                     
                     
                 }
-                else{
+                else
+                {
                     let arlik = likeCount.value(forKey: "imageId") as! NSArray
                     
                     if arlik.contains(imageId2) {
@@ -965,15 +966,6 @@ class intrestViewController: UIViewController, apiClassInterestDelegate ,UITable
                     
                     
                 }
-                
-                
-                
-                
-                
-                
-                
-                
-                
                 
                 
                 
