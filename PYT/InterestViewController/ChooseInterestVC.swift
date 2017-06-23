@@ -186,7 +186,7 @@ class ChooseInterestVC: UIViewController , UICollectionViewDelegate,UICollection
     {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "chooseInterestCell", for: indexPath) as! chooseInterestCell
 
-        print(tagsArr)
+        //print(tagsArr)
         cell.interestName.text = (tagsArr .object(at: indexPath.row) as AnyObject).value(forKey: "displayName") as? String
         let catId = (tagsArr .object(at: indexPath.row) as AnyObject).value(forKey: "_id") as! String
         
@@ -226,7 +226,7 @@ class ChooseInterestVC: UIViewController , UICollectionViewDelegate,UICollection
             //                let object = tagsArr .objectAtIndex(indexPath.row).valueForKey("name") as? String ?? ""
             //                checked .addObject(object)
             
-            print(tagsArr .object(at: indexPath.row))
+           // print(tagsArr .object(at: indexPath.row))
             
             let objId = ((tagsArr .object(at: indexPath.row) as AnyObject).value(forKey: "_id") as? String ?? "")
             let objectInt = ((tagsArr .object(at: indexPath.row) as AnyObject).value(forKey: "displayName") as? String)

@@ -18,15 +18,22 @@ class intrestViewController: UIViewController, apiClassInterestDelegate ,UITable
 
     //apiClassDelegate
     
-    //top views
+    //top views and main views
     @IBOutlet var headerLabel: UILabel!
     @IBOutlet var segmentControl: HMSegmentedControl!
     @IBOutlet var tableOfIntrests: UITableView!
     
     
-    
-   
+    /////-----pop up view
+    @IBOutlet var popUpView: UIView!
+    @IBOutlet weak var pupupsubview: CustomView!
+    @IBOutlet weak var likeButtonPopup: UIButton!
+    @IBOutlet weak var addCommentPopup: UIButton!
+    @IBOutlet weak var addToPlanPopup: UIButton!
+    @IBOutlet weak var addToBucketPopup: UIButton!
+    @IBOutlet weak var editBtnPopup: UIButton!
     @IBOutlet weak var emptyView: UIView!
+    
     
     
     
@@ -61,30 +68,8 @@ class intrestViewController: UIViewController, apiClassInterestDelegate ,UITable
     
     
     
-    @IBOutlet var bucketOutlet: UIButton!
-    @IBOutlet var bucketCount: UILabel!
-    @IBOutlet var storyCountLabel: UILabel!
     var storyBucketBool = Bool()
     
-    @IBOutlet weak var addToBucketLblInPopup: UILabel!
-    
-    
-    
-    
-    /////-----pop up view
-    
-    @IBOutlet var popUpView: UIView!
-    
-    @IBOutlet var addToStory: UIImageView!
-    @IBOutlet var likeImage: UIImageView!
-    @IBOutlet var addToBucket: UIImageView!
-    @IBOutlet var addStoryLabelInPopup: UILabel!
-    @IBOutlet var likeLabel: UILabel!
-    
-    @IBOutlet weak var deleteImage: UIImageView!
-    @IBOutlet weak var deleteViewInDetail: UIView!
-    @IBOutlet var deleteViewBottom: NSLayoutConstraint!
-    // var recognizer = UISwipeGestureRecognizer()
     
     
     
@@ -101,13 +86,14 @@ class intrestViewController: UIViewController, apiClassInterestDelegate ,UITable
         
     }
     
-    override func viewWillAppear(_ animated: Bool) {
+    override func viewWillAppear(_ animated: Bool)
+    {
         
         //self.tabBarController?.tabBar.isHidden = false
          self.tabBarController?.setTabBarVisible(visible: true, animated: true)
         
         //self.emptyView.hidden=false
-        
+        self.popUpView.isHidden = true
         apiClassInterest.sharedInstance().delegate=self
         
         
@@ -176,8 +162,8 @@ class intrestViewController: UIViewController, apiClassInterestDelegate ,UITable
                     
                     
                     if tagsArr.count<1 {
-                        let defaults = UserDefaults.standard
-                        let uId = defaults .string(forKey: "userLoginId")
+                       
+                        let uId = Udefaults .string(forKey: "userLoginId")
                         
                         apiClass.sharedInstance().postRequestCategories(parameterString: uId!)
                         
@@ -218,8 +204,7 @@ class intrestViewController: UIViewController, apiClassInterestDelegate ,UITable
                             // let strarr = self.categId .objectAtIndex(0) //componentsJoinedByString(",")
                             let type = UserDefaults.standard.value(forKey: "selectedLocationType") as? String ?? ""
                             
-                            let defaults = UserDefaults.standard
-                            let uId = defaults .string(forKey: "userLoginId")
+                                    let uId = Udefaults .string(forKey: "userLoginId")
                             
                             // let parameterString = "userId=\(uId!)&placeName=\(headerText)&placeType=\(type)&category=\(strarr)"//testing
                             //print(parameterString)
@@ -281,30 +266,10 @@ class intrestViewController: UIViewController, apiClassInterestDelegate ,UITable
         
         DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + Double(Int64(1 * NSEC_PER_SEC)) / Double(NSEC_PER_SEC), execute: {() -> Void in
             
-            
-            
-//            if countArray.object(at: "storyCount") != nil {
-//                if let stCount = countArray.value(forKey: "storyCount"){
-//                    
-//                    self.storyCountLabel.text=String(describing: stCount)
-//                }
-//                
-//            }
-            
-            
-//            if countArray.object(forKey: "bucketCount") != nil {
-//                if let bktCount = countArray.value(forKey: "bucketCount"){
-//                    
-//                    bucketListTotalCount=String(describing: bktCount)
-//                }
-//                
-//            }
-//            
-//            self.bucketCount.text=bucketListTotalCount
-            
-            
-            
-            
+            self.likeButtonPopup.addTarget(self, action: #selector(intrestViewController.likeImageTapped), for: .touchUpInside)
+            self.addCommentPopup.addTarget(self, action: #selector(intrestViewController.addCommentTapped), for: .touchUpInside)
+            self.addToPlanPopup.addTarget(self, action: #selector(intrestViewController.storyImageTapped), for: .touchUpInside)
+            self.addToBucketPopup.addTarget(self, action: #selector(intrestViewController.bucketImageTapped), for: .touchUpInside)
             
             
         })
@@ -525,10 +490,9 @@ class intrestViewController: UIViewController, apiClassInterestDelegate ,UITable
                 
                 logOut = false
                 
-                let defaults = UserDefaults.standard
                 
-                let uId = defaults .string(forKey: "userLoginId")!
-                let token = defaults.string(forKey: "deviceToken")!
+                let uId = Udefaults .string(forKey: "userLoginId")!
+                let token = Udefaults.string(forKey: "deviceToken")!
                 
                 let deviceTokenDict = NSMutableDictionary()
                 
@@ -688,8 +652,7 @@ class intrestViewController: UIViewController, apiClassInterestDelegate ,UITable
                     strarr2 .add(self.categId .object(at: self.segmentControl.selectedSegmentIndex))
                     let type = UserDefaults.standard.value(forKey: "selectedLocationType") as? String ?? ""
                     
-                    let defaults = UserDefaults.standard
-                    let uId = defaults .string(forKey: "userLoginId")
+                    let uId = Udefaults .string(forKey: "userLoginId")
                     
                     
                     let headerId = UserDefaults.standard.value(forKey: "selectedLocationId") as? String ?? ""
@@ -791,8 +754,10 @@ class intrestViewController: UIViewController, apiClassInterestDelegate ,UITable
                 cell.tag=1000*self.segmentControl.selectedSegmentIndex+indexPath.row
                 
              cell.likeBtn.tag=1000*self.segmentControl.selectedSegmentIndex+indexPath.row
+             cell.likeBtn.addTarget(self, action: #selector(intrestViewController.LikeTapped(_:)), for: .touchUpInside)
                 
-                
+             cell.moreButton.tag=1000*self.segmentControl.selectedSegmentIndex+indexPath.row
+             cell.moreButton.addTarget(self, action: #selector(intrestViewController.longTap(_:event:)), for: .touchUpInside)
                 
                 
                 
@@ -1615,8 +1580,7 @@ class intrestViewController: UIViewController, apiClassInterestDelegate ,UITable
             //let strarr = self.categId .objectAtIndex(segmentedControl.selectedSegmentIndex) //.componentsJoinedByString(",")
             let type = UserDefaults.standard.value(forKey: "selectedLocationType") as? String ?? ""
             
-            let defaults = UserDefaults.standard
-            let uId = defaults .string(forKey: "userLoginId")
+            let uId = Udefaults .string(forKey: "userLoginId")
             
             //Header Text
            // let headerText = NSUserDefaults.standardUserDefaults().valueForKey("selectedLocation") as? String ?? ""
@@ -2060,43 +2024,78 @@ class intrestViewController: UIViewController, apiClassInterestDelegate ,UITable
     //MARK:- Long Tap
     //MARK:-
     
-    func longTap(_ sender: UILongPressGestureRecognizer)-> Void {
+    func longTap(_ sender: UIButton, event: UIEvent)-> Void {
+        
+        
+        let touches: Set<AnyHashable>? = event.allTouches
+        let touch: UITouch? = touches?.first as! UITouch?
+        var currentTouchPosition: CGPoint? = touch?.location(in: self.view)
+        
+        print(currentTouchPosition)
+        print("width: \(pupupsubview.frame.size.width), height: \(pupupsubview.frame.size.height),tableView.y + 160:\(pupupsubview.frame.size.height + 160)")
+        
+        var xframe = CGFloat()
+        var yframe = CGFloat()
+        if (currentTouchPosition?.x)! < pupupsubview.frame.size.width + 5 {
+            xframe = (currentTouchPosition?.x)! + 5 //+ dynamicDetailSubview.frame.size.width + 3
+        }
+        else{
+            xframe = (currentTouchPosition?.x)! - pupupsubview.frame.size.width + 5
+        }
+        
+        if (currentTouchPosition?.y)! < pupupsubview.frame.size.height + 80 {
+            yframe = (currentTouchPosition?.y)! - 5 //+ dynamicDetailSubview.frame.size.height + 3
+            
+        }else{
+            yframe = (currentTouchPosition?.y)! - pupupsubview.frame.size.height
+        }
+        
+        print("x:\(xframe), y:\(yframe)")
+        
+        
+        pupupsubview.frame = CGRect(x: xframe, y: yframe, width: pupupsubview.frame.size.width, height: pupupsubview.frame.size.height)
+        print(pupupsubview.frame)
+        popUpView .layoutIfNeeded()
+        popUpView.layoutSubviews()
+        
+        
+        
+        
+        
+        
+        
+        
         
         headerLabel.text=UserDefaults.standard.value(forKey: "selectedLocation") as? String ?? ""
         
-        if sender.state == .began
-        {
+       // if sender.state == .began
+        //{
             
-            let a:Int? = (sender.view?.tag)! / 1000
-            let b:Int? = (sender.view?.tag)! % 1000
+            let a:Int? = (sender.tag) / 1000
+            let b:Int? = (sender.tag) % 1000
             
             
             
             index1 = a!
             index2 = b!
             
-            longTapedView=sender.view!
+            longTapedView=sender.superview!
             
             print(self.photosArray.object(at: index2))
             let imageId = (((self.photosArray.object(at: index2) as AnyObject).value(forKey: "photos")! as AnyObject).object(at: 0) as AnyObject).value(forKey: "photoId") as? String ?? ""
-            let defaults = UserDefaults.standard
-            let uId = defaults .string(forKey: "userLoginId")
+            let uId = Udefaults .string(forKey: "userLoginId")
             
             
             if countsDictionary.object(forKey: "storyImages") != nil  {
                 
-                let countst = countArray.value(forKey: "storyImages") as! NSArray
-                addStoryLabelInPopup.text="Add To Plan"
-                addToStory.image=UIImage (named: "selectionStory")
-                
-                if countst.count>0 {
-                    
+                let countst = countsDictionary.value(forKey: "storyImages") as! NSArray
+                addToPlanPopup.setTitle("Add To Plan", for: .normal)
+                if countst.count>0
+                {
                     print(countst)
-                    if countst.contains(imageId) {
-                        
-                        addStoryLabelInPopup.text="Remove From Plan"
-                        addToStory.image=UIImage (named: "removeStory")
-                        
+                    if countst.contains(imageId)
+                    {
+                        addToPlanPopup.setTitle("Remove From Plan", for: .normal)
                     }
                     
                     
@@ -2110,17 +2109,16 @@ class intrestViewController: UIViewController, apiClassInterestDelegate ,UITable
             
             if countsDictionary.object(forKey: "bucketImages") != nil  {
                 
-                let countst = countArray.value(forKey: "bucketImages") as! NSArray
-                addToBucketLblInPopup.text="Add To Bucket List"
-                addToBucket.isUserInteractionEnabled=true
+                let countst = countsDictionary.value(forKey: "bucketImages") as! NSArray
+                addToBucketPopup.setTitle("Add To Bucket List", for: .normal)
+
                 
                 if countst.count>0 {
                     
                     print(countst)
                     if countst.contains(imageId)
                     {
-                        addToBucketLblInPopup.text="Remove From Bucket"
-                        addToBucket.isUserInteractionEnabled=false
+                        addToBucketPopup.setTitle("Remove From Bucket", for: .normal)
                     }
                     
                     
@@ -2181,15 +2179,16 @@ class intrestViewController: UIViewController, apiClassInterestDelegate ,UITable
             
             
             ///Like manage
-            
-            likeLabel.text="Like"
-            likeImage.image=UIImage (named: "selectionLike")
-            
-            if (likeCount.value(forKey: "imageId") as AnyObject).contains(imageId) {
+        
+        likeButtonPopup.setTitle("Like", for: .normal)
+        
+        let likArr = likeCount.value(forKey: "imageId") as! NSArray
+        if likArr.contains(imageId)
+        {
+         //   if (likeCount.value(forKey: "imageId") as AnyObject).contains(imageId) {
                 let index = (self.likeCount.value(forKey: "imageId") as AnyObject).index(of: imageId)
                 if (self.likeCount.object(at: index) as AnyObject).value(forKey: "like") as! Bool == true {
-                    likeLabel.text="Unlike"
-                    likeImage.image=UIImage (named: "unlikeSelection")
+                   likeButtonPopup.setTitle("Unlike", for: .normal)
                 }
                 
                 
@@ -2198,7 +2197,7 @@ class intrestViewController: UIViewController, apiClassInterestDelegate ,UITable
             
             
             self.detailSelectBtnAction(true)
-        }
+        //}
         
     }
     
@@ -2224,37 +2223,7 @@ class intrestViewController: UIViewController, apiClassInterestDelegate ,UITable
         
         //// hide the view
         if showView==false {
-            
-            self.tabBarController?.tabBar.isHidden = false
-            
             self.popUpView.isHidden = true
-            
-            let popUpView2 = popUpView
-            //let centre : CGPoint = CGPoint(x: self.view.center.x, y: self.view.center.y)
-            let centre : CGPoint = CGPoint(x: (self.tabBarController?.view.center.x)!, y: (self.tabBarController?.view.center.y)!)
-            
-            popUpView2?.center = centre
-            popUpView2?.layer.cornerRadius = 0.0
-            let trans = popUpView2?.transform.scaledBy(x: 1.0, y: 1.0)
-            popUpView2?.transform = trans!
-            self.view .addSubview(popUpView2!)
-            UIView .animate(withDuration: 0.3, delay: 0.0, options:     UIViewAnimationOptions(), animations: {
-                
-                popUpView2?.transform = (popUpView2?.transform.scaledBy(x: 0.1, y: 0.1))!
-                
-                
-                }, completion: {
-                    (value: Bool) in
-                    //popUpView .removeFromSuperview()
-                    
-                    
-                    popUpView2?.transform = CGAffineTransform.identity
-            })
-            
-            
-            
-            //self.tabBarController?.tabBar.userInteractionEnabled=true
-            
             
             
         }
@@ -2262,42 +2231,11 @@ class intrestViewController: UIViewController, apiClassInterestDelegate ,UITable
             ////Show the View
         else
         {
+            self.popUpView.isHidden = false
+            let tapGestureRecognizer = UITapGestureRecognizer()
+            tapGestureRecognizer.addTarget(self, action: #selector(self.tempFunc))
             
-            self.tabBarController?.view.backgroundColor=UIColor.black
-            
-            self.popUpView.isHidden=false
-            self.tabBarController?.tabBar.isHidden = true
-            
-            
-            
-            let popUpView2 = popUpView
-            let centre : CGPoint = CGPoint(x: self.view.center.x, y: self.view.center.y)
-            
-            // let centre : CGPoint = CGPoint(x: (self.tabBarController?.view.center.x)!, y: (self.tabBarController?.view.center.y)!)
-            
-            popUpView2?.center = centre
-            popUpView2?.layer.cornerRadius = 0.0
-            let trans = popUpView2?.transform.scaledBy(x: 0.01, y: 0.01)
-            popUpView2?.transform = trans!
-            self.view .addSubview(popUpView2!)
-            UIView .animate(withDuration: 0.3, delay: 0.0, options:     UIViewAnimationOptions(), animations: {
-                
-                popUpView2?.transform = (popUpView2?.transform.scaledBy(x: 100.0, y: 100.0))!//CGAffineTransformIdentity
-                
-                }, completion: {
-                    (value: Bool) in
-                    
-                    
-                    
-            })
-            ///------first End----/////
-            
-            
-            
-            
-            self.tabBarController?.view.bringSubview(toFront: popUpView)
-            
-         
+            popUpView.addGestureRecognizer(tapGestureRecognizer)
             
         }
         
@@ -2315,287 +2253,6 @@ class intrestViewController: UIViewController, apiClassInterestDelegate ,UITable
         self .detailSelectBtnAction(false)
         
     }
-    
-    ///story image tapped
-    func storyImageTapped()
-    {
-        // Your action
-        
-        storyBucketBool=true
-        
-        print("Story image tapped")
-        
-        
-        
-        
-       
-      
-        var imageId = NSString()
-       
-        
-        let ownerId = ""//((((photosArray.object(at: index2) as AnyObject).value(forKey: "photos")! as AnyObject).value(forKey: "user")! as AnyObject).object(at: 0) as AnyObject).value(forKey: "_id") as? String ?? ""
-        
-        
-        imageId = ""//(((photosArray[index2] as AnyObject).value(forKey: "photos")! as AnyObject).object(at: 0) as AnyObject).value(forKey: "photoId") as? String ?? ""
-        
-        
-        
-        self.detailSelectBtnAction(true)
-        
-        
-     
-        
-        let headerType = UserDefaults.standard.value(forKey: "selectedLocationType") as? String ?? ""
-        
-        let defaults = UserDefaults.standard
-        let uId = defaults .string(forKey: "userLoginId")
-        
-        
-        
-        
-        
-        
-        
-        let headerId = UserDefaults.standard.value(forKey: "selectedLocationId") as? String ?? ""
-        
-        let nxtObjMain = self.storyboard?.instantiateViewController(withIdentifier: "mainHomeViewController") as! mainHomeViewController
-        
-        if addStoryLabelInPopup.text=="Add To Plan" {
-            
-            let dat: NSDictionary = ["userId": "\(uId!)", "imageId": imageId, "placeId": headerId, "placeType": headerType, "ownerId": ownerId ]
-            
-            
-            print("Post parameters to select the images for story--- \(dat)")
-            self.proceedBtnAction(self)
-            //add image to story
-            apiClass.sharedInstance().postRequestWithMultipleImage(parameterString: "", parameters: dat, viewController: self)
-            //storyCountLabel.text=String(nxtObjMain.addTheLikes(countst))
-        }
-            
-        else
-        {
-            
-         
-            
-            let dataStr: NSDictionary = ["userId": uId!, "imageId": imageId]
-            print(dataStr)
-            
-           // apiClassStory.sharedInstance().postRequestDeleteStory(dataStr, viewController: self)
-           // storyCountLabel.text=String(nxtObjMain.subtractTheLikes(countst))
-            
-        }
-        
-        
-        self.tempFunc()
-        
-        
-        
-        
-        
-    }
-    
-    
-    
-    
-    
-    
-    
-    
-    ///bucket image tapped
-    func bucketImageTapped()
-    {
-        // Your action
-        
-        storyBucketBool=false // add to bucket
-        print("bucket image tapped")
-        
-        
-        
-        
-        
-        var imageId = NSString()
-        var otherUserId = NSString()
-        
-        
-        
-        
-        
-        imageId = ""//(((self.photosArray.object(at: index2) as! NSDictionary).value(forKey: "photos")! as AnyObject).object(at: 0) as AnyObject).value(forKey: "photoId") as? String ?? ""
-        
-        otherUserId = "" //((((self.photosArray.object(at: index2) as AnyObject).value(forKey: "photos")! as AnyObject).value(forKey: "user")! as AnyObject).object(at: 0) as AnyObject).value(forKey: "_id") as? String ?? ""
-        
-        
-        
-        self.detailSelectBtnAction(true)
-        
-        
-        
-        
-        let defaults = UserDefaults.standard
-        let uId = defaults .string(forKey: "userLoginId")
-        
-        
-        
-        var countst = NSNumber()
-        countst = 0
-        
-        
-        if addToBucketLblInPopup.text=="Add To Bucket List"
-        {
-            
-            let parameterDic: NSDictionary = ["userId": uId!,"imageOwn": otherUserId, "imageId": imageId ]
-            
-            print("parameter of add t0 bucket=\(parameterDic)")
-            
-            MBProgressHUD.showAdded(to: self.view, animated: true)
-            
-            //add image to bucket
-           // bucketListApiClass.sharedInstance().postRequestForAddBucket(parameterDic, viewController: self)
-            self.proceedBtnAction(self)
-            
-        }
-            
-        else
-        {
-            
-            //delete from bucket
-            
-            let parameter: NSDictionary = ["userId": uId!, "imageId": imageId]
-            
-           // bucketListApiClass.sharedInstance().postRequestForDeletBucketListFromFeed(parameter, viewController: self)
-            
-            
-        }
-        
-        
-        self.tempFunc()
-        
-        
-        
-        
-    }
-    
-    
-    //MARK: delete image tapped
-    //MARK:
-    func deleteImageTapped()
-    {
-        // Your action
-        
-        self.tempFunc()
-        
-        
-      //  let nxtObj2 = self.storyboard?.instantiateViewController(withIdentifier: "imageEditViewController") as! imageEditViewController
-        //nxtObj2.screenName = "Interest"
-        
-        
-        
-       // print(self.photosArray.objectAtIndex(self.index2))
-        
-        
-        //self.navigationController! .pushViewController(nxtObj2, animated: true)
-        
-        
-        
-        
-        
-        
-    }
-    
-    
-    
-    func deletImageManage()
-    {
-    
-        
-        let strarr = self.categId .object(at: 0) //.componentsJoinedByString(",")
-        let type = UserDefaults.standard.value(forKey: "selectedLocationType") as? String ?? ""
-        
-        let defaults = UserDefaults.standard
-        let uId = defaults .string(forKey: "userLoginId")
-        let headerText = UserDefaults.standard.value(forKey: "selectedLocation") as? String ?? ""
-        
-        let parameterString = "userId=\(uId!)&placeName=\(headerText)&placeType=\(type)&category=\(strarr)"//testing
-        print(parameterString)
-        self.interestCase=true
-        
-        //hit the api for shorted interests from web
-        
-        //apiClassInterest.sharedInstance().postRequestInterestWiseData(parameterString, viewController: self)
-        //self.segMentManage()
-        
-        
-        
-        
-        
-        
-        
-        /*
-         //print(photosArray)
-         print(index2)
-         print(index1)
-         
-         print(allCategoryDictionary.allKeys)
-         print(allCategoryDictionary)
-         
-         
-         
-         var tempArr = NSMutableArray()
-         tempArr = allCategoryDictionary.valueForKey(String(categId .objectAtIndex(index2)) ) as! NSMutableArray
-         
-         print(tempArr.objectAtIndex(0))
-         
-         // photosArray .removeObjectAtIndex(index2)
-         // print(photosArray)
-         
-         let phoArr: NSMutableArray = tempArr.objectAtIndex(0) as! NSMutableArray
-         
-         print(phoArr)
-         print(phoArr.count)
-         
-         phoArr .removeObjectAtIndex(0)
-         
-         
-         tempArr.objectAtIndex(0) .replaceObjectAtIndex(index2, withObject: phoArr)
-         
-         let indexPath = NSIndexPath(forRow: index2, inSection: 0)
-         
-         tableOfIntrests.deselectRowAtIndexPath(indexPath, animated: true)
-         
-         
-         self.allCategoryDictionary .setObject(tempArr, forKey: String(categId.objectAtIndex(segmentControl.selectedSegmentIndex)))
-         
-         let index = self.segmentControl.selectedSegmentIndex
-         
-         
-         
-         
-         
-         
-         
-         if tempArr.objectAtIndex(0).count == 0 {
-         
-         tempArr.objectAtIndex(0) .replaceObjectAtIndex(index, withObject: "")
-         
-         
-         }
-         
-         print(tempArr)
-         
-         // else{
-         
-         // tempArr.objectAtIndex(index).removeObjectAtIndex(index2)
-         
-         // }
-         
-         
-         
-         
-         self .shortData(tempArr)
-         */
-        
-    }
-    
     
     
     
@@ -2717,10 +2374,11 @@ class intrestViewController: UIViewController, apiClassInterestDelegate ,UITable
     func LikeTapped(_ sender: UIButton)
     {
         longTapedView=sender.superview!
-        //let b:Int? = (sender.view?.tag)! % 1000
-       // index2 = b!
+        let b:Int? = (sender.tag) % 1000
+        index2 = b!
+        print(index2)
         
-        
+        self.likeImageTapped()
         
     }
     
@@ -2733,11 +2391,12 @@ class intrestViewController: UIViewController, apiClassInterestDelegate ,UITable
         print("like image tapped")
         
         
-        let defaults = UserDefaults.standard
-        let uId = defaults .string(forKey: "userLoginId")
-        let userNameMy = defaults.string(forKey: "userLoginName")
-        let imageId = (photosArray[index2] as AnyObject).value(forKey: "id") as? String ?? ""
-        let otherUserId = (photosArray[index2] as AnyObject).value(forKey: "userId") as? String ?? ""
+       print(photosArray.object(at: index2))
+        let uId = Udefaults .string(forKey: "userLoginId")
+        let userNameMy = Udefaults.string(forKey: "userLoginName")
+       let imageId = (((self.photosArray.object(at: index2) as AnyObject).value(forKey: "photos")! as AnyObject).object(at: 0) as AnyObject).value(forKey: "photoId") as? String ?? " "
+        
+        let otherUserId = ((((self.photosArray.object(at: index2) as AnyObject).value(forKey: "photos")! as AnyObject).object(at: 0) as AnyObject).value(forKey: "user")as AnyObject).value(forKey: "_id") as? String ?? " "
         
         
         print("like image tapped")
@@ -2777,7 +2436,11 @@ class intrestViewController: UIViewController, apiClassInterestDelegate ,UITable
         
         
         if likeCount.count>0 {
-            if (likeCount.value(forKey: "imageId") as AnyObject).contains(imageId) {
+            let arrLik = likeCount.value(forKey: "imageId") as! NSArray
+            if arrLik.contains(imageId)
+            {
+            
+            //if (likeCount.value(forKey: "imageId") as AnyObject).contains(imageId) {
                 
                 let index = (self.likeCount.value(forKey: "imageId") as AnyObject).index(of: imageId)
                 
@@ -2794,7 +2457,7 @@ class intrestViewController: UIViewController, apiClassInterestDelegate ,UITable
                     
                     
                     
-                    likeimg.image=UIImage (named: "like_count")
+                    likeimg.image=UIImage (named: "Like")
                     
                     let dat: NSDictionary = ["userId": "\(uId!)", "photoId":"\(imageId)", "userLiked":"\(uId!)", "status":"0", "imageOwn": "\(otherUserId)", "userName": "\(userNameMy!)"]
                     print("Post to like picture---- \(dat)")
@@ -2811,9 +2474,9 @@ class intrestViewController: UIViewController, apiClassInterestDelegate ,UITable
                     likeCount .add(["userId":uId!, "imageId":imageId, "like":true, "count": nxtObjMain.addTheLikes(staticCount!)])
                     
                     
-                    print(likeCount.lastObject)
+                  
                     
-                    likeimg.image=UIImage (named: "likedCount")
+                    likeimg.image=UIImage (named: "likefill")
                     
                     let dat: NSDictionary = ["userId": "\(uId!)", "photoId":"\(imageId)", "userLiked":"\(uId!)", "status":"1", "imageOwn": "\(otherUserId)", "userName": "\(userNameMy!)"]
                     
@@ -2829,7 +2492,7 @@ class intrestViewController: UIViewController, apiClassInterestDelegate ,UITable
             else{
                 likeCount .add(["userId":uId!, "imageId":imageId, "like":true, "count": nxtObjMain.addTheLikes(countLik)])
                 likecountlbl.text=String(nxtObjMain.addTheLikes(countLik))
-                likeimg.image=UIImage (named: "likedCount")
+                likeimg.image=UIImage (named: "likefill")
                 
                 let dat: NSDictionary = ["userId": "\(uId!)", "photoId":"\(imageId)", "userLiked":"\(uId!)", "status":"1", "imageOwn": "\(otherUserId)", "userName": "\(userNameMy!)"]
                 
@@ -2848,7 +2511,7 @@ class intrestViewController: UIViewController, apiClassInterestDelegate ,UITable
             
             likeCount .add(["userId":uId!, "count":nxtObjMain.addTheLikes(countLik), "like": true, "imageId": imageId])
             likecountlbl.text=String(nxtObjMain.addTheLikes(countLik))
-            likeimg.image=UIImage (named: "likedCount")
+            likeimg.image=UIImage (named: "likefill")
             
             let dat: NSDictionary = ["userId": "\(uId!)", "photoId":"\(imageId)", "userLiked":"\(uId!)", "status":"1", "imageOwn": "\(otherUserId)", "userName": "\(userNameMy!)"]
             
@@ -2867,6 +2530,293 @@ class intrestViewController: UIViewController, apiClassInterestDelegate ,UITable
         
         
     }
+    
+    func addCommentTapped() {
+        
+        self.tempFunc()
+        
+        
+    }
+    
+    
+    
+    
+    ///story image tapped
+    func storyImageTapped()
+    {
+        // Your action
+        
+        storyBucketBool=true
+        
+        print("Story image tapped")
+        
+        
+        
+        let imageId = (((self.photosArray.object(at: index2) as AnyObject).value(forKey: "photos")! as AnyObject).object(at: 0) as AnyObject).value(forKey: "photoId") as? String ?? " "
+        
+        let ownerId = ((((self.photosArray.object(at: index2) as AnyObject).value(forKey: "photos")! as AnyObject).object(at: 0) as AnyObject).value(forKey: "user")as AnyObject).value(forKey: "_id") as? String ?? " "
+        
+        
+        
+        
+        
+        self.detailSelectBtnAction(true)
+        
+        
+        
+        
+        let headerType = UserDefaults.standard.value(forKey: "selectedLocationType") as? String ?? ""
+        
+        let uId = Udefaults .string(forKey: "userLoginId")
+        
+        
+        
+        
+        
+        
+        
+        let headerId = UserDefaults.standard.value(forKey: "selectedLocationId") as? String ?? ""
+        
+        let nxtObjMain = self.storyboard?.instantiateViewController(withIdentifier: "mainHomeViewController") as! mainHomeViewController
+        
+        if addToPlanPopup.titleLabel?.text=="Add To Plan" {
+            
+            let dat: NSDictionary = ["userId": "\(uId!)", "imageId": imageId, "placeId": headerId, "placeType": headerType, "ownerId": ownerId ]
+            
+            
+            print("Post parameters to select the images for story--- \(dat)")
+            self.proceedBtnAction(self)
+            //add image to story
+            apiClass.sharedInstance().postRequestWithMultipleImage(parameterString: "", parameters: dat, viewController: self)
+            //storyCountLabel.text=String(nxtObjMain.addTheLikes(countst))
+        }
+            
+        else
+        {
+            
+            
+            
+            let dataStr: NSDictionary = ["userId": uId!, "imageId": imageId]
+            print(dataStr)
+            
+            // apiClassStory.sharedInstance().postRequestDeleteStory(dataStr, viewController: self)
+            // storyCountLabel.text=String(nxtObjMain.subtractTheLikes(countst))
+            
+        }
+        
+        
+        self.tempFunc()
+        
+        
+        
+        
+        
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    ///bucket image tapped
+    func bucketImageTapped()
+    {
+        // Your action
+        
+        storyBucketBool=false // add to bucket
+        print("bucket image tapped")
+        
+        
+        
+        
+        
+        var imageId = NSString()
+        var otherUserId = NSString()
+        
+        
+        
+        
+        
+        imageId = ""//(((self.photosArray.object(at: index2) as! NSDictionary).value(forKey: "photos")! as AnyObject).object(at: 0) as AnyObject).value(forKey: "photoId") as? String ?? ""
+        
+        otherUserId = "" //((((self.photosArray.object(at: index2) as AnyObject).value(forKey: "photos")! as AnyObject).value(forKey: "user")! as AnyObject).object(at: 0) as AnyObject).value(forKey: "_id") as? String ?? ""
+        
+        
+        
+        //self.detailSelectBtnAction(true)
+        
+        
+        
+        
+        let uId = Udefaults .string(forKey: "userLoginId")
+        
+        
+        
+        var countst = NSNumber()
+        countst = 0
+        
+        
+        if addToBucketPopup.titleLabel?.text=="Add To Bucket List"
+        {
+            
+            let parameterDic: NSDictionary = ["userId": uId!,"imageOwn": otherUserId, "imageId": imageId ]
+            
+            print("parameter of add t0 bucket=\(parameterDic)")
+            
+            MBProgressHUD.showAdded(to: self.view, animated: true)
+            
+            //add image to bucket
+            // bucketListApiClass.sharedInstance().postRequestForAddBucket(parameterDic, viewController: self)
+            self.proceedBtnAction(self)
+            
+        }
+            
+        else
+        {
+            
+            //delete from bucket
+            
+            let parameter: NSDictionary = ["userId": uId!, "imageId": imageId]
+            
+            // bucketListApiClass.sharedInstance().postRequestForDeletBucketListFromFeed(parameter, viewController: self)
+            
+            
+        }
+        
+        
+        self.tempFunc()
+        
+        
+        
+        
+    }
+    
+    
+    //MARK: delete image tapped
+    //MARK:
+    func deleteImageTapped()
+    {
+        // Your action
+        
+        self.tempFunc()
+        
+        
+        //  let nxtObj2 = self.storyboard?.instantiateViewController(withIdentifier: "imageEditViewController") as! imageEditViewController
+        //nxtObj2.screenName = "Interest"
+        
+        
+        
+        // print(self.photosArray.objectAtIndex(self.index2))
+        
+        
+        //self.navigationController! .pushViewController(nxtObj2, animated: true)
+        
+        
+        
+        
+        
+        
+    }
+    
+    
+    
+    func deletImageManage()
+    {
+        
+        
+        let strarr = self.categId .object(at: 0) //.componentsJoinedByString(",")
+        let type = UserDefaults.standard.value(forKey: "selectedLocationType") as? String ?? ""
+        
+        let uId = Udefaults .string(forKey: "userLoginId")
+        let headerText = UserDefaults.standard.value(forKey: "selectedLocation") as? String ?? ""
+        
+        let parameterString = "userId=\(uId!)&placeName=\(headerText)&placeType=\(type)&category=\(strarr)"//testing
+        print(parameterString)
+        self.interestCase=true
+        
+        //hit the api for shorted interests from web
+        
+        //apiClassInterest.sharedInstance().postRequestInterestWiseData(parameterString, viewController: self)
+        //self.segMentManage()
+        
+        
+        
+        
+        
+        
+        
+        /*
+         //print(photosArray)
+         print(index2)
+         print(index1)
+         
+         print(allCategoryDictionary.allKeys)
+         print(allCategoryDictionary)
+         
+         
+         
+         var tempArr = NSMutableArray()
+         tempArr = allCategoryDictionary.valueForKey(String(categId .objectAtIndex(index2)) ) as! NSMutableArray
+         
+         print(tempArr.objectAtIndex(0))
+         
+         // photosArray .removeObjectAtIndex(index2)
+         // print(photosArray)
+         
+         let phoArr: NSMutableArray = tempArr.objectAtIndex(0) as! NSMutableArray
+         
+         print(phoArr)
+         print(phoArr.count)
+         
+         phoArr .removeObjectAtIndex(0)
+         
+         
+         tempArr.objectAtIndex(0) .replaceObjectAtIndex(index2, withObject: phoArr)
+         
+         let indexPath = NSIndexPath(forRow: index2, inSection: 0)
+         
+         tableOfIntrests.deselectRowAtIndexPath(indexPath, animated: true)
+         
+         
+         self.allCategoryDictionary .setObject(tempArr, forKey: String(categId.objectAtIndex(segmentControl.selectedSegmentIndex)))
+         
+         let index = self.segmentControl.selectedSegmentIndex
+         
+         
+         
+         
+         
+         
+         
+         if tempArr.objectAtIndex(0).count == 0 {
+         
+         tempArr.objectAtIndex(0) .replaceObjectAtIndex(index, withObject: "")
+         
+         
+         }
+         
+         print(tempArr)
+         
+         // else{
+         
+         // tempArr.objectAtIndex(index).removeObjectAtIndex(index2)
+         
+         // }
+         
+         
+         
+         
+         self .shortData(tempArr)
+         */
+        
+    }
+    
+    
+
+    
+    
     
     
     
