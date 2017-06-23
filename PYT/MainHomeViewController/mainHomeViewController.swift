@@ -1137,7 +1137,8 @@ class mainHomeViewController: UIViewController, SDWebImageManagerDelegate, apiCl
             }
             let color = self.colorArray[random()]//get color randomly
             cell.userProfilePic.layer.borderColor = color  .cgColor
-            
+            cell.userProfilePic.layer.cornerRadius = cell.userProfilePic.frame.size.width/2
+            cell.userProfilePic.clipsToBounds=true
             cell.ChatButton.tag=indexPath.row // chat button
             cell.ChatButton.addTarget(self, action: #selector(self.chatButtonAction), for: .touchUpInside)
             cell.ChatButton.isHidden=false
