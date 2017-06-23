@@ -809,6 +809,12 @@ class intrestViewController: UIViewController, apiClassInterestDelegate ,UITable
                 cell.locationImage.backgroundColor = UIColor.white
                 cell.tag=1000*self.segmentControl.selectedSegmentIndex+indexPath.row
                 
+                /////Overlay
+                let gradient = cell.viewWithTag(7499) as! GradientView
+                gradient.gradientLayer.colors = [UIColor.black.withAlphaComponent(0.65).cgColor, UIColor.clear.cgColor]
+                gradient.gradientLayer.gradient = GradientPoint.bottomTop.draw()
+                /////////////////
+                
                 let longView = UIView()
                 longView.frame=cell.frame
                 longView.tag=1000*self.segmentControl.selectedSegmentIndex+indexPath.row
