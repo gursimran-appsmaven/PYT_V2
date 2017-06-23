@@ -230,7 +230,11 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pOe-sC-Tgw" customClass="CustomButton" customModule="PYT" customModuleProvider="target">
-                                        <rect key="frame" x="230" y="377" width="140" height="62"/>
+                                        <rect key="frame" x="187" y="339" width="226" height="100"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" secondItem="pOe-sC-Tgw" secondAttribute="height" multiplier="70:31" id="hy2-nz-HvH"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="SFUIDisplay-Semibold" family="SF UI Display" pointSize="15"/>
                                         <state key="normal" title="Sign In" backgroundImage="Button">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
@@ -257,6 +261,7 @@
                                     <constraint firstItem="kSH-sq-9kv" firstAttribute="top" secondItem="pOe-sC-Tgw" secondAttribute="bottom" multiplier="1.07" id="Hoi-K8-ywC"/>
                                     <constraint firstItem="Mi9-fH-Ghk" firstAttribute="centerY" secondItem="cem-8O-O02" secondAttribute="centerY" id="MvV-uZ-SKj"/>
                                     <constraint firstItem="JtD-MU-clT" firstAttribute="leading" secondItem="Itz-b7-AeN" secondAttribute="leading" constant="15" id="ObO-gr-rMg"/>
+                                    <constraint firstItem="JtD-MU-clT" firstAttribute="height" secondItem="pOe-sC-Tgw" secondAttribute="height" id="ST7-Q4-2E5"/>
                                     <constraint firstItem="iFO-xr-0h5" firstAttribute="top" secondItem="JtD-MU-clT" secondAttribute="bottom" multiplier="1.03" id="T42-ot-3cb"/>
                                     <constraint firstItem="JtD-MU-clT" firstAttribute="top" secondItem="Mi9-fH-Ghk" secondAttribute="bottom" multiplier="1.035" id="WZx-AP-V4K"/>
                                     <constraint firstItem="9ji-xZ-R45" firstAttribute="leading" secondItem="JtD-MU-clT" secondAttribute="leading" constant="49" id="YmG-24-Q6X"/>
@@ -365,7 +370,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" alpha="0.5" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="km2-GS-tnQ">
-                                        <rect key="frame" x="30" y="298" width="540" height="1"/>
+                                        <rect key="frame" x="30" y="266.5" width="540" height="1"/>
                                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="1" id="w6v-50-gwr"/>
@@ -385,7 +390,7 @@
                                         </connections>
                                     </button>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Enter Your Email Address" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="zDa-Sp-rx4">
-                                        <rect key="frame" x="40" y="264" width="521" height="33"/>
+                                        <rect key="frame" x="40" y="232.5" width="521" height="33"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="33" id="n45-lT-aW4"/>
                                         </constraints>
@@ -515,8 +520,11 @@
                                         </state>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jL1-gB-Uif" customClass="CustomButton" customModule="PYT" customModuleProvider="target">
-                                        <rect key="frame" x="230" y="364" width="140" height="62"/>
-                                        <fontDescription key="fontDescription" name="SFUIDisplay-Semibold" family="SF UI Display" pointSize="16"/>
+                                        <rect key="frame" x="187" y="326" width="226" height="100"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" secondItem="jL1-gB-Uif" secondAttribute="height" multiplier="70:31" id="L6x-Tb-aFs"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="SFUIDisplay-Semibold" family="SF UI Display" pointSize="15"/>
                                         <state key="normal" title="Next" backgroundImage="Button">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
@@ -578,6 +586,7 @@
                                     <constraint firstAttribute="trailing" secondItem="CSd-Bq-CyU" secondAttribute="trailing" id="gRV-XE-geD"/>
                                     <constraint firstItem="eRu-W2-Ar9" firstAttribute="centerX" secondItem="OA6-MT-0OP" secondAttribute="centerX" id="h2s-ch-ub8"/>
                                     <constraint firstItem="ncW-Iq-RdP" firstAttribute="top" secondItem="Ehc-28-7ao" secondAttribute="bottom" constant="-2.5" id="hNM-en-AyY"/>
+                                    <constraint firstItem="jL1-gB-Uif" firstAttribute="height" secondItem="OA6-MT-0OP" secondAttribute="height" id="lcU-37-TR3"/>
                                     <constraint firstItem="OA6-MT-0OP" firstAttribute="centerX" secondItem="SDu-Ng-jch" secondAttribute="centerX" id="lla-LL-tk3"/>
                                     <constraint firstItem="add-zl-N4o" firstAttribute="leading" secondItem="eRu-W2-Ar9" secondAttribute="trailing" constant="-3" id="mT6-0h-c8V"/>
                                     <constraint firstAttribute="bottom" secondItem="yMQ-Fv-AAF" secondAttribute="bottom" multiplier="3.7" id="maC-a5-Mi4"/>
@@ -764,8 +773,11 @@
                                         </state>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="doa-Ur-0NT" customClass="CustomButton" customModule="PYT" customModuleProvider="target">
-                                        <rect key="frame" x="230" y="401" width="140" height="62"/>
-                                        <fontDescription key="fontDescription" name="SFUIDisplay-Semibold" family="SF UI Display" pointSize="16"/>
+                                        <rect key="frame" x="187" y="363" width="226" height="100"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" secondItem="doa-Ur-0NT" secondAttribute="height" multiplier="70:31" id="c92-Dx-Ocm"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="SFUIDisplay-Semibold" family="SF UI Display" pointSize="15"/>
                                         <state key="normal" title="Next" backgroundImage="Button">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
@@ -840,6 +852,7 @@
                                     <constraint firstItem="xwr-gT-H29" firstAttribute="centerX" secondItem="U3E-s3-qcc" secondAttribute="centerX" id="Lk5-gg-D95"/>
                                     <constraint firstItem="Ovk-ec-MJB" firstAttribute="leading" secondItem="exv-yf-YtI" secondAttribute="leading" id="MxM-xw-xtX"/>
                                     <constraint firstItem="1cy-QC-Jt4" firstAttribute="leading" secondItem="U3E-s3-qcc" secondAttribute="leading" id="OI1-2P-fhK"/>
+                                    <constraint firstItem="doa-Ur-0NT" firstAttribute="height" secondItem="P3S-EZ-gYq" secondAttribute="height" id="PpC-hW-Xym"/>
                                     <constraint firstAttribute="bottom" secondItem="CfY-23-x5c" secondAttribute="bottom" multiplier="5.45" id="Rze-Ki-ssc"/>
                                     <constraint firstItem="2qH-b6-ZFc" firstAttribute="leading" secondItem="U3E-s3-qcc" secondAttribute="leading" constant="20" id="TLT-SS-6w8"/>
                                     <constraint firstItem="kEZ-Ov-tEn" firstAttribute="top" secondItem="exv-yf-YtI" secondAttribute="bottom" constant="1.5" id="TxM-IS-Kox"/>
@@ -1299,7 +1312,7 @@
                                                         </connections>
                                                     </collectionView>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Travel Gurus" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7fJ-Ei-igS">
-                                                        <rect key="frame" x="8" y="280" width="78.5" height="21"/>
+                                                        <rect key="frame" x="8" y="280" width="82.5" height="21"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="21" id="5n7-2x-7x3"/>
                                                         </constraints>
@@ -2075,7 +2088,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="80"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Discover" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GW8-b6-oXy">
-                                        <rect key="frame" x="154.5" y="30" width="66.5" height="21"/>
+                                        <rect key="frame" x="156.5" y="30" width="62.5" height="21"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="21" id="dKf-6p-nNM"/>
                                         </constraints>
@@ -2210,8 +2223,12 @@
                                                                         <rect key="frame" x="0.0" y="0.0" width="180" height="150"/>
                                                                         <autoresizingMask key="autoresizingMask"/>
                                                                         <subviews>
-                                                                            <imageView userInteractionEnabled="NO" tag="7459" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="india" translatesAutoresizingMaskIntoConstraints="NO" id="Ies-fz-Ghu">
+                                                                            <imageView userInteractionEnabled="NO" tag="7459" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Ies-fz-Ghu">
                                                                                 <rect key="frame" x="1" y="1" width="179" height="149"/>
+                                                                                <userDefinedRuntimeAttributes>
+                                                                                    <userDefinedRuntimeAttribute type="boolean" keyPath="focusOnFaces" value="YES"/>
+                                                                                    <userDefinedRuntimeAttribute type="boolean" keyPath="debugFaceAware" value="YES"/>
+                                                                                </userDefinedRuntimeAttributes>
                                                                             </imageView>
                                                                             <view tag="7499" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="06o-ru-Uqv" customClass="GradientView" customModule="PYT" customModuleProvider="target">
                                                                                 <rect key="frame" x="0.0" y="68" width="180" height="82"/>
@@ -2845,8 +2862,11 @@
                                         </state>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4lm-Gu-57y" customClass="CustomButton" customModule="PYT" customModuleProvider="target">
-                                        <rect key="frame" x="230" y="401" width="140" height="62"/>
-                                        <fontDescription key="fontDescription" name="SFUIDisplay-Semibold" family="SF UI Display" pointSize="16"/>
+                                        <rect key="frame" x="187" y="363" width="226" height="100"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" secondItem="4lm-Gu-57y" secondAttribute="height" multiplier="70:31" id="VHe-4c-rmg"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="SFUIDisplay-Semibold" family="SF UI Display" pointSize="15"/>
                                         <state key="normal" title="Finish" backgroundImage="Button">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
@@ -2934,6 +2954,7 @@
                                     <constraint firstItem="dZC-FZ-jEl" firstAttribute="centerX" secondItem="sVL-Dj-qXJ" secondAttribute="centerX" id="Qmd-YK-Q34"/>
                                     <constraint firstItem="4lm-Gu-57y" firstAttribute="centerX" secondItem="WLP-a9-PEs" secondAttribute="centerX" id="R6U-mV-Qh9"/>
                                     <constraint firstAttribute="trailing" secondItem="sVL-Dj-qXJ" secondAttribute="trailing" constant="15" id="TmD-hG-xKQ"/>
+                                    <constraint firstItem="4lm-Gu-57y" firstAttribute="height" secondItem="sVL-Dj-qXJ" secondAttribute="height" id="VTW-3D-1UJ"/>
                                     <constraint firstItem="tVQ-i3-rgT" firstAttribute="centerY" secondItem="sBT-Lr-5Ul" secondAttribute="centerY" id="VUk-2W-5V3"/>
                                     <constraint firstItem="g4l-Jv-m2Q" firstAttribute="top" secondItem="WLP-a9-PEs" secondAttribute="top" constant="20" id="Vd4-ej-TAa"/>
                                     <constraint firstItem="sVL-Dj-qXJ" firstAttribute="centerX" secondItem="WLP-a9-PEs" secondAttribute="centerX" id="WXC-JS-Xan"/>
