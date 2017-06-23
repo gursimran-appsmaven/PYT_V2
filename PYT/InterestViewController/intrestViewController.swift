@@ -643,7 +643,7 @@ class intrestViewController: UIViewController, apiClassInterestDelegate ,UITable
         else
         {
             
-            return self.view.frame.width * 0.72
+            return self.view.frame.width * 0.82
         }
         
         
@@ -1847,70 +1847,70 @@ class intrestViewController: UIViewController, apiClassInterestDelegate ,UITable
         switch categoryIds {
             
         case "58de647dbb35ba786a4788cd": //FoodANDWine
-            nameString = "foodwine"
+            nameString = "foodwineB"
             break
             
         case "58de647dbb35ba786a4788ce": //CityLife
-            nameString = "citylife"
+            nameString = "citylifeB"
             break
             
         case "58de647dbb35ba786a4788cf": //Nightlife ent.
-            nameString = "Night"
+            nameString = "NightB"
             break
             
         case "58de647dbb35ba786a4788d0": //history art
-            nameString = "adventure" //////////////////////////to be changed
+            nameString = "adventureB" //////////////////////////to be changed
             break
         case "58de647dbb35ba786a4788d1": //nature
-            nameString = "nature"
+            nameString = "natureB"
             break
             
         case "58de647dbb35ba786a4788d2": //Mountains
-            nameString = "Mountains"
+            nameString = "MountainsB"
             break
             
         case "58de647dbb35ba786a4788d3": //Beaches
-            nameString = "Beaches"
+            nameString = "BeachesB"
             break
             
         case "58de647dbb35ba786a4788d4": //Lakes Rivers
-            nameString = "Lake"
+            nameString = "LakeB"
             break
             
         case "58de647dbb35ba786a4788d5": //Wild Life
-            nameString = "wildlife"
+            nameString = "wildlifeB"
             break
             
         case "58de647dbb35ba786a4788d6": //Deserts
-            nameString = "Desert"
+            nameString = "DesertB"
             break
             
         case "58de647dbb35ba786a4788d7": //road trips
-            nameString = "Roadtrips"
+            nameString = "RoadtripsB"
             break
             
         case "58de647ebb35ba786a4788d8": //crusies
-            nameString = "Curise"
+            nameString = "CuriseB"
             break
             
         case "58de647ebb35ba786a4788d9": // Sports
-            nameString = "Sports"
+            nameString = "SportsB"
             break
             
         case "58de647ebb35ba786a4788da": //Hotel Wellness
-            nameString = "hotelandspa"
+            nameString = "hotelandspaB"
             break
             
         case "58de647ebb35ba786a4788db": //Retail therapy
-            nameString = "Retail"
+            nameString = "RetailB"
             break
             
         case "58de647ebb35ba786a4788dc": //Kids friendly
-            nameString = "kids"
+            nameString = "kidsB"
             break
             
         default: //other
-            nameString = "other"
+            nameString = "otherB"
             break
             
         }
