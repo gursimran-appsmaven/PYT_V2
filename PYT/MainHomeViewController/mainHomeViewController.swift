@@ -3688,9 +3688,10 @@ extension mainHomeViewController: UICollectionViewDelegate, UICollectionViewData
                     if likedByMe2.contains(self.uId)
                     {
                         //contains photo liked by me
+                        let arrLk = self.likeCount.value(forKey: "imageId") as! NSArray
                         
-                        if (self.likeCount.value(forKey: "imageId") as AnyObject).contains(imageId2) {
-                            
+                        if arrLk.contains(imageId2)
+                        {
                             let indexOfImageId = (self.likeCount.value(forKey: "imageId") as AnyObject).index(of: imageId2)
                             
                             if (self.likeCount.object(at: indexOfImageId) as AnyObject).value(forKey: "like") as! Bool == true {
@@ -3723,8 +3724,9 @@ extension mainHomeViewController: UICollectionViewDelegate, UICollectionViewData
                         
                     else
                     {
-                        if (self.likeCount.value(forKey: "imageId") as AnyObject).contains(imageId2) {
-                            
+                        let arrLk = self.likeCount.value(forKey: "imageId") as! NSArray
+                        if arrLk.contains(imageId2)
+                        {
                             let indexOfImageId = (self.likeCount.value(forKey: "imageId") as AnyObject).index(of: imageId2)
                             
                             if (self.likeCount.object(at: indexOfImageId) as AnyObject).value(forKey: "like") as! Bool == true {
@@ -3751,9 +3753,9 @@ extension mainHomeViewController: UICollectionViewDelegate, UICollectionViewData
                     //not liked by me
                 else
                 {
-                    
-                    if (self.likeCount.value(forKey: "imageId") as AnyObject).contains(imageId2) {
-                        
+                    let arrLk = self.likeCount.value(forKey: "imageId") as! NSArray
+                    if arrLk.contains(imageId2)
+                    {
                         let indexOfImageId = (self.likeCount.value(forKey: "imageId") as AnyObject).index(of: imageId2)
                         
                         if (self.likeCount.object(at: indexOfImageId) as AnyObject).value(forKey: "like") as! Bool == true {
@@ -4654,8 +4656,9 @@ extension mainHomeViewController: UICollectionViewDelegate, UICollectionViewData
             var mutableDic = NSMutableDictionary()
             
             if self.likeCount.count>0 {
-                if (self.likeCount.value(forKey: "imageId") as AnyObject).contains(imageId) {
-                    
+                let arrLk = self.likeCount.value(forKey: "imageId") as! NSArray
+                if arrLk.contains(imageId)
+                {
                     let index = (self.likeCount.value(forKey: "imageId") as AnyObject).index(of: imageId)
                     
                     if (self.likeCount.object(at: index) as AnyObject).value(forKey: "like") as! Bool == true {
@@ -4698,15 +4701,15 @@ extension mainHomeViewController: UICollectionViewDelegate, UICollectionViewData
             
             
             
-           // let nxtObj2 = self.storyboard?.instantiateViewController(withIdentifier: "detailViewController") as! detailViewController
-           // nxtObj2.arrayWithData=arrayData
-           //  nxtObj2.fromStory=false
-           // nxtObj2.countLikes=self.likeCount
-           //  nxtObj2.fromInterest = false
+            let nxtObj2 = self.storyboard?.instantiateViewController(withIdentifier: "detailViewController") as! detailViewController
+            nxtObj2.arrayWithData=arrayData
+             nxtObj2.fromStory=false
+            nxtObj2.countLikes=self.likeCount
+          nxtObj2.fromInterest = false
             
        
             
-           // self.navigationController! .pushViewController(nxtObj2, animated: true)
+            self.navigationController! .pushViewController(nxtObj2, animated: true)
             
         
 
@@ -4932,21 +4935,25 @@ extension mainHomeViewController: UICollectionViewDelegate, UICollectionViewData
         var currentTouchPosition: CGPoint? = touch?.location(in: imagesTableView)
 
         print(currentTouchPosition)
-        print("width: \(dynamicDetailSubview.frame.size.width), height: \(dynamicDetailSubview.frame.size.height),tableView.y + 160:\(dynamicDetailSubview.frame.size.height + 80)")
+        print("width: \(dynamicDetailSubview.frame.size.width), height: \(dynamicDetailSubview.frame.size.height),tableView.y + 160:\(dynamicDetailSubview.frame.size.height + 100)")
         
         var xframe = CGFloat()
         var yframe = CGFloat()
-        if (currentTouchPosition?.x)! < dynamicDetailSubview.frame.size.width + 5 {
+        if (currentTouchPosition?.x)! < dynamicDetailSubview.frame.size.width + 5
+        {
             xframe = (currentTouchPosition?.x)! + 5 //+ dynamicDetailSubview.frame.size.width + 3
         }
-        else{
+        else
+        {
             xframe = (currentTouchPosition?.x)! - dynamicDetailSubview.frame.size.width + 5
         }
         
-        if (currentTouchPosition?.y)! < dynamicDetailSubview.frame.size.height + 160 {
+        if (currentTouchPosition?.y)! < dynamicDetailSubview.frame.size.height + 80
+        {
             yframe = (currentTouchPosition?.y)! - 5 //+ dynamicDetailSubview.frame.size.height + 3
-            
-        }else{
+        }
+        else
+        {
             yframe = (currentTouchPosition?.y)! - dynamicDetailSubview.frame.size.height
         }
         

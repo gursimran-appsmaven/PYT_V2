@@ -28,6 +28,7 @@
 		104182B11EF26AEC00078527 /* UIColor+CreateMethods.m in Sources */ = {isa = PBXBuildFile; fileRef = 104182941EF26AEC00078527 /* UIColor+CreateMethods.m */; };
 		105ED8DD1EFCE11400C133D0 /* UIImageView+FaceAware.swift in Sources */ = {isa = PBXBuildFile; fileRef = 105ED8DC1EFCE11400C133D0 /* UIImageView+FaceAware.swift */; };
 		105ED8E11EFCE7F000C133D0 /* ChooseInterestVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 105ED8E01EFCE7F000C133D0 /* ChooseInterestVC.swift */; };
+		1065FD771EFD2DE100D2C38F /* detailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1065FD761EFD2DE100D2C38F /* detailViewController.swift */; };
 		1068D15B1EF7A73600047942 /* MainTabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1068D15A1EF7A73600047942 /* MainTabBarViewController.swift */; };
 		1089A5A81EF3EAFC006197FE /* ForgotPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1089A5A41EF3EAFC006197FE /* ForgotPasswordViewController.swift */; };
 		1089A5A91EF3EAFC006197FE /* signupProfilePictureViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1089A5A51EF3EAFC006197FE /* signupProfilePictureViewController.swift */; };
@@ -101,6 +102,7 @@
 		104182B21EF26DB100078527 /* PYT-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "PYT-Bridging-Header.h"; sourceTree = "<group>"; };
 		105ED8DC1EFCE11400C133D0 /* UIImageView+FaceAware.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImageView+FaceAware.swift"; sourceTree = "<group>"; };
 		105ED8E01EFCE7F000C133D0 /* ChooseInterestVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChooseInterestVC.swift; sourceTree = "<group>"; };
+		1065FD761EFD2DE100D2C38F /* detailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = detailViewController.swift; sourceTree = "<group>"; };
 		1068D15A1EF7A73600047942 /* MainTabBarViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainTabBarViewController.swift; sourceTree = "<group>"; };
 		1089A5A41EF3EAFC006197FE /* ForgotPasswordViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ForgotPasswordViewController.swift; path = LoginSignupClasses/ForgotPasswordViewController.swift; sourceTree = "<group>"; };
 		1089A5A51EF3EAFC006197FE /* signupProfilePictureViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = signupProfilePictureViewController.swift; path = LoginSignupClasses/signupProfilePictureViewController.swift; sourceTree = "<group>"; };
@@ -200,6 +202,7 @@
 				1068D1591EF7A73600047942 /* Tab Bar Controller */,
 				10D0057E1EF78B81002BED25 /* MainHomeViewController */,
 				1025FB9D1EFBD8000068B557 /* InterestViewController */,
+				1065FD751EFD2DE100D2C38F /* DetailClass */,
 				104182691EF253DA00078527 /* Singlton Class */,
 				1041826E1EF2688F00078527 /* StoryClassVc */,
 				10CD18871EF7FE440031093F /* GestureViewClass */,
@@ -287,6 +290,14 @@
 				105ED8DC1EFCE11400C133D0 /* UIImageView+FaceAware.swift */,
 			);
 			path = FaceAware;
+			sourceTree = "<group>";
+		};
+		1065FD751EFD2DE100D2C38F /* DetailClass */ = {
+			isa = PBXGroup;
+			children = (
+				1065FD761EFD2DE100D2C38F /* detailViewController.swift */,
+			);
+			path = DetailClass;
 			sourceTree = "<group>";
 		};
 		1068D1591EF7A73600047942 /* Tab Bar Controller */ = {
@@ -671,6 +682,7 @@
 				10CD18861EF7EA780031093F /* cellClassTableViewCell.swift in Sources */,
 				10CD188A1EF7FE440031093F /* GestureViewClass.swift in Sources */,
 				1089A5A91EF3EAFC006197FE /* signupProfilePictureViewController.swift in Sources */,
+				1065FD771EFD2DE100D2C38F /* detailViewController.swift in Sources */,
 				1025FBA31EFBD8000068B557 /* intrestViewController.swift in Sources */,
 				100EE3BE1EF15F1E005A79C1 /* AppDelegate.swift in Sources */,
 				104182721EF26A4600078527 /* objectiveCFile.m in Sources */,

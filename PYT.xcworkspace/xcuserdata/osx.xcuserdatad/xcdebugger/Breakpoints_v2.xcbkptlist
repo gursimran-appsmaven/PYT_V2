@@ -9,13 +9,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "PYT/MainHomeViewController/mainHomeViewController.swift"
-            timestampString = "519889246.06839"
+            filePath = "PYT/DetailClass/detailViewController.swift"
+            timestampString = "519921162.492226"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "4712"
-            endingLineNumber = "4712"
-            landmarkName = "SingleTap(_:)"
+            startingLineNumber = "3195"
+            endingLineNumber = "3195"
+            landmarkName = "nearByPlaces(_:long:radius:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -25,13 +25,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "PYT/MainHomeViewController/mainHomeViewController.swift"
-            timestampString = "519889246.06839"
+            filePath = "PYT/DetailClass/detailViewController.swift"
+            timestampString = "519921162.492226"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "4780"
-            endingLineNumber = "4780"
-            landmarkName = "imageTapped(_:)"
+            startingLineNumber = "3193"
+            endingLineNumber = "3193"
+            landmarkName = "nearByPlaces(_:long:radius:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -41,13 +41,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "PYT/MainHomeViewController/mainHomeViewController.swift"
-            timestampString = "519889246.06839"
+            filePath = "PYT/DetailClass/detailViewController.swift"
+            timestampString = "519920972.160681"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "4779"
-            endingLineNumber = "4779"
-            landmarkName = "imageTapped(_:)"
+            startingLineNumber = "3179"
+            endingLineNumber = "3179"
+            landmarkName = "nearByPlaces(_:long:radius:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -57,13 +57,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "PYT/MainHomeViewController/mainHomeViewController.swift"
-            timestampString = "519889246.06839"
+            filePath = "PYT/DetailClass/detailViewController.swift"
+            timestampString = "519921142.433603"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "4784"
-            endingLineNumber = "4784"
-            landmarkName = "imageTapped(_:)"
+            startingLineNumber = "3188"
+            endingLineNumber = "3188"
+            landmarkName = "nearByPlaces(_:long:radius:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -73,13 +73,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "PYT/MainHomeViewController/mainHomeViewController.swift"
-            timestampString = "519889246.06839"
+            filePath = "PYT/DetailClass/detailViewController.swift"
+            timestampString = "519974390.527819"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "4785"
-            endingLineNumber = "4785"
-            landmarkName = "imageTapped(_:)"
+            startingLineNumber = "3183"
+            endingLineNumber = "3183"
+            landmarkName = "nearByPlaces(_:long:radius:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -89,125 +89,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "PYT/MainHomeViewController/mainHomeViewController.swift"
-            timestampString = "519889246.06839"
+            filePath = "PYT/DetailClass/detailViewController.swift"
+            timestampString = "519974399.55144"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "4778"
-            endingLineNumber = "4778"
-            landmarkName = "imageTapped(_:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "PYT/MainHomeViewController/mainHomeViewController.swift"
-            timestampString = "519889246.06839"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "4948"
-            endingLineNumber = "4948"
-            landmarkName = "openLongTap(_:event:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "PYT/MainHomeViewController/mainHomeViewController.swift"
-            timestampString = "519889246.06839"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "4972"
-            endingLineNumber = "4972"
-            landmarkName = "openLongTap(_:event:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "PYT/MainHomeViewController/mainHomeViewController.swift"
-            timestampString = "519889246.06839"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "5085"
-            endingLineNumber = "5085"
-            landmarkName = "manageViewLongTap()"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "PYT.searchScreenViewController.(cancelSearchFunction () -&gt; ()).(closure #1)"
-                  moduleName = "PYT"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/osx/Documents/PYT_V2/PYT/SearchScreenClass/searchScreenViewController.swift"
-                  timestampString = "519832648.92462"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "1092"
-                  endingLineNumber = "1092"
-                  offsetFromSymbolStart = "955">
-               </Location>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "PYT.searchScreenViewController.(cancelSearchFunction () -&gt; ()).(closure #1).(closure #1)"
-                  moduleName = "PYT"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/osx/Documents/PYT_V2/PYT/SearchScreenClass/searchScreenViewController.swift"
-                  timestampString = "519832648.926528"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "1092"
-                  endingLineNumber = "1092"
-                  offsetFromSymbolStart = "149">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "PYT/MainHomeViewController/mainHomeViewController.swift"
-            timestampString = "519889246.06839"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "2270"
-            endingLineNumber = "2270"
-            landmarkName = "mainHomeViewController"
-            landmarkType = "3">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "PYT/MainHomeViewController/mainHomeViewController.swift"
-            timestampString = "519889246.06839"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "5043"
-            endingLineNumber = "5043"
-            landmarkName = "manageViewLongTap()"
+            startingLineNumber = "3143"
+            endingLineNumber = "3143"
+            landmarkName = "nearByPlaces(_:long:radius:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -217,13 +105,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "PYT/MainHomeViewController/mainHomeViewController.swift"
-            timestampString = "519889246.06839"
+            filePath = "PYT/DetailClass/detailViewController.swift"
+            timestampString = "519976742.607819"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "4919"
-            endingLineNumber = "4919"
-            landmarkName = "planBtnTapCollectionView(_:)"
+            startingLineNumber = "3422"
+            endingLineNumber = "3422"
+            landmarkName = "nearByPlaces(_:long:radius:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -233,77 +121,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "PYT/MainHomeViewController/mainHomeViewController.swift"
-            timestampString = "519889246.06839"
+            filePath = "PYT/DetailClass/detailViewController.swift"
+            timestampString = "519976742.607819"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "4941"
-            endingLineNumber = "4941"
-            landmarkName = "openLongTap(_:event:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "PYT/MainHomeViewController/mainHomeViewController.swift"
-            timestampString = "519889246.06839"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "4931"
-            endingLineNumber = "4931"
-            landmarkName = "openLongTap(_:event:)"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "PYT.mainHomeViewController.openLongTap (__ObjC.UIButton, event : __ObjC.UIEvent) -&gt; ()"
-                  moduleName = "PYT"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/osx/Documents/PYT_V2/PYT/MainHomeViewController/mainHomeViewController.swift"
-                  timestampString = "519740153.359032"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "5021"
-                  endingLineNumber = "5021"
-                  offsetFromSymbolStart = "2986">
-               </Location>
-               <Location
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "PYT.mainHomeViewController.openLongTap (__ObjC.UIButton, event : __ObjC.UIEvent) -&gt; ()"
-                  moduleName = "PYT"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/osx/Documents/PYT_V2/PYT/MainHomeViewController/mainHomeViewController.swift"
-                  timestampString = "519740153.361023"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "5021"
-                  endingLineNumber = "5021"
-                  offsetFromSymbolStart = "6740">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "PYT/MainHomeViewController/mainHomeViewController.swift"
-            timestampString = "519889246.06839"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1706"
-            endingLineNumber = "1706"
-            landmarkName = "storyButtonTapped(_:)"
+            startingLineNumber = "3421"
+            endingLineNumber = "3421"
+            landmarkName = "nearByPlaces(_:long:radius:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -313,13 +137,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "PYT/MainHomeViewController/mainHomeViewController.swift"
-            timestampString = "519889246.06839"
+            filePath = "PYT/DetailClass/detailViewController.swift"
+            timestampString = "519974911.579821"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1684"
-            endingLineNumber = "1684"
-            landmarkName = "storyButtonTapped(_:)"
+            startingLineNumber = "3198"
+            endingLineNumber = "3198"
+            landmarkName = "nearByPlaces(_:long:radius:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -329,13 +153,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "PYT/MainHomeViewController/mainHomeViewController.swift"
-            timestampString = "519889246.06839"
+            filePath = "PYT/DetailClass/detailViewController.swift"
+            timestampString = "519974913.947743"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1694"
-            endingLineNumber = "1694"
-            landmarkName = "storyButtonTapped(_:)"
+            startingLineNumber = "3205"
+            endingLineNumber = "3205"
+            landmarkName = "nearByPlaces(_:long:radius:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -345,29 +169,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "PYT/MainHomeViewController/mainHomeViewController.swift"
-            timestampString = "519889246.06839"
+            filePath = "PYT/DetailClass/detailViewController.swift"
+            timestampString = "519974967.32357"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "4907"
-            endingLineNumber = "4907"
-            landmarkName = "imageTapped(_:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "PYT/MainHomeViewController/mainHomeViewController.swift"
-            timestampString = "519889246.06839"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "2936"
-            endingLineNumber = "2936"
-            landmarkName = "shortData()"
+            startingLineNumber = "3211"
+            endingLineNumber = "3211"
+            landmarkName = "nearByPlaces(_:long:radius:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -377,61 +185,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "PYT/MainHomeViewController/mainHomeViewController.swift"
-            timestampString = "519889246.06839"
+            filePath = "PYT/DetailClass/detailViewController.swift"
+            timestampString = "519975163.786122"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1421"
-            endingLineNumber = "1421"
-            landmarkName = "mainHomeViewController"
-            landmarkType = "3">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "PYT/InterestViewController/ChooseInterestVC.swift"
-            timestampString = "519892451.177122"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "125"
-            endingLineNumber = "125"
-            landmarkName = "doneButton(_:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "PYT/InterestViewController/intrestViewController.swift"
-            timestampString = "519903642.096671"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "2052"
-            endingLineNumber = "2052"
-            landmarkName = "longTap(_:event:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "PYT/InterestViewController/intrestViewController.swift"
-            timestampString = "519903642.096671"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "2073"
-            endingLineNumber = "2073"
-            landmarkName = "longTap(_:event:)"
+            startingLineNumber = "3227"
+            endingLineNumber = "3227"
+            landmarkName = "nearByPlaces(_:long:radius:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -441,13 +201,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "PYT/InterestViewController/intrestViewController.swift"
-            timestampString = "519903642.096671"
+            filePath = "PYT/DetailClass/detailViewController.swift"
+            timestampString = "519975238.777477"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "2390"
-            endingLineNumber = "2390"
-            landmarkName = "likeImageTapped()"
+            startingLineNumber = "3237"
+            endingLineNumber = "3237"
+            landmarkName = "nearByPlaces(_:long:radius:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

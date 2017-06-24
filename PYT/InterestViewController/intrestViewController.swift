@@ -691,7 +691,10 @@ class intrestViewController: UIViewController, apiClassInterestDelegate ,UITable
                 
                 
            
+               
                 
+                cell.gradientView.gradientLayer.colors = [UIColor.black.withAlphaComponent(0.65).cgColor, UIColor.clear.cgColor]
+                cell.gradientView.gradientLayer.gradient = GradientPoint.bottomTop.draw()
                 
                 
                 
@@ -904,6 +907,29 @@ class intrestViewController: UIViewController, apiClassInterestDelegate ,UITable
                     
                 }
                 
+                ///story manage
+                
+                if countsDictionary.object(forKey: "storyImages") != nil  {
+                    
+                    let countst = countsDictionary.value(forKey: "storyImages") as! NSArray
+                   cell.planButton.setImage(UIImage (named: "travelplanbutton"), for: .normal)
+                    if countst.count>0
+                    {
+                        print(countst)
+                        if countst.contains(imageId2)
+                        {
+                            cell.planButton.setImage(UIImage (named: "travelplanbuttonactive"), for: .normal)
+                            cell.planButton.removeTarget(nil, action: nil, for: .allEvents)
+                        }
+                        
+                        
+                    }
+                }
+                
+
+                
+                
+                
                 
                 
                 return cell
@@ -923,53 +949,6 @@ class intrestViewController: UIViewController, apiClassInterestDelegate ,UITable
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        if tableView == categorytableView {
-            
-            
-            
-            
-            if categId .contains((tagsArr .object(at: indexPath.row) as AnyObject).value(forKey: "_id") as! String)
-            {
-                
-                let objId = ((tagsArr .object(at: indexPath.row) as AnyObject).value(forKey: "_id") as? String ?? "")
-                
-                let objectInt = ((tagsArr .object(at: indexPath.row) as AnyObject).value(forKey: "displayName") as? String)
-                checked .remove(objectInt!)
-                categId .remove(objId)
-                
-                
-                
-            } else
-            {
-                //                let object = tagsArr .objectAtIndex(indexPath.row).valueForKey("name") as? String ?? ""
-                //                checked .addObject(object)
-                
-                print(tagsArr .object(at: indexPath.row))
-                
-                let objId = ((tagsArr .object(at: indexPath.row) as AnyObject).value(forKey: "_id") as? String ?? "")
-                let objectInt = ((tagsArr .object(at: indexPath.row) as AnyObject).value(forKey: "displayName") as? String)
-                checked .add(objectInt!)
-                categId .add(objId)
-                
-                
-                
-            }
-            
-            
-            categorytableView .reloadData()
-            
-            
-            
-            
-        }
-            
-            
-            
-            //////
-            
-        else
-            
-        {
             
             print(photosArray[indexPath.row])
             
@@ -1246,7 +1225,7 @@ class intrestViewController: UIViewController, apiClassInterestDelegate ,UITable
             })
             
             
-        }
+        
         
         
         
@@ -2422,11 +2401,9 @@ class intrestViewController: UIViewController, apiClassInterestDelegate ,UITable
         
         var countLik = NSNumber()
         
-        if (self.photosArray.object(at: index2) as AnyObject).value(forKey: "likeCount") != nil  {
+        if (((self.photosArray.object(at: index2) as AnyObject).value(forKey: "photos")! as AnyObject).object(at: 0) as AnyObject).value(forKey: "likeCount") != nil{
             
-            countLik = (self.photosArray.object(at: index2) as AnyObject).value(forKey: "likeCount") as! NSNumber  //as? String ?? "0.0"
-            
-            
+            countLik = (((self.photosArray.object(at: index2) as AnyObject).value(forKey: "photos")! as AnyObject).object(at: 0) as AnyObject).value(forKey: "likeCount") as! NSNumber  //as? String ?? "0.0"
         }else
         {
             countLik=0
@@ -2435,7 +2412,8 @@ class intrestViewController: UIViewController, apiClassInterestDelegate ,UITable
         
         
         
-        if likeCount.count>0 {
+        if likeCount.count>0
+        {
             let arrLik = likeCount.value(forKey: "imageId") as! NSArray
             if arrLik.contains(imageId)
             {
@@ -2696,7 +2674,7 @@ class intrestViewController: UIViewController, apiClassInterestDelegate ,UITable
     
     //MARK: delete image tapped
     //MARK:
-    func deleteImageTapped()
+    func editImageTapped()
     {
         // Your action
         

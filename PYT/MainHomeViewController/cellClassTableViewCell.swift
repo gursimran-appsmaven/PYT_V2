@@ -37,6 +37,7 @@ class cellClassTableViewCell: UITableViewCell{
     @IBOutlet weak var planButton: UIButton!
     @IBOutlet weak var likeCountLbl: UILabel!
     @IBOutlet weak var likeBtn: UIButton!
+    @IBOutlet weak var gradientView: GradientView!
     
     
     
