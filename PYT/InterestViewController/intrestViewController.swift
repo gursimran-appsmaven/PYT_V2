@@ -686,8 +686,9 @@ class intrestViewController: UIViewController, apiClassInterestDelegate ,UITable
                
                 
                 cell.categoryImage.image = imageOfCatgory //.setImage(imageOfCatgory, for: UIControlState())
+                let loc = NSString()
                 
-                cell.locationLabel.text=((((photosArray.object(at: indexPath.row) as AnyObject).value(forKey: "photos")! as AnyObject).object(at: 0) as AnyObject).value(forKey: "placeTag") as? String)?.capitalized ?? ""
+               var locationCity=((((photosArray.object(at: indexPath.row) as AnyObject).value(forKey: "photos")! as AnyObject).object(at: 0) as AnyObject).value(forKey: "placeTag") as? String)?.capitalized ?? ""
                 
                 
            
@@ -698,8 +699,9 @@ class intrestViewController: UIViewController, apiClassInterestDelegate ,UITable
                 
                 
                 
+                if locationCity == "" || locationCity == " " {
                 
-                var locationCity = "\((((photosArray.object(at: indexPath.row) as AnyObject).value(forKey: "photos")! as AnyObject).object(at: 0) as AnyObject).value(forKey: "city") as? String ?? " ")".capitalized
+                          locationCity = "\((((photosArray.object(at: indexPath.row) as AnyObject).value(forKey: "photos")! as AnyObject).object(at: 0) as AnyObject).value(forKey: "city") as? String ?? " ")".capitalized
                 
                 //// to add state if city not found
                 if locationCity == "" || locationCity == " " {
@@ -711,12 +713,10 @@ class intrestViewController: UIViewController, apiClassInterestDelegate ,UITable
                     if locationCity == "" || locationCity == " " {
                         
                         locationCity = "\((((photosArray.object(at: indexPath.row) as AnyObject).value(forKey: "photos")! as AnyObject).object(at: 0) as AnyObject).value(forKey: "country") as? String ?? " ")".capitalized
-                        
-                        
-                        
+                                                
                     }
                     
-                    
+                    }
                 }
                 
                 
@@ -728,7 +728,7 @@ class intrestViewController: UIViewController, apiClassInterestDelegate ,UITable
                 
                 
           
-                cell.locationLabel.text = locationCity
+                cell.fullLocationLabel.text = locationCity
                 
                 
                 let currentIndex = (indexCount.object(at: indexPath.row) as AnyObject).value(forKey: "index") as! Int
@@ -919,7 +919,8 @@ class intrestViewController: UIViewController, apiClassInterestDelegate ,UITable
                     
                     let countst = countsDictionary.value(forKey: "storyImages") as! NSArray
                    cell.planButton.setImage(UIImage (named: "travelplanbutton"), for: .normal)
-                    if countst.count>0
+                    cell.planButton .addTarget(self, action: #selector(intrestViewController.addToPlanAction(_:)), for: .touchUpInside)
+                     if countst.count>0
                     {
                         print(countst)
                         if countst.contains(imageId2)
@@ -1002,8 +1003,13 @@ class intrestViewController: UIViewController, apiClassInterestDelegate ,UITable
             let changeStr:NSString = sendgeoTag as NSString
             let ddd = changeStr.replacingOccurrences(of: "&", with: " and ") //replace & with and
             sendgeoTag = ddd
-            location = ""
-            //"\(self.captitalString(sendgeoTag as? String as NSString? ?? "")), \(self.captitalString((self.photosArray.object(at: indexPath.row) as AnyObject).value(forKey: "city") as? String ?? "")), \(self.captitalString(self.photosArray.object(at: indexPath.row).value(forKey: "country") as? String ?? ""))"
+        let loc1 = self.captitalString(sendgeoTag as NSString)
+        print(self.photosArray.object(at: indexPath.row))
+        let loc2 = self.captitalString((self.photosArray.object(at: indexPath.row)as! NSDictionary).value(forKey: "city") as? String as NSString? ?? "")
+        let loc3 = self.captitalString((self.photosArray.object(at: indexPath.row) as! NSDictionary).value(forKey: "country") as? String as NSString? ?? "")
+        
+        
+            location = "\(loc1),\(loc2), \(loc3)" as NSString
             
             
             var arrImg = NSString()
@@ -1149,7 +1155,7 @@ class intrestViewController: UIViewController, apiClassInterestDelegate ,UITable
             
             
             
-            //            let otherUserId = photosArray[indexPath.row].valueForKey("userId")!.objectAtIndex(0).valueForKey("_id") as? String ?? ""
+        
             
             let otherUserId = ((((photosArray.object(at: indexPath.row) as AnyObject).value(forKey: "photos")! as AnyObject).value(forKey: "user")! as AnyObject).object(at: 0) as AnyObject).value(forKey: "_id") as? String ?? ""
             
@@ -1172,7 +1178,13 @@ class intrestViewController: UIViewController, apiClassInterestDelegate ,UITable
             
             
             if self.likeCount.count>0 {
-                if (self.likeCount.value(forKey: "imageId") as AnyObject).contains(imId) {
+                let likAr = self.likeCount.value(forKey: "imageId") as! NSArray
+                
+                if likAr.contains(imId) {
+                    
+
+                
+                //if (self.likeCount.value(forKey: "imageId") as AnyObject).contains(imId) {
                     
                     let index = (self.likeCount.value(forKey: "imageId") as AnyObject).index(of: imId)
                     
@@ -1218,15 +1230,15 @@ class intrestViewController: UIViewController, apiClassInterestDelegate ,UITable
             
            
             
-            //let nxtObj2 = self.storyboard?.instantiateViewController(withIdentifier: "detailViewController") as! detailViewController
-           // nxtObj2.arrayWithData=arrayData
-           // nxtObj2.fromStory=false
-           // nxtObj2.countLikes=likeCount
-            //nxtObj2.fromInterest = true
-            
+            let nxtObj2 = self.storyboard?.instantiateViewController(withIdentifier: "detailViewController") as! detailViewController
+            nxtObj2.arrayWithData=arrayData
+            nxtObj2.fromStory=false
+            nxtObj2.countLikes=likeCount
+            nxtObj2.fromInterest = true
+        
             DispatchQueue.main.async(execute: {
                 
-                //self.navigationController! .pushViewController(nxtObj2, animated: true)
+                self.navigationController! .pushViewController(nxtObj2, animated: true)
                 self.appearBool=true
             })
             
@@ -1298,7 +1310,8 @@ class intrestViewController: UIViewController, apiClassInterestDelegate ,UITable
     func loadCount(_ notification: Notification){
         //load data here
         
-      
+        let indexPathTable = IndexPath(row: index2, section: 0)
+        tableOfIntrests.reloadRows(at: [indexPathTable], with: .none)
         
         if countsDictionary.object(forKey: "storyCount") != nil {
             if let stCount = countsDictionary.value(forKey: "storyCount"){
@@ -1316,6 +1329,7 @@ class intrestViewController: UIViewController, apiClassInterestDelegate ,UITable
             }
             
         }
+        
         
         
         //self.bucketCount.text=bucketListTotalCount
@@ -2024,7 +2038,8 @@ class intrestViewController: UIViewController, apiClassInterestDelegate ,UITable
         if (currentTouchPosition?.x)! < pupupsubview.frame.size.width + 5 {
             xframe = (currentTouchPosition?.x)! + 5 //+ dynamicDetailSubview.frame.size.width + 3
         }
-        else{
+        else
+        {
             xframe = (currentTouchPosition?.x)! - pupupsubview.frame.size.width + 5
         }
         
@@ -2206,10 +2221,13 @@ class intrestViewController: UIViewController, apiClassInterestDelegate ,UITable
     {
         
         
+        
+        
         //// hide the view
         if showView==false {
             self.popUpView.isHidden = true
-            
+             let indexPathTable = IndexPath(row: index2, section: 0)
+            tableOfIntrests.reloadRows(at: [indexPathTable], with: .none)
             
         }
             
@@ -2522,6 +2540,46 @@ class intrestViewController: UIViewController, apiClassInterestDelegate ,UITable
         
     }
     
+    
+    
+    
+    
+    func addToPlanAction(_ sender: UIButton)
+    {
+    
+        let a:Int? = (sender.tag) / 1000
+        let b:Int? = (sender.tag) % 1000
+        
+        
+        
+        index1 = a!
+        index2 = b!
+        
+        
+        let imageId = (((self.photosArray.object(at: index2) as AnyObject).value(forKey: "photos")! as AnyObject).object(at: 0) as AnyObject).value(forKey: "photoId") as? String ?? ""
+      
+        
+        if countsDictionary.object(forKey: "storyImages") != nil  {
+            
+            let countst = countsDictionary.value(forKey: "storyImages") as! NSArray
+            addToPlanPopup.setTitle("Add To Plan", for: .normal)
+            if countst.count>0
+            {
+                print(countst)
+                if countst.contains(imageId)
+                {
+                    addToPlanPopup.setTitle("Remove From Plan", for: .normal)
+                }
+                
+                
+            }
+        }
+        
+        
+        self.storyImageTapped()
+        
+        
+    }
     
     
     

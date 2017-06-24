@@ -288,10 +288,10 @@ class mainHomeViewController: UIViewController, SDWebImageManagerDelegate, apiCl
             let placeIds = (countArray.value(forKey: "_id")) as! NSArray
             print(placeIds)
             print(globalPlaceid)
-            if placeIds.contains("58c3c09336f8b6180feea0c6"){//(globalPlaceid) {
+            if placeIds.contains(globalPlaceid) {
                 print("Contains story")
                 
-//                storyCollectionView .reloadData()
+                //storyCollectionView .reloadData()
             }
             
         }
@@ -3449,12 +3449,12 @@ extension mainHomeViewController: UICollectionViewDelegate, UICollectionViewData
                     if imageUrlArray.count > 0
                     {
                         
-                        let imgUrl = (((imageUrlArray.object(at: indexPath.row)) as! NSDictionary).value(forKey: "image")as! NSDictionary) .value(forKey: "imageThumb") as? String ?? ""
+                        let imgUrl = (((imageUrlArray.object(at: imageUrlArray.count-1 - indexPath.row)) as! NSDictionary).value(forKey: "image")as! NSDictionary) .value(forKey: "imageThumb") as? String ?? ""
                         
                         print(imgUrl)
                         cell.planImage.sd_setImage(with: URL(string: imgUrl), placeholderImage: UIImage (named: "dummyBackground1"))
                         
-                        let placetag = (((imageUrlArray.object(at: indexPath.row)) as! NSDictionary).value(forKey: "image")as! NSDictionary) .value(forKey: "placeTag") as? String ?? ""
+                        let placetag = (((imageUrlArray.object(at:  imageUrlArray.count-1 - indexPath.row)) as! NSDictionary).value(forKey: "image")as! NSDictionary) .value(forKey: "placeTag") as? String ?? ""
                         cell.planName.text = placetag
                         
                         
@@ -4128,13 +4128,17 @@ extension mainHomeViewController: UICollectionViewDelegate, UICollectionViewData
         
         if planAllLocation == false {
             planAllLocation = true
-           // storyCollectionView .reloadData()
+            self.imagesTableView.reloadSections([0], with: .none)
+
+
+            // storyCollectionView .reloadData()
             
         }
         else
         {
             planAllLocation = false
-           // storyCollectionView .reloadData()
+            //self.imagesTableView.reloadSections(IndexSet(integersIn: 0...0), with: UITableViewRowAnimation.top)
+          self.imagesTableView.reloadSections([0], with: .none)
         }
         
         

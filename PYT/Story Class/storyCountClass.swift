@@ -100,9 +100,7 @@ class storyCountClass: NSObject
                                    // if jsonArray.count>0{
                                         countArray=basicInfo.value(forKey: "data") as! NSMutableArray
                                     
-                                        
-                                    
-                                    
+                                   
                                     // Post notification
                                     
 //                                    let notName = Notification.Name("loadCount")

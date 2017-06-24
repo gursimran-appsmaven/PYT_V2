@@ -34,8 +34,6 @@
 		1089A5A91EF3EAFC006197FE /* signupProfilePictureViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1089A5A51EF3EAFC006197FE /* signupProfilePictureViewController.swift */; };
 		1089A5AA1EF3EAFC006197FE /* SignUpScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1089A5A61EF3EAFC006197FE /* SignUpScreenViewController.swift */; };
 		1089A5AB1EF3EAFC006197FE /* signupSetPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1089A5A71EF3EAFC006197FE /* signupSetPasswordViewController.swift */; };
-		10A467201EFD4A2B001DB59B /* ProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10A4671F1EFD4A2B001DB59B /* ProfileVC.swift */; };
-		10A8ECE71EFD1FBB004264CF /* PostImagesVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10A8ECE61EFD1FBB004264CF /* PostImagesVC.swift */; };
 		10B3A32D1EF3DE890053989C /* SFUIDisplay-Black.otf in Resources */ = {isa = PBXBuildFile; fileRef = 10B3A3241EF3DE890053989C /* SFUIDisplay-Black.otf */; };
 		10B3A32E1EF3DE890053989C /* SFUIDisplay-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 10B3A3251EF3DE890053989C /* SFUIDisplay-Bold.otf */; };
 		10B3A32F1EF3DE890053989C /* SFUIDisplay-Heavy.otf in Resources */ = {isa = PBXBuildFile; fileRef = 10B3A3261EF3DE890053989C /* SFUIDisplay-Heavy.otf */; };
@@ -110,8 +108,6 @@
 		1089A5A51EF3EAFC006197FE /* signupProfilePictureViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = signupProfilePictureViewController.swift; path = LoginSignupClasses/signupProfilePictureViewController.swift; sourceTree = "<group>"; };
 		1089A5A61EF3EAFC006197FE /* SignUpScreenViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SignUpScreenViewController.swift; path = LoginSignupClasses/SignUpScreenViewController.swift; sourceTree = "<group>"; };
 		1089A5A71EF3EAFC006197FE /* signupSetPasswordViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = signupSetPasswordViewController.swift; path = LoginSignupClasses/signupSetPasswordViewController.swift; sourceTree = "<group>"; };
-		10A4671F1EFD4A2B001DB59B /* ProfileVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileVC.swift; sourceTree = "<group>"; };
-		10A8ECE61EFD1FBB004264CF /* PostImagesVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostImagesVC.swift; sourceTree = "<group>"; };
 		10B3A3241EF3DE890053989C /* SFUIDisplay-Black.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SFUIDisplay-Black.otf"; sourceTree = "<group>"; };
 		10B3A3251EF3DE890053989C /* SFUIDisplay-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SFUIDisplay-Bold.otf"; sourceTree = "<group>"; };
 		10B3A3261EF3DE890053989C /* SFUIDisplay-Heavy.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SFUIDisplay-Heavy.otf"; sourceTree = "<group>"; };
@@ -321,22 +317,6 @@
 				1089A5A71EF3EAFC006197FE /* signupSetPasswordViewController.swift */,
 			);
 			name = LoginSignupClasses;
-			sourceTree = "<group>";
-		};
-		10A4671E1EFD4A11001DB59B /* Profile */ = {
-			isa = PBXGroup;
-			children = (
-				10A4671F1EFD4A2B001DB59B /* ProfileVC.swift */,
-			);
-			name = Profile;
-			sourceTree = "<group>";
-		};
-		10A8ECE51EFD1F90004264CF /* Post Images */ = {
-			isa = PBXGroup;
-			children = (
-				10A8ECE61EFD1FBB004264CF /* PostImagesVC.swift */,
-			);
-			name = "Post Images";
 			sourceTree = "<group>";
 		};
 		10B3A3231EF3DE890053989C /* SF_Font */ = {
@@ -708,7 +688,6 @@
 				104182721EF26A4600078527 /* objectiveCFile.m in Sources */,
 				1025FBA11EFBD8000068B557 /* apiClassInterest.swift in Sources */,
 				1068D15B1EF7A73600047942 /* MainTabBarViewController.swift in Sources */,
-				10A467201EFD4A2B001DB59B /* ProfileVC.swift in Sources */,
 				105ED8E11EFCE7F000C133D0 /* ChooseInterestVC.swift in Sources */,
 				104182B11EF26AEC00078527 /* UIColor+CreateMethods.m in Sources */,
 				10D005801EF78B81002BED25 /* mainHomeViewController.swift in Sources */,
@@ -721,7 +700,6 @@
 				1089A5AA1EF3EAFC006197FE /* SignUpScreenViewController.swift in Sources */,
 				1041826B1EF25D4300078527 /* CommonFunctionsClass.swift in Sources */,
 				1089A5A81EF3EAFC006197FE /* ForgotPasswordViewController.swift in Sources */,
-				10A8ECE71EFD1FBB004264CF /* PostImagesVC.swift in Sources */,
 				105ED8DD1EFCE11400C133D0 /* UIImageView+FaceAware.swift in Sources */,
 				100EE3911EF156A7005A79C1 /* ViewController.swift in Sources */,
 				104182681EF253D400078527 /* apiClass.swift in Sources */,

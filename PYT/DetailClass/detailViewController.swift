@@ -800,8 +800,8 @@ class detailViewController: UIViewController, apiClassDelegate {
         
         self.view .bringSubview(toFront: BackBtn)
          
-        
-        self.tabBarController?.tabBar.isHidden = true
+        self.tabBarController?.setTabBarVisible(visible: false, animated: true)
+        //self.tabBarController?.tabBar.isHidden = true
         showMoreDescription.isUserInteractionEnabled=false
         
         
@@ -820,8 +820,8 @@ class detailViewController: UIViewController, apiClassDelegate {
     
     
     override func viewWillDisappear(_ animated: Bool) {
-        self.tabBarController?.tabBar.isHidden = false
-        
+        //self.tabBarController?.tabBar.isHidden = false
+        self.tabBarController?.setTabBarVisible(visible: true, animated: true)
         self.view .bringSubview(toFront: BackBtn)
         
     }
@@ -897,7 +897,7 @@ class detailViewController: UIViewController, apiClassDelegate {
         var sdWebImageSource = [InputSource]()
         
         self.slideShow.slideshowInterval = 0
-        self.slideShow.pageControlPosition = PageControlPosition.underScrollView
+        self.slideShow.pageControlPosition = PageControlPosition.insideScrollView
         self.slideShow.pageControl.currentPageIndicatorTintColor = UIColor.lightGray
         self.slideShow.pageControl.numberOfPages = 5
         
