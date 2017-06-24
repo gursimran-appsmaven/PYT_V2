@@ -4016,7 +4016,7 @@ extension mainHomeViewController: UICollectionViewDelegate, UICollectionViewData
                     
                     let gradient = cell.viewWithTag(7499) as! GradientView
                     
-                    gradient.gradientLayer.colors = [UIColor.black.withAlphaComponent(0.65).cgColor, UIColor.clear.cgColor]
+                    gradient.gradientLayer.colors = [UIColor.black.withAlphaComponent(0.75).cgColor, UIColor.clear.cgColor]
                     gradient.gradientLayer.gradient = GradientPoint.bottomTop.draw()
                     
                     
