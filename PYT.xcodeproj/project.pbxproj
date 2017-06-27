@@ -30,6 +30,7 @@
 		105ED8DD1EFCE11400C133D0 /* UIImageView+FaceAware.swift in Sources */ = {isa = PBXBuildFile; fileRef = 105ED8DC1EFCE11400C133D0 /* UIImageView+FaceAware.swift */; };
 		105ED8E11EFCE7F000C133D0 /* ChooseInterestVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 105ED8E01EFCE7F000C133D0 /* ChooseInterestVC.swift */; };
 		1065FD771EFD2DE100D2C38F /* detailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1065FD761EFD2DE100D2C38F /* detailViewController.swift */; };
+		1066F26E1F02428F007CE7E3 /* ProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1066F26D1F02428F007CE7E3 /* ProfileVC.swift */; };
 		1068D15B1EF7A73600047942 /* MainTabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1068D15A1EF7A73600047942 /* MainTabBarViewController.swift */; };
 		1089A5A81EF3EAFC006197FE /* ForgotPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1089A5A41EF3EAFC006197FE /* ForgotPasswordViewController.swift */; };
 		1089A5A91EF3EAFC006197FE /* signupProfilePictureViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1089A5A51EF3EAFC006197FE /* signupProfilePictureViewController.swift */; };
@@ -105,6 +106,7 @@
 		105ED8DC1EFCE11400C133D0 /* UIImageView+FaceAware.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImageView+FaceAware.swift"; sourceTree = "<group>"; };
 		105ED8E01EFCE7F000C133D0 /* ChooseInterestVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChooseInterestVC.swift; sourceTree = "<group>"; };
 		1065FD761EFD2DE100D2C38F /* detailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = detailViewController.swift; sourceTree = "<group>"; };
+		1066F26D1F02428F007CE7E3 /* ProfileVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileVC.swift; sourceTree = "<group>"; };
 		1068D15A1EF7A73600047942 /* MainTabBarViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainTabBarViewController.swift; sourceTree = "<group>"; };
 		1089A5A41EF3EAFC006197FE /* ForgotPasswordViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ForgotPasswordViewController.swift; path = LoginSignupClasses/ForgotPasswordViewController.swift; sourceTree = "<group>"; };
 		1089A5A51EF3EAFC006197FE /* signupProfilePictureViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = signupProfilePictureViewController.swift; path = LoginSignupClasses/signupProfilePictureViewController.swift; sourceTree = "<group>"; };
@@ -309,6 +311,14 @@
 				1065FD761EFD2DE100D2C38F /* detailViewController.swift */,
 			);
 			path = DetailClass;
+			sourceTree = "<group>";
+		};
+		1066F26C1F02428F007CE7E3 /* Profile */ = {
+			isa = PBXGroup;
+			children = (
+				1066F26D1F02428F007CE7E3 /* ProfileVC.swift */,
+			);
+			path = Profile;
 			sourceTree = "<group>";
 		};
 		1068D1591EF7A73600047942 /* Tab Bar Controller */ = {
@@ -711,6 +721,7 @@
 				1089A5AA1EF3EAFC006197FE /* SignUpScreenViewController.swift in Sources */,
 				1041826B1EF25D4300078527 /* CommonFunctionsClass.swift in Sources */,
 				1089A5A81EF3EAFC006197FE /* ForgotPasswordViewController.swift in Sources */,
+				1066F26E1F02428F007CE7E3 /* ProfileVC.swift in Sources */,
 				105ED8DD1EFCE11400C133D0 /* UIImageView+FaceAware.swift in Sources */,
 				100CE5451F023BF4005C5C8D /* PostScreenViewController.swift in Sources */,
 				100EE3911EF156A7005A79C1 /* ViewController.swift in Sources */,
