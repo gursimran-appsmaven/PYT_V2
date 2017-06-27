@@ -107,22 +107,23 @@ import UIKit
     }
    
     var topInset:       CGFloat = 0
-    var rightInset:     CGFloat = 10
+    var rightInset:     CGFloat = 5
     var bottomInset:    CGFloat = 0
-    var leftInset:      CGFloat = 10
+    var leftInset:      CGFloat = 5
     
     override func drawText(in rect: CGRect) {
         let insets = UIEdgeInsets.init(top: topInset, left: leftInset, bottom: bottomInset, right: rightInset)
         super.drawText(in: UIEdgeInsetsInsetRect(rect, insets))
     }
-    
-//    override func intrinsicContentSize() -> CGSize {
-//        var size = super.intrinsicContentSize
-//        size.width += rightInset + leftInset
-//        size.height += topInset + bottomInset
- //       return size
- //   }
-}
+    override public var intrinsicContentSize: CGSize {
+        //...
+        var size = super.intrinsicContentSize
+        size.width += rightInset + leftInset
+        size.height += topInset + bottomInset
+        return size
+
+    }
+ }
 
 
 extension UIColor {
