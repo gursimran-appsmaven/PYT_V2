@@ -252,7 +252,7 @@
                                         </connections>
                                     </button>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Logo" translatesAutoresizingMaskIntoConstraints="NO" id="kUr-Zw-vdR">
-                                        <rect key="frame" x="206" y="81.5" width="188" height="121"/>
+                                        <rect key="frame" x="206" y="82" width="188" height="121"/>
                                     </imageView>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -542,7 +542,7 @@
                                         </connections>
                                     </button>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Logo" translatesAutoresizingMaskIntoConstraints="NO" id="yMQ-Fv-AAF">
-                                        <rect key="frame" x="206" y="81.5" width="188" height="121"/>
+                                        <rect key="frame" x="206" y="82" width="188" height="121"/>
                                     </imageView>
                                     <label opaque="NO" userInteractionEnabled="NO" alpha="0.75" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="By creating account,  you are accepting our " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ehc-28-7ao">
                                         <rect key="frame" x="147" y="469" width="228" height="21"/>
@@ -666,7 +666,7 @@
                                         </connections>
                                     </button>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Create Password" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="0qb-kQ-lei">
-                                        <rect key="frame" x="40" y="102.5" width="521" height="33"/>
+                                        <rect key="frame" x="40" y="103" width="521" height="33"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="33" id="nBP-4g-5ge"/>
                                         </constraints>
@@ -683,7 +683,7 @@
                                         </connections>
                                     </textField>
                                     <label opaque="NO" userInteractionEnabled="NO" alpha="0.5" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CfY-23-x5c">
-                                        <rect key="frame" x="39" y="136.5" width="522" height="1"/>
+                                        <rect key="frame" x="39" y="137" width="522" height="1"/>
                                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="1" id="MMn-3Z-tg5"/>
@@ -693,7 +693,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Confirm Password" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="exv-yf-YtI">
-                                        <rect key="frame" x="40" y="184.5" width="521" height="33"/>
+                                        <rect key="frame" x="40" y="185" width="521" height="33"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="33" id="SAw-nO-G4f"/>
                                         </constraints>
@@ -710,7 +710,7 @@
                                         </connections>
                                     </textField>
                                     <label opaque="NO" userInteractionEnabled="NO" alpha="0.5" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kEZ-Ov-tEn">
-                                        <rect key="frame" x="39" y="218.5" width="522" height="1"/>
+                                        <rect key="frame" x="39" y="219" width="522" height="1"/>
                                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="1" id="Jm4-E3-rRF"/>
@@ -824,7 +824,7 @@
                                         <state key="normal" image="back"/>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Create Password" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FwA-69-DnU">
-                                        <rect key="frame" x="40" y="78.5" width="120" height="21"/>
+                                        <rect key="frame" x="40" y="79" width="120" height="21"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="21" id="9nf-Ub-z96"/>
                                             <constraint firstAttribute="width" constant="120" id="h2w-O0-79H"/>
@@ -834,7 +834,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Confirm Password" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ovk-ec-MJB">
-                                        <rect key="frame" x="40" y="160.5" width="137" height="21"/>
+                                        <rect key="frame" x="40" y="161" width="137" height="21"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="137" id="7Sf-9m-V1R"/>
                                             <constraint firstAttribute="height" constant="21" id="Wiz-dq-wGU"/>
@@ -944,10 +944,10 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mvO-Np-T6l" customClass="CustomView" customModule="PYT" customModuleProvider="target">
-                                                <rect key="frame" x="35" y="109" width="164.5" height="164.5"/>
+                                                <rect key="frame" x="35" y="109" width="165" height="165"/>
                                                 <subviews>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3pT-Kf-dgU" customClass="CustomButton" customModule="PYT" customModuleProvider="target">
-                                                        <rect key="frame" x="0.0" y="0.0" width="164.5" height="164.5"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="165" height="165"/>
                                                         <color key="backgroundColor" red="0.98039215686274506" green="0.98039215686274506" blue="0.98039215686274506" alpha="0.68378767730496459" colorSpace="calibratedRGB"/>
                                                         <fontDescription key="fontDescription" name="SFUIDisplay-Bold" family="SF UI Display" pointSize="14"/>
                                                         <inset key="titleEdgeInsets" minX="0.0" minY="55" maxX="0.0" maxY="0.0"/>
@@ -962,7 +962,7 @@
                                                         <rect key="frame" x="0.0" y="81.5" width="164.5" height="83"/>
                                                     </view>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Gre-rD-M6l">
-                                                        <rect key="frame" x="0.0" y="162.5" width="164.5" height="0.0"/>
+                                                        <rect key="frame" x="0.0" y="163" width="165" height="0.0"/>
                                                         <fontDescription key="fontDescription" name="SFUIDisplay-Bold" family="SF UI Display" pointSize="11"/>
                                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                         <nil key="highlightedColor"/>
@@ -990,10 +990,10 @@
                                                 </userDefinedRuntimeAttributes>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="a7s-he-KVf" customClass="CustomView" customModule="PYT" customModuleProvider="target">
-                                                <rect key="frame" x="217.5" y="109" width="164" height="164.5"/>
+                                                <rect key="frame" x="218" y="109" width="164" height="165"/>
                                                 <subviews>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="W2c-54-9AO" customClass="CustomButton" customModule="PYT" customModuleProvider="target">
-                                                        <rect key="frame" x="-1" y="0.0" width="164" height="164.5"/>
+                                                        <rect key="frame" x="-1" y="0.0" width="164" height="165"/>
                                                         <color key="backgroundColor" red="0.98039215686274506" green="0.98039215686274506" blue="0.98039215686274506" alpha="1" colorSpace="calibratedRGB"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" secondItem="W2c-54-9AO" secondAttribute="height" multiplier="1:1" id="WWq-MN-pha"/>
@@ -1012,7 +1012,7 @@
                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                     </view>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aFX-iV-p4v">
-                                                        <rect key="frame" x="0.0" y="162.5" width="164" height="0.0"/>
+                                                        <rect key="frame" x="0.0" y="163" width="164" height="0.0"/>
                                                         <fontDescription key="fontDescription" name="SFUIDisplay-Bold" family="SF UI Display" pointSize="11"/>
                                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                         <nil key="highlightedColor"/>
@@ -1040,10 +1040,10 @@
                                                 </userDefinedRuntimeAttributes>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZdU-rW-FRu" customClass="CustomView" customModule="PYT" customModuleProvider="target">
-                                                <rect key="frame" x="400.5" y="109" width="164.5" height="164.5"/>
+                                                <rect key="frame" x="401" y="109" width="164" height="165"/>
                                                 <subviews>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cwO-8r-9cQ" customClass="CustomButton" customModule="PYT" customModuleProvider="target">
-                                                        <rect key="frame" x="0.0" y="0.0" width="164.5" height="164.5"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="164" height="165"/>
                                                         <color key="backgroundColor" red="0.98039215686274506" green="0.98039215686274506" blue="0.98039215686274506" alpha="0.68378767730496459" colorSpace="calibratedRGB"/>
                                                         <fontDescription key="fontDescription" name="SFUIDisplay-Bold" family="SF UI Display" pointSize="14"/>
                                                         <inset key="titleEdgeInsets" minX="0.0" minY="55" maxX="0.0" maxY="0.0"/>
@@ -1087,10 +1087,10 @@
                                                 </userDefinedRuntimeAttributes>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OZQ-CP-nhM" customClass="CustomView" customModule="PYT" customModuleProvider="target">
-                                                <rect key="frame" x="125.5" y="293.5" width="164.5" height="164"/>
+                                                <rect key="frame" x="126" y="294" width="164" height="164"/>
                                                 <subviews>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZIp-hY-KmT" customClass="CustomButton" customModule="PYT" customModuleProvider="target">
-                                                        <rect key="frame" x="0.0" y="0.0" width="164.5" height="164"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="164" height="164"/>
                                                         <color key="backgroundColor" red="0.98039215686274506" green="0.98039215686274506" blue="0.98039215686274506" alpha="0.68378767730496459" colorSpace="calibratedRGB"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" secondItem="ZIp-hY-KmT" secondAttribute="height" multiplier="1:1" id="S1T-ef-93g"/>
@@ -1109,7 +1109,7 @@
                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                     </view>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qMC-qa-LX2">
-                                                        <rect key="frame" x="0.0" y="162" width="164.5" height="0.0"/>
+                                                        <rect key="frame" x="0.0" y="162" width="164" height="0.0"/>
                                                         <fontDescription key="fontDescription" name="SFUIDisplay-Bold" family="SF UI Display" pointSize="11"/>
                                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                         <nil key="highlightedColor"/>
@@ -1137,10 +1137,10 @@
                                                 </userDefinedRuntimeAttributes>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BhE-yR-LYC" customClass="CustomView" customModule="PYT" customModuleProvider="target">
-                                                <rect key="frame" x="310" y="293.5" width="164.5" height="164"/>
+                                                <rect key="frame" x="310" y="294" width="165" height="164"/>
                                                 <subviews>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7lN-Gv-dEo" customClass="CustomButton" customModule="PYT" customModuleProvider="target">
-                                                        <rect key="frame" x="0.0" y="0.0" width="164.5" height="164"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="165" height="164"/>
                                                         <color key="backgroundColor" red="0.98039215686274506" green="0.98039215686274506" blue="0.98039215686274506" alpha="0.68378767730496459" colorSpace="calibratedRGB"/>
                                                         <fontDescription key="fontDescription" name="SFUIDisplay-Regular" family="SF UI Display" pointSize="14"/>
                                                         <inset key="titleEdgeInsets" minX="0.0" minY="55" maxX="0.0" maxY="0.0"/>
@@ -1156,7 +1156,7 @@
                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                     </view>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Tuh-2c-EuH">
-                                                        <rect key="frame" x="0.0" y="162" width="164.5" height="0.0"/>
+                                                        <rect key="frame" x="0.0" y="162" width="165" height="0.0"/>
                                                         <fontDescription key="fontDescription" name="SFUIDisplay-Bold" family="SF UI Display" pointSize="11"/>
                                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                         <nil key="highlightedColor"/>
@@ -1184,7 +1184,7 @@
                                                 </userDefinedRuntimeAttributes>
                                             </view>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7M7-b1-aP5" customClass="CustomButton" customModule="PYT" customModuleProvider="target">
-                                                <rect key="frame" x="367.5" y="96" width="25" height="25"/>
+                                                <rect key="frame" x="368" y="96" width="25" height="25"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="25" id="dK5-91-0eW"/>
@@ -1208,7 +1208,7 @@
                                                 </userDefinedRuntimeAttributes>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VEc-RQ-T7Y" customClass="CustomButton" customModule="PYT" customModuleProvider="target">
-                                                <rect key="frame" x="184.5" y="96" width="25" height="25"/>
+                                                <rect key="frame" x="185" y="96" width="25" height="25"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                 <state key="normal" image="cross"/>
                                                 <userDefinedRuntimeAttributes>
@@ -1218,7 +1218,7 @@
                                                 </userDefinedRuntimeAttributes>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9dz-jy-Rev" customClass="CustomButton" customModule="PYT" customModuleProvider="target">
-                                                <rect key="frame" x="275" y="280.5" width="25" height="25"/>
+                                                <rect key="frame" x="275" y="281" width="25" height="25"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                 <state key="normal" image="cross"/>
                                                 <userDefinedRuntimeAttributes>
@@ -1228,7 +1228,7 @@
                                                 </userDefinedRuntimeAttributes>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HjE-ki-S41" customClass="CustomButton" customModule="PYT" customModuleProvider="target">
-                                                <rect key="frame" x="458.5" y="280.5" width="25" height="25"/>
+                                                <rect key="frame" x="459" y="281" width="25" height="25"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                 <state key="normal" image="cross"/>
                                                 <userDefinedRuntimeAttributes>
@@ -1238,7 +1238,7 @@
                                                 </userDefinedRuntimeAttributes>
                                             </button>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AOw-yV-9vP">
-                                                <rect key="frame" x="0.0" y="520.5" width="600" height="329.5"/>
+                                                <rect key="frame" x="0.0" y="521" width="600" height="329"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Trending Destinations" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LTM-Z5-MGe">
                                                         <rect key="frame" x="8" y="8" width="150" height="21"/>
@@ -1321,7 +1321,7 @@
                                                         </connections>
                                                     </collectionView>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Travel Gurus" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7fJ-Ei-igS">
-                                                        <rect key="frame" x="8" y="280" width="82.5" height="21"/>
+                                                        <rect key="frame" x="8" y="280" width="79" height="21"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="21" id="5n7-2x-7x3"/>
                                                         </constraints>
@@ -1329,7 +1329,7 @@
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" alpha="0.75" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Inspiration from the best travel bloggers" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oM1-B3-Teh">
-                                                        <rect key="frame" x="8" y="301" width="206" height="17"/>
+                                                        <rect key="frame" x="8" y="301" width="214" height="17"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="17" id="waw-LU-zYL"/>
                                                         </constraints>
@@ -1502,7 +1502,7 @@
                                                         </connections>
                                                     </collectionView>
                                                     <label hidden="YES" opaque="NO" userInteractionEnabled="NO" alpha="0.34999999999999998" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CHn-jF-a8u">
-                                                        <rect key="frame" x="-0.5" y="324" width="600" height="220"/>
+                                                        <rect key="frame" x="-1" y="324" width="601" height="220"/>
                                                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="15"/>
                                                         <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -1532,7 +1532,7 @@
                                                 </constraints>
                                             </view>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uVi-VL-6Zb">
-                                                <rect key="frame" x="260" y="473.5" width="80" height="31"/>
+                                                <rect key="frame" x="260" y="474" width="80" height="31"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="31" id="B3B-97-yfb"/>
                                                     <constraint firstAttribute="width" constant="80" id="eRK-1d-n1S"/>
@@ -2064,21 +2064,21 @@
                                                 </state>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="K01-c6-lZZ">
-                                                <rect key="frame" x="1" y="33" width="118" height="30.5"/>
+                                                <rect key="frame" x="1" y="33" width="118" height="31"/>
                                                 <fontDescription key="fontDescription" name="SFUIDisplay-Regular" family="SF UI Display" pointSize="13"/>
                                                 <state key="normal" title="Add Comment">
                                                     <color key="titleColor" red="0.55294117649999996" green="0.55294117649999996" blue="0.55294117649999996" alpha="1" colorSpace="calibratedRGB"/>
                                                 </state>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7r6-mD-OgL">
-                                                <rect key="frame" x="1" y="64.5" width="118" height="31"/>
+                                                <rect key="frame" x="1" y="65" width="118" height="31"/>
                                                 <fontDescription key="fontDescription" name="SFUIDisplay-Regular" family="SF UI Display" pointSize="13"/>
                                                 <state key="normal" title="Add To Plan">
                                                     <color key="titleColor" red="0.55294117649999996" green="0.55294117649999996" blue="0.55294117649999996" alpha="1" colorSpace="calibratedRGB"/>
                                                 </state>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rZ3-Pz-sLT">
-                                                <rect key="frame" x="1" y="96.5" width="118" height="30.5"/>
+                                                <rect key="frame" x="1" y="97" width="118" height="30"/>
                                                 <fontDescription key="fontDescription" name="SFUIDisplay-Regular" family="SF UI Display" pointSize="13"/>
                                                 <state key="normal" title="Add To Bucket">
                                                     <color key="titleColor" red="0.55294117649999996" green="0.55294117649999996" blue="0.55294117649999996" alpha="1" colorSpace="calibratedRGB"/>
@@ -2184,7 +2184,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="90"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Discover" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GW8-b6-oXy">
-                                        <rect key="frame" x="156.5" y="30" width="62.5" height="21"/>
+                                        <rect key="frame" x="154" y="30" width="67" height="21"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="21" id="dKf-6p-nNM"/>
                                         </constraints>
@@ -2707,21 +2707,21 @@
                                                 </state>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uIi-5D-0Lc">
-                                                <rect key="frame" x="1" y="33" width="118" height="30.5"/>
+                                                <rect key="frame" x="1" y="33" width="118" height="31"/>
                                                 <fontDescription key="fontDescription" name="SFUIDisplay-Regular" family="SF UI Display" pointSize="13"/>
                                                 <state key="normal" title="Add Comment">
                                                     <color key="titleColor" red="0.55294117649999996" green="0.55294117649999996" blue="0.55294117649999996" alpha="1" colorSpace="calibratedRGB"/>
                                                 </state>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5xu-ss-yGj">
-                                                <rect key="frame" x="1" y="64.5" width="118" height="31"/>
+                                                <rect key="frame" x="1" y="65" width="118" height="31"/>
                                                 <fontDescription key="fontDescription" name="SFUIDisplay-Regular" family="SF UI Display" pointSize="13"/>
                                                 <state key="normal" title="Add To Plan">
                                                     <color key="titleColor" red="0.55294117649999996" green="0.55294117649999996" blue="0.55294117649999996" alpha="1" colorSpace="calibratedRGB"/>
                                                 </state>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oTY-Gf-BR9">
-                                                <rect key="frame" x="1" y="96.5" width="118" height="30.5"/>
+                                                <rect key="frame" x="1" y="97" width="118" height="30"/>
                                                 <fontDescription key="fontDescription" name="SFUIDisplay-Regular" family="SF UI Display" pointSize="13"/>
                                                 <state key="normal" title="Add To Bucket">
                                                     <color key="titleColor" red="0.55294117649999996" green="0.55294117649999996" blue="0.55294117649999996" alpha="1" colorSpace="calibratedRGB"/>
@@ -3289,6 +3289,9 @@
                                                     <constraint firstAttribute="width" secondItem="ySO-Us-693" secondAttribute="height" multiplier="6:5" id="UCR-dK-RoO"/>
                                                 </constraints>
                                                 <state key="normal" image="india"/>
+                                                <connections>
+                                                    <action selector="actionSheet:" destination="Vmd-Up-Jn7" eventType="touchUpInside" id="CBm-gg-fvC"/>
+                                                </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sJL-ay-2kR">
                                                 <rect key="frame" x="276" y="79" width="84" height="70"/>
@@ -3296,6 +3299,9 @@
                                                     <constraint firstAttribute="width" secondItem="sJL-ay-2kR" secondAttribute="height" multiplier="6:5" id="szx-65-6U5"/>
                                                 </constraints>
                                                 <state key="normal" image="india"/>
+                                                <connections>
+                                                    <action selector="actionSheet:" destination="Vmd-Up-Jn7" eventType="touchUpInside" id="cPl-Qp-Ket"/>
+                                                </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6hP-9T-93H">
                                                 <rect key="frame" x="276" y="152" width="84" height="70"/>
@@ -3303,6 +3309,9 @@
                                                     <constraint firstAttribute="width" secondItem="6hP-9T-93H" secondAttribute="height" multiplier="6:5" id="e29-jL-2cn"/>
                                                 </constraints>
                                                 <state key="normal" image="india"/>
+                                                <connections>
+                                                    <action selector="actionSheet:" destination="Vmd-Up-Jn7" eventType="touchUpInside" id="FvP-VO-pEW"/>
+                                                </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="crL-O7-Tp5">
                                                 <rect key="frame" x="276" y="225" width="84" height="70"/>
@@ -3311,6 +3320,9 @@
                                                     <constraint firstAttribute="width" secondItem="crL-O7-Tp5" secondAttribute="height" multiplier="6:5" id="vzZ-Cq-bx6"/>
                                                 </constraints>
                                                 <state key="normal" image="india"/>
+                                                <connections>
+                                                    <action selector="actionSheet:" destination="Vmd-Up-Jn7" eventType="touchUpInside" id="SJN-4Z-9eo"/>
+                                                </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6bi-sC-GJ1">
                                                 <rect key="frame" x="189" y="225" width="84" height="70"/>
@@ -3318,6 +3330,9 @@
                                                     <constraint firstAttribute="width" secondItem="6bi-sC-GJ1" secondAttribute="height" multiplier="6:5" id="xVS-Nk-1d4"/>
                                                 </constraints>
                                                 <state key="normal" image="india"/>
+                                                <connections>
+                                                    <action selector="actionSheet:" destination="Vmd-Up-Jn7" eventType="touchUpInside" id="Ojn-mV-wut"/>
+                                                </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JOp-eP-sJw">
                                                 <rect key="frame" x="102" y="225" width="84" height="70"/>
@@ -3325,6 +3340,9 @@
                                                     <constraint firstAttribute="width" secondItem="JOp-eP-sJw" secondAttribute="height" multiplier="6:5" id="PF7-qe-H6t"/>
                                                 </constraints>
                                                 <state key="normal" image="india"/>
+                                                <connections>
+                                                    <action selector="actionSheet:" destination="Vmd-Up-Jn7" eventType="touchUpInside" id="d3h-kr-UQE"/>
+                                                </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3qq-5m-C54">
                                                 <rect key="frame" x="15" y="225" width="84" height="70"/>
@@ -3332,38 +3350,62 @@
                                                     <constraint firstAttribute="width" secondItem="3qq-5m-C54" secondAttribute="height" multiplier="6:5" id="qGg-Vn-zjM"/>
                                                 </constraints>
                                                 <state key="normal" image="india"/>
+                                                <connections>
+                                                    <action selector="actionSheet:" destination="Vmd-Up-Jn7" eventType="touchUpInside" id="PDu-ni-FDO"/>
+                                                </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SFV-Co-vR4">
-                                                <rect key="frame" x="251" y="8" width="20" height="22"/>
-                                                <state key="normal" image="cross"/>
+                                                <rect key="frame" x="256" y="8" width="15" height="22"/>
+                                                <state key="normal" image="crosssmall"/>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="s93-XU-6Aw">
-                                                <rect key="frame" x="338" y="8" width="20" height="22"/>
-                                                <state key="normal" image="cross"/>
+                                                <rect key="frame" x="343" y="8" width="15" height="22"/>
+                                                <state key="normal" image="crosssmall"/>
+                                                <connections>
+                                                    <action selector="deleteImageAction:" destination="Vmd-Up-Jn7" eventType="touchUpInside" id="JiQ-L3-k5W"/>
+                                                </connections>
                                             </button>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hYy-Ew-deK">
-                                                <rect key="frame" x="338" y="81" width="20" height="22"/>
-                                                <state key="normal" image="cross"/>
+                                            <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hYy-Ew-deK">
+                                                <rect key="frame" x="343" y="81" width="15" height="22"/>
+                                                <state key="normal" image="crosssmall"/>
+                                                <connections>
+                                                    <action selector="deleteImageAction:" destination="Vmd-Up-Jn7" eventType="touchUpInside" id="MA0-vg-9Tw"/>
+                                                </connections>
                                             </button>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gyJ-UK-jay">
-                                                <rect key="frame" x="338" y="154" width="20" height="22"/>
-                                                <state key="normal" image="cross"/>
+                                            <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gyJ-UK-jay">
+                                                <rect key="frame" x="343" y="154" width="15" height="22"/>
+                                                <state key="normal" image="crosssmall"/>
+                                                <connections>
+                                                    <action selector="deleteImageAction:" destination="Vmd-Up-Jn7" eventType="touchUpInside" id="g8e-tn-tUW"/>
+                                                </connections>
                                             </button>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vUQ-ma-wio">
-                                                <rect key="frame" x="338" y="227" width="20" height="22"/>
-                                                <state key="normal" image="cross"/>
+                                            <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vUQ-ma-wio">
+                                                <rect key="frame" x="343" y="227" width="15" height="22"/>
+                                                <state key="normal" image="crosssmall"/>
+                                                <connections>
+                                                    <action selector="deleteImageAction:" destination="Vmd-Up-Jn7" eventType="touchUpInside" id="I8S-s0-YBr"/>
+                                                </connections>
                                             </button>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="z9Z-Qo-bzQ">
-                                                <rect key="frame" x="251" y="227" width="20" height="22"/>
-                                                <state key="normal" image="cross"/>
+                                            <button opaque="NO" tag="4" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="z9Z-Qo-bzQ">
+                                                <rect key="frame" x="256" y="227" width="15" height="22"/>
+                                                <state key="normal" image="crosssmall"/>
+                                                <connections>
+                                                    <action selector="deleteImageAction:" destination="Vmd-Up-Jn7" eventType="touchUpInside" id="kIO-ta-y7P"/>
+                                                </connections>
                                             </button>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zLv-8W-mAf">
-                                                <rect key="frame" x="164" y="227" width="20" height="22"/>
-                                                <state key="normal" image="cross"/>
+                                            <button opaque="NO" tag="5" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zLv-8W-mAf">
+                                                <rect key="frame" x="169" y="227" width="15" height="22"/>
+                                                <state key="normal" image="crosssmall"/>
+                                                <connections>
+                                                    <action selector="deleteImageAction:" destination="Vmd-Up-Jn7" eventType="touchUpInside" id="wjO-HL-0HR"/>
+                                                </connections>
                                             </button>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TId-zf-sYD">
-                                                <rect key="frame" x="77" y="227" width="20" height="22"/>
-                                                <state key="normal" image="cross"/>
+                                            <button opaque="NO" tag="6" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TId-zf-sYD">
+                                                <rect key="frame" x="82" y="227" width="15" height="22"/>
+                                                <state key="normal" image="crosssmall"/>
+                                                <connections>
+                                                    <action selector="deleteImageAction:" destination="Vmd-Up-Jn7" eventType="touchUpInside" id="50S-sZ-MEq"/>
+                                                </connections>
                                             </button>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BGG-g3-q76">
                                                 <rect key="frame" x="0.0" y="310" width="375" height="394"/>
@@ -3736,7 +3778,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="64"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Profile" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lG8-rc-r9X">
-                                        <rect key="frame" x="166" y="30" width="44.5" height="21"/>
+                                        <rect key="frame" x="164" y="30" width="48" height="21"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="21" id="sH9-Be-Uto"/>
                                         </constraints>
@@ -5288,6 +5330,7 @@
         <image name="chat" width="25" height="25"/>
         <image name="chatactive" width="25" height="25"/>
         <image name="cross" width="20" height="20"/>
+        <image name="crosssmall" width="15" height="15"/>
         <image name="fb" width="354" height="62"/>
         <image name="header" width="16" height="16"/>
         <image name="india" width="472" height="300"/>

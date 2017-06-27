@@ -7,7 +7,7 @@
 //
 
 import UIKit
-
+import DKImagePickerController
 class PostScreenViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
 
     @IBOutlet weak var addImg1: UIButton!
@@ -50,7 +50,9 @@ class PostScreenViewController: UIViewController, UIImagePickerControllerDelegat
     var editImagesArray = NSMutableArray()//Edit photos
     //Image Picker
     let imagePicker = UIImagePickerController()
-   // var pickerController = DKImagePickerController()
+    
+    
+    //var pickerController: DKImagePickerController!
     
     
     
@@ -58,7 +60,8 @@ class PostScreenViewController: UIViewController, UIImagePickerControllerDelegat
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.navigationController?.navigationBar.isHidden = true
+        self.setEmptyImageInbuttons()
+        
         // Do any additional setup after loading the view.
     }
 
@@ -72,18 +75,25 @@ class PostScreenViewController: UIViewController, UIImagePickerControllerDelegat
     
     @IBAction func actionSheet(_ sender: AnyObject)
     {
-        imagePicker.delegate = self
         
         
+        print(sender.tag)
         
-        if multipleImagesArray.count==8 {
-            
-            CommonFunctionsClass.sharedInstance().showAlert(title: "Too much to handle!", text: "You can't add more than eight pictures at once.", imageName: "alertLimit")
-            
-            
-           
+        if sender.imageView??.image == UIImage( named: "SmallImagethumb") {
+            self.openActionSheet()
         }
-        else{
+        else
+        {
+            self.setBigImageInMiddle(senderImg: (sender.imageView??.image)!)
+        }
+        
+    }
+    
+    
+    func openActionSheet() {
+        
+        
+         imagePicker.delegate = self
             
             let alertController = UIAlertController(title: "Select Image", message: nil, preferredStyle: UIAlertControllerStyle.actionSheet)
             
@@ -103,11 +113,11 @@ class PostScreenViewController: UIViewController, UIImagePickerControllerDelegat
             alertController.addAction(cancelAction)
             
             self.present(alertController, animated: true, completion:{})
-        }
         
         
         
     }
+    
     
     
     
@@ -120,7 +130,7 @@ class PostScreenViewController: UIViewController, UIImagePickerControllerDelegat
     func imagePickerController(_ picker: UIImagePickerController,didFinishPickingMediaWithInfo info: [String : Any])
     {
         
-        if multipleImagesArray.count<8
+        if multipleImagesArray.count<7
         {
             var chosenImage = info[UIImagePickerControllerOriginalImage] as! UIImage!
             var finalImage = UIImage()
@@ -199,6 +209,142 @@ class PostScreenViewController: UIViewController, UIImagePickerControllerDelegat
         present(imagePicker, animated: true, completion: nil)
     }
     
+    /*
+    func photofromLibrary() {
+        
+        
+      // let pickerController: DKImagePickerController!
+         var assets: [DKAsset]?
+        
+        
+        
+       // pickerController.didSelectAssets = { (assets: [DKAsset]) in
+           // print("didSelectAssets")
+            //print(assets)
+            
+        //}
+        
+        pickerController.didCancel = { ()
+            print("didCancel")
+        }
+        
+        pickerController.didSelectAssets = { [unowned self] (assets2: [DKAsset]) in
+            print("didSelectAssets")
+            
+            assets = assets2
+        }
+        
+        
+        
+        
+        
+        self.present(pickerController, animated: true) {}
+        
+        pickerController.allowMultipleTypes=false
+        pickerController.assetType = .allPhotos
+        pickerController.maxSelectableCount = 8 - self.multipleImagesArray.count
+        
+        
+        
+        pickerController.didSelectAssets = { (assets: [DKAsset]) in
+            print("didSelectAssets")
+        
+            
+            
+            
+           // dispatch_async(dispatch_get_main_queue()) {
+                
+                
+            
+                
+                
+                
+                for asset in assets {
+                    
+                    
+                    asset.fetchOriginalImage(false, completeBlock: { image, info in
+                        
+                        if let img = image{
+                            print(img)
+                            
+                            let dictInfo:NSDictionary = info! as NSDictionary
+                            
+                            let urlImg = dictInfo.value(forKey: "PHImageFileURLKey")
+                            
+                            
+                            var uploadImg = UIImage()
+                            
+                            if img.size.width>1200 {
+                                
+                                
+                                print("Going Inside")
+                                
+                                uploadImg = self.scaleImage(img, toSize: CGSize(width: 1500, height: 1300))
+                                self.imageData = UIImageJPEGRepresentation(uploadImg,0.2)!
+                                
+                                print(self.imageData.count/1024/1024)
+                                
+                                
+                            }
+                            else
+                            {
+                                self.imageData = UIImageJPEGRepresentation(img,0.2)!
+                                print(self.imageData.count/1024/1024)
+                            }
+                            
+                            
+                            
+                            let testImgView = UIImageView()
+                            testImgView.image=self.scaleImage(img, toSize: CGSize(width:300, height: 250))
+                            
+                            
+                            
+                            if self.multipleImagesArray.count<8 {
+                                
+                                let imArr = self.multipleImagesArray.value(forKey: "urlImg") as! NSArray
+                                if imArr.contains(urlImg!)
+                                {
+                                    
+                                    print("already contains")
+                                    
+                                }
+                                else{
+                                    self.multipleImagesArray .add(["imageData": self.imageData, "originalImage":img, "urlImg": urlImg!, "thumbnail": testImgView.image!])
+                                    
+                                }
+                                
+                                
+                                
+                                
+                            }
+                            
+                           
+                            
+                        }
+                        
+                        
+                        
+                        
+                        
+                    
+                        
+                        
+                    })
+                    
+                }
+           // }
+            
+            
+        }
+        
+        
+        
+        
+        
+        
+    }
+    */
+    
     
     
     
@@ -206,11 +352,10 @@ class PostScreenViewController: UIViewController, UIImagePickerControllerDelegat
     //MARK: Delete selected images
     
     //Remove image target from collectionView
-    func deleteSelectedImage(_ sender:UIButton) -> Void {
-        
-        print(sender.tag)
+    
+    @IBAction func deleteImageAction(_ sender: AnyObject)
+    {
         self.multipleImagesArray .removeObject(at: sender.tag)
-        
     }
 
     
@@ -246,43 +391,43 @@ class PostScreenViewController: UIViewController, UIImagePickerControllerDelegat
         // imageToPost.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         
         switch btntag {
-        case 0:
-            let imageBtn = self.scaleImage(((self.multipleImagesArray.object(at: btntag) as AnyObject).value(forKey: "originalImage"))  as! UIImage, toSize: addImg1.frame.size)
-            addImg1.setImage(imageBtn, for: .normal)
-            deleteImg1.isHidden = false
-            break
+//        case 0:
+//            let imageBtn = self.scaleImage(((self.multipleImagesArray.object(at: btntag) as AnyObject).value(forKey: "originalImage"))  as! UIImage, toSize: addImg1.frame.size)
+//            addImg1.setImage(imageBtn, for: .normal)
+//            deleteImg1.isHidden = false
+//            break
             
-        case 1:
+        case 0:
             let imageBtn = self.scaleImage(self.multipleImagesArray.object(at: btntag) as! UIImage, toSize: addImg2.frame.size)
             addImg2.setImage(imageBtn, for: .normal)
             deleteImg2.isHidden = false
             break
             
-        case 2:
+        case 1:
             let imageBtn = self.scaleImage(self.multipleImagesArray.object(at: btntag) as! UIImage, toSize: addImg3.frame.size)
             addImg3.setImage(imageBtn, for: .normal)
             deleteImg3.isHidden = false
             break
             
-        case 3:
+        case 2:
             let imageBtn = self.scaleImage(self.multipleImagesArray.object(at: btntag) as! UIImage, toSize: addImg4.frame.size)
             addImg4.setImage(imageBtn, for: .normal)
             deleteImg4.isHidden = false
             break
             
-        case 4:
+        case 3:
             let imageBtn = self.scaleImage(self.multipleImagesArray.object(at: btntag) as! UIImage, toSize: addImg5.frame.size)
             addImg5.setImage(imageBtn, for: .normal)
             deleteImg5.isHidden = false
             break
             
-        case 5:
+        case 4:
             let imageBtn = self.scaleImage(self.multipleImagesArray.object(at: btntag) as! UIImage, toSize: addImg6.frame.size)
             addImg6.setImage(imageBtn, for: .normal)
             deleteImg6.isHidden = false
             break
             
-        case 6:
+        case 5:
             let imageBtn = self.scaleImage(self.multipleImagesArray.object(at: btntag) as! UIImage, toSize: addImg7.frame.size)
             addImg7.setImage(imageBtn, for: .normal)
             deleteImg7.isHidden = false
@@ -302,7 +447,7 @@ class PostScreenViewController: UIViewController, UIImagePickerControllerDelegat
     //Set initial Images in the Buttons
     func setEmptyImageInbuttons()
     {
-        addImg1.setImage(UIImage (named: "SmallImagethumb"), for: .normal)
+        addImg1.setImage(UIImage (named: "Bigimagethumbpost"), for: .normal)
         addImg2.setImage(UIImage (named: "SmallImagethumb"), for: .normal)
         addImg3.setImage(UIImage (named: "SmallImagethumb"), for: .normal)
         addImg4.setImage(UIImage (named: "SmallImagethumb"), for: .normal)
@@ -310,6 +455,10 @@ class PostScreenViewController: UIViewController, UIImagePickerControllerDelegat
         addImg6.setImage(UIImage (named: "SmallImagethumb"), for: .normal)
         addImg7.setImage(UIImage (named: "SmallImagethumb"), for: .normal)
         addImg8.setImage(UIImage (named: "SmallImagethumb"), for: .normal)
+        
+        addImg1.imageView?.contentMode = .scaleAspectFill
+        addImg1.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        
         
         deleteImg1.isHidden = true
         deleteImg2.isHidden = true
@@ -320,15 +469,42 @@ class PostScreenViewController: UIViewController, UIImagePickerControllerDelegat
         deleteImg7.isHidden = true
         deleteImg8.isHidden = true
         
-        deleteImg1.tag = 0
-        deleteImg2.tag = 1
-        deleteImg3.tag = 2
-        deleteImg4.tag = 3
-        deleteImg5.tag = 4
-        deleteImg6.tag = 5
-        deleteImg7.tag = 6
-        deleteImg8.tag = 7
+       // deleteImg1.tag = 0
+        deleteImg2.tag = 0
+        deleteImg3.tag = 1
+        deleteImg4.tag = 2
+        deleteImg5.tag = 3
+        deleteImg6.tag = 4
+        deleteImg7.tag = 5
+        deleteImg8.tag = 6
+        
+        
+        addImg2.tag = 0
+        addImg3.tag = 1
+        addImg4.tag = 2
+        addImg5.tag = 3
+        addImg6.tag = 4
+        addImg7.tag = 5
+        addImg8.tag = 6
+    
     }
+    
+    
+    
+    func setBigImageInMiddle(senderImg: UIImage) {
+        
+        
+       // let imageBtn = self.scaleImage(((self.multipleImagesArray.object(at: sender.tag) as AnyObject).value(forKey: "originalImage"))  as! UIImage, toSize: addImg1.frame.size)
+                   addImg1.setImage(senderImg, for: .normal)
+                   deleteImg1.isHidden = true
+        
+        
+        
+        
+        
+        
+    }
+    
     
     
     
