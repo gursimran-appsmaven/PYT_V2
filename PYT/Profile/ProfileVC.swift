@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ProfileVC: UIViewController,UITableViewDelegate,UITableViewDataSource,UICollectionViewDelegate,UICollectionViewDataSource {
+class ProfileVC: UIViewController,UITableViewDelegate,UITableViewDataSource,UICollectionViewDelegate,UICollectionViewDataSource,UITextFieldDelegate {
     
     @IBOutlet weak var contentViewHeight: NSLayoutConstraint!
 
@@ -19,6 +19,9 @@ class ProfileVC: UIViewController,UITableViewDelegate,UITableViewDataSource,UICo
     @IBOutlet weak var userImg: UIImageView!
     @IBOutlet weak var catCollectionView: UICollectionView!
     @IBOutlet weak var actionsTableView: UITableView!
+    @IBOutlet weak var nameTF: UITextField!
+    @IBOutlet weak var nameTxtWidth: NSLayoutConstraint!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -296,6 +299,36 @@ class ProfileVC: UIViewController,UITableViewDelegate,UITableViewDataSource,UICo
         
     }
 
+    
+    //MARK: Text Field Delegates
+    
+    func getWidth(text: String) -> CGFloat
+    {
+        let txtField = UITextField(frame: .zero)
+        txtField.text = text
+        txtField.sizeToFit()
+        if(txtField.frame.size.width > 72)
+        {
+            return txtField.frame.size.width
+        }
+        return 72
+    }
+    
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool
+    {
+        let width = getWidth(text: textField.text!)
+        if UIScreen.main.bounds.width - 70 > width
+        {
+            nameTxtWidth.constant = 0.0
+            if width > nameTxtWidth.constant
+            {
+                nameTxtWidth.constant = width
+            }
+            self.view.layoutIfNeeded()
+        }
+        return true
+    }
+    
 
 }
 class ProfileActionsCell: UITableViewCell {
