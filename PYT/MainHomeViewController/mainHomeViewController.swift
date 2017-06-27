@@ -1162,7 +1162,8 @@ class mainHomeViewController: UIViewController, SDWebImageManagerDelegate, apiCl
             cell.imagesCollectionView.delegate=self
             cell.imagesCollectionView.dataSource=self
             cell.imagesCollectionView.tag=indexPath.row
-            
+            cell.imagesCollectionView.collectionViewLayout.invalidateLayout()
+
           OperationQueue.main.addOperation({ () -> Void in
             cell.imagesCollectionView.reloadData()
            })
@@ -1312,7 +1313,7 @@ class mainHomeViewController: UIViewController, SDWebImageManagerDelegate, apiCl
             }
             else
             {
-                  storedOffsets[indexPath.row] = tableViewCell.collectionViewOffset
+                  //storedOffsets[indexPath.row] = tableViewCell.collectionViewOffset
             }
            
         }
@@ -3992,8 +3993,7 @@ extension mainHomeViewController: UICollectionViewDelegate, UICollectionViewData
                 
                 if indexPath.row < ((arrayOfimages1[collectionView.tag] as AnyObject).value(forKey: "id")! as AnyObject) .count {
                     
-                    
-                    
+                   
                     
                     var arrImg2 = NSArray()
                     arrImg2 = (self.arrayOfimages1[collectionView.tag] as AnyObject).value(forKey: "thumbnails") as! NSArray
@@ -4010,7 +4010,7 @@ extension mainHomeViewController: UICollectionViewDelegate, UICollectionViewData
                     
                     let url2 = URL(string: imageName2 as String)
                     
-                    locationimage.sd_setImage(with: url2, placeholderImage: UIImage (named: "backgroundImage"))
+                    locationimage.sd_setImage(with: url2, placeholderImage: UIImage (named: "dummyBackground1"))
                     
                     locationimage.focusOnFaces = true
                     

@@ -49,7 +49,6 @@ class detailViewController: UIViewController, apiClassDelegate {
     @IBOutlet var firstView: UIView!//contains slide images and user info
     @IBOutlet var secondView: UIView!//contaion description view
     
-    @IBOutlet weak var topspaceOfThumbnailCollectionView: NSLayoutConstraint!
     
     @IBOutlet var thirdView: UIView!//contains reviews table view 
     
@@ -64,8 +63,6 @@ class detailViewController: UIViewController, apiClassDelegate {
     @IBOutlet var locationHeight: NSLayoutConstraint!
     
     
-    
-    @IBOutlet weak var commentButton: UIButton!
     
     
     //zoomView
@@ -89,14 +86,14 @@ class detailViewController: UIViewController, apiClassDelegate {
     
     
     
+    @IBOutlet weak var reviewslableinView: UILabel!
     @IBOutlet var detailTable: UITableView!
     @IBOutlet var collectionViewImages: UICollectionView!
     
+    @IBOutlet weak var webLinkImg: UIImageView!
     @IBOutlet var webLinkBtnOutlet: UIButton!
     
     
-    
-    @IBOutlet var addCommentOutlet: UIButton!
     
     
     
@@ -119,18 +116,14 @@ class detailViewController: UIViewController, apiClassDelegate {
     
     
     @IBOutlet var userNameTxtv: UILabel!
-    //@IBOutlet var locationTxtv: UITextView!
-   // @IBOutlet var categoryTxtv: UITextView!
-    @IBOutlet weak var locationTxtv: UILabel!
+       @IBOutlet weak var locationTxtv: UILabel!
 
-    //@IBOutlet weak var categoryTxtv: UILabel!
+    @IBOutlet weak var categoryLabel: UILabel!
     
-    @IBOutlet weak var categorytable: UITableView!
     
     
     @IBOutlet var categoryViewHeight: NSLayoutConstraint!
     
-    @IBOutlet weak var categoryTableheight: NSLayoutConstraint!
     
     
     @IBOutlet var descriptionTextv: UITextView!
@@ -144,7 +137,7 @@ class detailViewController: UIViewController, apiClassDelegate {
     @IBOutlet var showMoreComments: UIButton!
     
     
-    @IBOutlet var headerView: UIView!
+    @IBOutlet weak var headerView: GradientView!
     @IBOutlet var headerImageView: UIImageView!
     
     @IBOutlet weak var headerView2: UILabel!
@@ -201,7 +194,6 @@ class detailViewController: UIViewController, apiClassDelegate {
     @IBOutlet var firstIndicator: UIActivityIndicatorView!
     
     
-    @IBOutlet weak var backBtnLbl: UILabel!
     
     
     //spacers
@@ -233,12 +225,10 @@ class detailViewController: UIViewController, apiClassDelegate {
        self.showMoreComments.isHidden = true
         self.showMoreDescription.isHidden=true
         
-      
         
         self.detailTable.estimatedRowHeight = 90.0
         
         let cateArr = (self.arrayWithData[0] as AnyObject).value(forKey: "categoryMainArray") as! NSMutableArray
-        self.categoryTableheight.constant = 22 * CGFloat(cateArr.count)
         
         self.view .bringSubview(toFront: BackBtn)
        
@@ -315,10 +305,10 @@ class detailViewController: UIViewController, apiClassDelegate {
             parameter = "https://api.foursquare.com/v2/venues/search?intent=browse&limit=1&client_id=DAKFO3TURLDTUL33JNPRTIGX03NMZM2ACCDWC2HHHZTV2YMT&client_secret=ILF0G3U4DRSC0WDW2EH12SFGTOKIWSKFUIOXV4FFEQOIB34B&v=20140203&query=\(tagGeo)&ll=\(String(describing: self.LAT)),\(String(describing: self.LONG))&radius=1500"
         }
         
-        
+         DispatchQueue.main.async(execute: {
         self.datafromFoursquare(parameter)// get the data from four square api
         
-            
+         })
             
             
             
@@ -356,13 +346,13 @@ class detailViewController: UIViewController, apiClassDelegate {
             //manage for Like and unlike
             let like = (self.arrayWithData[0] as AnyObject).value(forKey: "likeBool") as! Bool
             if like {
-                self.likeImg.image = UIImage (named: "detailLike2")
-                self.likeImg2.image = UIImage (named: "detailLike2")
+                self.likeImg.image = UIImage (named: "locationLike")
+                self.likeImg2.image = UIImage (named: "locationLike")
             }
             else
             {
-                self.likeImg.image=UIImage (named: "detailLike")
-                self.likeImg2.image=UIImage (named: "detailLike")
+                self.likeImg.image=UIImage (named: "locationUnlike")
+                self.likeImg2.image=UIImage (named: "locationUnlike")
             }
             
             
@@ -380,14 +370,14 @@ class detailViewController: UIViewController, apiClassDelegate {
                 }
             }
             
-            self.stImg.image=UIImage.init(named: "detailStory")
-            self.stImg2.image=UIImage.init(named: "detailStory")
+            self.stImg.image=UIImage.init(named: "locationRemoveplan")
+            self.stImg2.image=UIImage.init(named: "locationRemoveplan")
             if countst.count>0 {
                 
                 // print(countst)
                 if countst.contains(imageId) {
-                    self.stImg.image=UIImage.init(named: "detailStory2")
-                    self.stImg2.image=UIImage.init(named: "detailStory2")
+                    self.stImg.image=UIImage.init(named: "locationPlan")
+                    self.stImg2.image=UIImage.init(named: "locationPlan")
                 }
                 
             }
@@ -405,15 +395,15 @@ class detailViewController: UIViewController, apiClassDelegate {
             }
             
             
-            self.bucketImg.image=UIImage.init(named: "detailBucket")
-            self.bucketImg2.image=UIImage.init(named: "detailBucket")
+            self.bucketImg.image=UIImage.init(named: "locationRemoveBucket")
+            self.bucketImg2.image=UIImage.init(named: "locationRemoveBucket")
             if countBkt.count>0
             {
                 
                 print(countBkt)
                 if countBkt.contains(imageId) {
-                    self.bucketImg.image=UIImage.init(named: "detailBucket2")
-                    self.bucketImg2.image=UIImage.init(named: "detailBucket2")
+                    self.bucketImg.image=UIImage.init(named: "locationBucket")
+                    self.bucketImg2.image=UIImage.init(named: "locationBucket")
                 }
                 
             }
@@ -477,7 +467,7 @@ class detailViewController: UIViewController, apiClassDelegate {
         forthIndicator .startAnimating()
         
         self.webLinkBtnOutlet.isHidden=true
-        
+        self.webLinkImg.isHidden=true
         
         apiClass.sharedInstance().delegate=self //delegate for response api
         
@@ -517,22 +507,10 @@ class detailViewController: UIViewController, apiClassDelegate {
         
         
         type = newcat2.componentsJoined(by: ",")
+        self.categoryLabel.text = type
+       
         
-        
-        
-        
-        ////self.categoryTxtv.editable=true
-       // self.categoryTxtv.text = type
-        //self.categoryTxtv.textColor = UIColor .blackColor()
-        //self.categoryTxtv.textAlignment = NSTextAlignment.Left
-       // self.categoryTxtv.clipsToBounds=true
-////       self.categoryTxtv.numberOfLines=1
-       // //self.categoryTxtv.editable=false
-        
-        
-        
-       // print(self.heightOfFirstView.constant)
-        
+
         
         
         var hotelname = (self.arrayWithData[0] as AnyObject).value(forKey: "geoTag") as! String
@@ -547,14 +525,12 @@ class detailViewController: UIViewController, apiClassDelegate {
         
          headerLabel.text=hotelname as String
         
-        
-       // self.locationTxtv.editable=true
-       // self.locationTxtv.scrollEnabled=false
+      
         self.locationTxtv.text=locHeader   //hotelname
         self.locationTxtv.textAlignment=NSTextAlignment .left
         print(self.locationTxtv.frame)
         self.locationTxtv.numberOfLines=0
-       // self.locationTxtv.editable=false
+      
         
         
         
@@ -609,6 +585,9 @@ class detailViewController: UIViewController, apiClassDelegate {
     }
     
     
+    
+    
+    
     func loadDeletedCell(_ notification: Notification) {
         
         
@@ -644,9 +623,7 @@ class detailViewController: UIViewController, apiClassDelegate {
        
        
         
-        backBtnLbl.layer.cornerRadius = 4.0
-        backBtnLbl.clipsToBounds = true
-        backBtnLbl.alpha = 0
+      
         
         let imageId = (self.arrayWithData[0] as AnyObject).value(forKey: "imageId") as? String ?? ""
         
@@ -672,9 +649,7 @@ class detailViewController: UIViewController, apiClassDelegate {
             
             
             
-            
-            addCommentOutlet.layer.cornerRadius=addCommentOutlet.frame.size.height/2
-            addCommentOutlet.clipsToBounds=true
+           
             
             
             self.view .setNeedsLayout()
@@ -694,15 +669,15 @@ class detailViewController: UIViewController, apiClassDelegate {
             layer.locations = [0.25,1.0]
             //self.headerView.layer.addSublayer(layer)
             
+            headerView.gradientLayer.colors = [UIColor.black.withAlphaComponent(0.75).cgColor, UIColor.clear.cgColor]
+            headerView.gradientLayer.gradient = GradientPoint.topBottom.draw()
             
             
             ///// header view with animated effect
             
             self.view .bringSubview(toFront: BackBtn)
-            self.headerView .bringSubview(toFront: headerImageView)
             self.headerView .bringSubview(toFront: headerLabel)
-            //self.headerView.alpha = 0
-           // self.headerView2.hidden=true
+          
             
             
             
@@ -722,67 +697,63 @@ class detailViewController: UIViewController, apiClassDelegate {
     
             ///// ///////--------UiView contains the collection View--------////////
             
-            let photosCollectView = self.view.viewWithTag(701010)
-           photosCollectView!.layer.cornerRadius=5
-            photosCollectView!.clipsToBounds=true
-            photosCollectView!.layer.shadowColor = UIColor .init(colorLiteralRed: 215/255, green: 215/255, blue: 215/255, alpha: 1).cgColor
-            photosCollectView!.layer.shadowOffset = CGSize(width: 0, height: 2.0)
-            photosCollectView!.layer.shadowOpacity = 1
-            photosCollectView!.layer.shadowRadius = 1.0
-           photosCollectView!.layer.masksToBounds=false
-            
-            
-            let shadowPath = UIBezierPath(rect: (photosCollectView?.bounds)!)
-            layer.masksToBounds = false
-            layer.shadowColor = UIColor.black.cgColor
-            layer.shadowOffset = CGSize(width: 0.0, height: 5.0)
-            layer.shadowOpacity = 0.5
-            layer.shadowPath = shadowPath.cgPath
+//            let photosCollectView = self.view.viewWithTag(701010)
+//           photosCollectView!.layer.cornerRadius=0
+//            photosCollectView!.clipsToBounds=true
+//            photosCollectView!.layer.shadowColor = UIColor .init(colorLiteralRed: 215/255, green: 215/255, blue: 215/255, alpha: 1).cgColor
+//            photosCollectView!.layer.shadowOffset = CGSize(width: 0, height: 2.0)
+//            photosCollectView!.layer.shadowOpacity = 1
+//            photosCollectView!.layer.shadowRadius = 1.0
+//           photosCollectView!.layer.masksToBounds=false
+//            
+//            
+//            let shadowPath = UIBezierPath(rect: (photosCollectView?.bounds)!)
+//            layer.masksToBounds = false
+//            layer.shadowColor = UIColor.black.cgColor
+//            layer.shadowOffset = CGSize(width: 0.0, height: 5.0)
+//            layer.shadowOpacity = 0.5
+//            layer.shadowPath = shadowPath.cgPath
 
             
             
             
             
             
-            secondView!.layer.cornerRadius=5
-            secondView!.clipsToBounds=true
-            secondView!.layer.shadowColor = UIColor .init(colorLiteralRed: 215/255, green: 215/255, blue: 215/255, alpha: 1).cgColor
-            secondView!.layer.shadowOffset = CGSize(width: 0, height: 2.0)
-            secondView!.layer.shadowOpacity = 1
-            secondView!.layer.shadowRadius = 1.5
-            secondView!.layer.masksToBounds=false
+//            secondView!.layer.cornerRadius=0
+//            secondView!.clipsToBounds=true
+//            secondView!.layer.shadowColor = UIColor .init(colorLiteralRed: 215/255, green: 215/255, blue: 215/255, alpha: 1).cgColor
+//            secondView!.layer.shadowOffset = CGSize(width: 0, height: 2.0)
+//            secondView!.layer.shadowOpacity = 1
+//            secondView!.layer.shadowRadius = 1.5
+//            secondView!.layer.masksToBounds=false
             
-            thirdView!.layer.cornerRadius=5
-            thirdView!.clipsToBounds=true
-            thirdView!.layer.shadowColor = UIColor .init(colorLiteralRed: 215/255, green: 215/255, blue: 215/255, alpha: 1).cgColor
-            thirdView!.layer.shadowOffset = CGSize(width: 0, height: 2.0)
-            thirdView!.layer.shadowOpacity = 1
-            thirdView!.layer.shadowRadius = 1.5
-            thirdView!.layer.masksToBounds=false
-            
-            
-            
-            forthView!.layer.cornerRadius=5
-            forthView!.clipsToBounds=true
-            forthView!.layer.shadowColor = UIColor .init(colorLiteralRed: 215/255, green: 215/255, blue: 215/255, alpha: 1).cgColor
-            forthView!.layer.shadowOffset = CGSize(width: 0, height: 2.0)
-            forthView!.layer.shadowOpacity = 1
-            forthView!.layer.shadowRadius = 1.5
-            forthView!.layer.masksToBounds=false
+//            thirdView!.layer.cornerRadius=5
+//            thirdView!.clipsToBounds=true
+//            thirdView!.layer.shadowColor = UIColor .init(colorLiteralRed: 215/255, green: 215/255, blue: 215/255, alpha: 1).cgColor
+//            thirdView!.layer.shadowOffset = CGSize(width: 0, height: 2.0)
+//            thirdView!.layer.shadowOpacity = 1
+//            thirdView!.layer.shadowRadius = 1.5
+//            thirdView!.layer.masksToBounds=false
             
             
             
-            self.webLinkBtnOutlet.layer.borderWidth=1.0
-            self.webLinkBtnOutlet.layer.borderColor=UIColor.black.cgColor
-            self.webLinkBtnOutlet.layer.cornerRadius=3
-            self.webLinkBtnOutlet.clipsToBounds=true
+//            forthView!.layer.cornerRadius=5
+//            forthView!.clipsToBounds=true
+//            forthView!.layer.shadowColor = UIColor .init(colorLiteralRed: 215/255, green: 215/255, blue: 215/255, alpha: 1).cgColor
+//            forthView!.layer.shadowOffset = CGSize(width: 0, height: 2.0)
+//            forthView!.layer.shadowOpacity = 1
+//            forthView!.layer.shadowRadius = 1.5
+//            forthView!.layer.masksToBounds=false
             
             
-            self.commentButton.layer.borderWidth=1.0
-            self.commentButton.layer.borderColor=UIColor.black.cgColor
-            self.commentButton.layer.cornerRadius=3
-            self.commentButton.clipsToBounds=true
-            self.commentButton.isHidden=false
+            
+//            self.webLinkBtnOutlet.layer.borderWidth=1.0
+//            self.webLinkBtnOutlet.layer.borderColor=UIColor.black.cgColor
+//            self.webLinkBtnOutlet.layer.cornerRadius=3
+//            self.webLinkBtnOutlet.clipsToBounds=true
+            
+            
+        
             
             
         }
@@ -847,28 +818,43 @@ class detailViewController: UIViewController, apiClassDelegate {
     
     func updateThirdView() {
         
-        self.reviewsTopSpace.constant = 7
+        self.reviewsTopSpace.constant = 1
         self.heightOfTableView.constant = self.detailTable.rowHeight
+        if morePictureLabel.isHidden == true {
+            self.reviewsTopSpace.constant = 0
+        }
         
-        
-        if tempReviewArray.count<1 {
-            
+        if tempReviewArray.count<1
+        {
             self.showMoreComments.isHidden = true
-            self.heightOfThirdView.constant = 100
+            self.heightOfThirdView.constant = 0
             self.heightOfTableView.constant = 0
             self.detailTable.isHidden=true
-            
+            self.reviewslableinView.isHidden = true
             
         }
-        else{
+            else if(tempReviewArray.count==2)
+        {
+            self.showMoreComments.isHidden = true
+            self.heightOfThirdView.constant = self.heightOfTableView.constant + 80 + self.heightOfTableView.constant
+            self.detailTable.isHidden=false
+            self.reviewslableinView.isHidden = false
+        }
+        else
+        {
+            self.showMoreComments.isHidden = false
+            if tempReviewArray.count==1
+            {
+                self.showMoreComments.isHidden = true
+            }
             
             self.detailTable.isHidden=false
-            self.showMoreComments.isHidden = false
             self.heightOfThirdView.constant = self.heightOfTableView.constant + 80
-            self.detailTable.reloadData()
+            self.reviewslableinView.isHidden = false
         }
         
-        
+        self.detailTable.reloadData()
+
         
         self.thirdView.layoutIfNeeded()
        self.view.layoutIfNeeded()
@@ -898,7 +884,7 @@ class detailViewController: UIViewController, apiClassDelegate {
         
         self.slideShow.slideshowInterval = 0
         self.slideShow.pageControlPosition = PageControlPosition.insideScrollView
-        self.slideShow.pageControl.currentPageIndicatorTintColor = UIColor.lightGray
+        self.slideShow.pageControl.currentPageIndicatorTintColor = UIColor.white
         self.slideShow.pageControl.numberOfPages = 5
         
         self.slideShow.pageControl.pageIndicatorTintColor = UIColor.black
@@ -1463,14 +1449,14 @@ zoomimageView.sd_setImage(with: url2, placeholderImage: pImage2.image)
     
         if task1 != nil {
             
-            if task1.state == URLSessionTask.State.running {
+            if task1.state == .running {
                 task1.cancel()
                 print("\n\n Task 1 cancel\n\n")
             }
             
             if task2 != nil {
                 
-                if task2.state == URLSessionTask.State.running {
+                if task2.state == .running {
                     task2.cancel()
                     print("\n\n Task 2 cancel\n\n")
                 }
@@ -1479,10 +1465,10 @@ zoomimageView.sd_setImage(with: url2, placeholderImage: pImage2.image)
             
             if task3 != nil {
                 
-                if task3.state == URLSessionTask.State.running {
+                if task3.state == .running {
                     task3.cancel()
                     print("\n\n Task 3 cancel\n\n")
-                }
+              }
                 
             }
             
@@ -1635,9 +1621,9 @@ zoomimageView.sd_setImage(with: url2, placeholderImage: pImage2.image)
         
         
         
-        if stImg.image==UIImage (named: "detailStory2") {
-            stImg.image=UIImage.init(named: "detailStory")
-            stImg2.image=UIImage.init(named: "detailStory")
+        if stImg.image==UIImage (named: "locationPlan") {
+            stImg.image=UIImage.init(named: "locationRemoveplan")
+            stImg2.image=UIImage.init(named: "locationRemoveplan")
             
             
             //let dataStr = "userId=\(uId!)&imageId=\(imageId)&place=\(countryName)&cityName=\(cityName)"
@@ -1657,15 +1643,9 @@ zoomimageView.sd_setImage(with: url2, placeholderImage: pImage2.image)
             
         else
         {
-            stImg.image=UIImage.init(named: "detailStory2")
-            stImg2.image=UIImage.init(named: "detailStory2")
-            //let dat: NSDictionary = ["userid": "\(uId!)", "id": imageId, "imageLink": locationImageStr, "location": countryName, "source":"facebook", "latitude": lat, "longitude": long, "geoTag":tagGeo, "category":self.categoryTxtv.text!, "description":descriptionTextv.text, "userName":userNameTxtv.text!,"type":source, "profileImage":profileImage, "cityName": cityName, "imageThumb": imageThumbnail ]
-            
-            
-            
-            
-        
-            
+            stImg.image=UIImage.init(named: "locationPlan")
+            stImg2.image=UIImage.init(named: "locationPlan")
+           
             
             let dat: NSDictionary = ["userId": "\(uId!)", "imageId": imageId, "placeId": globalPlaceid, "placeType": globalType, "ownerId": ownersId ]
             
@@ -1692,7 +1672,7 @@ zoomimageView.sd_setImage(with: url2, placeholderImage: pImage2.image)
             
                                 DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + Double(Int64(1.5 * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC)) { () -> Void in
             
-                                     self.addToolTip()
+                                   //  self.addToolTip()
             
                                 }
         }
@@ -1777,7 +1757,10 @@ zoomimageView.sd_setImage(with: url2, placeholderImage: pImage2.image)
         
         
         if countLikes.count>0 {
-            if (countLikes.value(forKey: "imageId") as AnyObject).contains(imageId) {
+            
+            let likCountar = countLikes.value(forKey: "imageId") as! NSArray
+            
+            if (likCountar.contains(imageId)) {
                 
                 let index = (self.countLikes.value(forKey: "imageId") as AnyObject).index(of: imageId)
                 
@@ -1792,8 +1775,8 @@ zoomimageView.sd_setImage(with: url2, placeholderImage: pImage2.image)
                     
                     
                     
-                   likeImg.image=UIImage (named: "detailLike")
-                    likeImg2.image=UIImage (named: "detailLike")
+                   likeImg.image=UIImage (named: "locationUnlike")
+                    likeImg2.image=UIImage (named: "locationUnlike")
                     
                     let dat: NSDictionary = ["userId": "\(uId!)", "photoId":"\(imageId)", "userLiked":"\(uId!)", "status":"0", "imageOwn": "\(otherUserId)", "userName": "\(userNameMy!)"]
                     print("Post to like picture---- \(dat)")
@@ -1813,8 +1796,8 @@ zoomimageView.sd_setImage(with: url2, placeholderImage: pImage2.image)
                     
                  
                     
-                 likeImg.image=UIImage (named: "detailLike2")
-                    likeImg2.image=UIImage (named: "detailLike2")
+                 likeImg.image=UIImage (named: "locationLike")
+                    likeImg2.image=UIImage (named: "locationLike")
                     
                     let dat: NSDictionary = ["userId": "\(uId!)", "photoId":"\(imageId)", "userLiked":"\(uId!)", "status":"1", "imageOwn": "\(otherUserId)", "userName": "\(userNameMy!)"]
                     
@@ -1830,8 +1813,8 @@ zoomimageView.sd_setImage(with: url2, placeholderImage: pImage2.image)
             else{
                 countLikes .add(["userId":uId!, "imageId":imageId, "like":true, "count": nxtObjMain.addTheLikes(countBack!)])
               
-                 likeImg.image=UIImage (named: "detailLike2")
-                likeImg2.image=UIImage (named: "detailLike2")
+                 likeImg.image=UIImage (named: "locationLike")
+                likeImg2.image=UIImage (named: "locationLike")
                 let dat: NSDictionary = ["userId": "\(uId!)", "photoId":"\(imageId)", "userLiked":"\(uId!)", "status":"1", "imageOwn": "\(otherUserId)", "userName": "\(userNameMy!)"]
                 
                 
@@ -1848,8 +1831,8 @@ zoomimageView.sd_setImage(with: url2, placeholderImage: pImage2.image)
         {
             
             countLikes.add(["userId":uId!, "count":nxtObjMain.addTheLikes(countBack!), "like": true, "imageId": imageId])
-           likeImg.image=UIImage (named: "detailLike2")
-           likeImg2.image=UIImage (named: "detailLike2")
+           likeImg.image=UIImage (named: "locationLike")
+           likeImg2.image=UIImage (named: "locationLike")
             
             let dat: NSDictionary = ["userId": "\(uId!)", "photoId":"\(imageId)", "userLiked":"\(uId!)", "status":"1", "imageOwn": "\(otherUserId)", "userName": "\(userNameMy!)"]
             
@@ -1941,9 +1924,9 @@ zoomimageView.sd_setImage(with: url2, placeholderImage: pImage2.image)
         
         
         
-        if bucketImg.image == UIImage (named: "detailBucket2") && bucketImg2.image == UIImage (named: "detailBucket2") {
-            bucketImg.image=UIImage (named: "detailBucket")
-            bucketImg2.image=UIImage (named: "detailBucket")
+        if bucketImg.image == UIImage (named: "locationBucket") && bucketImg2.image == UIImage (named: "locationBucket") {
+            bucketImg.image=UIImage (named: "locationRemoveBucket")
+            bucketImg2.image=UIImage (named: "locationRemoveBucket")
             
             let parameter: NSDictionary = ["userId": uId!, "imageId": imageId]
             
@@ -1956,8 +1939,8 @@ zoomimageView.sd_setImage(with: url2, placeholderImage: pImage2.image)
             
         else
         {
-            bucketImg.image=UIImage (named: "detailBucket2")
-            bucketImg2.image=UIImage (named: "detailBucket2")
+            bucketImg.image=UIImage (named: "locationBucket")
+            bucketImg2.image=UIImage (named: "locationBucket")
            
             let parameterDic: NSDictionary = ["userId": uId!,"imageOwn": otherUserId, "imageId": imageId ]
             
@@ -2117,7 +2100,6 @@ zoomimageView.sd_setImage(with: url2, placeholderImage: pImage2.image)
     
     
     
-    
     ///////////////////////////////////////////////////////////////////////////////////
     
     //MARK:- Delegates and datasource of tableView
@@ -2134,65 +2116,32 @@ zoomimageView.sd_setImage(with: url2, placeholderImage: pImage2.image)
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int
     {
         
-        if tableView == categorytable {
-            
-            let cateArr = (self.arrayWithData[0] as AnyObject).value(forKey: "categoryMainArray") as! NSMutableArray
-            
-            return cateArr.count
-        }
-        else
-        {
+       print(tempReviewArray.count)
             if tempReviewArray.count>0 {
+                if tempReviewArray.count>1 {
+                    showMoreComments.isHidden = true
+                    if tempReviewArray.count>2 {
+                        showMoreComments.isHidden = false
+                    }
+                    return 2
+                }
                 return 1
             }
             else{
                 return 0
             }
-        }
         
        
     }
     func tableView(_ tableView: UITableView, heightForRowAtIndexPath indexPath: IndexPath) -> CGFloat
     {
-       
-        if tableView == categorytable {
-            return 20.0
-        }
-        else{
         return UITableViewAutomaticDimension
-        }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAtIndexPath indexPath: IndexPath) -> UITableViewCell
     {
         
-        if tableView == categorytable {
-             let cell:UITableViewCell = tableView.dequeueReusableCell(withIdentifier: "categoryCell")!
-            
-            
-            
-            let cateArr = (self.arrayWithData[0] as AnyObject).value(forKey: "categoryMainArray") as! NSMutableArray
-            print(cateArr.object(at: indexPath.row))
-            
-            let categoryIcon = cell.contentView .viewWithTag(122) as! UIImageView
-            let catString = (cateArr.object(at: indexPath.row) as! AnyObject).value(forKey: "_id") as? String ?? ""
-            categoryIcon.image = self.setCategoryIcons(catString as NSString) //self.setCategoryIcons((cateArr.object(at: indexPath.row) as AnyObject).value(forKey: "_id") as? String ?? "")
-            //.sd_setImageWithURL(NSURL (string: ""), placeholderImage: UIImage (named: "categoryIconDetail"))
-            
-            
-            let categoryNameLbl = cell.contentView .viewWithTag(123) as! UILabel
-            
-            categoryNameLbl.text = (cateArr.object(at: indexPath.row) as AnyObject).value(forKey: "displayName") as? String ?? ""
-            
-            
-            
-            return cell
-        }
-            
-            
-        else
-        {
-            let cell:UITableViewCell = tableView.dequeueReusableCell(withIdentifier: "CommentsCell")!
+       let cell:UITableViewCell = tableView.dequeueReusableCell(withIdentifier: "CommentsCell")!
             
             let imageName2 = (tempReviewArray.object(at: indexPath.row) as AnyObject).value(forKey: "userPhoto") as? String ?? ""
             let url2 = URL(string: imageName2 )
@@ -2228,7 +2177,7 @@ zoomimageView.sd_setImage(with: url2, placeholderImage: pImage2.image)
             
             return cell
 
-        }
+        
         
         
     }
@@ -2307,7 +2256,7 @@ zoomimageView.sd_setImage(with: url2, placeholderImage: pImage2.image)
             
             cell.backgroundColor=UIColor.clear
             cell.layer.shadowColor = UIColor.lightGray .cgColor
-            cell.layer.shadowOffset = CGSize(width: 0, height: 2.5)
+            cell.layer.shadowOffset = CGSize(width: 0, height: 0.5)
             cell.layer.shadowOpacity = 1
             cell.layer.shadowRadius = 1.0
             cell.layer.masksToBounds=true
@@ -2356,8 +2305,8 @@ nearByimage.sd_setImage(with: url2, placeholderImage: pImage)
             
             //label for near by places name
             let labelName = cell.viewWithTag(11113) as! UILabel
-            labelName.adjustsFontSizeToFitWidth = true
-            labelName.numberOfLines=0
+            //labelName.adjustsFontSizeToFitWidth = true
+            labelName.numberOfLines=1
             labelName.text=(nearByPlacesArray.object(at: indexPath.row) as AnyObject).value(forKey: "name") as? String
             
             
@@ -2433,15 +2382,15 @@ nearByimage.sd_setImage(with: url2, placeholderImage: pImage)
         if collectionView == collectionViewImages {
             
             
-            let width1 = collectionView.frame.size.width/3.5  //1.8
+            let width1 = collectionView.frame.size.width/4.20  //1.8
             
             return CGSize(width: width1, height: 110) // The size of one cell
             
         }
             
-        else
+        else//thumbnail
         {
-            let width1 = collectionView.frame.size.width/3.80  //1.8
+            let width1 = collectionView.frame.size.width/4.30  //1.8
             
             return CGSize(width: width1, height: 75.0) // The size of one cell
         }
@@ -2513,6 +2462,7 @@ nearByimage.sd_setImage(with: url2, placeholderImage: pImage)
                             self.descriptionTextv.isEditable=true
                             self.heightOfSecondView.constant = 0
                             self.webLinkBtnOutlet.isHidden=true
+                            self.webLinkImg.isHidden=true
                             self.showMoreDescription.isHidden=true
                             
                             
@@ -2566,6 +2516,7 @@ nearByimage.sd_setImage(with: url2, placeholderImage: pImage)
                                             self.collectionHeightThumbnails.constant=0
                                             self.collectionContainView.constant=0
                                             self.morePictureLabel.isHidden=true
+                                            self.reviewsTopSpace.constant = 0
                                             self.morePicturesTopSpace.constant = 0
                                             
                                             
@@ -2588,7 +2539,7 @@ nearByimage.sd_setImage(with: url2, placeholderImage: pImage)
                                             self.heightOfSecondView.constant = self.heightDescription(descStRing as NSString) //130
                                             self.showMoreDescription.isHidden=true
                                             self.heightOfSecondView.constant = 0
-                                            if self.descriptionString.length>250{
+                                            if self.descriptionString.length>350{
                                                 //self.heightOfSecondView.constant = 200
                                                 self.showMoreDescription.isUserInteractionEnabled=true
                                                 self.descSeperaterLabel.isHidden=false
@@ -2614,6 +2565,19 @@ nearByimage.sd_setImage(with: url2, placeholderImage: pImage)
                                             let latFS = locationDict["lat"] != nil
                                             
                                             let longFS = locationDict["lng"] != nil
+                                            
+                                            
+                                            if let urlHotel = (venues.object(at: 0) as AnyObject).value(forKey: "url")
+                                            {
+                                                self.webLinkBtnOutlet.isHidden=false
+                                                self.webLinkBtnOutlet.setTitle((urlHotel as! NSString) as String, for: .normal)
+                                                self.webLinkImg.isHidden=false
+                                                self.webLinkString=urlHotel as! NSString
+                                                
+                                            }
+
+                                            
+                                            
                                             
                                             
                                             if latFS == true && longFS == true {
@@ -2704,6 +2668,7 @@ nearByimage.sd_setImage(with: url2, placeholderImage: pImage)
                                         self.collectionHeightThumbnails.constant=0
                                         self.collectionContainView.constant=0
                                         self.morePictureLabel.isHidden=true
+                                        self.reviewsTopSpace.constant = 0
                                         self.showMoreDescription.isHidden=true
                                         self.showMoreDescription.isUserInteractionEnabled=true
                                    
@@ -2762,14 +2727,13 @@ nearByimage.sd_setImage(with: url2, placeholderImage: pImage)
     func updateFirstView() -> Void {
     
         
-        self.categoryViewHeight.constant = 84 + self.categoryTableheight.constant
-        if self.categoryViewHeight.constant < 114 {
-            self.categoryViewHeight.constant = 114
-            
-        }
-        self.heightOfFirstView.constant =  220 + self.categoryViewHeight.constant // 330 //240 +
-//        self.view .layoutIfNeeded()
-//        self.view.setNeedsLayout()
+        self.categoryViewHeight.constant = 84
+//        if self.categoryViewHeight.constant < 104 {
+//            self.categoryViewHeight.constant = 104
+//            
+//        }
+        self.heightOfFirstView.constant =  360 + self.categoryViewHeight.constant
+        print(self.heightOfFirstView.constant)
         
         
         
@@ -2886,18 +2850,23 @@ nearByimage.sd_setImage(with: url2, placeholderImage: pImage)
                                     {
                                         self.descriptionString=desc as! NSString
                                         self.descriptionTextv.isEditable=true
-                                        self.descriptionTextv.text=self.descriptionString as String
+                                       // self.descriptionTextv.text=self.descriptionString as String
+                                        let attributedString = NSMutableAttributedString(string: self.descriptionString as String)
+                                        attributedString.addAttribute(NSKernAttributeName, value: CGFloat(1.0), range: NSRange(location: 0, length: attributedString.length))
+                                        self.descriptionTextv.attributedText = attributedString
+                                        
+                                        
                                         self.descriptionTextv.textColor = UIColor.lightGray
                                         self.descriptionTextv.isEditable=false
                                       
-                                        self.descriptionTopSpace.constant = 7
+                                        self.descriptionTopSpace.constant = 1
                                         
                                         self.secondView.isHidden=false
                                         self.view .setNeedsLayout()
                                         
                                         self.showMoreDescription.isHidden=true
-                                        if self.descriptionString.length>250{
-                                             self.heightOfSecondView.constant = 200
+                                        if self.descriptionString.length>350{
+                                             self.heightOfSecondView.constant = 210
                                             self.showMoreDescription.isUserInteractionEnabled=true
                                             self.descSeperaterLabel.isHidden=false
                                             self.showMoreDescription.isHidden=false
@@ -2918,7 +2887,7 @@ nearByimage.sd_setImage(with: url2, placeholderImage: pImage)
                                         self.descriptionTextv.isEditable=false
                                         self.heightOfSecondView.constant = self.heightDescription("") //130
                                         self.showMoreDescription.isHidden=true
-                                       self.descriptionTopSpace.constant = 7
+                                       self.descriptionTopSpace.constant = 1
                                         if descStRing == ""{
                                             self.descriptionTopSpace.constant = 0
                                         }
@@ -2942,6 +2911,7 @@ nearByimage.sd_setImage(with: url2, placeholderImage: pImage)
                                     self.collectionHeightThumbnails.constant=0
                                     self.collectionContainView.constant=0
                                     self.morePictureLabel.isHidden=true
+                                    self.reviewsTopSpace.constant = 0
                                     self.morePicturesTopSpace.constant = 0
                     
                                     
@@ -2952,9 +2922,10 @@ nearByimage.sd_setImage(with: url2, placeholderImage: pImage)
                                     self.collectionHeightThumbnails.constant=80
                                     let photos = (((venues .value(forKey: "photos")! as AnyObject).object(forKey: "groups") as AnyObject).object(at: 0) as AnyObject).value(forKey: "items") as? NSMutableArray
                                     
-                                    self.collectionContainView.constant=120
+                                    self.collectionContainView.constant=145
                                     self.morePictureLabel.isHidden=false
-                                    self.morePicturesTopSpace.constant = 7
+                                    self.reviewsTopSpace.constant = 1
+                                    self.morePicturesTopSpace.constant = 1
 
                                     
                                     
@@ -3224,7 +3195,7 @@ nearByimage.sd_setImage(with: url2, placeholderImage: pImage)
                                             
                                             
                                             
-                                        let distance = (((itemsArray.object(at: i) as AnyObject).value(forKey: "venue") as AnyObject).value(forKey: "location") as AnyObject).value(forKey: "distance")!
+                                        let distance = (((itemsArray.object(at: i) as AnyObject).value(forKey: "venue") as AnyObject).value(forKey: "location") as AnyObject).value(forKey: "distance") as! NSNumber
                                             
                                             
                                            // print("Distance is ============= \(String(distance!))m")
@@ -3239,15 +3210,17 @@ nearByimage.sd_setImage(with: url2, placeholderImage: pImage)
                                         
                                             if strDist.length>=4{
                                                 
+                                                strDist = String("\(Double(distance)/1000)") as NSString
+                                                strDist = String (format: "%.2f", Double(distance)/1000) as NSString
+                                                strDist = "\(strDist) Km" as NSString
                                                 
-                                                
-                                               // strDist = String("\(Double(distance as! NSNumber)/1000) Km")
-                                               // strDist = String (format: "%.2f", Double(distance as! NSNumber)/1000) as NSString
-                                               // strDist = "\(strDist) Km"
+                                              //  strDist = NSString("\(Double(describing: distance as! NSNumber)/1000) Km")
+//                                                strDist = String (format: "%.2f", Double(distance as! NSNumber)/1000) as NSString
+//                                                strDist = "\(strDist) Km" as NSString
                                                 
                                             }
                                             else{
-                                                //strDist = String("\(distance) mt")
+                                                strDist = String("\(distance) mt") as! NSString
                                             }
                                             
                                             
@@ -3318,7 +3291,7 @@ nearByimage.sd_setImage(with: url2, placeholderImage: pImage)
                                             self.forthView.isHidden=true
                                              self.contentViewHeight.constant = 200 + self.heightOfFirstView.constant + self.heightOfSecondView.constant + self.heightOfThirdView.constant + self.collectionContainView.constant
                                             
-                                            self.nearByPlacesTopSpace.constant = 7
+                                            self.nearByPlacesTopSpace.constant = 1
                                             
                                             self.view .setNeedsLayout()
                                             self.view .layoutIfNeeded()
@@ -3336,7 +3309,7 @@ nearByimage.sd_setImage(with: url2, placeholderImage: pImage)
                                         self.updateFirstView()
                                         self.forthView.isHidden=false
                                         self.contentViewHeight.constant = 200 + self.heightOfFirstView.constant + self.heightOfSecondView.constant + self.heightOfThirdView.constant + self.collectionContainView.constant
-                                        self.nearByPlacesTopSpace.constant = 7
+                                        self.nearByPlacesTopSpace.constant = 1
                                         self.view .setNeedsLayout()
                                         self.view .layoutIfNeeded()
                                         
@@ -3363,24 +3336,24 @@ nearByimage.sd_setImage(with: url2, placeholderImage: pImage)
                                     }
                                         
                                         
-                                    else{
+                                    else
+                                    {
                                         
-                                        
+                                    
                                         // sort
                                         
                                         // print(self.nearByPlacesArray)
                                         //sort here
-//                                      let sortAr = Array(self.nearByPlacesArray).sorted{
-//                                            (($0 as! Dictionary<String, AnyObject>)["num"] as? Int) < (($1 as! Dictionary<String, AnyObject>)["num"] as? Int)
-//                                        }
+    let sortAr = Array(self.nearByPlacesArray).sorted{
+                                            (($0 as! Dictionary<String, AnyObject>)["num"] as? Int)! < (($1 as! Dictionary<String, AnyObject>)["num"] as? Int)!
+                                        }
 
                                         
                                         ///print(sortAr)
                                         
                                         
-                                        //self.nearByPlacesArray = NSMutableArray(array: sortAr)
-                                        
-                                       // print("finalArray=\(self.nearByPlacesArray)")
+                                        self.nearByPlacesArray = NSMutableArray(array: sortAr)
+                                      
                                         
                                         
                                         self.forthIndicator .removeFromSuperview()
@@ -3390,7 +3363,7 @@ nearByimage.sd_setImage(with: url2, placeholderImage: pImage)
                                         self.updateFirstView()
                                        self.forthView.isHidden=false
                                         self.contentViewHeight.constant = 200 + self.heightOfFirstView.constant + self.heightOfSecondView.constant + self.heightOfThirdView.constant + self.collectionContainView.constant
-                                        self.nearByPlacesTopSpace.constant = 7
+                                        self.nearByPlacesTopSpace.constant = 1
                                         self.view .setNeedsLayout()
                                         self.view .layoutIfNeeded()
                                     }

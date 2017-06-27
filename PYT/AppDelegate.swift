@@ -15,7 +15,7 @@ var Udefaults = UserDefaults.standard
 
 import UIKit
 //import Lock
-import CoreData
+//import CoreData
 import IQKeyboardManager
 import Fabric
 import Crashlytics

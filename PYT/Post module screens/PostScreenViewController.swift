@@ -1,18 +1,15 @@
 //
-//  PostImagesVC.swift
+//  PostScreenViewController.swift
 //  PYT
 //
-//  Created by osx on 23/06/17.
+//  Created by osx on 27/06/17.
 //  Copyright © 2017 osx. All rights reserved.
 //
 
 import UIKit
-import DKImagePickerController
 
+class PostScreenViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
 
-class PostImagesVC: UIViewController,UIImagePickerControllerDelegate, UINavigationControllerDelegate {//apiClassDelegate {
-
-    
     @IBOutlet weak var addImg1: UIButton!
     @IBOutlet weak var addImg2: UIButton!
     @IBOutlet weak var addImg3: UIButton!
@@ -53,29 +50,10 @@ class PostImagesVC: UIViewController,UIImagePickerControllerDelegate, UINavigati
     var editImagesArray = NSMutableArray()//Edit photos
     //Image Picker
     let imagePicker = UIImagePickerController()
-    var pickerController = DKImagePickerController()
+   // var pickerController = DKImagePickerController()
     
     
     
-    
-    /*
- 
-     override func viewDidAppear(_ animated: Bool) {
-     //super.viewDidAppear(animated)
-     
-     SocketIOManager.sharedInstance.getChatMessageNotify { (messageInfo) -> Void in
-     DispatchQueue.main.async(execute: { () -> Void in
-     
-     //let count: String = String(messageInfo["count"]!)
-     ///
-     // self.tabBarController?.tabBar.items?[3].badgeValue = count
-     
-     
-     })
-     }
-     }
- 
- */
     
     
     override func viewDidLoad() {
@@ -92,11 +70,52 @@ class PostImagesVC: UIViewController,UIImagePickerControllerDelegate, UINavigati
     
     
     
+    @IBAction func actionSheet(_ sender: AnyObject)
+    {
+        imagePicker.delegate = self
+        
+        
+        
+        if multipleImagesArray.count==8 {
+            
+            CommonFunctionsClass.sharedInstance().showAlert(title: "Too much to handle!", text: "You can't add more than eight pictures at once.", imageName: "alertLimit")
+            
+            
+           
+        }
+        else{
+            
+            let alertController = UIAlertController(title: "Select Image", message: nil, preferredStyle: UIAlertControllerStyle.actionSheet)
+            
+            let libAction = UIAlertAction(title: "Select from library", style: UIAlertActionStyle.default, handler: {(alert: UIAlertAction!) in
+                //self.photofromLibrary()
+                
+            })
+            
+            let captureAction = UIAlertAction(title: "Capture image", style: UIAlertActionStyle.default, handler: {(alert: UIAlertAction!) in self.capture()
+                
+            })
+            
+            let cancelAction = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.cancel, handler: {(alert: UIAlertAction!) in print("cancel")})
+            
+            alertController.addAction(libAction)
+            alertController.addAction(captureAction)
+            alertController.addAction(cancelAction)
+            
+            self.present(alertController, animated: true, completion:{})
+        }
+        
+        
+        
+    }
+    
+    
     
     //MARK: Image Picker Delegates
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         dismiss(animated: true, completion: nil)
     }
+    
     
     func imagePickerController(_ picker: UIImagePickerController,didFinishPickingMediaWithInfo info: [String : Any])
     {
@@ -110,7 +129,7 @@ class PostImagesVC: UIViewController,UIImagePickerControllerDelegate, UINavigati
             
             if Int((chosenImage?.size.width)!) > 1500 {
                 
-            finalImage =  scaleImage(chosenImage!, toSize: CGSize(width: 1500, height: 1300))
+                finalImage =  scaleImage(chosenImage!, toSize: CGSize(width: 1500, height: 1300))
                 
                 uploadImg = scaleImage(chosenImage!, toSize: CGSize(width: 1500, height: 1300))
                 imageData = UIImageJPEGRepresentation(uploadImg,0.2)!
@@ -129,16 +148,16 @@ class PostImagesVC: UIViewController,UIImagePickerControllerDelegate, UINavigati
             chosenImage = finalImage
             
             
-           
+            
             
             let testImgView = UIImageView()
             testImgView.image=self.scaleImage(chosenImage!, toSize: CGSize(width:350, height: 300))
             
             self.multipleImagesArray .add(["imageData": imageData, "originalImage":chosenImage, "urlImg":"camera", "thumbnail": testImgView.image! ])
             
-          
             
-           
+            
+            
             
             
             
@@ -151,7 +170,7 @@ class PostImagesVC: UIViewController,UIImagePickerControllerDelegate, UINavigati
             dismiss(animated: true, completion: nil)
             
             
-         
+            
             
             
         }
@@ -169,130 +188,8 @@ class PostImagesVC: UIViewController,UIImagePickerControllerDelegate, UINavigati
     }
     
     
-    //Photo from library
     
-    func photofromLibrary() {
-        
-        
-        pickerController=DKImagePickerController()
-        
-        pickerController.didSelectAssets = { (assets: [DKAsset]) in
-            print("didSelectAssets")
-            print(assets)
-            
-        }
-        
-        
-        
-        
-        
-        self.present(pickerController, animated: true) {}
-        
-        pickerController.allowMultipleTypes=false
-        pickerController.assetType = .allPhotos
-        pickerController.maxSelectableCount = 8 - self.multipleImagesArray.count
-        
-        
-        
-        pickerController.didSelectAssets = { (assets: [DKAsset]) in
-            print("didSelectAssets")
-            //  self.multipleImagesArray .removeAllObjects()
-            
-            
-            
-           
-                
-                
-                
-                
-                for asset in assets {
-                    
-                    
-                    asset.fetchOriginalImage(false, completeBlock: { image, info in
-                        
-                        if let img = image{
-                            print(img)
-                            
-                           
-                            let dictInfo:NSDictionary = info! as NSDictionary
-                            
-                            print(dictInfo.value(forKey: "PHImageFileURLKey"))
-                            let urlImg = dictInfo.value(forKey: "PHImageFileURLKey")
-                            
-                            
-                            var uploadImg = UIImage()
-                            
-                            if img.size.width>1400 {
-                                
-                                
-                                print("Going Inside")
-                                
-                                uploadImg = self.scaleImage(img, toSize: CGSize(width: 1500, height: 1300))
-                                self.imageData = UIImageJPEGRepresentation(uploadImg,0.2)!
-                                
-                                
-                                
-                            }
-                            else
-                            {
-                                self.imageData = UIImageJPEGRepresentation(img,0.2)!
-                            }
-                            
-                            
-                            
-                            
-                            
-                            
-                            let testImgView = UIImageView()
-                            testImgView.image=self.scaleImage(img, toSize: CGSize(width:350, height: 350))
-                            
-                            
-                            
-                            if self.multipleImagesArray.count<8 {
-                                
-                                let arrim = self.multipleImagesArray.value(forKey: "urlImg") as! NSArray
-                                
-                                if arrim .contains(urlImg!)
-                                {
-                                    
-                                    print("already contains")
-                                    
-                                }
-                                else{
-                                    self.multipleImagesArray .add(["imageData": self.imageData, "originalImage":img, "urlImg": urlImg!, "thumbnail": testImgView.image!])
-                                    
-                                }
-                                
-                                
-                                
-                                
-                            }
-                            
-                            
-                            
-                            
-                            
-                        }
-                        
-                        
-                    
-                        
-                        
-                        
-                    })
-                    
-                }
-            
-            
-            
-        }
-        
-        
-        
-
-    }
-    
-    
+  
     
     //open capera to click photos
     func capture() {
@@ -315,10 +212,7 @@ class PostImagesVC: UIViewController,UIImagePickerControllerDelegate, UINavigati
         self.multipleImagesArray .removeObject(at: sender.tag)
         
     }
-    
-    
-    
-    
+
     
     
     //MARK: Function to scale image according to height and width and its ratio..
@@ -346,13 +240,10 @@ class PostImagesVC: UIViewController,UIImagePickerControllerDelegate, UINavigati
     
     
     
-
-    
-    
     //MARK: Set images in the button
     func setImageInButtons(btntag: Int) {
         //imageToPost.imageView?.contentMode = .scaleAspectFill
-       // imageToPost.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        // imageToPost.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         
         switch btntag {
         case 0:
@@ -360,18 +251,18 @@ class PostImagesVC: UIViewController,UIImagePickerControllerDelegate, UINavigati
             addImg1.setImage(imageBtn, for: .normal)
             deleteImg1.isHidden = false
             break
-        
+            
         case 1:
             let imageBtn = self.scaleImage(self.multipleImagesArray.object(at: btntag) as! UIImage, toSize: addImg2.frame.size)
             addImg2.setImage(imageBtn, for: .normal)
             deleteImg2.isHidden = false
             break
-        
+            
         case 2:
             let imageBtn = self.scaleImage(self.multipleImagesArray.object(at: btntag) as! UIImage, toSize: addImg3.frame.size)
             addImg3.setImage(imageBtn, for: .normal)
             deleteImg3.isHidden = false
-        break
+            break
             
         case 3:
             let imageBtn = self.scaleImage(self.multipleImagesArray.object(at: btntag) as! UIImage, toSize: addImg4.frame.size)
@@ -442,6 +333,8 @@ class PostImagesVC: UIViewController,UIImagePickerControllerDelegate, UINavigati
     
     
     
+    
+
     
     
     

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		100CE5451F023BF4005C5C8D /* PostScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 100CE5441F023BF4005C5C8D /* PostScreenViewController.swift */; };
 		100EE3911EF156A7005A79C1 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 100EE3901EF156A7005A79C1 /* ViewController.swift */; };
 		100EE3941EF156A7005A79C1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 100EE3921EF156A7005A79C1 /* Main.storyboard */; };
 		100EE3961EF156A7005A79C1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 100EE3951EF156A7005A79C1 /* Assets.xcassets */; };
@@ -73,6 +74,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		100CE5441F023BF4005C5C8D /* PostScreenViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostScreenViewController.swift; sourceTree = "<group>"; };
 		100EE38B1EF156A7005A79C1 /* PYT.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PYT.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		100EE3901EF156A7005A79C1 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		100EE3931EF156A7005A79C1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -167,6 +169,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		100CE5431F023BDF005C5C8D /* Post module screens */ = {
+			isa = PBXGroup;
+			children = (
+				100CE5441F023BF4005C5C8D /* PostScreenViewController.swift */,
+			);
+			path = "Post module screens";
+			sourceTree = "<group>";
+		};
 		100EE3821EF156A6005A79C1 = {
 			isa = PBXGroup;
 			children = (
@@ -205,6 +215,7 @@
 				1065FD751EFD2DE100D2C38F /* DetailClass */,
 				104182691EF253DA00078527 /* Singlton Class */,
 				1041826E1EF2688F00078527 /* StoryClassVc */,
+				100CE5431F023BDF005C5C8D /* Post module screens */,
 				10CD18871EF7FE440031093F /* GestureViewClass */,
 				104182731EF26A6000078527 /* Bridging Header */,
 				104182751EF26AEC00078527 /* socialFramework */,
@@ -701,6 +712,7 @@
 				1041826B1EF25D4300078527 /* CommonFunctionsClass.swift in Sources */,
 				1089A5A81EF3EAFC006197FE /* ForgotPasswordViewController.swift in Sources */,
 				105ED8DD1EFCE11400C133D0 /* UIImageView+FaceAware.swift in Sources */,
+				100CE5451F023BF4005C5C8D /* PostScreenViewController.swift in Sources */,
 				100EE3911EF156A7005A79C1 /* ViewController.swift in Sources */,
 				104182681EF253D400078527 /* apiClass.swift in Sources */,
 				1041826D1EF2688C00078527 /* storyCountClass.swift in Sources */,
