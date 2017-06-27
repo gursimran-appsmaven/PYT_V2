@@ -4128,17 +4128,21 @@ extension mainHomeViewController: UICollectionViewDelegate, UICollectionViewData
         
         if planAllLocation == false {
             planAllLocation = true
-            self.imagesTableView.reloadSections([0], with: .none)
-
-
-            // storyCollectionView .reloadData()
+            DispatchQueue.main.async{
+                self.tableView(self.imagesTableView, viewForHeaderInSection: 0)
+            }
             
         }
         else
         {
+            
             planAllLocation = false
-            //self.imagesTableView.reloadSections(IndexSet(integersIn: 0...0), with: UITableViewRowAnimation.top)
-          self.imagesTableView.reloadSections([0], with: .none)
+            
+            DispatchQueue.main.async{
+                self.tableView(self.imagesTableView, viewForHeaderInSection: 0)
+            }
+            
+          
         }
         
         

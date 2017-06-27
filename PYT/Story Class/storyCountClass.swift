@@ -254,7 +254,7 @@ class storyCountClass: NSObject
                                             bucketListTotalCount = "\(bktCount)"
                                         }
                                         
-                                        NotificationCenter.default.post(name: Notification.Name(rawValue: "loadCount"), object: nil)
+                                        //NotificationCenter.default.post(name: Notification.Name(rawValue: "loadCount"), object: nil)
                                         
                                         
                                         

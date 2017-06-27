@@ -632,8 +632,8 @@ class detailViewController: UIViewController, apiClassDelegate {
         //let otherUserId = self.arrayWithData[0] .valueForKey("otherUserId") as? String ?? ""
        // let commentParameter = "imageId=\(imageId)&userId=\(uId!)&imageOwner=\(otherUserId)&paging=last"//older version
         
-        let commentParameter = "imageId=\(imageId)&userId=\(uId!)&page=last"
         
+        let commentParameter = "imageId=\(imageId)&userId=\(uId!)&page=last"
         self.postApiToGetPYTReview(commentParameter as NSString) //get the comments from the pyt server
         
         
