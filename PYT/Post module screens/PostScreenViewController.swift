@@ -8,7 +8,7 @@
 
 import UIKit
 import DKImagePickerController
-class PostScreenViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+class PostScreenViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UISearchBarDelegate {
 
     @IBOutlet weak var addImg1: UIButton!
     @IBOutlet weak var addImg2: UIButton!
@@ -52,10 +52,11 @@ class PostScreenViewController: UIViewController, UIImagePickerControllerDelegat
     let imagePicker = UIImagePickerController()
     
     
-    //var pickerController: DKImagePickerController!
+    var pickerController: DKImagePickerController!
     
-    
-    
+    //GeotagView Outlets
+    @IBOutlet weak var geoTagview: UIView!
+    @IBOutlet weak var search_bar: UISearchBar!
     
     
     override func viewDidLoad() {
@@ -67,7 +68,28 @@ class PostScreenViewController: UIViewController, UIImagePickerControllerDelegat
 
     
     
-    
+    override func viewWillAppear(_ animated: Bool)
+    {
+        let blurEffect = UIBlurEffect(style: UIBlurEffectStyle.light)
+        let blurEffectView = UIVisualEffectView(effect: blurEffect)
+        
+        blurEffectView.alpha = 0.8
+        blurEffectView.frame = autoPromptView.bounds
+        blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        autoPromptView.addSubview(blurEffectView)
+        self.autoPromptView .bringSubview(toFront: autoPromptTable)
+        self.autoPromptView.bringSubview(toFront: search_Bar)
+        self.autoPromptView.bringSubview(toFront: cancelButtonSearch)
+        
+        search_Bar.layer.cornerRadius = 5.0
+        search_Bar.clipsToBounds = true
+        search_Bar.barTintColor = UIColor .white
+        //[self.searchBar setReturnKeyType:UIReturnKeyDone];
+        search_Bar.returnKeyType = UIReturnKeyType .done
+        search_Bar.showsCancelButton = false
+        cancelWidth.constant = 0
+        search_Bar.delegate = self
+    }
     
     
     
@@ -84,21 +106,20 @@ class PostScreenViewController: UIViewController, UIImagePickerControllerDelegat
         }
         else
         {
-            self.setBigImageInMiddle(senderImg: (sender.imageView??.image)!)
+            self.setBigImageInMiddle(senderImg: ((self.multipleImagesArray.object(at: sender.tag) as AnyObject).value(forKey: "originalImage")) as! UIImage)
         }
         
     }
     
     
-    func openActionSheet() {
-        
-        
+    func openActionSheet()
+    {
          imagePicker.delegate = self
             
             let alertController = UIAlertController(title: "Select Image", message: nil, preferredStyle: UIAlertControllerStyle.actionSheet)
             
             let libAction = UIAlertAction(title: "Select from library", style: UIAlertActionStyle.default, handler: {(alert: UIAlertAction!) in
-                //self.photofromLibrary()
+                self.photofromLibrary()
                 
             })
             
@@ -169,7 +190,11 @@ class PostScreenViewController: UIViewController, UIImagePickerControllerDelegat
             
             
             
-            
+            for i in 0..<self.multipleImagesArray.count {
+                
+                self.setImageInButtons(btntag: i)
+                
+            }
             
             
             
@@ -209,30 +234,25 @@ class PostScreenViewController: UIViewController, UIImagePickerControllerDelegat
         present(imagePicker, animated: true, completion: nil)
     }
     
-    /*
+    
     func photofromLibrary() {
         
         
-      // let pickerController: DKImagePickerController!
-         var assets: [DKAsset]?
+       let pickerController = DKImagePickerController.init()
         
         
         
-       // pickerController.didSelectAssets = { (assets: [DKAsset]) in
-           // print("didSelectAssets")
-            //print(assets)
-            
-        //}
+//        pickerController.didSelectAssets = { (assets: [DKAsset]) in
+//            print("didSelectAssets")
+//            print(assets)
+//            
+//        }
         
         pickerController.didCancel = { ()
             print("didCancel")
         }
         
-        pickerController.didSelectAssets = { [unowned self] (assets2: [DKAsset]) in
-            print("didSelectAssets")
-            
-            assets = assets2
-        }
+       
         
         
         
@@ -242,7 +262,7 @@ class PostScreenViewController: UIViewController, UIImagePickerControllerDelegat
         
         pickerController.allowMultipleTypes=false
         pickerController.assetType = .allPhotos
-        pickerController.maxSelectableCount = 8 - self.multipleImagesArray.count
+        pickerController.maxSelectableCount = 7 - self.multipleImagesArray.count
         
         
         
@@ -255,7 +275,7 @@ class PostScreenViewController: UIViewController, UIImagePickerControllerDelegat
            // dispatch_async(dispatch_get_main_queue()) {
                 
                 
-            
+             DispatchQueue.main.async {
                 
                 
                 
@@ -326,13 +346,26 @@ class PostScreenViewController: UIViewController, UIImagePickerControllerDelegat
                         
                         
                         
-                    
+                        for i in 0..<self.multipleImagesArray.count {
+                            
+                            self.setImageInButtons(btntag: i)
+                            
+                        }
                         
                         
                     })
                     
-                }
-           // }
+                    
+                  
+            
+            
+          
+                
+            }
+            
+            
+            
+            }
             
             
         }
@@ -343,7 +376,7 @@ class PostScreenViewController: UIViewController, UIImagePickerControllerDelegat
         
         
     }
-    */
+    
     
     
     
@@ -356,6 +389,13 @@ class PostScreenViewController: UIViewController, UIImagePickerControllerDelegat
     @IBAction func deleteImageAction(_ sender: AnyObject)
     {
         self.multipleImagesArray .removeObject(at: sender.tag)
+        self.setEmptyImageInbuttons()
+        for i in 0..<self.multipleImagesArray.count {
+            
+            self.setImageInButtons(btntag: i)
+        }
+        
+        
     }
 
     
@@ -398,44 +438,46 @@ class PostScreenViewController: UIViewController, UIImagePickerControllerDelegat
 //            break
             
         case 0:
-            let imageBtn = self.scaleImage(self.multipleImagesArray.object(at: btntag) as! UIImage, toSize: addImg2.frame.size)
-            addImg2.setImage(imageBtn, for: .normal)
+           
+            addImg2.setImage(((self.multipleImagesArray.object(at: btntag) as AnyObject).value(forKey: "thumbnail"))  as? UIImage, for: .normal)
             deleteImg2.isHidden = false
+            self.setBigImageInMiddle(senderImg: ((self.multipleImagesArray.object(at: btntag) as AnyObject).value(forKey: "originalImage")) as! UIImage)
+            
             break
             
         case 1:
-            let imageBtn = self.scaleImage(self.multipleImagesArray.object(at: btntag) as! UIImage, toSize: addImg3.frame.size)
-            addImg3.setImage(imageBtn, for: .normal)
+           
+            addImg3.setImage(((self.multipleImagesArray.object(at: btntag) as AnyObject).value(forKey: "thumbnail"))  as? UIImage, for: .normal)
             deleteImg3.isHidden = false
             break
             
         case 2:
-            let imageBtn = self.scaleImage(self.multipleImagesArray.object(at: btntag) as! UIImage, toSize: addImg4.frame.size)
-            addImg4.setImage(imageBtn, for: .normal)
+          
+            addImg4.setImage(((self.multipleImagesArray.object(at: btntag) as AnyObject).value(forKey: "thumbnail"))  as? UIImage, for: .normal)
             deleteImg4.isHidden = false
             break
             
         case 3:
-            let imageBtn = self.scaleImage(self.multipleImagesArray.object(at: btntag) as! UIImage, toSize: addImg5.frame.size)
-            addImg5.setImage(imageBtn, for: .normal)
+           
+            addImg5.setImage(((self.multipleImagesArray.object(at: btntag) as AnyObject).value(forKey: "thumbnail"))  as? UIImage, for: .normal)
             deleteImg5.isHidden = false
             break
             
         case 4:
-            let imageBtn = self.scaleImage(self.multipleImagesArray.object(at: btntag) as! UIImage, toSize: addImg6.frame.size)
-            addImg6.setImage(imageBtn, for: .normal)
+            
+            addImg6.setImage(((self.multipleImagesArray.object(at: btntag) as AnyObject).value(forKey: "thumbnail"))  as? UIImage, for: .normal)
             deleteImg6.isHidden = false
             break
             
         case 5:
-            let imageBtn = self.scaleImage(self.multipleImagesArray.object(at: btntag) as! UIImage, toSize: addImg7.frame.size)
-            addImg7.setImage(imageBtn, for: .normal)
+           
+            addImg7.setImage(((self.multipleImagesArray.object(at: btntag) as AnyObject).value(forKey: "thumbnail"))  as? UIImage, for: .normal)
             deleteImg7.isHidden = false
             break
             
         default:
-            let imageBtn = self.scaleImage(self.multipleImagesArray.object(at: btntag) as! UIImage, toSize: addImg8.frame.size)
-            addImg8.setImage(imageBtn, for: .normal)
+            
+            addImg8.setImage(((self.multipleImagesArray.object(at: btntag) as AnyObject).value(forKey: "thumbnail"))  as? UIImage, for: .normal)
             deleteImg8.isHidden = false
             break
         }
@@ -458,6 +500,21 @@ class PostScreenViewController: UIViewController, UIImagePickerControllerDelegat
         
         addImg1.imageView?.contentMode = .scaleAspectFill
         addImg1.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        addImg2.imageView?.contentMode = .scaleAspectFill
+        addImg2.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        addImg3.imageView?.contentMode = .scaleAspectFill
+        addImg3.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        addImg4.imageView?.contentMode = .scaleAspectFill
+        addImg4.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        addImg5.imageView?.contentMode = .scaleAspectFill
+        addImg5.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        addImg6.imageView?.contentMode = .scaleAspectFill
+        addImg6.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        addImg7.imageView?.contentMode = .scaleAspectFill
+        addImg7.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        addImg8.imageView?.contentMode = .scaleAspectFill
+        addImg8.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        
         
         
         deleteImg1.isHidden = true
@@ -507,6 +564,52 @@ class PostScreenViewController: UIViewController, UIImagePickerControllerDelegat
     
     
     
+    //MARK Geotag Functionality here 
+    
+    @IBAction func AddgeoTag(_ sender: Any) {
+    
+        UIView.animate(withDuration: 0.6, animations: {() -> Void in
+            self.autoPromptView.isHidden=false
+            self.topSpaceOfGeotag.constant = 0
+            self.search_Bar.showsCancelButton = false
+            self.search_Bar.layer.borderWidth = 1.0
+            self.search_Bar.layer.borderColor = UIColor .lightGray.cgColor
+            self.geoTagTable.contentInset = UIEdgeInsetsMake(0, 0, 10, 0)
+            
+           
+
+    
+    
+    }
+    
+    @IBAction func cancelgeoTagAction(_ sender: Any) {
+    
+        UIView.animate(withDuration: 0.1, animations: {() -> Void in
+            
+            self.search_Bar.showsCancelButton = false
+            self.cancelWidth.constant = 0
+            self.topSpaceOfAutoPrompt.constant = 200
+            self.view.layoutIfNeeded()
+            UIView.animate(withDuration: 0.4, animations: {() -> Void in
+                self.autoPromptView.isHidden=true
+            })
+            
+        })
+        
+        
+        search_Bar .resignFirstResponder()
+        search_Bar .showsCancelButton = false
+
+
+    }
+
+    
+    
+    
+    
+    
+    
+    
     
     
     
@@ -531,3 +634,16 @@ class PostScreenViewController: UIViewController, UIImagePickerControllerDelegat
     */
 
 }
+
+class SearchLocationsCell: UITableViewCell {
+
+    @IBOutlet weak var nameLabel: UILabel!
+
+    @IBOutlet weak var placeLabel: UILabel!
+
+
+}
+
+
+
+
