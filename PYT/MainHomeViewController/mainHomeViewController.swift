@@ -2096,7 +2096,7 @@ class mainHomeViewController: UIViewController, SDWebImageManagerDelegate, apiCl
     func proceedBtnAction(_ tableViewIndex: Int, collectionViewIndex: Int)
     {
       
-        let indexPathTable = IndexPath(row: tableViewIndex, section: 1)
+        let indexPathTable = IndexPath(row: tableViewIndex, section: 0)
         let indexPathCollection = IndexPath(row: collectionViewIndex, section: 0)
         
         

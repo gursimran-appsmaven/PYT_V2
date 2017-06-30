@@ -158,7 +158,7 @@ class ChatViewController: JSQMessagesViewController {
         chatingIndicator.center=self.view.center
         self.view .addSubview(chatingIndicator)
         self.view.bringSubview(toFront: chatingIndicator)
-        //SocketIOManager.sharedInstance.establishConnection()
+        SocketIOManager.sharedInstance.establishConnection()
          self.getOlderMessages(userId: uId!)  ///older messages will be appears
         
        

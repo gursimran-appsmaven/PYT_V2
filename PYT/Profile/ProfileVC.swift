@@ -7,11 +7,13 @@
 //
 
 import UIKit
+import AWSS3
+import MBProgressHUD
+import IQKeyboardManager
 
-class ProfileVC: UIViewController,UITableViewDelegate,UITableViewDataSource,UICollectionViewDelegate,UICollectionViewDataSource,UITextFieldDelegate, settingClassDelegate {
+class ProfileVC: UIViewController,UITableViewDelegate,UITableViewDataSource,UICollectionViewDelegate,UICollectionViewDataSource,UITextFieldDelegate, settingClassDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     @IBOutlet weak var contentViewHeight: NSLayoutConstraint!
-
     @IBOutlet weak var view1Height: NSLayoutConstraint!
     @IBOutlet weak var view2Height: NSLayoutConstraint!
     @IBOutlet weak var tableViewHeight: NSLayoutConstraint!
@@ -21,19 +23,50 @@ class ProfileVC: UIViewController,UITableViewDelegate,UITableViewDataSource,UICo
     @IBOutlet weak var actionsTableView: UITableView!
     @IBOutlet weak var nameTF: UITextField!
     @IBOutlet weak var nameTxtWidth: NSLayoutConstraint!
+    @IBOutlet weak var nameBtnOutlet: UIButton!
     
+    
+    var boolProfile = Bool()
+    var dataArray = NSMutableArray()
+    let uId = Udefaults .string(forKey: "userLoginId")!
+    var countCategory = Int()
+    let imagePicker = UIImagePickerController()
+
     
     
     override func viewWillAppear(_ animated: Bool) {
         
+         self.tabBarController?.setTabBarVisible(visible: true, animated: true)
         SettingApiClass.sharedInstance().delegate=self //delegate of api class
+        if let userName = Udefaults .string(forKey: "userLoginName"){
+            nameTF.text =  userName.capitalized
+        }
+        
+      
+      //  shareBtn.isUserInteractionEnabled = true
+        let userPic = Udefaults .string(forKey: "userProfilePic")
+        print(userPic)
+        
+        
+        let urlProfile = URL(string: (userPic! as? String)! )
+        userImg .sd_setImage(with: urlProfile, placeholderImage: UIImage (named: "dummyProfile1"))
+      
+        let prm:NSDictionary = ["userId":uId, "status": "1"]
+       // profileIndicator.isHidden=false
+        //profileIndicator.startAnimating()
+        
+        
+        
+        self.postApiToGetPYTUserPhotosDetail(prm, urlToSend: "get_images_for_profile")
+        
+        
         
     }
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        countCategory = 0
         // Do any additional setup after loading the view.
     }
 
@@ -51,7 +84,17 @@ class ProfileVC: UIViewController,UITableViewDelegate,UITableViewDataSource,UICo
         
         view1Height.constant = view.frame.width * 13/25
       
-        view2Height.constant = view.frame.width * 13/25 //+ catCollectionView.frame.width/2
+        if countCategory == 0 {
+            view2Height.constant = 0
+        }
+        else if (countCategory == 1 || countCategory == 2){
+            view2Height.constant = view.frame.width * 13/25
+        }
+        else{
+            view2Height.constant = view.frame.width * 13/25 + catCollectionView.frame.width/2
+        }
+        
+//        view2Height.constant = view.frame.width * 13/25 //+ catCollectionView.frame.width/2
         
         tableViewHeight.constant = CGFloat(11*55 + 20*4 + 10)/*sections*/
         contentViewHeight.constant = view1Height.constant + view2Height.constant + tableViewHeight.constant
@@ -215,6 +258,16 @@ class ProfileVC: UIViewController,UITableViewDelegate,UITableViewDataSource,UICo
                 
             case 1:
                 print("Share Application")
+                let textToShare = "Pyt is here, Check it now "
+                
+                if let myWebsite = URL(string: "http://pictureyourtravel.com/") {
+                    let objectsToShare = [textToShare, myWebsite] as [Any]
+                    let activityVC = UIActivityViewController(activityItems: objectsToShare, applicationActivities: nil)
+                    
+                    activityVC.popoverPresentationController?.sourceView = self.view
+                    self.present(activityVC, animated: true, completion: nil)
+                }
+                break
                 
             case 2:
                 print("Add More Account")
@@ -222,8 +275,18 @@ class ProfileVC: UIViewController,UITableViewDelegate,UITableViewDataSource,UICo
             case 3:
                 print("Choose Interest")
                 
+                let nxtObj = self.storyboard?.instantiateViewController(withIdentifier: "ChooseInterestVC") as! ChooseInterestVC
+                nxtObj.comingFrom = "Profile"
+                self.navigationController! .pushViewController(nxtObj, animated: true)
+               // self.tabBarController?.setTabBarVisible(visible: false, animated: true)
+                
             case 4:
                 print("Change Password")
+                
+                let nxtObj = self.storyboard?.instantiateViewController(withIdentifier: "changePasswordViewController") as! changePasswordViewController
+              
+                self.navigationController! .pushViewController(nxtObj, animated: true)
+                self.tabBarController?.setTabBarVisible(visible: false, animated: true)
                 
             default:
                 print(" ")
@@ -253,6 +316,9 @@ class ProfileVC: UIViewController,UITableViewDelegate,UITableViewDataSource,UICo
             case 0:
                 print("Logout")
 
+                self.ActionLogout()
+                
+                
             default:
                 print(" ")
 
@@ -277,7 +343,7 @@ class ProfileVC: UIViewController,UITableViewDelegate,UITableViewDataSource,UICo
     func collectionView(_ collectionView: UICollectionView,numberOfItemsInSection section: Int) -> Int
     {
         
-        return 3
+        return dataArray.count
     }
     
     
@@ -296,6 +362,18 @@ class ProfileVC: UIViewController,UITableViewDelegate,UITableViewDataSource,UICo
     {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ProfileCollectionCell", for: indexPath) as! ProfileCollectionCell
         
+        cell.categoryName.text = (dataArray.object(at: indexPath.row) as AnyObject).value(forKey: "source") as? String ?? ""
+        cell.countLbl.text = (dataArray.object(at: indexPath.row) as AnyObject).value(forKey: "count") as? String ?? ""
+        
+        let imgUrl = (dataArray.object(at: indexPath.row) as AnyObject).value(forKey: "standardimage") as? String ?? ""
+        
+        
+        
+        
+        cell.categoryImage.sd_setImage(with: URL(string: imgUrl), placeholderImage: UIImage (named: "dummyBackground2"))
+        
+        
+        
         
         return cell
     }
@@ -308,6 +386,676 @@ class ProfileVC: UIViewController,UITableViewDelegate,UITableViewDataSource,UICo
         
     }
 
+    
+    
+    
+    
+    //MARK: get the profile images
+    //MARK: Api to get the images and count from server
+    //MARK:
+    func postApiToGetPYTUserPhotosDetail(_ parameterReview: NSDictionary, urlToSend: NSString) {
+        
+        self.catCollectionView.isUserInteractionEnabled=false
+        
+        print(parameterReview)
+        dataArray.removeAllObjects()
+        
+        let isConnectedInternet = CommonFunctionsClass.sharedInstance().isConnectedToNetwork()
+        
+        if isConnectedInternet
+        {
+            //            let request = NSMutableURLRequest(URL: NSURL(string: "\(appUrl)albums")!)
+            let request = NSMutableURLRequest(url: URL(string: "\(appUrl)\(urlToSend)")!)
+            
+            request.httpMethod = "POST"
+            // let postString = parameterReview
+            
+            do {
+                let jsonData = try!  JSONSerialization.data(withJSONObject: parameterReview, options: [])
+                request.httpBody = jsonData
+                
+                
+                // here "jsonData" is the dictionary encoded in JSON data
+            } catch let error as NSError {
+                print(error)
+            }
+            
+            
+            request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+            request.addValue("application/json", forHTTPHeaderField: "Accept")
+            
+            
+            let task = URLSession.shared.dataTask(with: request as URLRequest) { data, response, error in
+                guard error == nil && data != nil else {                                                          // check for fundamental networking error
+                    //print("error=\(error)")
+                    return
+                }
+                
+                if let httpStatus = response as? HTTPURLResponse, httpStatus.statusCode != 200 {           // check for http errors
+                    //print("statusCode should be 200, but is \(httpStatus.statusCode)")
+                    //print("response = \(response)")
+                }
+                
+                
+                DispatchQueue.main.async(execute: {
+                    
+                    do {
+                        
+                        let result = NSString(data: data!, encoding:String.Encoding.ascii.rawValue)!
+                        print("Body: \(result)")
+                        
+                      //  self.profileIndicator.isHidden=true
+                        //self.profileIndicator.stopAnimating()
+                        
+                        
+                        
+                       let anyObj: Any = try JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.mutableContainers)
+                        
+                        basicInfo = NSMutableDictionary()
+                        basicInfo = anyObj as! NSMutableDictionary
+                        
+                        let status = basicInfo .value(forKey: "status") as! NSNumber
+                        
+                        
+                        
+                        if status == 1
+                        {
+                            
+                            let facebookCount = ((basicInfo .value(forKey: "data")! as AnyObject).object(at: 0) as AnyObject).value(forKey: "fb_count") as! NSNumber
+                            
+                            let InstagramCount = ((basicInfo .value(forKey: "data")! as AnyObject).object(at: 0) as AnyObject).value(forKey: "insta_count") as! NSNumber
+                            let PytCount = ((basicInfo .value(forKey: "data")! as AnyObject).object(at: 0) as AnyObject).value(forKey: "pyt_count") as! NSNumber
+                            
+                            
+                            
+                            
+                            if facebookCount != 0
+                            {
+                                
+                                print(facebookCount)
+                                
+                                
+            //self.dataArray .add(["source": "FACEBOOK", "count": String(facebookCount), "largeImage":basicInfo.value(forKey: "data")!.object(at: 0).value(forKey: "fb")!.object(at: 0).value(forKey: "imageLarge")! as! String, "standardimage": basicInfo.value(forKey: "data")!.object(at: 0).value(forKey: "fb")!.object(at: 0).value(forKey: "imageStandard")! as! String])
+                self.dataArray .add(["source": "FACEBOOK", "count": String(describing: facebookCount), "largeImage": ((((basicInfo .value(forKey: "data")! as AnyObject).object(at: 0) as AnyObject).value(forKey: "fb") as AnyObject).object(at: 0) as AnyObject).value(forKey: "imageLarge")  as? String ?? "", "standardimage": ((((basicInfo .value(forKey: "data")! as AnyObject).object(at: 0) as AnyObject).value(forKey: "fb") as AnyObject).object(at: 0) as AnyObject).value(forKey: "imageStandard")  as? String ?? ""])
+                             print(self.dataArray)
+                                
+                            }
+                            
+                            if InstagramCount != 0
+                            {
+                                print(InstagramCount)
+                                
+                              //  print(((basicInfo.value(forKey: "data")! as AnyObject).object(at: 0) as AnyObject).value(forKey: "insta")!.object(at: 0))
+                                
+                                
+                                //self.dataArray .add(["source": "INSTAGRAM", "count": String(InstagramCount), "largeImage":basicInfo.value(forKey: "data")!.object(at: 0).value(forKey: "insta")!.object(at: 0).value(forKey: "imageLarge")! as! String, "standardimage": basicInfo.value(forKey: "data")!.object(at: 0).value(forKey: "insta")!.object(at: 0).value(forKey: "imageStandard")! as! String])
+                                
+                                self.dataArray .add(["source": "INSTAGRAM", "count": String(describing: InstagramCount), "largeImage": ((((basicInfo .value(forKey: "data")! as AnyObject).object(at: 0) as AnyObject).value(forKey: "insta") as AnyObject).object(at: 0) as AnyObject).value(forKey: "imageLarge")  as? String ?? "", "standardimage": ((((basicInfo .value(forKey: "data")! as AnyObject).object(at: 0) as AnyObject).value(forKey: "insta") as AnyObject).object(at: 0) as AnyObject).value(forKey: "imageStandard")  as? String ?? ""])
+                                
+                                
+                                
+                            }
+                            if PytCount != 0{
+                                print(PytCount)
+                                
+                                
+                              //  self.dataArray .add(["source": "PYT", "count": String(PytCount), "largeImage":basicInfo.value(forKey: "data")!.object(at: 0).value(forKey: "pyt")!.object(at: 0).value(forKey: "imageLarge")! as! String, "standardimage": basicInfo.value(forKey: "data")!.object(at: 0).value(forKey: "pyt")!.object(at: 0).value(forKey: "imageThumb")! as! String])
+                            
+                                self.dataArray .add(["source": "PYT", "count": String(describing: PytCount), "largeImage": ((((basicInfo .value(forKey: "data")! as AnyObject).object(at: 0) as AnyObject).value(forKey: "pyt") as AnyObject).object(at: 0) as AnyObject).value(forKey: "imageLarge")  as? String ?? "", "standardimage": ((((basicInfo .value(forKey: "data")! as AnyObject).object(at: 0) as AnyObject).value(forKey: "pyt") as AnyObject).object(at: 0) as AnyObject).value(forKey: "imageThumb")  as? String ?? ""])
+                            
+                            }
+                            
+                            
+                            
+                        }
+                            
+                        else if (status == 5){
+                            
+                            print("Status = 5 logout the user")
+                            
+                        }
+                        
+                        
+                        
+                        
+                        
+                        self.catCollectionView.reloadData()
+                        self.catCollectionView.isUserInteractionEnabled=true
+                        
+                        self.countCategory = 0
+                        if(self.dataArray.count == 1 || self.dataArray.count == 2)
+                        {
+                        self.countCategory = 1
+                        }
+                        self.viewWillLayoutSubviews()
+                        
+//                        DispatchQueue.main.async(execute: { () -> Void in
+//                            if(self.dataArray.count == 1 || self.dataArray.count == 2)
+//                            {
+//                                UIView.animate(withDuration: 0.2, delay: 0.0, options: UIViewAnimationOptions.curveEaseOut, animations: {
+//                                    
+//                                    self.profileHeight.constant = self.cellheight
+//                                    
+//                                    self.view.layoutIfNeeded()
+//                                }, completion: nil)
+//                            }
+//                            else if(self.dataArray.count == 3)
+//                            {
+//                                UIView.animate(withDuration: 0.2, delay: 0.0, options: UIViewAnimationOptions.curveEaseOut, animations: {
+//                                    
+//                                    self.profileHeight.constant = 0
+//                                    self.view.layoutIfNeeded()
+//                                }, completion: nil)
+//                            }
+//                            else
+//                            {
+//                                self.profileHeight.constant = 0
+//                            }
+//                            
+//                        })
+                        
+                        
+                        
+                        
+                        
+                    } catch {
+                        //print("json error: \(error)")
+                        CommonFunctionsClass.sharedInstance().showAlert(title: "Server Alert", text: "Something doesn't seem right, Please try again!", imageName: "alertServer")
+                        
+                        //  self .postRequestCategories("", viewController: viewController) //recall
+                        
+                    }
+                    
+                    
+                   // self.WhiteIndicator.isHidden = true
+                    
+                    
+                })
+                
+                
+                
+                
+                
+                
+            }
+            task.resume()
+            
+        }
+        else
+        {
+            CommonFunctionsClass.sharedInstance().showAlert(title: "No Internet Connection", text: "You are currently offline.", imageName: "alertInternet")
+            //self.profileIndicator.isHidden=true
+            //self.profileIndicator.stopAnimating()
+        }
+        
+        
+        
+        
+        
+        
+        
+    }
+    
+    
+    
+    
+    
+    //
+    func shortUserProfile(_ result:NSMutableDictionary) {
+        print(result)
+        print(result.value(forKey: "status"))
+        
+        if result.value(forKey: "status") as! NSNumber == 1 {
+            
+            
+            let userNameText = (result.value(forKey: "data") as AnyObject).value(forKey: "name") as? String ?? " "
+            if userNameText != " " {
+                nameTF.text=userNameText
+            }
+            
+            
+            let profileUrl = ((result.value(forKey: "user") as AnyObject).object(at: 0) as AnyObject).value(forKey: "profilePic") as? String ?? " "
+            
+            if profileUrl != " " {
+                let imgurl = URL (string: profileUrl)
+                print(imgurl)
+                userImg.sd_setImage(with: imgurl! , placeholderImage: UIImage (named: ""))
+                // .sd_setImage(with: imgurl, placeholderImage: UIImage (named: "profileDummy"))
+            }
+            
+            let connection = (result.value(forKey: "data")! as AnyObject).value(forKey: "connection") as! NSMutableArray
+            
+            
+            
+            
+            
+            //facebookBtn.setImage(UIImage (named: "fbSetting"), for: UIControlState())
+            //instaBtn.setImage(UIImage (named: "instaSetting"), for: UIControlState())
+            
+            //instaBtn.isUserInteractionEnabled=true
+           // facebookBtn.isUserInteractionEnabled=true
+            
+            
+            if connection.count < 1 {
+                
+               // facebookBtn.setImage(UIImage (named: "fbSetting"), for: UIControlState())
+               // instaBtn.setImage(UIImage (named: "instaSetting"), for: UIControlState())
+                
+               // instaBtn.isUserInteractionEnabled=true
+                //facebookBtn.isUserInteractionEnabled=true
+                
+            }
+                
+            else if connection.count == 1{
+                if connection.contains("facebook") {
+                    //disable facebook
+                  //  facebookBtn.setImage(UIImage (named: "fillFbSetting"), for: UIControlState())
+                    //facebookBtn.isUserInteractionEnabled=false
+                    
+                }
+                else if(connection.contains("instagram")){
+                    //disable the instagram
+                    //instaBtn.setImage(UIImage (named: "fillInstaSetting"), for: UIControlState())
+                   // instaBtn.isUserInteractionEnabled=false
+                }
+                
+            }
+                
+            else{
+                
+                if connection .contains("facebook") {
+                    //disable the facebook
+                   // facebookBtn.setImage(UIImage (named: "fillFbSetting"), for: UIControlState())
+                   // facebookBtn.isUserInteractionEnabled=false
+                    
+                }
+                
+                if  connection .contains("instagram") {
+                    
+                    //disable the instagram
+                   // instaBtn.setImage(UIImage (named: "fillInstaSetting"), for: UIControlState())
+                   // instaBtn.isUserInteractionEnabled=false
+                }
+                
+                
+            }
+            
+            
+            
+        }
+        
+        
+        
+        
+        
+        
+    }
+    
+    
+    
+    
+    
+    //MARK: Server class delegate
+    
+    func serverResponseArrivedSetting(_ Response:AnyObject){
+        
+        ///// the user info will be comes here
+        
+        if boolProfile==true
+        {
+            
+            
+            basicInfo = NSMutableDictionary()
+            basicInfo = Response as! NSMutableDictionary
+            let success = basicInfo.object(forKey: "status") as! NSNumber
+            
+            if success==1 {
+                //goto function for short and display in screen
+                self.shortUserProfile(basicInfo)
+                
+            }else{
+                
+            }
+            
+            
+            
+            
+        }
+            
+            
+            
+            
+            ///if login from facebook and instagram it will comes here
+        else
+        {
+            ////////if login from facebook or instagram
+            let defaults = UserDefaults.standard
+            
+            
+            jsonResult = NSDictionary()
+            jsonResult = Response as! NSDictionary
+            let success = jsonResult.object(forKey: "status") as! NSNumber
+            
+            
+            if success == 1
+            {
+                print(jsonResult)
+                
+                CommonFunctionsClass.sharedInstance().showAlert(title: "PYT", text: "\(jsonResult.value(forKey: "msg")!)" as NSString, imageName: "")
+                
+                
+                let uId = defaults .string(forKey: "userLoginId")
+                SettingApiClass.sharedInstance().delegate=self
+                SettingApiClass.sharedInstance().getUSerProfile("\(uId!)" as NSString, viewController: self)
+                boolProfile=true
+                
+                
+                
+                
+            }
+                
+            else
+            {
+                
+                defaults.set("", forKey: "userLoginId")
+                
+                CommonFunctionsClass.sharedInstance().showAlert(title: "PYT", text: "\(jsonResult.value(forKey: "msg")!)" as NSString, imageName: "")
+                
+        
+               
+                
+                
+            }
+            
+        }
+ 
+        
+        
+        
+        
+        
+    }
+ 
+    
+    
+    
+    //MARK: Change profile module
+    
+    
+    
+    //MARK: //////////////////////// profile picture change Module starts here///////////////
+    
+    
+    
+    //MARK: Photo image picker
+    
+    //MARK: Image Picker Delegates
+    
+    
+    @IBAction func changePhotoAction(_ sender: AnyObject) {
+        
+        imagePicker.delegate = self
+        imagePicker.allowsEditing = true
+        
+        
+        
+        let alertController = UIAlertController(title: "Select Image", message: nil, preferredStyle: UIAlertControllerStyle.actionSheet)
+        
+        let libAction = UIAlertAction(title: "Select from library", style: UIAlertActionStyle.default, handler: {(alert: UIAlertAction!) in self.gallary()
+            
+        })
+        
+        let captureAction = UIAlertAction(title: "Capture image", style: UIAlertActionStyle.default, handler: {(alert: UIAlertAction!) in self.capture()
+            
+        })
+        
+        let cancelAction = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.cancel, handler: {(alert: UIAlertAction!) in print("cancel")})
+        
+        alertController.addAction(libAction)
+        alertController.addAction(captureAction)
+        alertController.addAction(cancelAction)
+        
+        self.present(alertController, animated: true, completion:{})
+        
+        
+        
+    }
+    
+    
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        dismiss(animated: true, completion: nil)
+    }
+    
+    func imagePickerController(_ picker: UIImagePickerController,didFinishPickingMediaWithInfo info: [String : Any])
+    {
+        
+        let chosenImage = info[UIImagePickerControllerEditedImage] as! UIImage!
+        
+        // let urlImg = info[UIImagePickerControllerReferenceURL]
+        
+        print(chosenImage)
+        
+        var finalImage = UIImage()
+        finalImage=chosenImage!
+        
+        userImg.image = nil
+        
+        
+        let testImgView = UIImageView()
+        testImgView.image=PostScreenViewController().scaleImage(chosenImage!, toSize: CGSize(width:200, height: 200))
+        
+        
+       // profileIndicator.isHidden=false
+      //  profileIndicator.startAnimating()
+        
+        self.startUploadingImage(testImgView.image!)
+        
+        dismiss(animated: true, completion: nil)
+        
+        
+        
+    }
+    
+    
+    func capture() {
+        
+        
+        imagePicker.sourceType = .camera
+        present(imagePicker, animated: true, completion: nil)
+    }
+    
+    func gallary(){
+        
+        imagePicker.allowsEditing = true
+        imagePicker.sourceType = .photoLibrary
+        present(imagePicker, animated: true, completion: nil)
+        
+    }
+    
+    
+    func startUploadingImage(_ profileImage:UIImage)
+    {
+        //let myGroup = dispatch_group_create()
+        
+        // for l in 0..<multipleImagesArray.count {
+        
+        // let S3UploadKeyName: String = "iqtBkg8alWc0rdsXXoxF6aMc9VJPWROfDDOj3TOd"
+        
+        
+        let amazoneUrl = "https://s3-us-west-2.amazonaws.com/"
+        
+        let myIdentityPoolId = "us-west-2:47968651-2cda-46d4-b851-aea8cbcd663f"//liveserver
+        let S3BucketName = "pytprofilepic" //change bucketname only in test server
+        
+        
+        
+        //dispatch_group_enter(myGroup)
+        
+        
+        print("Different format \(Date())")
+        
+        let formatter = DateFormatter()
+        formatter.dateFormat = "ddMMyyHHmmss"
+        let stringDate: String = formatter.string(from: Date())
+        print(stringDate)
+        
+        
+        
+        
+        let uId = Udefaults .string(forKey: "userLoginId")
+        let userName = Udefaults .string(forKey: "userLoginName")
+        let uEmail = Udefaults .string(forKey: "userLoginEmail")
+        
+         var localFileName:String? = "\(uId!)profile-\(uEmail)-\(stringDate).jpg"
+        //var localFileName:String? = "\(uId!)profileImage-\(userName!)\(stringDate).jpg"//st
+        localFileName = localFileName!.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed)!
+        
+        print(localFileName)
+        
+        
+        // Configure AWS Cognito Credentials
+        //
+        
+        
+        
+        
+        let credentialsProvider:AWSCognitoCredentialsProvider = AWSCognitoCredentialsProvider(regionType:AWSRegionType.USWest2, identityPoolId: myIdentityPoolId)
+        
+        let configuration = AWSServiceConfiguration(region:AWSRegionType.USWest2, credentialsProvider:credentialsProvider)
+        
+        AWSServiceManager.default().defaultServiceConfiguration = configuration
+        
+        // Set up AWS Transfer Manager Request
+        //            //let S3BucketName = "testpyt" // test sever
+        //            let S3BucketName = "pytphotobucket"
+        
+        print("Locatl file name= \(localFileName)")
+        
+        
+        
+        
+        
+        
+        let fileURL = URL(fileURLWithPath: NSTemporaryDirectory() + "PytProfilePicture-\(localFileName)")
+        let data = UIImageJPEGRepresentation(profileImage, 0.3)
+        try? data!.write(to: fileURL, options: [.atomic])
+        
+        
+        
+        
+        
+        
+        let remoteName = localFileName!
+        let uploadRequest = AWSS3TransferManagerUploadRequest()
+        uploadRequest?.body = fileURL
+        uploadRequest?.acl=AWSS3ObjectCannedACL.publicRead
+        uploadRequest?.key = remoteName
+        uploadRequest?.bucket = S3BucketName
+        uploadRequest?.contentType = "image/jpeg"
+        
+        
+        let transferManager = AWSS3TransferManager.default()
+        
+        
+        let s3URL = URL(string: "\(amazoneUrl)\(S3BucketName)/\(uploadRequest!.key!)")!
+        print("Uploaded to:\n\(s3URL)")
+        
+        
+        
+        // Perform file upload
+         transferManager.upload(uploadRequest!).continueWith { (task) -> AnyObject! in
+            
+            
+            DispatchQueue.main.async {
+               // self.profileIndicator.isHidden=true
+               // self.profileIndicator.stopAnimating()
+               //
+            }
+            
+           if let error = task.error {
+                print("Upload failed with exception (\(error.localizedDescription))")
+                
+                
+                
+            }
+            
+            if task.result != nil
+            {
+                DispatchQueue.main.async {
+                    self.userImg.image = profileImage
+                    print("Uploaded to:\n\(s3URL)")
+                    
+                    let parmDict: NSDictionary = ["userId":uId!, "picture": String(describing: s3URL)]
+                    Udefaults.set(String(describing: s3URL), forKey: "userProfilePic")
+                    
+                    print(parmDict)
+                    self.boolProfile=true
+                    self.changeUserProfileApi(parmDict)
+                    
+                    
+                }
+                
+                
+                
+            }
+            else {
+                print("Unexpected empty result.")
+                
+                
+                
+                if let error = task.error {
+                    print("Upload failed with error: (\(error.localizedDescription))")
+                    if error.localizedDescription == "The Internet connection appears to be offline."
+                    {
+                        DispatchQueue.main.async {
+                            MBProgressHUD.hideAllHUDs(for: self.view, animated: true)
+                            
+                           CommonFunctionsClass.sharedInstance().showAlert(title: "No Internet Connection", text: "You are currently offline.", imageName: "alertInternet")
+                        }
+                    }
+                        
+                    else if(error.localizedDescription == "An SSL error has occurred and a secure connection to the server cannot be made.")
+                    {
+                        //MANAGE RETRY HERE
+                    }
+                    
+                    
+                    
+                }
+                    
+                else{
+                    
+                    
+                    //MANAGE RETRY HERE
+                    
+                    
+                }
+                
+                
+            }
+            
+            
+            
+            
+            
+            
+            return nil
+            
+            
+            
+            
+            
+            
+            
+        }
+        
+      
+        
+    }
+    
+    
+    
+    
     
     //MARK: Text Field Delegates
     
@@ -325,6 +1073,7 @@ class ProfileVC: UIViewController,UITableViewDelegate,UITableViewDataSource,UICo
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool
     {
+        nameBtnOutlet.tag = 1
         let width = getWidth(text: textField.text!)
         if UIScreen.main.bounds.width - 70 > width
         {
@@ -338,8 +1087,493 @@ class ProfileVC: UIViewController,UITableViewDelegate,UITableViewDataSource,UICo
         return true
     }
     
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        let userName = Udefaults .string(forKey: "userLoginName")
+        
+        if textField.text=="" || textField.text == nil || textField.text == userName  {
+            nameTF.tag = 0
+            nameTF.text = userName
+        }
+        else
+        {
+            if nameTF.tag == 1
+            {
+         nameBtnOutlet.setImage(UIImage (named: "back"), for: .normal)
+        }
+            else
+            {
+                nameBtnOutlet.setImage(UIImage (named: "cross"), for: .normal)
+            }
+        }
+    }
+    
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        
+        textField.text = nil
+        
+    }
     
     
+    //MARK: Change user name
+    
+    @IBAction func nameBtnAction(_ sender: Any) {
+    
+        if (sender as AnyObject).tag == 0
+        {
+            IQKeyboardManager.shared().shouldResignOnTouchOutside = true
+            nameTF.becomeFirstResponder()
+            nameTF.text = nil
+            nameBtnOutlet.setImage(UIImage (named: "back"), for: .normal)
+        }
+        else
+        {
+        self.nameBtnOutlet.tag = 1
+        nameTF.resignFirstResponder()
+        let uId = Udefaults .string(forKey: "userLoginId")
+            
+        //MBProgressHUD.showAdded(to: self.view, animated: true)
+            
+        let parmDic: NSDictionary = ["userId": uId!, "name": nameTF.text!]
+        print(parmDic)
+            self.changeUserNameApi(parmDic)
+            
+            
+        }
+        
+       
+        
+        
+        
+    }
+    
+    
+    func changeUserNameApi(_ parameterString:NSDictionary) {
+        
+        //userId
+        let isConnectedInternet = CommonFunctionsClass.sharedInstance().isConnectedToNetwork()
+        
+        if isConnectedInternet
+        {
+            
+            
+            
+            let urlString = NSString(string:"\(appUrl)edit_user_name")
+            
+            
+            let isConnectedInternet = CommonFunctionsClass.sharedInstance().isConnectedToNetwork()
+            
+            if isConnectedInternet
+            {
+                // CommonFunctionsClass.sharedInstance().startIndicator(viewController.view)
+                
+                var urlString = NSString(string:"\(urlString)")
+                print("WS URL----->>" + (urlString as String))
+                
+                urlString = urlString .replacingOccurrences(of: " ", with: "%20") as NSString
+                
+                let url:URL = URL(string: urlString as String)!
+                let session = URLSession.shared
+                session.configuration.timeoutIntervalForRequest=20
+                // session.configuration.timeoutIntervalForResource=40
+                
+                
+                let request = NSMutableURLRequest(url: url)
+                request.httpMethod = "POST"
+                request.cachePolicy = NSURLRequest.CachePolicy.reloadIgnoringCacheData
+                
+                
+                do {
+                    let jsonData = try!  JSONSerialization.data(withJSONObject: parameterString, options: [])
+                    request.httpBody = jsonData
+                    
+                    
+                    // here "jsonData" is the dictionary encoded in JSON data
+                } catch let error as NSError {
+                    print(error)
+                }
+                
+                request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+                request.addValue("application/json", forHTTPHeaderField: "Accept")
+                
+                
+                
+                
+                let task = URLSession.shared.dataTask(with: request as URLRequest) { data, response, error in
+                    
+                    OperationQueue.main.addOperation
+                        {
+                            
+                            MBProgressHUD.hideAllHUDs(for: self.view, animated: true)
+                            
+                            if data == nil
+                            {
+                                print("server not responding")
+                                
+                                
+                            }
+                            else
+                            {
+                                
+                                
+                                do {
+                                    let result = NSString(data: data!, encoding:String.Encoding.ascii.rawValue)!
+                                    print("Body: \(result)")
+                                    
+                                    let anyObj: Any = try JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.mutableContainers)
+                                    
+                                    
+                                    
+                                    basicInfo=NSMutableDictionary()
+                                    basicInfo=anyObj as! NSMutableDictionary
+                                    
+                                    let success = basicInfo.object(forKey: "status") as! NSNumber
+                                    
+                                    if success==1 {
+                                        
+                                        print("Profile Picture is Updated")
+                                      
+                                        Udefaults.set(self.nameTF.text!, forKey: "userLoginName")
+                                        
+                                    }
+                                    else
+                                    {
+                                        
+                                        SweetAlert().showAlert("PYT", subTitle: "Unable to update username, please try again!", style: AlertStyle.warning)
+                                        
+                                    }
+                               
+                                } catch
+                                {
+                                    print("json error: \(error)")
+                                    CommonFunctionsClass.sharedInstance().showAlert(title: "Server Alert", text: "Something doesn't seem right, Please try again!", imageName: "alertServer")
+                                }
+                                
+                            }
+                    }
+                }
+                
+                task.resume()
+            }
+            else
+            {
+                CommonFunctionsClass.sharedInstance().showAlert(title: "No Internet Connection", text: "You are currently offline.", imageName: "alertInternet")
+                
+                MBProgressHUD.hideAllHUDs(for: self.view, animated: true)
+            }
+            
+            
+        }
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    //MARK:
+    //MARK: Change the Profile Picture of the user
+    
+    func changeUserProfileApi(_ parameterString:NSDictionary) {
+        
+        //userId
+        let isConnectedInternet = CommonFunctionsClass.sharedInstance().isConnectedToNetwork()
+        
+        if isConnectedInternet
+        {
+            
+            
+            
+            let urlString = NSString(string:"\(appUrl)edit_user_picture")
+            
+            
+            let isConnectedInternet = CommonFunctionsClass.sharedInstance().isConnectedToNetwork()
+            
+            if isConnectedInternet
+            {
+                // CommonFunctionsClass.sharedInstance().startIndicator(viewController.view)
+                
+                var urlString = NSString(string:"\(urlString)")
+                print("WS URL----->>" + (urlString as String))
+                
+                urlString = urlString .replacingOccurrences(of: " ", with: "%20") as NSString
+                
+                let url:URL = URL(string: urlString as String)!
+                let session = URLSession.shared
+                session.configuration.timeoutIntervalForRequest=20
+                // session.configuration.timeoutIntervalForResource=40
+                
+                
+                let request = NSMutableURLRequest(url: url)
+                request.httpMethod = "POST"
+                request.cachePolicy = NSURLRequest.CachePolicy.reloadIgnoringCacheData
+                
+                
+                do {
+                    let jsonData = try!  JSONSerialization.data(withJSONObject: parameterString, options: [])
+                    request.httpBody = jsonData
+                    
+                    
+                    // here "jsonData" is the dictionary encoded in JSON data
+                } catch let error as NSError {
+                    print(error)
+                }
+                
+                request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+                request.addValue("application/json", forHTTPHeaderField: "Accept")
+                
+                
+                
+                
+              let task = session.dataTask(with: request as URLRequest, completionHandler: {data, response, error -> Void in
+                    
+                    OperationQueue.main.addOperation
+                        {
+                            
+                            if data == nil
+                            {
+                                print("server not responding")
+                                
+                            }
+                            else
+                            {
+                                
+                                
+                                do {
+                                    
+                                    let result = NSString(data: data!, encoding:String.Encoding.ascii.rawValue)!
+                                    
+                                    print("Body: \(result)")
+                                    
+                                   let anyObj: Any = try JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.mutableContainers)
+                                    
+                                    
+                                    basicInfo=NSMutableDictionary()
+                                    basicInfo=anyObj as! NSMutableDictionary
+                                    
+                                    let success = basicInfo.object(forKey: "status") as! NSNumber
+                                    
+                                    if success==1 {
+                                        
+                                        print("Profile Picture is Updated")
+                                        
+                                        
+                                    }else{
+                                        self.userImg.image = nil
+                                        SweetAlert().showAlert("PYT", subTitle: "Unable to update the profile picture, Please try again", style: AlertStyle.warning)
+                                        print("Unable to update the picture")
+                                       
+                                        Udefaults.set("", forKey: "userProfilePic")
+                                        
+                                    }
+                                    
+                                    
+                                    
+                                    
+                                    
+                                } catch
+                                {
+                                    print("json error: \(error)")
+                                    
+                                    
+                                    
+                                }
+                                
+                                
+                                
+                                
+                                
+                                
+                                
+                            }
+                    }
+                })
+                
+                task.resume()
+            }
+            else
+            {
+                CommonFunctionsClass.sharedInstance().showAlert(title: "No Internet Connection", text: "You are currently offline.", imageName: "alertInternet")
+                
+            }
+            
+            
+        }
+    }
+    
+    
+    
+    
+    
+    
+    
+    //MARK: Logout Button Action
+    
+    func ActionLogout() {
+        
+        self.tabBarController?.setTabBarVisible(visible: false, animated: true)
+        
+        let nxtObj = self.storyboard?.instantiateViewController(withIdentifier: "ViewController") as! ViewController
+        
+        
+        // logOut = false
+        
+        DispatchQueue.main.async(execute: {
+            self.dismiss(animated: true, completion: {})
+            
+            self.navigationController! .pushViewController(nxtObj, animated: true)
+            
+            OperationQueue.main.cancelAllOperations()
+            
+                        //
+        })
+        
+     
+        
+        let uId = Udefaults .string(forKey: "userLoginId")!
+        let token = Udefaults.string(forKey: "deviceToken")!
+        
+        
+        
+        let deviceTokenDict = NSMutableDictionary()
+        
+        deviceTokenDict.setValue(token, forKey: "token")
+        deviceTokenDict.setValue("iphone", forKey: "device")
+        
+        let parameter:NSMutableDictionary = ["deviceToken":deviceTokenDict ,"userId":uId]
+        
+        self.logoutApi(parameter)
+        
+        //let arr = NSMutableArray()
+        UserDefaults.standard.set(nil, forKey: "arrayOfIntrest")
+        
+        
+    }
+    
+    
+    
+    
+    
+    func logoutApi(_ parameterString: NSMutableDictionary) -> Void {
+        
+        
+        
+        
+        let emptAr = NSMutableArray()
+        
+        Udefaults.set("", forKey: "userLoginId")
+        Udefaults.set("", forKey: "userLoginName")
+        Udefaults.set("", forKey: "userProfilePic")
+        Udefaults.set("", forKey: "faceBookAccessToken")
+        Udefaults.set(false, forKey: "savedDeviceToken")
+        Udefaults.set(emptAr, forKey: "Interests")
+        Udefaults.set(emptAr, forKey: "IntrestsId")
+        Udefaults.set(emptAr, forKey: "categoriesFromWeb")
+        Udefaults.set(emptAr, forKey: "multipleCity")
+        
+        
+        SocketIOManager.sharedInstance.closeConnection()
+        
+        print("Parameter=\(parameterString)")
+        
+        let isConnectedInternet = CommonFunctionsClass.sharedInstance().isConnectedToNetwork()
+        
+        if isConnectedInternet
+        {
+            //            let request = NSMutableURLRequest(URL: NSURL(string: "\(appUrl)logout")!)//old version
+            
+            let request = NSMutableURLRequest(url: URL(string: "\(appUrl)logout_user")!) //latest version
+            
+            
+            request.httpMethod = "POST"
+            
+            
+            do {
+              let jsonData = try!  JSONSerialization.data(withJSONObject: parameterString, options: [])
+                request.httpBody = jsonData
+                
+                
+                // here "jsonData" is the dictionary encoded in JSON data
+            } catch let error as NSError {
+                print(error)
+            }
+            
+            
+            
+            // request.HTTPBody = try! NSJSONSerialization.dataWithJSONObject(prmt, options: [])
+            request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+            request.addValue("application/json", forHTTPHeaderField: "Accept")
+            
+            
+            
+            
+           let task = URLSession.shared.dataTask(with: request as URLRequest) { data, response, error in
+                guard error == nil && data != nil else {                                                          // check for fundamental
+                    return
+                }
+                
+                if let httpStatus = response as? HTTPURLResponse, httpStatus.statusCode != 200 {
+                }
+                
+            
+                
+                DispatchQueue.main.async(execute: {
+                    
+                    do {
+                        
+                        let result = NSString(data: data!, encoding:String.Encoding.ascii.rawValue)!
+                        print("Body: \(result)")
+//                        
+//                        let anyObj: AnyObject = try JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.mutableContainers)
+//                        
+//                        basicInfo = NSMutableDictionary()
+//                        basicInfo = anyObj as! NSMutableDictionary
+//                        
+//                        let status = basicInfo .value(forKey: "status") as! NSNumber
+                        
+                        logOut = false
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                    } catch {
+                      
+                        
+                    }
+                    
+                    
+                    MBProgressHUD .hide(for: self.view, animated: true)
+                    
+                    
+                    
+                    
+                    
+                })
+                
+                
+                
+                
+                
+                
+                
+            }
+            task.resume()
+            
+        }
+        else
+        {
+            CommonFunctionsClass.sharedInstance().showAlert(title: "No Internet Connection", text: "You are currently offline.", imageName: "alertInternet")
+        }
+        
+        
+        
+        
+        
+    }
     
     
     
