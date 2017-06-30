@@ -24,11 +24,60 @@
 
 import Foundation
 
-public typealias AckCallback = ([AnyObject]) -> Void
-public typealias NormalCallback = ([AnyObject], SocketAckEmitter) -> Void
-public typealias OnAckCallback = (timeoutAfter: UInt64, callback: AckCallback) -> Void
+/// A marking protocol that says a type can be represented in a socket.io packet.
+///
+/// Example:
+///
+/// ```swift
+/// struct CustomData : SocketData {
+///    let name: String
+///    let age: Int
+///
+///    func socketRepresentation() -> SocketData {
+///        return ["name": name, "age": age]
+///    }
+/// }
+///
+/// socket.emit("myEvent", CustomData(name: "Erik", age: 24))
+/// ```
+public protocol SocketData {
+    // MARK: Methods
+
+    /// A representation of self that can sent over socket.io.
+    func socketRepresentation() throws -> SocketData
+}
+
+public extension SocketData {
+    /// Default implementation. Only works for native Swift types and a few Foundation types.
+    func socketRepresentation() -> SocketData {
+        return self
+    }
+}
+
+extension Array : SocketData { }
+extension Bool : SocketData { }
+extension Dictionary : SocketData { }
+extension Double : SocketData { }
+extension Int : SocketData { }
+extension NSArray : SocketData { }
+extension Data : SocketData { }
+extension NSData : SocketData { }
+extension NSDictionary : SocketData { }
+extension NSString : SocketData { }
+extension NSNull : SocketData { }
+extension String : SocketData { }
+
+/// A typealias for an ack callback.
+public typealias AckCallback = ([Any]) -> ()
+
+/// A typealias for a normal callback.
+public typealias NormalCallback = ([Any], SocketAckEmitter) -> ()
+
+typealias JSON = [String: Any]
+typealias Probe = (msg: String, type: SocketEnginePacketType, data: [Data])
+typealias ProbeWaitQueue = [Probe]
 
 enum Either<E, V> {
-    case Left(E)
-    case Right(V)
+    case left(E)
+    case right(V)
 }

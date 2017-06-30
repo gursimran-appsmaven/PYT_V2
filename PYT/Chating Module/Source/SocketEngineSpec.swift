@@ -25,65 +25,142 @@
 
 import Foundation
 
+/// Specifies a SocketEngine.
 @objc public protocol SocketEngineSpec {
+    /// The client for this engine.
     weak var client: SocketEngineClient? { get set }
+
+    /// `true` if this engine is closed.
     var closed: Bool { get }
+
+    /// `true` if this engine is connected. Connected means that the initial poll connect has succeeded.
     var connected: Bool { get }
-    var connectParams: [String: AnyObject]? { get set }
-    var cookies: [NSHTTPCookie]? { get }
+
+    /// The connect parameters sent during a connect.
+    var connectParams: [String: Any]? { get set }
+
+    /// An array of HTTPCookies that are sent during the connection.
+    var cookies: [HTTPCookie]? { get }
+
+    /// The queue that all engine actions take place on.
+    var engineQueue: DispatchQueue { get }
+
+    /// A dictionary of extra http headers that will be set during connection.
     var extraHeaders: [String: String]? { get }
+
+    /// When `true`, the engine is in the process of switching to WebSockets.
     var fastUpgrade: Bool { get }
+
+    /// When `true`, the engine will only use HTTP long-polling as a transport.
     var forcePolling: Bool { get }
+
+    /// When `true`, the engine will only use WebSockets as a transport.
     var forceWebsockets: Bool { get }
-    var parseQueue: dispatch_queue_t! { get }
-    var pingTimer: NSTimer? { get }
+
+    /// If `true`, the engine is currently in HTTP long-polling mode.
     var polling: Bool { get }
+
+    /// If `true`, the engine is currently seeing whether it can upgrade to WebSockets.
     var probing: Bool { get }
-    var emitQueue: dispatch_queue_t! { get }
-    var handleQueue: dispatch_queue_t! { get }
+
+    /// The session id for this engine.
     var sid: String { get }
+
+    /// The path to engine.io.
     var socketPath: String { get }
-    var urlPolling: NSURL { get }
-    var urlWebSocket: NSURL { get }
+
+    /// The url for polling.
+    var urlPolling: URL { get }
+
+    /// The url for WebSockets.
+    var urlWebSocket: URL { get }
+
+    /// If `true`, then the engine is currently in WebSockets mode.
     var websocket: Bool { get }
-    
-    init(client: SocketEngineClient, url: NSURL, options: NSDictionary?)
-    
-    func close(reason: String)
-    func didError(error: String)
+
+    /// The WebSocket for this engine.
+    var ws: WebSocket? { get }
+
+    /// Creates a new engine.
+    ///
+    /// - parameter client: The client for this engine.
+    /// - parameter url: The url for this engine.
+    /// - parameter options: The options for this engine.
+    init(client: SocketEngineClient, url: URL, options: NSDictionary?)
+
+    /// Starts the connection to the server.
+    func connect()
+
+    /// Called when an error happens during execution. Causes a disconnection.
+    func didError(reason: String)
+
+    /// Disconnects from the server.
+    ///
+    /// - parameter reason: The reason for the disconnection. This is communicated up to the client.
+    func disconnect(reason: String)
+
+    /// Called to switch from HTTP long-polling to WebSockets. After calling this method the engine will be in
+    /// WebSocket mode.
+    ///
+    /// **You shouldn't call this directly**
     func doFastUpgrade()
+
+    /// Causes any packets that were waiting for POSTing to be sent through the WebSocket. This happens because when
+    /// the engine is attempting to upgrade to WebSocket it does not do any POSTing.
+    ///
+    /// **You shouldn't call this directly**
     func flushWaitingForPostToWebSocket()
-    func open()
-    func parseEngineData(data: NSData)
-    func parseEngineMessage(message: String, fromPolling: Bool)
-    func write(msg: String, withType type: SocketEnginePacketType, withData data: [NSData])
+
+    /// Parses raw binary received from engine.io.
+    ///
+    /// - parameter data: The data to parse.
+    func parseEngineData(_ data: Data)
+
+    /// Parses a raw engine.io packet.
+    ///
+    /// - parameter message: The message to parse.
+    /// - parameter fromPolling: Whether this message is from long-polling.
+    ///                          If `true` we might have to fix utf8 encoding.
+    func parseEngineMessage(_ message: String)
+
+    /// Writes a message to engine.io, independent of transport.
+    ///
+    /// - parameter msg: The message to send.
+    /// - parameter withType: The type of this message.
+    /// - parameter withData: Any data that this message has.
+    func write(_ msg: String, withType type: SocketEnginePacketType, withData data: [Data])
 }
 
 extension SocketEngineSpec {
-    var urlPollingWithSid: NSURL {
-        let com = NSURLComponents(URL: urlPolling, resolvingAgainstBaseURL: false)!
-        com.query = com.query! + "&sid=\(sid)"
-        
-        return com.URL!
+    var urlPollingWithSid: URL {
+        var com = URLComponents(url: urlPolling, resolvingAgainstBaseURL: false)!
+        com.percentEncodedQuery = com.percentEncodedQuery! + "&sid=\(sid.urlEncode()!)"
+
+        return com.url!
     }
-    
-    func createBinaryDataForSend(data: NSData) -> Either<NSData, String> {
+
+    var urlWebSocketWithSid: URL {
+        var com = URLComponents(url: urlWebSocket, resolvingAgainstBaseURL: false)!
+        com.percentEncodedQuery = com.percentEncodedQuery! + (sid == "" ? "" : "&sid=\(sid.urlEncode()!)")
+
+        return com.url!
+    }
+
+    func createBinaryDataForSend(using data: Data) -> Either<Data, String> {
         if websocket {
-            var byteArray = [UInt8](count: 1, repeatedValue: 0x4)
+            var byteArray = [UInt8](repeating: 0x4, count: 1)
             let mutData = NSMutableData(bytes: &byteArray, length: 1)
-            
-            mutData.appendData(data)
-            
-            return .Left(mutData)
+
+            mutData.append(data)
+
+            return .left(mutData as Data)
         } else {
-            let str = "b4" + data.base64EncodedStringWithOptions(.Encoding64CharacterLineLength)
-            
-            return .Right(str)
+            return .right("b4" + data.base64EncodedString(options: Data.Base64EncodingOptions(rawValue: 0)))
         }
     }
-    
+
     /// Send an engine message (4)
-    func send(msg: String, withData datas: [NSData]) {
-        write(msg, withType: .Message, withData: datas)
+    func send(_ msg: String, withData datas: [Data]) {
+        write(msg, withType: .message, withData: datas)
     }
 }

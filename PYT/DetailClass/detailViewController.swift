@@ -674,7 +674,7 @@ class detailViewController: UIViewController, apiClassDelegate {
             
             
             ///// header view with animated effect
-            
+            self.view .bringSubview(toFront: headerView)
             self.view .bringSubview(toFront: BackBtn)
             self.headerView .bringSubview(toFront: headerLabel)
           

@@ -24,37 +24,52 @@
 
 import Foundation
 
-public protocol SocketLogger: class {
+/// Represents a class will log client events.
+public protocol SocketLogger : class {
+    // MARK: Properties
+
     /// Whether to log or not
-    var log: Bool {get set}
-    
+    var log: Bool { get set }
+
+    // MARK: Methods
+
     /// Normal log messages
-    func log(message: String, type: String, args: AnyObject...)
-    
+    ///
+    /// - parameter message: The message being logged. Can include `%@` that will be replaced with `args`
+    /// - parameter type: The type of entity that called for logging.
+    /// - parameter args: Any args that should be inserted into the message. May be left out.
+    func log(_ message: String, type: String, args: Any...)
+
     /// Error Messages
-    func error(message: String, type: String, args: AnyObject...)
+    ///
+    /// - parameter message: The message being logged. Can include `%@` that will be replaced with `args`
+    /// - parameter type: The type of entity that called for logging.
+    /// - parameter args: Any args that should be inserted into the message. May be left out.
+    func error(_ message: String, type: String, args: Any...)
 }
 
 public extension SocketLogger {
-    func log(message: String, type: String, args: AnyObject...) {
+    /// Default implementation.
+    func log(_ message: String, type: String, args: Any...) {
         abstractLog("LOG", message: message, type: type, args: args)
     }
-    
-    func error(message: String, type: String, args: AnyObject...) {
+
+    /// Default implementation.
+    func error(_ message: String, type: String, args: Any...) {
         abstractLog("ERROR", message: message, type: type, args: args)
     }
-    
-    private func abstractLog(logType: String, message: String, type: String, args: [AnyObject]) {
+
+    private func abstractLog(_ logType: String, message: String, type: String, args: [Any]) {
         guard log else { return }
-        
-        let newArgs = args.map({arg -> CVarArgType in String(arg)})
-        let replaced = String(format: message, arguments: newArgs)
-        
-        NSLog("%@ %@: %@", logType, type, replaced)
+
+        let newArgs = args.map({arg -> CVarArg in String(describing: arg)})
+        let messageFormat = String(format: message, arguments: newArgs)
+
+        NSLog("\(logType) \(type): %@", messageFormat)
     }
 }
 
-class DefaultSocketLogger: SocketLogger {
+class DefaultSocketLogger : SocketLogger {
     static var Logger: SocketLogger = DefaultSocketLogger()
 
     var log = false

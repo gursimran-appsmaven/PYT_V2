@@ -54,7 +54,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         Udefaults.set("", forKey: "deviceToken")
         Udefaults.set(false, forKey: "multipleCity")
-        
+        Udefaults .setValue(nil, forKey: "PostInterest")
         //tool tips
         //  defaults .setInteger(0, forKey: "indexToolTips")
         //  defaults.setBool(false, forKey: "tooldetail")
@@ -106,13 +106,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 // application.statusBarHidden = true
                 
                 //PYTtechnologies for testing by client
-                //GMSServices.provideAPIKey("AIzaSyBDenikfv42wDKexBdljrjKNex8UHmT-bU")
-                //GMSPlacesClient.provideAPIKey("AIzaSyBDenikfv42wDKexBdljrjKNex8UHmT-bU")
+                //GMSServices.provideAPIKey("AIzaSyA6938N3ppXprNoVQbTsb5c1yGUfYzS9So")
+        //GMSPlacesClient.provideAPIKey("AIzaSyA6938N3ppXprNoVQbTsb5c1yGUfYzS9So")
                 
                 
                 //niteesh.appsmaven for testing by Developer
-                GMSPlacesClient.provideAPIKey("AIzaSyB9TowwPbfXzVrkmKbKB5qBkc4luwc-qck")
-                GMSServices.provideAPIKey("AIzaSyB9TowwPbfXzVrkmKbKB5qBkc4luwc-qck")
+                GMSPlacesClient.provideAPIKey("AIzaSyBp0LxOHjPksEh8F4A9nNT7AkMmtUXHUvs")
+                GMSServices.provideAPIKey("AIzaSyBp0LxOHjPksEh8F4A9nNT7AkMmtUXHUvs")
                 
                 
                 FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)

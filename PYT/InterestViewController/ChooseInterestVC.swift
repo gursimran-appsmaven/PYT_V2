@@ -12,8 +12,10 @@ import MBProgressHUD
 
 class ChooseInterestVC: UIViewController , UICollectionViewDelegate,UICollectionViewDataSource{
 
-    var categId = NSMutableArray()
+    var comingFrom = NSString()
+    var postArray = NSMutableArray()
     
+    var categId = NSMutableArray()
     var tagsArr:NSMutableArray = [] //
     var checked = NSMutableArray()
     @IBOutlet weak var categoryCollectionView: UICollectionView!
@@ -38,9 +40,10 @@ class ChooseInterestVC: UIViewController , UICollectionViewDelegate,UICollection
         
         checked = defaults.mutableArrayValue(forKey: "Interests")
         categId = defaults.mutableArrayValue(forKey: "IntrestsId")
-        
-        tagsArr = defaults.mutableArrayValue(forKey: "categoriesFromWeb")
+        tagsArr = defaults.mutableArrayValue(forKey: "categoriesFromWeb") //all category
         //defaults .setValue(nil, forKey: "Interests")
+        postArray = defaults.mutableArrayValue(forKey: "PostInterest")
+        
         
         if checked.count<1 {
             
@@ -115,6 +118,12 @@ class ChooseInterestVC: UIViewController , UICollectionViewDelegate,UICollection
     @IBAction func doneButton(_ sender: Any)
     {
         
+        if comingFrom == "Post Screen" {
+             Udefaults .setValue(postArray, forKey: "PostInterest")
+            self.navigationController?.popViewController(animated: true)
+        }
+        else
+        {
         if checked.count<1
         {
             CommonFunctionsClass.sharedInstance().showAlert(title: "Opps!", text: "Please select minimum one interest.", imageName: "alertFill")
@@ -132,11 +141,26 @@ class ChooseInterestVC: UIViewController , UICollectionViewDelegate,UICollection
 //        self.navigationController?.view.layer.add(transition, forKey: nil)
          self.navigationController?.popViewController(animated: true)
     }
+            
+            
+        }
+        
     }
     
     
     @IBAction func closeButton(_ sender: Any)
     {
+        
+        if comingFrom == "Post Screen" {
+            //Udefaults .setValue(postArray, forKey: "PostInterest")
+            self.navigationController?.popViewController(animated: true)
+        }
+            
+            
+            
+        else
+        {
+        
     if checked.count<1
     {
         CommonFunctionsClass.sharedInstance().showAlert(title: "Opps!", text: "Please select minimum one interest.", imageName: "alertFill")
@@ -145,7 +169,7 @@ class ChooseInterestVC: UIViewController , UICollectionViewDelegate,UICollection
     else{
         self.navigationController?.popViewController(animated: true)
         }
-        
+        }
         
     }
     
@@ -188,7 +212,37 @@ class ChooseInterestVC: UIViewController , UICollectionViewDelegate,UICollection
 
         //print(tagsArr)
         cell.interestName.text = (tagsArr .object(at: indexPath.row) as AnyObject).value(forKey: "displayName") as? String
-        let catId = (tagsArr .object(at: indexPath.row) as AnyObject).value(forKey: "_id") as! String
+       
+         let catId = (tagsArr .object(at: indexPath.row) as AnyObject).value(forKey: "_id") as! String
+        
+        if comingFrom == "Post Screen"
+        {
+            if postArray.count>0
+            {
+                let parr = postArray.value(forKey: "_id") as! NSArray
+                
+                if parr.contains(catId)
+                {
+                    cell.interestImg.image=self.setCategoryImage(catId as NSString , active: true)
+                    cell.interestName.textColor = UIColor(red: 255/255.0, green: 80/255.0, blue: 80/255.0, alpha: 1.0)
+                }
+                else
+                {
+                    cell.interestImg.image = self.setCategoryImage(catId as NSString , active: false)
+                    cell.interestName.textColor = UIColor(red: 85/255.0, green: 85/255.0, blue: 85/255.0, alpha: 1.0)
+                }
+                
+            }
+            else
+            {
+                cell.interestImg.image = self.setCategoryImage(catId as NSString , active: false)
+                cell.interestName.textColor = UIColor(red: 85/255.0, green: 85/255.0, blue: 85/255.0, alpha: 1.0)
+            }
+        }
+            
+            //from interest Screen
+        else
+        {
         
         if categId .contains((tagsArr .object(at: indexPath.row) as AnyObject).value(forKey: "_id") as! String)
         {
@@ -202,13 +256,47 @@ class ChooseInterestVC: UIViewController , UICollectionViewDelegate,UICollection
             cell.interestName.textColor = UIColor(red: 85/255.0, green: 85/255.0, blue: 85/255.0, alpha: 1.0)
 
         }
-
+        }
+        
         return cell
     }
     
     
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath){
+        
+        if comingFrom == "Post Screen"
+        {
+            let parr = postArray.value(forKey: "_id") as! NSArray
+            
+            if parr .contains((tagsArr .object(at: indexPath.row) as AnyObject).value(forKey: "_id") as! String)
+            {
+                let indx = parr .index(of: (tagsArr .object(at: indexPath.row) as AnyObject).value(forKey: "_id") as! String)
+                
+                
+                postArray .removeObject(at: indx)
+            }
+            else
+            {
+                if postArray.count == 3 {
+                     CommonFunctionsClass.sharedInstance().showAlert(title: "Interests limit exceeded!", text: "You can select only up to 3 interests at once.", imageName: "alertLimit")
+                }
+                else
+                {
+                    
+                let objId = ((tagsArr .object(at: indexPath.row) as AnyObject).value(forKey: "_id") as? String ?? "")
+                let objectInt = ((tagsArr .object(at: indexPath.row) as AnyObject).value(forKey: "displayName") as? String)
+                postArray .add(["displayName": objectInt, "_id": objId])
+                print(postArray)
+                }
+            }
+            
+            
+            
+        }
+        //interest screen
+        else
+        {
         
         if categId .contains((tagsArr .object(at: indexPath.row) as AnyObject).value(forKey: "_id") as! String)
         {
@@ -234,7 +322,7 @@ class ChooseInterestVC: UIViewController , UICollectionViewDelegate,UICollection
             categId .add(objId)
             
             
-            
+        }
         }
         
         categoryCollectionView.reloadData()
