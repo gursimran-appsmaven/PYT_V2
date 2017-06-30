@@ -659,9 +659,7 @@ class PostScreenViewController: UIViewController, UIImagePickerControllerDelegat
             self.view .bringSubview(toFront: self.geoTagview)
             self.geoTagTopView.constant = 0
             self.search_bar.showsCancelButton = false
-            self.search_bar.layer.borderWidth = 1.0
-            self.search_bar.layer.borderColor = UIColor .lightGray.cgColor
-            self.geotagTableView.contentInset = UIEdgeInsetsMake(0, 0, 10, 0)
+             self.geotagTableView.contentInset = UIEdgeInsetsMake(0, 0, 10, 0)
             self.locationsArr .removeAllObjects()
             self.view.layoutIfNeeded()
            

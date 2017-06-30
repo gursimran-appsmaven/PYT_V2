@@ -238,6 +238,7 @@
 			children = (
 				106DDC351F06202100ABD16D /* ApiServices.swift */,
 				102C37501F0374A300D026B5 /* Location.swift */,
+				105E76411F0621740093EF2B /* ApiServices.swift */,
 				100CE5441F023BF4005C5C8D /* PostScreenViewController.swift */,
 			);
 			path = "Post module screens";

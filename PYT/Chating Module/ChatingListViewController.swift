@@ -14,7 +14,7 @@ class ChatingListViewController: UIViewController {
 
     @IBOutlet weak var chatingListTable: UITableView!
     @IBOutlet weak var chatingIndicator: UIActivityIndicatorView!
-    
+    @IBOutlet weak var bottomShadow: GradientView!
     
     
     var chatLocation = NSString()
@@ -75,7 +75,9 @@ class ChatingListViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
+        bottomShadow.gradientLayer.colors = [UIColor.black.withAlphaComponent(0.15).cgColor, UIColor.clear.cgColor]
+        bottomShadow.gradientLayer.gradient = GradientPoint.bottomTop.draw()
+
         /////0------  Pull to refresh Control ------////////
         
         
