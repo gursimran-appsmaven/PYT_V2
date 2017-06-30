@@ -17,13 +17,18 @@ class chatingUserListViewController: UIViewController {
     
     @IBOutlet weak var headerLabel: UILabel!
     @IBOutlet weak var chatingListTableview: UITableView!
-    
+    @IBOutlet weak var bottomShadow: GradientView!
+
     
     override func viewDidLoad()
     {
         super.viewDidLoad()
 
         headerLabel.text = locationName as String
+        
+        bottomShadow.gradientLayer.colors = [UIColor.black.withAlphaComponent(0.2).cgColor, UIColor.clear.cgColor]
+        bottomShadow.gradientLayer.gradient = GradientPoint.bottomTop.draw()
+
         
         // Do any additional setup after loading the view.
     }
