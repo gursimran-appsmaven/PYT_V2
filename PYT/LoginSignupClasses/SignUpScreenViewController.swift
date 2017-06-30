@@ -417,7 +417,7 @@ class SignUpScreenViewController: UIViewController, apiClassDelegate {
                 //}
                 
                 // Socket
-                //  SocketIOManager.sharedInstance.establishConnection()
+                  SocketIOManager.sharedInstance.establishConnection()
                 
                 
                 

@@ -1421,17 +1421,16 @@ class mainHomeViewController: UIViewController, SDWebImageManagerDelegate, apiCl
         }
         
         
-        
-//        let nxtObj = self.storyboard?.instantiateViewController(withIdentifier: "ChatViewController") as! ChatViewController
-//        nxtObj.CountTableArray = sendArray
-//        nxtObj.receiver_Id = user2Id as NSString
-//        nxtObj.locationName = globalLocation
-//        nxtObj.locationType = globalType
-//        nxtObj.receiverName = usname as NSString
-//        nxtObj.receiverProfile = receiverProfileImage as NSString
-//        nxtObj.locationId = globalPlaceid
-//        self.navigationController! .pushViewController(nxtObj, animated: true)
-//        nxtObj.hidesBottomBarWhenPushed = true
+        let nxtObj = self.storyboard?.instantiateViewController(withIdentifier: "ChatViewController") as! ChatViewController
+        nxtObj.CountTableArray = sendArray
+        nxtObj.receiver_Id = user2Id as NSString
+        nxtObj.locationName = globalLocation
+        nxtObj.locationType = globalType
+        nxtObj.receiverName = usname as NSString
+        nxtObj.receiverProfile = receiverProfileImage as NSString
+        nxtObj.locationId = globalPlaceid
+        self.navigationController! .pushViewController(nxtObj, animated: true)
+        nxtObj.hidesBottomBarWhenPushed = true
         
         
     }

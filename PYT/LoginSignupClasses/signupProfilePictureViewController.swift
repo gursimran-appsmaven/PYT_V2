@@ -557,7 +557,7 @@ class signupProfilePictureViewController: UIViewController, apiClassDelegate,UII
                 //}
                 
                 // Socket
-                //  SocketIOManager.sharedInstance.establishConnection()
+                  SocketIOManager.sharedInstance.establishConnection()
                 
                 
                 
@@ -664,7 +664,7 @@ class signupProfilePictureViewController: UIViewController, apiClassDelegate,UII
             
             
             // Socket
-            // SocketIOManager.sharedInstance.establishConnection()
+             SocketIOManager.sharedInstance.establishConnection()
             
             
             

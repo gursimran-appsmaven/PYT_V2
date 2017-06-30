@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ProfileVC: UIViewController,UITableViewDelegate,UITableViewDataSource,UICollectionViewDelegate,UICollectionViewDataSource,UITextFieldDelegate {
+class ProfileVC: UIViewController,UITableViewDelegate,UITableViewDataSource,UICollectionViewDelegate,UICollectionViewDataSource,UITextFieldDelegate, settingClassDelegate {
     
     @IBOutlet weak var contentViewHeight: NSLayoutConstraint!
 
@@ -21,6 +21,15 @@ class ProfileVC: UIViewController,UITableViewDelegate,UITableViewDataSource,UICo
     @IBOutlet weak var actionsTableView: UITableView!
     @IBOutlet weak var nameTF: UITextField!
     @IBOutlet weak var nameTxtWidth: NSLayoutConstraint!
+    
+    
+    
+    override func viewWillAppear(_ animated: Bool) {
+        
+        SettingApiClass.sharedInstance().delegate=self //delegate of api class
+        
+    }
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -328,6 +337,18 @@ class ProfileVC: UIViewController,UITableViewDelegate,UITableViewDataSource,UICo
         }
         return true
     }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     
 
 }

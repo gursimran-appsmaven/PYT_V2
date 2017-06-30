@@ -290,7 +290,7 @@ class ViewController: UIViewController, apiClassDelegate , UIScrollViewDelegate,
                 }
                 else
                 {
-                   // SocketIOManager.sharedInstance.establishConnection()
+                    SocketIOManager.sharedInstance.establishConnection()
                     
                     if (tabledata?.count)! < 1
                     {
@@ -738,7 +738,7 @@ class ViewController: UIViewController, apiClassDelegate , UIScrollViewDelegate,
                 
                 
                 // Socket
-               // SocketIOManager.sharedInstance.establishConnection()
+                SocketIOManager.sharedInstance.establishConnection()
                 
                 
                 
@@ -843,7 +843,7 @@ class ViewController: UIViewController, apiClassDelegate , UIScrollViewDelegate,
                     }
                     
                                      // Socket
-                  //  SocketIOManager.sharedInstance.establishConnection()
+                    SocketIOManager.sharedInstance.establishConnection()
                     
                     
                     

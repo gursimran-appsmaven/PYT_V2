@@ -1270,20 +1270,20 @@ class intrestViewController: UIViewController, apiClassInterestDelegate ,UITable
         //super.viewDidAppear(animated)
         
         
-        /*
+        
          SocketIOManager.sharedInstance.getChatMessageNotify { (messageInfo) -> Void in
-         dispatch_async(dispatch_get_main_queue(), { () -> Void in
+        // dispatch_async(dispatch_get_main_queue(), { () -> Void in
          
-         let count: String = String(messageInfo["count"]!)
+         let count: String = String(describing: messageInfo["count"]!)
          
          self.tabBarController?.tabBar.items?[3].badgeValue = count
          
          
          
          
-         })
+       //  })
          }
-         */
+ 
  
         
     }
