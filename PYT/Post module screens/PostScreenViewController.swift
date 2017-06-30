@@ -76,7 +76,6 @@ class PostScreenViewController: UIViewController, UIImagePickerControllerDelegat
     @IBAction func actionSheet(_ sender: AnyObject)
     {
         
-        
         print(sender.tag)
         
         if sender.imageView??.image == UIImage( named: "SmallImagethumb") {

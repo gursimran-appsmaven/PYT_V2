@@ -158,7 +158,6 @@ class planCollectionViewCell: UICollectionViewCell {
 
 //plan header cell
 class planCollectionViewHeaderCell: UICollectionViewCell {
-    @IBOutlet weak var changePlanButton: UIButton!
     
 }
 class storyTableHeaderCell: UITableViewCell{

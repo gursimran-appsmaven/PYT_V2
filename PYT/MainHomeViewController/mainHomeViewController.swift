@@ -34,7 +34,30 @@ class mainHomeViewController: UIViewController, SDWebImageManagerDelegate, apiCl
     @IBOutlet weak var searchButtonOutlet: UIButton!
     @IBOutlet var segmentControl: HMSegmentedControl!
     
-    
+    @IBOutlet weak var storiesCollectionView: UICollectionView!
+    @IBOutlet weak var storiesView: UIView!
+    @IBOutlet weak var ContentView: UIView!
+//    var oldContentOffset = CGPointZero
+//    var topConstraintRange = (CGFloat(2)..<CGFloat(73))
+//    
+//    func scrollViewDidScroll(scrollView: UIScrollView) {
+//        
+//        let delta =  scrollView.contentOffset.y - oldContentOffset.y
+//        
+//        //we compress the top view
+//        if delta > 0 && topConstraintRange. > topConstraintRange.lowerBound && scrollView.contentOffset.y > 0 {
+//            topConstraintRange -= delta
+//            scrollView.contentOffset.y -= delta
+//        }
+//        
+//        //we expand the top view
+//        if delta < 0 && topConstraintRange < topConstraintRange.upperBound && scrollView.contentOffset.y < 0{
+//            topConstraintRange -= delta
+//            scrollView.contentOffset.y -= delta
+//        }
+//        
+//        oldContentOffset = scrollView.contentOffset
+//    }
     
     
    // @IBOutlet weak var emptyView: UIView!
@@ -103,10 +126,34 @@ class mainHomeViewController: UIViewController, SDWebImageManagerDelegate, apiCl
     var collectionIndex = Int()
     var tableIndex = Int()
     var longTapedView = UIView()
+    var storyVisible = Bool()
+    @IBOutlet weak var contentTop: NSLayoutConstraint!
     
-    
-    
-    
+     func scrollViewDidScroll(_ scrollView: UIScrollView) {
+//        if(scrollView.contentOffset.y > 70 )
+//        {
+//            if(storyVisible)
+//            {
+//                UIView.animate(withDuration: 0.8, animations: {
+//                    self.contentTop.constant =  -70
+//                    self.storyVisible = false
+//                    self.view.layoutIfNeeded()
+//                })
+//            }
+//        }
+//        else if(scrollView.contentOffset.y > 0 && scrollView.contentOffset.y < 70)
+//        {
+//            if(!storyVisible)
+//            {
+//                UIView.animate(withDuration: 0.8, animations: {
+//                    self.contentTop.constant =  2
+//                    self.storyVisible = true
+//                    self.view.layoutIfNeeded()
+//                })
+//            }
+//
+//        }
+    }
     
     
     
@@ -120,19 +167,13 @@ class mainHomeViewController: UIViewController, SDWebImageManagerDelegate, apiCl
     
     
     
-    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator)
-    {
-        super.viewWillTransition(to: size, with: coordinator)
-    }
-    
-    
-    
-    
     
     override func viewWillAppear(_ animated: Bool)
     {
-
-        self.navigationController?.isNavigationBarHidden=true //hide the navigationBar
+        
+        self.automaticallyAdjustsScrollViewInsets = false;
+        
+        //hide the navigationBar
         self.detailView.isHidden = true
             //Ensures that views are not underneath the tab bar
          apiClass.sharedInstance().delegate=self //delegate for response api
@@ -160,9 +201,7 @@ class mainHomeViewController: UIViewController, SDWebImageManagerDelegate, apiCl
         self.tabBarController?.tabBar.isHidden = false
        
        
-        
-        
-        
+    
         
         
         //Manage tool tips
@@ -359,13 +398,10 @@ class mainHomeViewController: UIViewController, SDWebImageManagerDelegate, apiCl
     override func viewDidLoad()
     {
         super.viewDidLoad()
-
-    
- 
         
+        self.navigationController?.isNavigationBarHidden=true
         
-        
-          apiClass.sharedInstance().delegate=self //delegate for response api
+        apiClass.sharedInstance().delegate=self //delegate for response api
     
         
         uId = Udefaults .string(forKey: "userLoginId")!
@@ -373,8 +409,6 @@ class mainHomeViewController: UIViewController, SDWebImageManagerDelegate, apiCl
         print(Udefaults .integer(forKey: "indexToolTips"))
        
        
-        
-        
         let loadingNotification = MBProgressHUD.showAdded(to: self.view, animated: true)
         loadingNotification.mode = MBProgressHUDMode.indeterminate
         loadingNotification.label.text = "Fetching..."
@@ -805,27 +839,6 @@ class mainHomeViewController: UIViewController, SDWebImageManagerDelegate, apiCl
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        
-//        SocketIOManager.sharedInstance.getChatMessageNotify { (messageInfo) -> Void in
-//            DispatchQueue.main.async(execute: { () -> Void in
-//                
-//               //print(messageInfo["count"])
-//               
-//                let count: String = String(describing: messageInfo["count"]!)
-//                
-//              self.tabBarController?.tabBar.items?[3].badgeValue = count
-//                
-//                
-//            })
-//        }
-        
-        
-        
-        
-    
-        
-        
-        
     }
 
     
@@ -907,7 +920,7 @@ class mainHomeViewController: UIViewController, SDWebImageManagerDelegate, apiCl
                 
             }
             
-//            storyCollectionView.reloadData()
+            storiesCollectionView.reloadData()
         }
         
        
@@ -1025,57 +1038,64 @@ class mainHomeViewController: UIViewController, SDWebImageManagerDelegate, apiCl
     {
         return 1
     }
-    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 78.5
-    }
-    
-    
-    
-//     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView?
-//     {
-//        let cell:SectionTableHeaderCell = tableView.dequeueReusableCell(withIdentifier: "homeSectionHeader") as! SectionTableHeaderCell
-//        cell.locationLabelName.text = tabledata .object(at: section).value(forKey: "location") as! NSString as String
-//            return cell.contentView
+//    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+//        if(section==0)
+//        {
+//            return 78.5
 //        }
-    
-    
-    
-    
-    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "storyTableHeaderCell") as! storyTableHeaderCell
-        
-        cell.storiesCollectionView.delegate = self
-        cell.storiesCollectionView.dataSource = self
-        cell.storiesCollectionView.tag = 1221
-        cell.storiesCollectionView.reloadData()
-        
-        
-        
-        return cell
-    }    
+//        return 0.000000000000000001
+//    }
+//    
+//    func tableView( _ tableView: UITableView, viewForFooterInSection section: Int) -> UIView?
+//    {
+//        let footerView = UIView(frame: CGRect(x: 0, y: 0, width: tableView.frame.size.width, height: 20))
+//        footerView.backgroundColor = UIColor(red: 208/255.0 , green: 208/255.0 , blue: 208/255.0 , alpha: 0.36)
+//        return footerView
+//        
+//    }
+//    func tableView( _ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat
+//    {
+//        return 0.0000000001
+//    }
+//
+//    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+//
+//
+//        if(section==0)
+//        {
+//            let cell = tableView.dequeueReusableCell(withIdentifier: "storyTableHeaderCell") as! storyTableHeaderCell
+//
+//            cell.storiesCollectionView.delegate = self
+//            cell.storiesCollectionView.dataSource = self
+//            cell.storiesCollectionView.tag = 1221
+//            cell.storiesCollectionView.collectionViewLayout.invalidateLayout()
+////            OperationQueue.main.addOperation({ () -> Void in
+////                cell.storiesCollectionView.reloadData()
+////            })
+//
+//            return cell
+//        }
+//        let view = UIView()
+//        view.frame = CGRect(x: 0 , y: 0 , width: view.frame.width , height: 0)
+//        view.backgroundColor = UIColor.blue
+//        return view
+//
+//    }
      func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int
      {
-        if section > 0
-            {
-                return 0
-            }
-        else
-            {
-                
-               if(pageNumber == 0)
-               {
-                   return dataArray.count
-               }
-              else
-               {
-                if dataArray.count==0 {
-                    return dataArray.count
-                }
-                
-                return dataArray.count + 1
-                  }
-                
+        if(pageNumber == 0)
+        {
+            return dataArray.count
         }
+        else
+        {
+            if dataArray.count==0 {
+                return dataArray.count
+            }
+            
+            return dataArray.count + 1
+        }
+        
     }
    
     
@@ -1084,14 +1104,14 @@ class mainHomeViewController: UIViewController, SDWebImageManagerDelegate, apiCl
         if indexPath.row < dataArray.count
         {
             let widthTotal = self.view.frame.size.width / 2
-             self.imagesTableView.rowHeight = widthTotal + 100
+            self.imagesTableView.rowHeight = widthTotal + 100
             return widthTotal + 100
         }
         else
         {
             return 50.0
         }
-    }
+     }
     
     
     
@@ -1164,9 +1184,9 @@ class mainHomeViewController: UIViewController, SDWebImageManagerDelegate, apiCl
             cell.imagesCollectionView.tag=indexPath.row
             cell.imagesCollectionView.collectionViewLayout.invalidateLayout()
 
-          OperationQueue.main.addOperation({ () -> Void in
-            cell.imagesCollectionView.reloadData()
-           })
+//          OperationQueue.main.addOperation({ () -> Void in
+//            cell.imagesCollectionView.reloadData()
+//           })
             if segmentBool == true {
                 if indexPath.row > 2 {
                     self.segmentBool = false
@@ -1440,7 +1460,26 @@ class mainHomeViewController: UIViewController, SDWebImageManagerDelegate, apiCl
     }
     
     
-    
+    @IBAction func ReloadStoriesCollection(_ sender: AnyObject)
+    {
+        
+        if planAllLocation == false {
+            planAllLocation = true
+            
+            storiesCollectionView.reloadData()
+            
+        }
+        else
+        {
+            
+            planAllLocation = false
+            
+            storiesCollectionView.reloadData()
+        }
+        
+
+    }
+
     
     
     
@@ -2058,7 +2097,7 @@ class mainHomeViewController: UIViewController, SDWebImageManagerDelegate, apiCl
     func proceedBtnAction(_ tableViewIndex: Int, collectionViewIndex: Int)
     {
       
-        let indexPathTable = IndexPath(row: tableViewIndex, section: 0)
+        let indexPathTable = IndexPath(row: tableViewIndex, section: 1)
         let indexPathCollection = IndexPath(row: collectionViewIndex, section: 0)
         
         
@@ -3335,7 +3374,7 @@ extension mainHomeViewController : UITableViewDelegate, UITableViewDataSource {
 //MARK:- ///////////////////// Data source and delegates of the collection view in extension/////////////////
 //MARK:-
 
-extension mainHomeViewController: UICollectionViewDelegate, UICollectionViewDataSource {
+extension mainHomeViewController: UICollectionViewDelegate, UICollectionViewDataSource,UICollectionViewDelegateFlowLayout {
     
     
     func numberOfSections(in collectionView: UICollectionView) -> Int   {
@@ -3362,7 +3401,6 @@ extension mainHomeViewController: UICollectionViewDelegate, UICollectionViewData
                     
                 let imageUrlArray = ((countArray.object(at: indx)) as AnyObject).value(forKey: "story") as! NSMutableArray
                     if imageUrlArray.count>0 {
-                        
                         return imageUrlArray.count
                         
                     }
@@ -3374,7 +3412,8 @@ extension mainHomeViewController: UICollectionViewDelegate, UICollectionViewData
                 return 0 // returen the plans of selected location
             }
             
-            
+            print(countArray.count)
+
             return countArray.count //return the whole plans
         }
             
@@ -3399,129 +3438,104 @@ extension mainHomeViewController: UICollectionViewDelegate, UICollectionViewData
     }
     
     
-    
-    
-    
     func collectionView(_ collectionView: UICollectionView,cellForItemAt indexPath: IndexPath) -> UICollectionViewCell
     {
         
         if collectionView.tag == 1221//storyCollectionView 
         {
             
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "planCell",for: indexPath) as! planCollectionViewCell
-        
             
-            
-            
-            
-            
-            if planAllLocation == false
-            {
-                
-                
-//                let finalCellFrame = cell.frame
-//                //check the scrolling direction to verify from which side of the screen the cell should come.
-//                let translation = collectionView.panGestureRecognizer.translation(in: collectionView.superview!)
-//                if translation.x > 0 {
-//                    cell.frame = CGRect(x: finalCellFrame.origin.x - 500, y: 0, width: 0, height: 0)
-//                }
-//                else {
-//                    cell.frame = CGRect(x: finalCellFrame.origin.x + 500, y: 0, width: 0, height: 0)
-//                }
-//                UIView.animate(withDuration: 0.9, animations: {() -> Void in
-//                    cell.frame = finalCellFrame
-//                })
+                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "planCell",for: indexPath) as! planCollectionViewCell
 
-                
-                
-                
-            if countArray.count>0 {
-                
-                let placeIds = (countArray.value(forKey: "_id")) as! NSArray
-                
-                if placeIds.contains(globalPlaceid) {
-                    print("Contains story")
-                    let indx = placeIds .index(of: globalPlaceid )//"58c3c09336f8b6180feea0c6")
-                    print(indx)
+            cell.contentView.frame = cell.bounds
+            cell.contentView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+            print(cell.frame)
+                if planAllLocation == false
+                {
                     
-                    
-                    
-                    let imageUrlArray = ((countArray.object(at: indx)) as AnyObject).value(forKey: "story") as! NSMutableArray
-                    if imageUrlArray.count > 0
-                    {
+                     if countArray.count>0 {
                         
-                        let imgUrl = (((imageUrlArray.object(at: imageUrlArray.count-1 - indexPath.row)) as! NSDictionary).value(forKey: "image")as! NSDictionary) .value(forKey: "imageThumb") as? String ?? ""
+                        let placeIds = (countArray.value(forKey: "_id")) as! NSArray
                         
-                        print(imgUrl)
-                        cell.planImage.sd_setImage(with: URL(string: imgUrl), placeholderImage: UIImage (named: "dummyBackground1"))
-                        
-                        let placetag = (((imageUrlArray.object(at:  imageUrlArray.count-1 - indexPath.row)) as! NSDictionary).value(forKey: "image")as! NSDictionary) .value(forKey: "placeTag") as? String ?? ""
-                        cell.planName.text = placetag
-                        
-                        
+                        if placeIds.contains(globalPlaceid) {
+                            print("Contains story")
+                            let indx = placeIds .index(of: globalPlaceid )//"58c3c09336f8b6180feea0c6")
+                            print(indx)
+                            
+                            
+                            
+                            let imageUrlArray = ((countArray.object(at: indx)) as AnyObject).value(forKey: "story") as! NSMutableArray
+                            if imageUrlArray.count > 0
+                            {
+                                print(imageUrlArray.count - 1 - (indexPath.row))
+                                let imgUrl = (((imageUrlArray.object(at: imageUrlArray.count-1 - (indexPath.row ))) as! NSDictionary).value(forKey: "image")as! NSDictionary) .value(forKey: "imageThumb") as? String ?? ""
+                                
+                                print(imgUrl)
+                               
+                                UIView.animate(withDuration: 0.75, animations: {
+                                    cell.planImage.transform = CGAffineTransform(scaleX: 0.02, y: 0.02)
+                                }) { (finished) in
+                                    UIView.animate(withDuration: 0.75, animations: {
+                                        cell.planImage.sd_setImage(with: URL(string: imgUrl), placeholderImage: UIImage (named: "dummyBackground1"))
+                                        cell.planImage.transform = CGAffineTransform.identity
+                                    })
+                                }
+
+                                
+                                let placetag = (((imageUrlArray.object(at:  imageUrlArray.count-1 - (indexPath.row))) as! NSDictionary).value(forKey: "image")as! NSDictionary) .value(forKey: "placeTag") as? String ?? ""
+                                cell.planName.text = placetag
+                                
+                                
+                                
+                            }
+                            
+                        }
                         
                     }
-                    
-                 
-                    
+                    return cell
                 }
-                
-            }
-                return cell
-            }
-            
-            //return cell for all locations
-            else
-            {
-                
-//                let finalCellFrame = cell.frame
-//                //check the scrolling direction to verify from which side of the screen the cell should come.
-//                let translation = collectionView.panGestureRecognizer.translation(in: collectionView.superview!)
-//                if translation.x > 0 {
-//                    cell.frame = CGRect(x: finalCellFrame.origin.x + 500, y: 0, width: 0, height: 0)
-//                }
-//                else {
-//                    cell.frame = CGRect(x: finalCellFrame.origin.x - 500, y: 0, width: 0, height: 0)
-//                }
-//                UIView.animate(withDuration: 0.9, animations: {() -> Void in
-//                    cell.frame = finalCellFrame
-//                })
-                
-                
-                let countriesName = ((countArray.object(at: indexPath.row)) as AnyObject).value(forKey: "country") as! NSArray
-                var countryname = "NA"
-                if countriesName.count > 0
+                    
+                    //return cell for all locations
+                else
                 {
-                    countryname = countriesName.object(at: 0) as! String
+                    
+                    let countriesName = ((countArray.object(at: indexPath.row )) as AnyObject).value(forKey: "country") as! NSArray
+                    var countryname = "NA"
+                    if countriesName.count > 0
+                    {
+                        countryname = countriesName.object(at: 0) as! String
+                    }
+                    
+                    let imgUrl = (((((countArray.object(at: indexPath.row )) as AnyObject).value(forKey: "story") as! NSArray).object(at: 0) as AnyObject).value(forKey: "image")as! NSDictionary).value(forKey: "imageThumb") as? String ?? ""
+
+                    UIView.animate(withDuration: 0.75, animations: {
+                        cell.planImage.transform = CGAffineTransform(scaleX: 0.02, y: 0.02)
+                    }) { (finished) in
+                        UIView.animate(withDuration: 0.75, animations: {
+                            cell.planImage.sd_setImage(with: URL(string: imgUrl), placeholderImage: UIImage (named: "dummyBackground1"))
+
+                            cell.planImage.transform = CGAffineTransform.identity
+                        })
+                    }
+
+                    
+                    
+                     print(imgUrl)
+                    
+                    
+                    cell.planName.text = countryname
+                    
+                    
+                    return cell
                 }
-                
-                
-                
-                let imgUrl = (((((countArray.object(at: indexPath.row)) as AnyObject).value(forKey: "story") as! NSArray).object(at: 0) as AnyObject).value(forKey: "image")as! NSDictionary).value(forKey: "imageThumb") as? String ?? ""
-                
-                //(((imageUrlArray.object(at: indexPath.row)) as! NSDictionary).value(forKey: "image")as! NSDictionary) .value(forKey: "imageThumb") as? String ?? ""
-                
-                print(imgUrl)
-                cell.planImage.sd_setImage(with: URL(string: imgUrl), placeholderImage: UIImage (named: "dummyBackground1"))
-                
-               
-                cell.planName.text = countryname
-                
-                
-                
-                
-                return cell
+
             }
-           
+            
+ 
             
             
             
-            
-            
-        }
-        else
-        {
-        
+        else{
         
         
         if arrayOfimages1.count<1 {
@@ -3942,6 +3956,7 @@ extension mainHomeViewController: UICollectionViewDelegate, UICollectionViewData
         
         if collectionView.tag == 1221{
             
+            
         }
         
         
@@ -3979,7 +3994,7 @@ extension mainHomeViewController: UICollectionViewDelegate, UICollectionViewData
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath){
         
         if collectionView.tag == 1221 {
-            
+ 
         }
         else
         {
@@ -4065,7 +4080,7 @@ extension mainHomeViewController: UICollectionViewDelegate, UICollectionViewData
     // MARK: UICollectionViewDelegateFlowLayout
     //MARK:
     
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: IndexPath) -> CGSize {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
         if collectionView.tag != 1221 {
             
@@ -4092,13 +4107,10 @@ extension mainHomeViewController: UICollectionViewDelegate, UICollectionViewData
     }
     
     
-//     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAtIndex section: Int) -> UIEdgeInsets {
-//        // return UIEdgeInsetsMake(0,8,0,8);  // top, left, bottom, right
-//        
-//        return UIEdgeInsetsMake(0, 0, 0, 0)
-//        // top, left, bottom, right
-//    }
-    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+        //top, left, bottom, right
+            return UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+    }
     
    
     
@@ -4106,47 +4118,54 @@ extension mainHomeViewController: UICollectionViewDelegate, UICollectionViewData
     
 ///Plan header cell
     
-    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-        //var reusableview: UICollectionReusableView? = nil
-       // if kind == UICollectionElementKindSectionHeader{
-            let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionElementKindSectionHeader, withReuseIdentifier: "planHeader", for: indexPath) as! planCollectionViewHeaderCell
-           
-         headerView.changePlanButton.addTarget(self, action: #selector(mainHomeViewController.changePlans(sender:)), for: .touchUpInside)
-        
-            headerView.bringSubview(toFront: headerView.changePlanButton)
-           // headerView.changePlanButton.addTarget(self, action: #selector(mainHomeViewController.changePlans(_:)), for: .touchUpInside)
-        
-          //  reusableview = headerView
-       // }
-        
-        return headerView
-    }
+//    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+//        //var reusableview: UICollectionReusableView? = nil
+//       // if kind == UICollectionElementKindSectionHeader{
+//            let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionElementKindSectionHeader, withReuseIdentifier: "planHeader", for: indexPath) as! planCollectionViewHeaderCell
+//           
+//         headerView.changePlanButton.addTarget(self, action: #selector(mainHomeViewController.changePlans(sender:)), for: .touchUpInside)
+//        
+//            headerView.bringSubview(toFront: headerView.changePlanButton)
+//           // headerView.changePlanButton.addTarget(self, action: #selector(mainHomeViewController.changePlans(_:)), for: .touchUpInside)
+//        
+//          //  reusableview = headerView
+//       // }
+//        
+//        return headerView
+//    }
+//    
     
     
-    
-    func changePlans(sender: UIButton) {
-        
-        if planAllLocation == false {
-            planAllLocation = true
-            DispatchQueue.main.async{
-                self.tableView(self.imagesTableView, viewForHeaderInSection: 0)
-            }
-            
-        }
-        else
-        {
-            
-            planAllLocation = false
-            
-            DispatchQueue.main.async{
-                self.tableView(self.imagesTableView, viewForHeaderInSection: 0)
-            }
-            
-          
-        }
-        
-        
-    }
+//    func changePlans(sender: UIButton) {
+//        
+//        if planAllLocation == false {
+//            planAllLocation = true
+//          
+//            OperationQueue.main.addOperation({ () -> Void in
+//                self.imagesTableView.beginUpdates()
+//                self.imagesTableView.reloadSections(IndexSet(integer: 0), with: .automatic)
+//                self.imagesTableView.endUpdates()
+//
+//            })
+//            
+//        }
+//        else
+//        {
+//            
+//            planAllLocation = false
+//
+//            OperationQueue.main.addOperation({ () -> Void in
+//                self.imagesTableView.beginUpdates()
+//                self.imagesTableView.reloadSections(IndexSet(integer: 0), with: .automatic)
+//                self.imagesTableView.endUpdates()
+//                
+//            })
+//            
+//          
+//        }
+//        
+//        
+//    }
     
    
     
@@ -4917,7 +4936,6 @@ extension mainHomeViewController: UICollectionViewDelegate, UICollectionViewData
         
         
     }
-    
     
     
     func planBtnTapCollectionView(_ sender: UIButton) {

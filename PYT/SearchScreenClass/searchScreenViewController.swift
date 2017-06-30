@@ -359,9 +359,9 @@ class searchScreenViewController: UIViewController, UINavigationControllerDelega
         autoPromptTable.rowHeight = 50
         
         
-        search_Bar.layer.cornerRadius = 5.0
+        search_Bar.layer.cornerRadius = 0.0
         search_Bar.clipsToBounds = true
-        search_Bar.barTintColor = UIColor .white
+        search_Bar.barTintColor = UIColor .clear
         //[self.searchBar setReturnKeyType:UIReturnKeyDone];
         search_Bar.returnKeyType = UIReturnKeyType .done
         search_Bar.showsCancelButton = false
@@ -369,7 +369,7 @@ class searchScreenViewController: UIViewController, UINavigationControllerDelega
         search_Bar.delegate = self
         
         
-         self.manageContentOfButtons()
+        self.manageContentOfButtons()
         
         
         
@@ -425,8 +425,6 @@ class searchScreenViewController: UIViewController, UINavigationControllerDelega
      self.autoPromptView.isHidden=false
      self.topSpaceOfAutoPrompt.constant = 0
      self.search_Bar.showsCancelButton = false
-     self.search_Bar.layer.borderWidth = 1.0
-     self.search_Bar.layer.borderColor = UIColor .lightGray.cgColor
      self.cancelWidth.constant = 43
      self.promptIndicator.isHidden=true
      self.autoPromptTable.contentInset = UIEdgeInsetsMake(0, 0, 10, 0)
