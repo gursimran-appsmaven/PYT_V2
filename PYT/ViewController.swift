@@ -314,7 +314,7 @@ class ViewController: UIViewController, apiClassDelegate , UIScrollViewDelegate,
         }, completion: {(finished: Bool) -> Void in
             self.whiteView.removeFromSuperview()
             
-            // Udefaults.setBool(true, forKey: "tutorialLaunch")//uncomment this
+             Udefaults.set(true, forKey: "tutorialLaunch")//uncomment this
             
             // self.viewDidLoad() //uncomment this
         })
@@ -1150,12 +1150,9 @@ class ViewController: UIViewController, apiClassDelegate , UIScrollViewDelegate,
         
         
         
-        
-        
     }
     
 
-    
     
     
     

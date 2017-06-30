@@ -27,8 +27,8 @@ class ChatViewController: JSQMessagesViewController {
     
     
     //Messages
-    let incomingBubble = JSQMessagesBubbleImageFactory().incomingMessagesBubbleImageWithColor(UIColor(red: 153/255, green: 189/255, blue: 131/255, alpha: 1.0))
-    let outgoingBubble = JSQMessagesBubbleImageFactory().outgoingMessagesBubbleImageWithColor(UIColor.whiteColor())
+    let incomingBubble = JSQMessagesBubbleImageFactory().incomingMessagesBubbleImage(with: UIColor(red: 153/255, green: 189/255, blue: 131/255, alpha: 1.0))
+    let outgoingBubble = JSQMessagesBubbleImageFactory().outgoingMessagesBubbleImage(with: UIColor.white)
     var messages = [JSQMessage]()
     
     
@@ -50,18 +50,18 @@ class ChatViewController: JSQMessagesViewController {
     var avatars = [String: JSQMessagesAvatarImage]()
     
     var chatingIndicator = UIActivityIndicatorView()
+     let uId = Udefaults .string(forKey: "userLoginId")
     
     
     
     
-    
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         
         self.headerLabel.text = receiverName as String
-        self.headerImage.image = UIImage (named: "header")
-        self.backBtn .setImage(UIImage (named:"back"), forState: UIControlState .Normal)
+        self.headerImage.image = nil
+        self.backBtn .setImage(UIImage (named:"back"), for: UIControlState .normal)
         
-        self.backBtn .addTarget(self, action: #selector(ChatViewController.backButtonAction) , forControlEvents: UIControlEvents .TouchUpInside)
+        self.backBtn .addTarget(self, action: #selector(ChatViewController.backButtonAction) , for: UIControlEvents .touchUpInside)
         
         
     }
@@ -70,25 +70,26 @@ class ChatViewController: JSQMessagesViewController {
     
     func backButtonAction() -> Void {
         
-        if zoomImageScrollView.hidden==false {
+        if zoomImageScrollView.isHidden==false {
             
-            zoomImageScrollView.hidden=true
+            zoomImageScrollView.isHidden=true
         }
         else
         {
-        self.navigationController?.popViewControllerAnimated(true)
-        self.tabBarController?.tabBar.hidden = false
+        self.navigationController?.popViewController(animated: true)
+            
+        //self.tabBarController?.setTabBarVisible(visible: true, animated: true)
         }
     }
     
     
     ////Add this method in view did appear to get the messages
     
-    override func viewDidAppear(animated: Bool) {
+    override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
         SocketIOManager.sharedInstance.getChatMessage { (messageInfo) -> Void in
-            dispatch_async(dispatch_get_main_queue(), { () -> Void in
+           DispatchQueue.main.async(execute: {
                
                 print(messageInfo)
                 let otherId = messageInfo["senderId"] as! String
@@ -100,20 +101,20 @@ class ChatViewController: JSQMessagesViewController {
 
                 if messageInfo["LocationType"] as! String == self.locationId as String {
                     
-                    let message =  JSQMessage(senderId: otherId, senderDisplayName: msgType, date: NSDate(), text: msg) // JSQMessage(senderId: otherId, displayName: msgType, text: msg)
-                    
-                    self.messages += [message]
+                    let message =  JSQMessage(senderId: otherId, senderDisplayName: msgType, date: NSDate() as Date!, text: msg) // JSQMessage(senderId: otherId, displayName: msgType, text: msg)
+                    self.messages .append(message!)
+                    //self.messages += [message]
                     
                     JSQSystemSoundPlayer .jsq_playMessageReceivedAlert()
                     
                     self.reloadMessagesView()
                     
                     
-                    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, Int64(5.0 * Double(NSEC_PER_SEC))), dispatch_get_main_queue()) { () -> Void in
-                        
-                        self.reloadMessagesView()
-                        
-                    }
+//                    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, Int64(5.0 * Double(NSEC_PER_SEC))), dispatch_get_main_queue()) { () -> Void in
+//                        
+//                        self.reloadMessagesView()
+//                        
+//                    }
                     
                     
                     
@@ -143,21 +144,21 @@ class ChatViewController: JSQMessagesViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        zoomImageScrollView.hidden=true
+        zoomImageScrollView.isHidden=true
         
         
         
-        let defaults = NSUserDefaults.standardUserDefaults()
-        let uId = defaults .stringForKey("userLoginId")
+        
+       
        
         
         //SocketIOManager.sharedInstance.closeConnection()
        chatingIndicator.startAnimating()
         chatingIndicator.center=self.view.center
         self.view .addSubview(chatingIndicator)
-        self.view.bringSubviewToFront(chatingIndicator)
+        self.view.bringSubview(toFront: chatingIndicator)
         //SocketIOManager.sharedInstance.establishConnection()
-         self.getOlderMessages(uId!)  ///older messages will be appears
+         self.getOlderMessages(userId: uId!)  ///older messages will be appears
         
        
         
@@ -171,7 +172,7 @@ class ChatViewController: JSQMessagesViewController {
         
         
         
-        self.tabBarController?.tabBar.hidden = true
+        self.tabBarController?.tabBar.isHidden = true
         // Do any additional setup after loading the view.
        
         selectedTag = 91190
@@ -184,8 +185,8 @@ class ChatViewController: JSQMessagesViewController {
 
         
         
-        IQKeyboardManager.sharedManager().shouldResignOnTouchOutside=true
-        IQKeyboardManager.sharedManager().enableAutoToolbar=true
+        IQKeyboardManager.shared().shouldResignOnTouchOutside=true
+        IQKeyboardManager.shared().isEnableAutoToolbar=true
         
         
         
@@ -201,7 +202,7 @@ class ChatViewController: JSQMessagesViewController {
         
        // IQKeyboardManager.sharedManager().shouldResignOnTouchOutside=true
         
-        self.ImagesTableView? .reloadData()
+        self.imagesTableView? .reloadData()
         
         zoomImageScrollView.delegate=self
         zoomImageScrollView.showsVerticalScrollIndicator=false
@@ -209,8 +210,8 @@ class ChatViewController: JSQMessagesViewController {
         
      
         
-         myName = defaults .stringForKey("userLoginName")!
-         myProfilePic = defaults .stringForKey("userProfilePic")!
+         myName = Udefaults .string(forKey: "userLoginName")! as NSString
+         myProfilePic = Udefaults .string(forKey: "userProfilePic")! as NSString
         
         
         
@@ -218,26 +219,28 @@ class ChatViewController: JSQMessagesViewController {
         
         if CountTableArray.count>0 {
             //print(CountTableArray.objectAtIndex(0).valueForKey("Thumbnail") as? String ?? "")
-            if CountTableArray.objectAtIndex(0).valueForKey("Thumbnail") as? String ?? "" == "NA" {
-                
-            }
+//            if (CountTableArray.objectAtIndex(0) as AnyObject).valueForKey("Thumbnail") as? String ?? "" == "NA" {
+//                
+//            }
         }
         else
         {
             //MARK: call the api to get photos
             
-            self.getPhotosByLocation(uId!, other_UserId: receiver_Id as String, location_Name: locationName as String, location_Type: locationType as String)
+            self.getPhotosByLocation(my_UserId: uId!, other_UserId: receiver_Id as String, location_Name: locationName as String, location_Type: locationType as String)
         }
         
        
         
        
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(ChatViewController.handleDisconnectedUserUpdateNotification(_:)), name: "userWasDisconnectedNotification", object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(ChatViewController.handleDisconnectedUserUpdateNotification(notification:)), name: NSNotification.Name(rawValue: "userWasDisconnectedNotification"), object: nil)
+        
+        //(self, selector: #selector(ChatViewController.handleDisconnectedUserUpdateNotification(_:)), name: "userWasDisconnectedNotification", object: nil)
         
         
     
         self.messagesViewBottomSpace.constant = 200
-        self.openImages(self)
+        self.openImages(sender: self)
         
         
        
@@ -248,7 +251,7 @@ class ChatViewController: JSQMessagesViewController {
     //MARK: Get notified when user is dicconnected 
     func handleDisconnectedUserUpdateNotification(notification: NSNotification) {
         let disconnectedUserNickname = notification.object as! String
-        print("User \(disconnectedUserNickname.uppercaseString) has left.")
+        print("User \(disconnectedUserNickname.uppercased()) has left.")
         
         
         SocketIOManager.sharedInstance.establishConnection()
@@ -259,7 +262,7 @@ class ChatViewController: JSQMessagesViewController {
     func handleConnectedUserUpdateNotification(notification: NSNotification) {
         
         
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, Int64(1.0 * Double(NSEC_PER_SEC))), dispatch_get_main_queue()) { () -> Void in
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
             
             
 //            let defaults = NSUserDefaults.standardUserDefaults()
@@ -320,16 +323,16 @@ class ChatViewController: JSQMessagesViewController {
         {
 //            let request = NSMutableURLRequest(URL: NSURL(string: "\(appUrl)get_images_for_chat")!)
 
-            let request = NSMutableURLRequest(URL: NSURL(string: "\(appUrl)get_images_for_chating")!)
+            let request = NSMutableURLRequest(url: NSURL(string: "\(appUrl)get_images_for_chating")! as URL)
             
             
-            request.HTTPMethod = "POST"
+            request.httpMethod = "POST"
             let postString = prmDic
            // request.HTTPBody = postString.dataUsingEncoding(NSUTF8StringEncoding)
             
             do {
-                let jsonData = try!  NSJSONSerialization.dataWithJSONObject(postString, options: [])
-                request.HTTPBody = jsonData
+                let jsonData = try!  JSONSerialization.data(withJSONObject: postString, options: [])
+                request.httpBody = jsonData
                 
                 
                 // here "jsonData" is the dictionary encoded in JSON data
@@ -342,51 +345,53 @@ class ChatViewController: JSQMessagesViewController {
 
             
             
-            let task = NSURLSession.sharedSession().dataTaskWithRequest(request) { data, response, error in
+             let task = URLSession.shared.dataTask(with: request as URLRequest) { data, response, error in
                 guard error == nil && data != nil else {                                                          // check for fundamental networking error
                     //print("error=\(error)")
                     return
                 }
                 
-                if let httpStatus = response as? NSHTTPURLResponse where httpStatus.statusCode != 200 {           // check for http errors
+                if let httpStatus = response as? HTTPURLResponse, httpStatus.statusCode != 200 {           // check for http errors
                     //print("statusCode should be 200, but is \(httpStatus.statusCode)")
                     //print("response = \(response)")
                 }
                 
             
                 
-                dispatch_async(dispatch_get_main_queue(), {
+                DispatchQueue.main.async {
+
                     
                     do {
                         
                         //let result = NSString(data: data!, encoding:NSASCIIStringEncoding)!
                          //print("Body: \(result)")
                         
-                        let anyObj: AnyObject = try NSJSONSerialization.JSONObjectWithData(data!, options: NSJSONReadingOptions.MutableContainers)
+                       let anyObj: Any = try JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.mutableContainers)
                         
                         basicInfo = NSMutableDictionary()
                         basicInfo = anyObj as! NSMutableDictionary
                         
-                        let status = basicInfo .valueForKey("status") as! NSNumber
+                        let status = basicInfo .value(forKey: "status") as! NSNumber
                         
                         if status == 1
                         {
                             
-                            let arrPhoto: NSMutableArray = basicInfo .valueForKey("data")! as! NSMutableArray
+                            let arrPhoto: NSMutableArray = basicInfo .value(forKey: "data")! as! NSMutableArray
                             
                            
                             if arrPhoto.count>0
                             {
                                 for i in 0..<arrPhoto.count
                                 {
-                                    let thumb = arrPhoto.objectAtIndex(i).valueForKey("imageThumb") as? String ?? ""
+                                    let thumb = (arrPhoto.object(at: i) as AnyObject).value(forKey: "imageThumb") as? String ?? ""
+                                    // arrPhoto.objectAtIndex(i).valueForKey("imageThumb") as? String ?? ""
                                     
-                                     let large = arrPhoto.objectAtIndex(i).valueForKey("imageLarge") as? String ?? ""
+                                     let large = (arrPhoto.object(at: i) as AnyObject).value(forKey: "imageLarge") as? String ?? ""//arrPhoto.objectAtIndex(i).valueForKey("imageLarge") as? String ?? ""
                                     
                                     
                                     
                                     
-                                    self.CountTableArray .addObject(["Thumbnail": thumb, "Large": large])
+                                    self.CountTableArray .add(["Thumbnail": thumb, "Large": large])
                                     
                                 }
                                 
@@ -405,14 +410,14 @@ class ChatViewController: JSQMessagesViewController {
                         }
                         
                         
-                        self.ImagesTableView.reloadData()
+                        self.imagesTableView.reloadData()
                         
                         
                         
                         
                     } catch {
                         //print("json error: \(error)")
-                      CommonFunctionsClass.sharedInstance().showAlert("Server Alert", text: "Something doesn't seem right, Please try again!", imageName: "alertServer")
+                      CommonFunctionsClass.sharedInstance().showAlert(title: "Server Alert", text: "Something doesn't seem right, Please try again!", imageName: "alertServer")
                        
                         
                     }
@@ -420,7 +425,7 @@ class ChatViewController: JSQMessagesViewController {
                     
                   
                     
-                })
+                }
                 
                 
                 
@@ -434,7 +439,7 @@ class ChatViewController: JSQMessagesViewController {
         }
         else
         {
-            CommonFunctionsClass.sharedInstance().showAlert("No Internet Connection", text: "You are currently offline.", imageName: "alertInternet")
+            CommonFunctionsClass.sharedInstance().showAlert(title: "No Internet Connection", text: "You are currently offline.", imageName: "alertInternet")
         }
         
         
@@ -463,16 +468,16 @@ class ChatViewController: JSQMessagesViewController {
         if isConnectedInternet
         {
 //            let request = NSMutableURLRequest(URL: NSURL(string: "\(appUrl)chat_description")!)
-            let request = NSMutableURLRequest(URL: NSURL(string: "\(appUrl)get_older_messages")!)
+            let request = NSMutableURLRequest(url: NSURL(string: "\(appUrl)get_older_messages")! as URL)
             
             
-            request.HTTPMethod = "POST"
+            request.httpMethod = "POST"
             let postString = parameterString
 
 
             do {
-                let jsonData = try!  NSJSONSerialization.dataWithJSONObject(postString, options: [])
-                request.HTTPBody = jsonData
+                 let jsonData = try!  JSONSerialization.data(withJSONObject: postString, options: [])
+                request.httpBody = jsonData
                 
                 
                 // here "jsonData" is the dictionary encoded in JSON data
@@ -484,13 +489,13 @@ class ChatViewController: JSQMessagesViewController {
             request.addValue("application/json", forHTTPHeaderField: "Accept")
             
             
-            let task = NSURLSession.sharedSession().dataTaskWithRequest(request) { data, response, error in
+            let task = URLSession.shared.dataTask(with: request as URLRequest) { data, response, error in
                 guard error == nil && data != nil else {                                                          // check for fundamental networking error
                     //print("error=\(error)")
                     return
                 }
                 
-                if let httpStatus = response as? NSHTTPURLResponse where httpStatus.statusCode != 200 {           // check for http errors
+                if let httpStatus = response as? HTTPURLResponse, httpStatus.statusCode != 200 {           // check for http errors
                     //print("statusCode should be 200, but is \(httpStatus.statusCode)")
                     //print("response = \(response)")
                 }
@@ -498,23 +503,23 @@ class ChatViewController: JSQMessagesViewController {
                 
                 
                 
-                dispatch_async(dispatch_get_main_queue(), {
-                    
+                DispatchQueue.main.async{
                     do {
                         
                         //let result = NSString(data: data!, encoding:NSASCIIStringEncoding)!
                        //print("Body: \(result)")
                         
-                        let anyObj: AnyObject = try NSJSONSerialization.JSONObjectWithData(data!, options: NSJSONReadingOptions.MutableContainers)
+                        
+                        let anyObj: Any = try JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.mutableContainers)
                         
                         basicInfo = NSMutableDictionary()
                         basicInfo = anyObj as! NSMutableDictionary
                         
-                        let status = basicInfo .valueForKey("status") as! NSNumber
+                        let status = basicInfo .value(forKey: "status") as! NSNumber
                         
                         if status == 1{
                             
-                            let arr: NSMutableArray = basicInfo .valueForKey("chat") as! NSMutableArray
+                            let arr: NSMutableArray = basicInfo .value(forKey: "chat") as! NSMutableArray
                             
                             ////print(arr)
                             
@@ -524,11 +529,11 @@ class ChatViewController: JSQMessagesViewController {
                             
                             for i in 0..<arr.count{
                             //print(arr.objectAtIndex(i).valueForKey("received"))
-                                let msg = arr.objectAtIndex(i).valueForKey("sender")!.valueForKey("_id") as? String ?? ""
+                                let msg = ((arr.object(at: i) as AnyObject).value(forKey: "sender") as AnyObject).value(forKey: "_id") as? String ?? ""// arr.objectAtIndex(i).valueForKey("sender")!.valueForKey("_id") as? String ?? ""
                            
                                 var UsId = ""
                                 
-                                if userId == msg{
+                                if userId == msg as! String{
                                     UsId = self.senderId
                                 }
                                 else{
@@ -537,17 +542,18 @@ class ChatViewController: JSQMessagesViewController {
                                 
                                 
                                 
-                                let incommsgDic = arr.objectAtIndex(i).valueForKey("msg") as! NSDictionary
+                                let incommsgDic = (arr.object(at: i) as AnyObject).value(forKey: "msg") as! NSDictionary
                                 
-                                let jsonData2 = try! NSJSONSerialization.dataWithJSONObject(incommsgDic, options: NSJSONWritingOptions.PrettyPrinted)
+                                let jsonData2 = try!  JSONSerialization.data(withJSONObject: postString, options: [])
                                 
-                                let jsonString2 = NSString(data: jsonData2, encoding: NSUTF8StringEncoding)! as String
+                                let jsonString2 = NSString(data: jsonData2, encoding: String.Encoding.utf8.rawValue)! as String
                                 
                                 
                                 
-                            let message = JSQMessage(senderId: UsId, senderDisplayName: "", date: NSDate(), text: jsonString2)
+                            let message = JSQMessage(senderId: UsId, senderDisplayName: "", date: NSDate() as Date!, text: jsonString2)
                                 
-                                self.messages += [message]
+                                self.messages .append(message!)
+                                //self.messages += [message]
                                 
                                 
                                 
@@ -582,11 +588,11 @@ class ChatViewController: JSQMessagesViewController {
                     }
                     
                     
-                    self.chatingIndicator.hidden=true
+                    self.chatingIndicator.isHidden=true
                     self.chatingIndicator.stopAnimating()
                     self.chatingIndicator.removeFromSuperview()
                     
-                })
+                }
                 
                 
                 
@@ -600,7 +606,7 @@ class ChatViewController: JSQMessagesViewController {
         }
         else
         {
-            CommonFunctionsClass.sharedInstance().showAlert("No Internet Connection", text: "You are currently offline.", imageName: "alertInternet")
+            CommonFunctionsClass.sharedInstance().showAlert(title: "No Internet Connection", text: "You are currently offline.", imageName: "alertInternet")
         }
         
         
@@ -630,58 +636,58 @@ class ChatViewController: JSQMessagesViewController {
         
         
         //get my profile pic
-        let block: SDWebImageCompletionBlock! = {(image: UIImage!, error: NSError!, cacheType: SDImageCacheType!, imageURL: NSURL!) -> Void in
-            
-            if self.myProfilePic == ""
-            {
-                self.myAvataerImage = JSQMessagesAvatarImageFactory.avatarImageWithImage(UIImage (named: "user-1"), diameter: 30)
-            }
-            else{
-                if image == nil {
-                    let imageUser = UIImage (named: "user-1")
-                    self.myAvataerImage = JSQMessagesAvatarImageFactory.avatarImageWithImage(imageUser, diameter: 30)
-                }
-                else{
-                    self.myAvataerImage = JSQMessagesAvatarImageFactory.avatarImageWithImage(image, diameter: 30)
-                }
-                
-                
-            }
-            
-            
-        }
+//        let block: SDWebImageCompletionBlock! = {(image: UIImage!, error: NSError!, cacheType: SDImageCacheType!, imageURL: NSURL!) -> Void in
+//            
+//            if self.myProfilePic == ""
+//            {
+//                self.myAvataerImage = JSQMessagesAvatarImageFactory.avatarImageWithImage(UIImage (named: "user-1"), diameter: 30)
+//            }
+//            else{
+//                if image == nil {
+//                    let imageUser = UIImage (named: "user-1")
+//                    self.myAvataerImage = JSQMessagesAvatarImageFactory.avatarImageWithImage(imageUser, diameter: 30)
+//                }
+//                else{
+//                    self.myAvataerImage = JSQMessagesAvatarImageFactory.avatarImageWithImage(image, diameter: 30)
+//                }
+//                
+//                
+//            }
+//            
+//            
+//        }
         
         //completion block of the sdwebimageview
-        imgView1.sd_setImageWithURL(NSURL(string: myProfilePic as String), placeholderImage: UIImage (named: "user-1"), completed: block)
+        imgView1.image = UIImage (named: "dummyProfile2") //sd_setImageWithURL(NSURL(string: myProfilePic as String), placeholderImage: UIImage (named: "user-1"), completed: block)
         
         
         
         //
         //get user profile pic
-        let block2: SDWebImageCompletionBlock! = {(image: UIImage!, error: NSError!, cacheType: SDImageCacheType!, imageURL: NSURL!) -> Void in
-            
-            //self.finishReceivingMessage()
-            if self.receiverProfile == ""
-            {
-                self.userAvatarImage = JSQMessagesAvatarImageFactory.avatarImageWithImage(UIImage (named: "user-1"), diameter: 30)
-            }
-            else{
-                
-                if image == nil {
-                    let imageUser = UIImage (named: "user-1")
-                    self.userAvatarImage = JSQMessagesAvatarImageFactory.avatarImageWithImage(imageUser, diameter: 30)
-                }else{
-                    self.userAvatarImage = JSQMessagesAvatarImageFactory.avatarImageWithImage(image, diameter: 30)
-                }
-            }
-            
-            
-            
-            
-        }
+//        let block2: SDWebImageCompletionBlock! = {(image: UIImage!, error: NSError!, cacheType: SDImageCacheType!, imageURL: NSURL!) -> Void in
+//            
+//            //self.finishReceivingMessage()
+//            if self.receiverProfile == ""
+//            {
+//                self.userAvatarImage = JSQMessagesAvatarImageFactory.avatarImageWithImage(UIImage (named: "user-1"), diameter: 30)
+//            }
+//            else{
+//                
+//                if image == nil {
+//                    let imageUser = UIImage (named: "user-1")
+//                    self.userAvatarImage = JSQMessagesAvatarImageFactory.avatarImageWithImage(imageUser, diameter: 30)
+//                }else{
+//                    self.userAvatarImage = JSQMessagesAvatarImageFactory.avatarImageWithImage(image, diameter: 30)
+//                }
+//            }
+//            
+//            
+//            
+//            
+//        }
         
         //completion block of the sdwebimageview
-        imageView2.sd_setImageWithURL(NSURL(string: receiverProfile as String), placeholderImage:UIImage (named: "user-1"), completed: block2)
+        imageView2.image = UIImage (named: "dummyProfile1") //sd_setImageWithURL(NSURL(string: receiverProfile as String), placeholderImage:UIImage (named: "user-1"), completed: block2)
         
         
         
@@ -712,8 +718,8 @@ class ChatViewController: JSQMessagesViewController {
         
         
         selectedTag = 91190
-        ImagesTableView .reloadData()
-        IQKeyboardManager.sharedManager().resignFirstResponder()
+        imagesTableView .reloadData()
+        IQKeyboardManager.shared().resignFirstResponder()
         
         self.heightOfImagesView.constant = 200
         self .jsq_setToolbarBottomLayoutGuideConstant(0)
@@ -732,7 +738,7 @@ class ChatViewController: JSQMessagesViewController {
     func reloadMessagesView() {
        
         self.collectionView?.reloadData()
-        self.scrollToBottomAnimated(true)
+        self.scrollToBottom(animated: true)
         
         
     }
@@ -751,7 +757,7 @@ class ChatViewController: JSQMessagesViewController {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
-        NSURLCache.sharedURLCache().removeAllCachedResponses()
+        URLCache.shared.removeAllCachedResponses()
         
         //print("MEMORYWARNING AND CLEARING CACHE ")
         
@@ -797,7 +803,8 @@ extension ChatViewController
             let sender = (i%2 == 0) ? "Server" : self.senderId
             let messageContent = "Message nr. \(i)"
             let message = JSQMessage(senderId: sender, displayName: sender, text: messageContent)
-            self.messages += [message]
+           self.messages .append(message!)
+            //self.messages += [message]
         }
         self.reloadMessagesView()
     }
@@ -805,7 +812,7 @@ extension ChatViewController
     
     func setup() {
         //self.senderId = UIDevice.currentDevice().identifierForVendor?.UUIDString
-        self.senderDisplayName = UIDevice.currentDevice().identifierForVendor?.UUIDString
+        self.senderDisplayName = UIDevice.current.identifierForVendor?.uuidString
     }
 }
 
@@ -818,7 +825,7 @@ extension ChatViewController
 //MARK - Data Source
 extension ChatViewController {
     
-    override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
        // //print(collectionView)
         
        
@@ -828,12 +835,14 @@ extension ChatViewController {
         
     }
     
+    override func collectionView(_ collectionView: JSQMessagesCollectionView!, messageDataForItemAt indexPath: IndexPath!) -> JSQMessageData!
+    {
     
-    override func collectionView(collectionView: JSQMessagesCollectionView!, messageDataForItemAtIndexPath indexPath: NSIndexPath!) -> JSQMessageData! {
+    //override func collectionView(_ collectionView: JSQMessagesCollectionView!, messageDataForItemAtIndexPath indexPath: NSIndexPath!) -> JSQMessageData! {
         
 
         let message = self.messages[indexPath.item]
-        let result = convertStringToDictionary(message.text)!
+        let result = convertStringToDictionary(text: message.text)!
         
         //// get the string and convert it into json and get the values what you need
         
@@ -842,8 +851,8 @@ extension ChatViewController {
         if result["msgType"] as! NSNumber == 1 {
          
             
-            let JSQTypeMessage = JSQMessage(senderId: message.senderId, senderDisplayName: "", date: NSDate(), text: result["msg"]as! String)
-            //print(JSQTypeMessage)
+            let JSQTypeMessage = JSQMessage(senderId: message.senderId, senderDisplayName: "", date: NSDate() as Date!, text: result["msg"]as! String)
+            print(JSQTypeMessage)
             
             return JSQTypeMessage
             
@@ -859,27 +868,15 @@ extension ChatViewController {
             let tempImageView = UIImageView(image: nil)
          
             
-            let block: SDWebImageCompletionBlock! = {(image: UIImage!, error: NSError!, cacheType: SDImageCacheType!, imageURL: NSURL!) -> Void in
-               
-               
-                
-               // var indx = indexPath.row
-              //  print(indexPath.section)
-                //if indx <= self.messages.count && indx > 0 {
-                    
-                    //let indxpath: NSIndexPath = NSIndexPath( forRow: Int(indx-1) , inSection:  0)
-                    
-                   // self.collectionView.reloadItemsAtIndexPaths([indxpath])
-                    
-               // }
-                
-                
-                
-                
-            }
+//            let block: SDWebImageCompletionBlock! = {(image: UIImage!, error: NSError!, cacheType: SDImageCacheType!, imageURL: NSURL!) -> Void in
+//               
+//               
+//             
+//                
+//            }
             
             //completion block of the sdwebimageview
-            tempImageView.sd_setImageWithURL(stringUrl, placeholderImage: nil, completed: block)
+            tempImageView.sd_setImage(with: stringUrl as URL!, placeholderImage: nil) //sd_setImageWithURL(stringUrl, placeholderImage: nil, completed: block)
             
             
             let photoImage = JSQPhotoMediaItem(image: tempImageView.image)
@@ -888,7 +885,7 @@ extension ChatViewController {
             
             // This makes it so the bubble can be incoming rather than just all outgoing.
             if !(message.senderId == self.senderId) {
-                photoImage.appliesMediaViewMaskAsOutgoing = false
+                photoImage?.appliesMediaViewMaskAsOutgoing = false
             }
             
             let message = JSQMessage(senderId: message.senderId, displayName: self.senderDisplayName, media: photoImage)
@@ -909,11 +906,15 @@ extension ChatViewController {
     }
     
     
-    override func collectionView(collectionView: JSQMessagesCollectionView!, didDeleteMessageAtIndexPath indexPath: NSIndexPath!) {
-        self.messages.removeAtIndex(indexPath.row)
-    }
     
-    override func collectionView(collectionView: JSQMessagesCollectionView!, messageBubbleImageDataForItemAtIndexPath indexPath: NSIndexPath!) -> JSQMessageBubbleImageDataSource! {
+//    override func collectionView(collectionView: JSQMessagesCollectionView!, didDeleteMessageAtIndexPath indexPath: NSIndexPath!) {
+//        self.messages.removeAtIndex(indexPath.row)
+//    }
+    
+    override func collectionView(_ collectionView: JSQMessagesCollectionView!, messageBubbleImageDataForItemAt indexPath: IndexPath!) -> JSQMessageBubbleImageDataSource!
+    {
+    
+//    override func collectionView(collectionView: JSQMessagesCollectionView!, messageBubbleImageDataForItemAtIndexPath indexPath: NSIndexPath!) -> JSQMessageBubbleImageDataSource! {
         let data = messages[indexPath.row]
         switch(data.senderId) {
         case self.senderId:
@@ -931,9 +932,11 @@ extension ChatViewController {
         
   //MARK: Users profile pictures
     
-
-    override func collectionView(collectionView: JSQMessagesCollectionView!, avatarImageDataForItemAtIndexPath indexPath: NSIndexPath!) -> JSQMessageAvatarImageDataSource!
+    override func collectionView(_ collectionView: JSQMessagesCollectionView!, avatarImageDataForItemAt indexPath: IndexPath!) -> JSQMessageAvatarImageDataSource!
     {
+        
+    //override func collectionView(collectionView: JSQMessagesCollectionView!, avatarImageDataForItemAtIndexPath indexPath: NSIndexPath!) -> JSQMessageAvatarImageDataSource!
+
         let message = messages[indexPath.row]
         
         
@@ -961,9 +964,11 @@ extension ChatViewController {
     
     
     
-    
-    override func collectionView(collectionView: JSQMessagesCollectionView, didTapMessageBubbleAtIndexPath indexPath: NSIndexPath) {
-         IQKeyboardManager.sharedManager().resignFirstResponder()
+    override func collectionView(_ collectionView: JSQMessagesCollectionView!, didTapMessageBubbleAt indexPath: IndexPath!)
+    {
+    //override func collectionView(collectionView: JSQMessagesCollectionView, didTapMessageBubbleAtIndexPath indexPath: NSIndexPath) {
+      
+        IQKeyboardManager.shared().resignFirstResponder()
         
         self.bottomSpaceOfZoomView.constant = 0//self.view.frame.size.height
         //print("Bottdcfhsvhjacgc--\(bottomSpaceOfZoomView.constant)")
@@ -974,7 +979,8 @@ extension ChatViewController {
         
         
         
-        let result = convertStringToDictionary(message.text)!
+        let result = convertStringToDictionary(text: message.text)!
+        // convertStringToDictionary(message.text)!
         
         print(result)
         
@@ -996,7 +1002,7 @@ extension ChatViewController {
             largeUrl = result["largeUrl"] as! String
             
             
-             self .openImageZoom(stringUrl, large: largeUrl)
+             self .openImageZoom(thumbnail: stringUrl as NSString, large: largeUrl as NSString)
             
             
         }
@@ -1027,10 +1033,12 @@ extension ChatViewController {
 extension ChatViewController
 {
     
-    
-    override func didPressSendButton(button: UIButton!, withMessageText text: String!, senderId: String!, senderDisplayName: String!, date: NSDate!) {
+    override func didPressSend(_ button: UIButton!, withMessageText text: String!, senderId: String!, senderDisplayName: String!, date: Date!) {
         
-         zoomImageScrollView.hidden=true //Hide the zoom view
+    
+    //override func didPressSendButton(button: UIButton!, withMessageText text: String!, senderId: String!, senderDisplayName: String!, date: NSDate!) {
+        
+         zoomImageScrollView.isHidden=true //Hide the zoom view
         
        
         if thumbUrl == "" || largeUrl == "" {
@@ -1045,7 +1053,7 @@ extension ChatViewController
            
             
             
-            let length: NSString = text
+            let length: NSString = text as NSString
             if length.length > 40 {
                 first20 = "\(first20)..."
             }
@@ -1061,9 +1069,9 @@ extension ChatViewController
             tempDict .setValue(self.senderId, forKey: "sender")
             print(tempDict)
             
-            let jsonData = try! NSJSONSerialization.dataWithJSONObject(tempDict, options: NSJSONWritingOptions.PrettyPrinted)
+            let jsonData = try!  JSONSerialization.data(withJSONObject: tempDict, options: [])
             
-            let jsonString = NSString(data: jsonData, encoding: NSUTF8StringEncoding)! as String
+            let jsonString = NSString(data: jsonData, encoding: String.Encoding.utf8.rawValue)! as String
             
             print(jsonString)
             
@@ -1074,7 +1082,8 @@ extension ChatViewController
             
              let message = JSQMessage(senderId: self.senderId, senderDisplayName: senderDisplayName, date: date, text: jsonString)
             
-            self.messages += [message]
+            self.messages .append(message!)
+            //self.messages += [message]
             
 
                        
@@ -1145,7 +1154,7 @@ extension ChatViewController
                 
                 
                 
-                let length: NSString = text
+                let length: NSString = text as NSString
                 if length.length > 40 {
                     first20 = "\(first20)..."
                 }
@@ -1161,9 +1170,9 @@ extension ChatViewController
                 tempDict .setValue(self.senderId, forKey: "sender")
                 print(tempDict)
                 
-                let jsonData = try! NSJSONSerialization.dataWithJSONObject(tempDict, options: NSJSONWritingOptions.PrettyPrinted)
+                let jsonData = try!  JSONSerialization.data(withJSONObject: tempDict, options: [])
                 
-                let jsonString = NSString(data: jsonData, encoding: NSUTF8StringEncoding)! as String
+                let jsonString = NSString(data: jsonData, encoding: String.Encoding.utf8.rawValue)! as String
                 
                 print(jsonString)
                 
@@ -1174,7 +1183,8 @@ extension ChatViewController
                 
                 let message = JSQMessage(senderId: self.senderId, senderDisplayName: senderDisplayName, date: date, text: jsonString)
                 
-                self.messages += [message]
+               self.messages .append(message!)
+                //self.messages += [message]
                 
                 
                 
@@ -1222,11 +1232,13 @@ extension ChatViewController
             
     }
     
+    override func textViewDidBeginEditing(_ textView: UITextView) {
+        
     
-    override func textViewDidBeginEditing(textView: UITextView) {
+    //override func textViewDidBeginEditing(textView: UITextView) {
        
         if thumbUrl == "" || largeUrl == "" {
-            self.zoomImageScrollView.hidden = true
+            self.zoomImageScrollView.isHidden = true
            self.heightOfImagesView.constant=0
             
             if (textView != self.inputToolbar.contentView.textView) {
@@ -1235,7 +1247,7 @@ extension ChatViewController
 
             textView .becomeFirstResponder()
             if (self.automaticallyScrollsToMostRecentMessage) {
-                self.scrollToBottomAnimated(false)
+                self.scrollToBottom(animated: false)
             }
             
         }
@@ -1250,7 +1262,7 @@ extension ChatViewController
           
             
             
-            self.zoomImageScrollView.hidden = false
+            self.zoomImageScrollView.isHidden = false
             self.heightOfImagesView.constant=0
            
             self.view .layoutIfNeeded()
@@ -1258,8 +1270,10 @@ extension ChatViewController
         
         
     }
+    override func textViewDidEndEditing(_ textView: UITextView)
+    {
     
-    override func textViewDidEndEditing(textView: UITextView) {
+    //override func textViewDidEndEditing(textView: UITextView) {
         
         if (textView != self.inputToolbar.contentView.textView) {
             return;
@@ -1267,12 +1281,12 @@ extension ChatViewController
         
         thumbUrl = ""
         largeUrl = ""
-        inputToolbar.contentView.rightBarButtonItem.enabled = false
+        inputToolbar.contentView.rightBarButtonItem.isEnabled = false
         inputToolbar.contentView.textView.text = nil
         
         self.heightOfImagesView.constant = 0
         textView .resignFirstResponder()
-         zoomImageScrollView.hidden = true
+         zoomImageScrollView.isHidden = true
         
         self.jsq_setToolbarBottomLayoutGuideConstant(0)
         
@@ -1280,8 +1294,8 @@ extension ChatViewController
     
     
     
-    
-    override func didPressAccessoryButton(sender: UIButton!) {
+
+    override func didPressAccessoryButton(_ sender: UIButton!) {
         
         // SocketIOManager.sharedInstance.reconnect()
         
@@ -1293,8 +1307,8 @@ extension ChatViewController
             self.messagesViewBottomSpace.constant = 0
             inputToolbar.contentView.textView.becomeFirstResponder()
              selectedTag = 91190
-            zoomImageScrollView.hidden=true
-            inputToolbar.contentView.rightBarButtonItem.enabled = false
+            zoomImageScrollView.isHidden=true
+            inputToolbar.contentView.rightBarButtonItem.isEnabled = false
             inputToolbar.contentView.textView.text = nil
         }
         
@@ -1302,10 +1316,10 @@ extension ChatViewController
         else
         {
             
-        self.openImages(self)
-            self.scrollToBottomAnimated(true)
-            zoomImageScrollView.hidden = true
-            inputToolbar.contentView.rightBarButtonItem.enabled = false
+        self.openImages(sender: self)
+            self.scrollToBottom(animated: true)
+            zoomImageScrollView.isHidden = true
+            inputToolbar.contentView.rightBarButtonItem.isEnabled = false
             inputToolbar.contentView.textView.text = nil
         }
 
@@ -1322,9 +1336,9 @@ extension ChatViewController
     //MARK: Function to get the dictionary from the response
     //MARK:
     func convertStringToDictionary(text: String) -> [String:AnyObject]? {
-        if let data = text.dataUsingEncoding(NSUTF8StringEncoding) {
+        if let data = text.data(using: String.Encoding.utf8) {
             do {
-                return try NSJSONSerialization.JSONObjectWithData(data, options: []) as? [String:AnyObject]
+                return try JSONSerialization.jsonObject(with: data, options: []) as? [String:AnyObject]
             } catch let error as NSError {
                 //print(error)
             }
@@ -1348,12 +1362,16 @@ extension ChatViewController
 
 extension ChatViewController {
    
-    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    override func numberOfSections(in tableView: UITableView) -> Int
+    {
+    //override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
        // //print("Returning num sections")
         return 1
     }
     
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int
+    {
+    //override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         ////print("Returning num rows")
         
         self.view .layoutIfNeeded()
@@ -1371,17 +1389,20 @@ extension ChatViewController {
         
     }
     
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell
+    {
+    //override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         //print("Trying to return cell")
+     
         let CellIdentifier = "CellImagesMessages"
         
         var cell:UITableViewCell
         
-        if let reuseCell = tableView.dequeueReusableCellWithIdentifier(CellIdentifier) {
+        if let reuseCell = tableView.dequeueReusableCell(withIdentifier: CellIdentifier) {
             cell=reuseCell
         } else {
             cell=UITableViewCell()
-            cell.frame=CGRectMake(0, 0, tableView.frame.size.width, 110)
+            cell.frame=CGRect(x: 0, y: 0, width: tableView.frame.size.width, height: 110)
             //(style: .Default, reuseIdentifier: CellIdentifier)
         }
        
@@ -1395,7 +1416,7 @@ extension ChatViewController {
         
         for i in count..<CountTableArray.count {
           // //print(i)
-            arr .addObject(["Images":CountTableArray .objectAtIndex(i), "Tag":i])
+            arr .add(["Images":CountTableArray .object(at: i), "Tag":i])
             if arr.count==3 {
                 break
             }
@@ -1427,38 +1448,40 @@ extension ChatViewController {
             
             
             
-            let imageName2 = arr.objectAtIndex(j).valueForKey("Images")!.valueForKey("Thumbnail") as? String ?? ""
+            let imageName2 = ((arr.object(at: j) as AnyObject).value(forKey: "Images") as AnyObject).value(forKey: "Thumbnail") as? String ?? ""
+            //((arr.objectAtIndex(j) as AnyObject).valueForKey("Images")! as AnyObject).valueForKey("Thumbnail") as? String ?? ""
             ////print(imageName2)
             
             let url2 = NSURL(string: imageName2 )
-            let pImage : UIImage = UIImage(named:"backgroundImage")!
+            let pImage : UIImage = UIImage(named:"dummyBackground2")!
             
             
             
             if j == 0 {
-                newBtn1.frame = CGRectMake(buttonSpace, 0, buttonWidth, 95)
-                newBtn1.addTarget(self, action: #selector(ChatViewController.buttonAction(_:)), forControlEvents: .TouchUpInside)
+                newBtn1.frame = CGRect(x: buttonSpace, y:0, width: buttonWidth, height: 95)//CGRectMake(buttonSpace, 0, buttonWidth, 95)
+                newBtn1 .addTarget(self, action: #selector(ChatViewController.buttonAction(sender:)), for: .touchUpInside)
                 cell.contentView .addSubview(newBtn1)
-                newBtn1.imageView!.contentMode = .ScaleAspectFill
+                newBtn1.imageView!.contentMode = .scaleAspectFill
                 newBtn1.clipsToBounds=true
-                newBtn1.tag = arr.objectAtIndex(j).valueForKey("Tag") as! Int
+                newBtn1.tag = (arr.object(at: j) as AnyObject).value(forKey: "Tag") as! Int
                 
                 indicator1.center = newBtn1.center
                 newBtn1 .addSubview(indicator1)
                 indicator1 .startAnimating()
-                indicator1.activityIndicatorViewStyle = .Gray
+                indicator1.activityIndicatorViewStyle = .gray
+                indicator1 .removeFromSuperview()
                 
-                let block: SDWebImageCompletionBlock! = {(image: UIImage!, error: NSError!, cacheType: SDImageCacheType!, imageURL: NSURL!) -> Void in
-                    
-                    indicator1 .removeFromSuperview()
-                }
+//                let block: SDWebImageCompletionBlock! = {(image: UIImage!, error: NSError!, cacheType: SDImageCacheType!, imageURL: NSURL!) -> Void in
+//                    
+//                    indicator1 .removeFromSuperview()
+//                }
                 
-                newBtn1.sd_setImageWithURL(url2, forState: .Normal, placeholderImage: pImage, completed: block)
+                newBtn1.imageView?.sd_setImage(with: url2 as URL!, placeholderImage: pImage) //sd_setImageWithURL(url2, forState: .Normal, placeholderImage: pImage, completed: block)
                 
                 if newBtn1.tag == selectedTag {
                     
                     newBtn1.layer.borderWidth=3.5
-                    newBtn1.layer.borderColor = UIColor .greenColor().CGColor
+                    newBtn1.layer.borderColor = UIColor .green.cgColor
                     
                 }
                 
@@ -1468,30 +1491,30 @@ extension ChatViewController {
             }
             else if (j == 1)
             {
-                newBtn2.frame = CGRectMake(newBtn1.frame.origin.x + buttonWidth + buttonSpace , 0, buttonWidth, 95)
-               newBtn2.addTarget(self, action: #selector(ChatViewController.buttonAction(_:)), forControlEvents: .TouchUpInside)
+                newBtn2.frame = CGRect(x: newBtn1.frame.origin.x + buttonWidth + buttonSpace, y: 0, width: buttonWidth, height: 95)//CGRectMake(newBtn1.frame.origin.x + buttonWidth + buttonSpace , 0, buttonWidth, 95)
+               newBtn2 .addTarget(self, action: #selector(ChatViewController.buttonAction(sender:)), for: .touchUpInside)
                 cell.contentView .addSubview(newBtn2)
-                newBtn2.imageView!.contentMode = .ScaleAspectFill
+                newBtn2.imageView!.contentMode = .scaleAspectFill
                 newBtn2.clipsToBounds=true
-                newBtn2.tag = arr.objectAtIndex(j).valueForKey("Tag") as! Int
+                newBtn2.tag = (arr.object(at: j) as AnyObject).value(forKey: "Tag") as! Int
                 
                 indicator1.center = newBtn2.center
                 newBtn2 .addSubview(indicator1)
                 indicator1 .startAnimating()
-                indicator1.activityIndicatorViewStyle = .Gray
+                indicator1.activityIndicatorViewStyle = .gray
+                indicator1 .removeFromSuperview()
                 
+//                let block: SDWebImageCompletionBlock! = {(image: UIImage!, error: NSError!, cacheType: SDImageCacheType!, imageURL: NSURL!) -> Void in
+//                    indicator1 .removeFromSuperview()
+//                }
                 
-                let block: SDWebImageCompletionBlock! = {(image: UIImage!, error: NSError!, cacheType: SDImageCacheType!, imageURL: NSURL!) -> Void in
-                    indicator1 .removeFromSuperview()
-                }
-                
-                newBtn2.sd_setImageWithURL(url2, forState: .Normal, placeholderImage: pImage, completed: block)
+                newBtn2.imageView?.sd_setImage(with: url2 as URL!, placeholderImage: pImage) //sd_setImageWithURL(url2, forState: .Normal, placeholderImage: pImage, completed: block)
                 
                 
                 if newBtn2.tag == selectedTag {
                     
                     newBtn2.layer.borderWidth=3.5
-                    newBtn2.layer.borderColor = UIColor .greenColor().CGColor
+                    newBtn2.layer.borderColor = UIColor .green.cgColor
                     
                 }
                 
@@ -1500,31 +1523,32 @@ extension ChatViewController {
                 
             else
             {
-                newBtn3.frame = CGRectMake(newBtn2.frame.origin.x + buttonWidth + buttonSpace , 0, buttonWidth, 95)
+                newBtn3.frame = CGRect(x: newBtn2.frame.origin.x + buttonWidth + buttonSpace, y: 0, width: buttonWidth, height: 95)
+                //CGRectMake(newBtn2.frame.origin.x + buttonWidth + buttonSpace , 0, buttonWidth, 95)
                 // newBtn.addTarget(self, action: #selector(self.urSelctor), forControlEvents: .TouchUpInside)
-               newBtn3.addTarget(self, action: #selector(ChatViewController.buttonAction(_:)), forControlEvents: .TouchUpInside)
+                newBtn3 .addTarget(self, action: #selector(ChatViewController.buttonAction(sender:)), for: .touchUpInside)
         
                 cell.contentView .addSubview(newBtn3)
                
-                newBtn3.tag = arr.objectAtIndex(j).valueForKey("Tag") as! Int
+                newBtn3.tag = (arr.object(at: j) as AnyObject).value(forKey: "Tag") as! Int
                 
                 indicator1.center = newBtn3.center
-                newBtn3.imageView!.contentMode = .ScaleAspectFill
+                newBtn3.imageView!.contentMode = .scaleAspectFill
                 newBtn3.clipsToBounds=true
                 newBtn3 .addSubview(indicator1)
                 indicator1 .startAnimating()
-                indicator1.activityIndicatorViewStyle = .Gray
+                indicator1.activityIndicatorViewStyle = .gray
+                indicator1 .removeFromSuperview()
+//                let block: SDWebImageCompletionBlock! = {(image: UIImage!, error: NSError!, cacheType: SDImageCacheType!, imageURL: NSURL!) -> Void in
+//                    indicator1 .removeFromSuperview()
+//                }
                 
-                let block: SDWebImageCompletionBlock! = {(image: UIImage!, error: NSError!, cacheType: SDImageCacheType!, imageURL: NSURL!) -> Void in
-                    indicator1 .removeFromSuperview()
-                }
-                
-                newBtn3.sd_setImageWithURL(url2, forState: .Normal, placeholderImage: pImage, completed: block)
+                newBtn3.imageView?.sd_setImage(with: url2 as URL!, placeholderImage: pImage) //sd_setImageWithURL(url2, forState: .Normal, placeholderImage: pImage, completed: block)
                 
                 if newBtn3.tag == selectedTag {
                     
                     newBtn3.layer.borderWidth=3.5
-                    newBtn3.layer.borderColor = UIColor .greenColor().CGColor
+                    newBtn3.layer.borderColor = UIColor .green.cgColor
                     
                 }
             }
@@ -1567,7 +1591,7 @@ extension ChatViewController {
     
     
     
-    func buttonAction(sender: UIButton!) {
+    func buttonAction(sender: Any) {
         //print("Button tapped")
         //print(sender.tag)
         
@@ -1575,54 +1599,56 @@ extension ChatViewController {
         bottomSpaceOfZoomView.constant = self.view.frame.size.height - inputToolbar.frame.origin.y
         //print(bottomSpaceOfZoomView.constant)
         
-        zoomImageScrollView.hidden=false
-self.view .bringSubviewToFront(zoomImageScrollView)
+        zoomImageScrollView.isHidden=false
+        self.view .bringSubview(toFront: zoomImageScrollView)
         
-        zoomIndicator.hidden=false
+        zoomIndicator.isHidden=false
         zoomIndicator.startAnimating()
         
         zoomImageScrollView.minimumZoomScale = 1.0
         zoomImageScrollView.maximumZoomScale = 5.0
         zoomImageScrollView.zoomScale = 1.0
-        zoomImageScrollView .contentSize = CGSizeMake(zoomImageView.frame.size.width, zoomImageView.frame.size.height)
+        zoomImageScrollView .contentSize = zoomImageView.frame.size //CGSizeMake(zoomImageView.frame.size.width, zoomImageView.frame.size.height)
         
         
         
         //print(CountTableArray.objectAtIndex(sender.tag))
         
         
-        let imageLarge = CountTableArray.objectAtIndex(sender.tag).valueForKey("Large") as? String ?? ""
-        let imageThumbnail = CountTableArray.objectAtIndex(sender.tag).valueForKey("Thumbnail") as? String ?? ""
+        let imageLarge = (CountTableArray.object(at: (sender as AnyObject).tag) as AnyObject).value(forKey: "Large") as? String ?? ""
+        let imageThumbnail = (CountTableArray.object(at: (sender as AnyObject).tag) as AnyObject).value(forKey: "Thumbnail") as? String ?? ""
         
-        largeUrl = imageLarge
-        thumbUrl = imageThumbnail
+        largeUrl = imageLarge as NSString
+        thumbUrl = imageThumbnail as NSString
         
         
         let urlLarge = NSURL(string: imageLarge )
          let urlThumb = NSURL(string: imageThumbnail )
         
-        let pImage : UIImage = UIImage(named:"backgroundImage")!
-        zoomImageView.sd_setImageWithURL(urlThumb, placeholderImage: pImage)
+        let pImage : UIImage = UIImage(named:"dummyBackground2")!
+        zoomImageView.sd_setImage(with: urlThumb as! URL, placeholderImage: pImage)
+        //d_setImageWithURL(urlThumb, placeholderImage: pImage)
         
-        selectedTag = sender.tag //assign the value into varibble so that sjhow the green border in tableview
+        selectedTag = (sender as AnyObject).tag //assign the value into varibble so that sjhow the green border in tableview
         
-        ImagesTableView .reloadData()
+        imagesTableView .reloadData()
         
-        inputToolbar.contentView.rightBarButtonItem.enabled = true
-        
-        
-        
+        inputToolbar.contentView.rightBarButtonItem.isEnabled = true
         
         
         
-        let block: SDWebImageCompletionBlock! = {(image: UIImage!, error: NSError!, cacheType: SDImageCacheType!, imageURL: NSURL!) -> Void in
         
         self.zoomIndicator.stopAnimating()
-            self.zoomIndicator.hidden=true
+        self.zoomIndicator.isHidden=true
         
-        }
+//        let block: SDWebImageCompletionBlock! = {(image: UIImage!, error: NSError!, cacheType: SDImageCacheType!, imageURL: NSURL!) -> Void in
+//        
+//        self.zoomIndicator.stopAnimating()
+//            self.zoomIndicator.isHidden=true
+//        
+//        }
         
-        zoomImageView.sd_setImageWithURL(urlLarge, placeholderImage: zoomImageView.image, completed: block)
+        zoomImageView.sd_setImage(with: urlLarge as! URL, placeholderImage: zoomImageView.image) //sd_setImageWithURL(urlLarge, placeholderImage: zoomImageView.image, completed: block)
         
        
         
@@ -1662,8 +1688,8 @@ self.view .bringSubviewToFront(zoomImageScrollView)
         
        
         ///display
-        let jsonData2 = try! NSJSONSerialization.dataWithJSONObject(tempDict2, options: NSJSONWritingOptions.PrettyPrinted)
-        let jsonString2 = NSString(data: jsonData2, encoding: NSUTF8StringEncoding)! as String
+        let jsonData2 = try!  JSONSerialization.data(withJSONObject: tempDict2, options: [])
+        let jsonString2 = NSString(data: jsonData2, encoding: String.Encoding.utf8.rawValue)! as String
         
         
         
@@ -1672,9 +1698,9 @@ self.view .bringSubviewToFront(zoomImageScrollView)
         
        
         
-        let photoMessage = JSQMessage(senderId: self.senderId, senderDisplayName: "1", date: NSDate(), text: jsonString2 as String) //JSQMessage(senderId: self.senderId, displayName: thumbUrl as String, media: photoItem)
+        let photoMessage = JSQMessage(senderId: self.senderId, senderDisplayName: "1", date: NSDate() as Date!, text: jsonString2 as String) //JSQMessage(senderId: self.senderId, displayName: thumbUrl as String, media: photoItem)
         
-        self.messages.append(photoMessage)
+        self.messages.append(photoMessage!)
        
 //        SocketIOManager.sharedInstance.sendMessage(jsonString as String, withNickname: self.senderId, receiverId: receiver_Id as String, locType: locationType as String, msgType: "2", locName: locationName as String, receiverName: receiverName as String, receiverProfile: receiverProfile as String, senderName: myName as String, senderDp: myProfilePic as String)
        
@@ -1706,8 +1732,8 @@ self.view .bringSubviewToFront(zoomImageScrollView)
        
         self.reloadMessagesView()
          selectedTag = 91190
-        ImagesTableView .reloadData()
-        inputToolbar.contentView.rightBarButtonItem.enabled = false
+        imagesTableView .reloadData()
+        inputToolbar.contentView.rightBarButtonItem.isEnabled = false
     }
     
  
@@ -1744,9 +1770,9 @@ self.view .bringSubviewToFront(zoomImageScrollView)
      
      
      
-     
-     override func viewForZoomingInScrollView(scrollView: UIScrollView) -> UIView?
-     {
+    override func viewForZooming(in scrollView: UIScrollView) -> UIView?
+    {
+    // override func viewForZoomingInScrollView(scrollView: UIScrollView) -> UIView?
         
      if scrollView==zoomImageScrollView
      {
@@ -1766,16 +1792,16 @@ self.view .bringSubviewToFront(zoomImageScrollView)
     func openImageZoom(thumbnail: NSString, large: NSString) -> Void {
         
         //print(zoomImageScrollView)
-         zoomImageScrollView.hidden=false
-        self.view .bringSubviewToFront(zoomImageScrollView)
+         zoomImageScrollView.isHidden=false
+        self.view .bringSubview(toFront: zoomImageScrollView)
         
-         zoomIndicator.hidden=false
+         zoomIndicator.isHidden=false
          zoomIndicator.startAnimating()
         
           zoomImageScrollView.minimumZoomScale = 1.0
          zoomImageScrollView.maximumZoomScale = 5.0
          zoomImageScrollView.zoomScale = 1.0
-         zoomImageScrollView .contentSize = CGSizeMake(zoomImageView.frame.size.width, zoomImageView.frame.size.height)
+         zoomImageScrollView .contentSize = zoomImageView.frame.size//CGSizeMake(zoomImageView.frame.size.width, zoomImageView.frame.size.height)
         
         
         
@@ -1789,18 +1815,20 @@ self.view .bringSubviewToFront(zoomImageScrollView)
         let urlLarge = NSURL(string: imageLarge as String )
         let urlThumb = NSURL(string: imageThumbnail as String )
         
-        let pImage : UIImage = UIImage(named:"backgroundImage")!
-        zoomImageView.sd_setImageWithURL(urlThumb, placeholderImage: pImage)
+        let pImage : UIImage = UIImage(named:"dummyBackground2")!
+       // zoomImageView.sd_setImageWithURL(urlThumb, placeholderImage: pImage)
         
+        self.zoomIndicator.stopAnimating()
+        self.zoomIndicator.isHidden=true
         
-         let block: SDWebImageCompletionBlock! = {(image: UIImage!, error: NSError!, cacheType: SDImageCacheType!, imageURL: NSURL!) -> Void in
+//         let block: SDWebImageCompletionBlock! = {(image: UIImage!, error: NSError!, cacheType: SDImageCacheType!, imageURL: NSURL!) -> Void in
+//        
+//         self.zoomIndicator.stopAnimating()
+//            self.zoomIndicator.isHidden=true
+//        
+//           }
         
-         self.zoomIndicator.stopAnimating()
-            self.zoomIndicator.hidden=true
-        
-           }
-        
-          zoomImageView.sd_setImageWithURL(urlLarge, placeholderImage: zoomImageView.image, completed: block)
+          zoomImageView.sd_setImage(with: urlLarge as! URL, placeholderImage: zoomImageView.image) //sd_setImageWithURL(urlLarge, placeholderImage: zoomImageView.image, completed: block)
         
         
         

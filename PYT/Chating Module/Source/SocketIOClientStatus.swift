@@ -24,21 +24,17 @@
 
 import Foundation
 
-@objc public enum SocketIOClientStatus: Int, CustomStringConvertible {
-    case NotConnected, Closed, Connecting, Connected, Reconnecting
+/// Represents the state of the client.
+@objc public enum SocketIOClientStatus : Int {
+    /// The client has never been connected. Or the client has been reset.
+    case notConnected
 
-    public var description: String {
-        switch self {
-        case NotConnected:
-            return "Not Connected"
-        case Closed:
-            return "Closed"
-        case Connecting:
-            return "Connecting"
-        case Connected:
-            return "Connected"
-        case Reconnecting:
-            return "Reconnecting"
-        }
-    }
+    /// The client was once connected, but not anymore.
+    case disconnected
+
+    /// The client is in the process of connecting.
+    case connecting
+
+    /// The client is currently connected.
+    case connected
 }

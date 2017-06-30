@@ -10,6 +10,8 @@ import UIKit
 
 class MainTabBarViewController: UITabBarController {
 
+       var againTap = Bool()
+    var againTapPost = Bool()
     
     override func viewWillAppear(_ animated: Bool) {
 
@@ -24,6 +26,68 @@ class MainTabBarViewController: UITabBarController {
         
                // Do any additional setup after loading the view.
     }
+    
+    
+    
+    
+    override func tabBar(_ tabBar: UITabBar, didSelect item: UITabBarItem) {
+        
+        print("the selected index is : \(tabBar.items?.index(of: item))")
+        
+        let tabBarIndex = tabBar.items?.index(of: item)
+        
+        
+        
+        if tabBarIndex == 0 {
+            
+            againTapPost = false
+            if againTap == false {
+                againTap = true
+            }
+            else
+            {
+                
+                againTap = true
+                
+                
+                NotificationCenter.default.post(name: Notification.Name(rawValue: "refreshToTop"), object: nil)
+                
+              
+            }
+            
+            
+        }
+        else if tabBarIndex == 2{
+            
+            againTap = false
+            if againTapPost == false {
+                againTapPost = true
+            }
+            else
+            {
+            againTapPost = true
+               NotificationCenter.default.post(name: Notification.Name(rawValue: "uploadingStart"), object: nil)
+                
+            }
+            
+            
+            
+        }
+        else
+        {
+            againTap = false
+            againTapPost = false
+        }
+        
+    }
+    
+    
+    
+    
+    
+    
+    
+    
     
     func tabBarController(_ aTabBar: UITabBarController, shouldSelectViewController viewController: UIViewController) -> Bool {
 //        if !self.hasValidLogin() && (viewController != aTabBar.viewControllers[0]) {
@@ -87,6 +151,12 @@ extension UITabBarController {
             self.view.layoutIfNeeded()
         }
     }
+    
+    
+    
+    
+    
+    
     
     func tabBarIsVisible() ->Bool {
         return self.tabBar.frame.origin.y < self.view.frame.maxY

@@ -13,32 +13,26 @@ import HMSegmentedControl
 class ChatingListViewController: UIViewController {
 
     @IBOutlet weak var chatingListTable: UITableView!
-    
-    @IBOutlet weak var segMentControllView: HMSegmentedControl!
-    
     @IBOutlet weak var chatingIndicator: UIActivityIndicatorView!
     
     
-    var segmentArray = NSMutableArray()
-    var segmentName = NSMutableArray()
-    var usersChat = NSMutableArray()
     
     var chatLocation = NSString()
     var chatLocationType = NSString()
     var refreshControl = UIRefreshControl()
-    
+    var chattingListArray = NSMutableArray()
+    var olderArr = NSMutableArray()
     
     override func viewWillAppear(_ animated: Bool) {
         chatingIndicator.isHidden = false
         chatingIndicator.startAnimating()
-        chatingListTable.userInteractionEnabled=false
+        chatingListTable.isUserInteractionEnabled=false
         
-        let defaults = NSUserDefaults.standardUserDefaults()
-        let uId = defaults .stringForKey("userLoginId")
+            let uId = Udefaults .string(forKey: "userLoginId")
         
         let prmDict: NSDictionary = ["userId": uId!]
         
-        self.postRequestGetMessages(prmDict, viewController: self)
+        self.postRequestGetMessages(parameterString: prmDict, viewController: self)
         
         
         
@@ -47,10 +41,10 @@ class ChatingListViewController: UIViewController {
         //MANAGE DEVICETOKEN
         
         
-        let tokendevice = defaults.stringForKey("deviceToken")!
+        let tokendevice = Udefaults.string(forKey: "deviceToken")!
         print(tokendevice)
         
-        if defaults.boolForKey("savedDeviceToken") == true {
+        if Udefaults.bool(forKey: "savedDeviceToken") == true {
             
         }
             
@@ -64,16 +58,14 @@ class ChatingListViewController: UIViewController {
             {
                 let parameterDict: NSDictionary = ["userId": uId!, "deviceToken": ["token": tokendevice, "device": "iphone"]]
                 
-                let objforDeviceToken = firstMainScreenViewController()// self.postApiFordeviceToken(parameterDict)
-                objforDeviceToken.postApiFordeviceToken(parameterDict)
+                let objforDeviceToken = mainHomeViewController()// self.postApiFordeviceToken(parameterDict)
+                //objforDeviceToken.postApiFordeviceToken(parameterDict)
                 
             }
             
         }
         
-        
-        
-        
+        self.tabBarController?.setTabBarVisible(visible: true, animated: true)
         
     }
     
@@ -83,8 +75,6 @@ class ChatingListViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        segMentControllView.backgroundColor = UIColor .clearColor()
-        self.navigationController?.navigationBarHidden=true
         
         /////0------  Pull to refresh Control ------////////
         
@@ -95,7 +85,7 @@ class ChatingListViewController: UIViewController {
         
         
         
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(ChatingListViewController.refresh),name:"pushReload", object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(ChatingListViewController.refresh),name:NSNotification.Name(rawValue: "pushReload"), object: nil)
         
         
         // Do any additional setup after loading the view.
@@ -113,16 +103,15 @@ class ChatingListViewController: UIViewController {
         //self.viewWillAppear(false)
         
         // refreshControl.endRefreshing()
-        chatingIndicator.hidden=false
+        chatingIndicator.isHidden=false
         chatingIndicator.startAnimating()
-        chatingListTable.userInteractionEnabled=false
-        
-        let defaults = NSUserDefaults.standardUserDefaults()
-        let uId = defaults .stringForKey("userLoginId")
+        chatingListTable.isUserInteractionEnabled=false
+      
+        let uId = Udefaults .string(forKey: "userLoginId")
         
         let prmDict: NSDictionary = ["userId": uId!]
         
-        self.postRequestGetMessages(prmDict, viewController: self)
+        self.postRequestGetMessages(parameterString: prmDict, viewController: self)
     }
     
     
@@ -133,89 +122,10 @@ class ChatingListViewController: UIViewController {
     
     
     
-    func updateSegment() -> Void {
-        
-        
-        
-       
-        let viewWidth = CGRectGetWidth(self.view.frame)
-        
-        
-        print(segmentName.count)
-        print(segmentName)
-        
-        segMentControllView.sectionTitles = NSArray (array: segmentName) as [AnyObject]// segmentName as! [String]
-        segMentControllView.autoresizingMask = [.FlexibleRightMargin, .FlexibleWidth]
-        segMentControllView.frame = CGRectMake(0, 60, viewWidth, 37)
-        
-        segMentControllView.segmentEdgeInset = UIEdgeInsetsMake(0, 5, 0, 5)
-        
-        segMentControllView.selectionStyle = HMSegmentedControlSelectionStyle.FullWidthStripe
-        
-        
-        segMentControllView.selectionIndicatorLocation = HMSegmentedControlSelectionIndicatorLocation.Down
-        
-        
-        segMentControllView.selectionIndicatorColor = UIColor(red: 157/255, green: 194/255, blue: 134/255, alpha: 1.0)
-        segMentControllView.selectionIndicatorHeight=3.0
-        segMentControllView.verticalDividerEnabled = true
-        segMentControllView.verticalDividerColor = UIColor.clearColor()
-        segMentControllView.verticalDividerWidth = 0.8
-        segMentControllView.backgroundColor = UIColor .clearColor()
-        
-        //segMentControllView.selectedSegmentIndex=selectedindxSearch
-        let selectedAttributes: NSDictionary = [
-            NSForegroundColorAttributeName: UIColor.whiteColor(),
-            NSFontAttributeName: UIFont(name: "Roboto-Bold", size: 16)!
-        ]
-        
-        
-        let segAttributes: NSDictionary = [
-            NSForegroundColorAttributeName: UIColor.whiteColor(),
-            NSFontAttributeName: UIFont(name:"Roboto-Regular", size: 15.0)!
-        ]
-        
-        
-        segMentControllView .selectedTitleTextAttributes = selectedAttributes as [NSObject : AnyObject]
-        segMentControllView .titleTextAttributes = segAttributes as [NSObject : AnyObject]
-        
-        
-        segMentControllView.addTarget(self, action: #selector(self.segmentedControlChangedValue), forControlEvents: .ValueChanged)
-  
-        self.segMentControllView.setNeedsDisplay()
-        
-        if segMentControllView.selectedSegmentIndex==segmentArray.count {
-            segMentControllView.setSelectedSegmentIndex(0, animated: true)
-        }
-        
-        self.reloadTable()
-        
-        
-        
-    }
-    
-    
-     func segmentedControlChangedValue(segmentedControl: HMSegmentedControl) {
-     self .reloadTable()
-        
-    }
     
     func reloadTable() -> Void {
-        chatingListTable.userInteractionEnabled=true
-        usersChat = NSMutableArray()
-//        print(segmentArray.count)
-//        print(segMentControllView.selectedSegmentIndex)
-       
-      
-        
-        let tmpArr = segmentArray .objectAtIndex(segMentControllView.selectedSegmentIndex).valueForKey("conver") as! NSMutableArray
-        
-        usersChat = tmpArr
-        
-        print(usersChat.count)
-        print(usersChat)
-        
-        self.chatingListTable .reloadData()
+        chatingListTable.isUserInteractionEnabled=true
+        //self.chatingListTable .reloadData()
         
         
         
@@ -233,124 +143,99 @@ class ChatingListViewController: UIViewController {
     //MARk:-
     //MARK:- Data source and delegates of the tableView
     
-    func numberOfSectionsInTableView(tableView: UITableView) -> Int
+    func numberOfSectionsInTableView(_ tableView: UITableView) -> Int
     {
         return 1
         
     }
     
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int
     {
         
-        return usersChat.count
+        return chattingListArray.count
         
     }
     
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell
+    func tableView(_ tableView: UITableView, cellForRowAtIndexPath indexPath: IndexPath) -> UITableViewCell
     {
         
-        
-        let cell:chatingTableCell = tableView.dequeueReusableCellWithIdentifier("chatingListCell") as! chatingTableCell
-        
-        print(usersChat.objectAtIndex(indexPath.row))
+        let cell:chatingTableCell = tableView.dequeueReusableCell(withIdentifier: "chatingListLocations") as! chatingTableCell
         
         
-        let imageName2 = usersChat.objectAtIndex(indexPath.row).valueForKey("with")!.objectAtIndex(0).valueForKey("picture") as? String ?? ""
-        
-        let url2 = NSURL(string: imageName2)
-        let pImage : UIImage = UIImage(named:"backgroundImage")!
-        cell.profilePic.sd_setImageWithURL(url2, placeholderImage: pImage)
+        cell.locationPic.layer.cornerRadius = cell.locationPic.frame.size.width/2
+        cell.locationPic.clipsToBounds = true
+       cell.activeCounts.layer.cornerRadius = cell.activeCounts.frame.size.height/2
+        cell.activeCounts.clipsToBounds=true
         
         
         
+        let imageUrl = ""
+        
+        let locnameArr = (self.chattingListArray.object(at: indexPath.row) as AnyObject).value(forKey: "placeName") as! NSArray
+        var locationName = ""
+        if locnameArr.count>0{
+            locationName = locnameArr.object(at: 0) as? String ?? ""
+        }
+        cell.locationName.text = locationName
+        
+        let activeCounts = (self.chattingListArray.object(at: indexPath.row) as AnyObject).value(forKey: "conver") as! NSArray
+        cell.activeChatsLabel.text = "\(String(activeCounts.count)) active chats"
+
+        let usersNamesArr = NSMutableString()
+        for j in 0..<activeCounts.count {
+            
+            let nameStr = (((activeCounts.object(at: j) as AnyObject).value(forKey: "with") as! NSArray).object(at: 0) as AnyObject).value(forKey: "name") as? String ?? ""
+            if nameStr != "" {
+                if j==activeCounts.count-1 {
+                    usersNamesArr.append("\(nameStr)")
+                }
+                usersNamesArr .append("\(nameStr), ")
+            }
+        }
+        
+        cell.usersNameslabel.text = usersNamesArr as String
+        
+        //cell.activeCounts.text = "\(String(activeCounts.count)) active chats"
         
         
         
         
-        cell.profilePic.layer.cornerRadius=cell.profilePic.frame.size.width/2
-        cell.profilePic.clipsToBounds=true
+//        cell.layer.transform = CATransform3DMakeScale(0.1,0.1,1)
+//        UIView.animate(withDuration: 0.3, animations: {
+//            cell.layer.transform = CATransform3DMakeScale(1.05,1.05,1)
+//        },completion: { finished in
+//            UIView.animate(withDuration: 0.1, animations: {
+//                cell.layer.transform = CATransform3DMakeScale(1,1,1)
+//            })
+//        })
         
-        cell.msgSendReceive.layer.cornerRadius=cell.msgSendReceive.frame.size.width/2
-        cell.msgSendReceive.clipsToBounds=true
         
-        
-        
-        cell.userNameLabel.text = usersChat.objectAtIndex(indexPath.row).valueForKey("with")!.objectAtIndex(0).valueForKey("name") as? String ?? ""
-        
-        
-        let msgArr = usersChat.objectAtIndex(indexPath.row).valueForKey("message") as! NSMutableArray
-        
-        let lastMsg = msgArr.lastObject!.valueForKey("msg") as? String ?? ""
-        
-        var time = msgArr.lastObject!.valueForKey("timeStamp") as? String ?? ""
-        print(time)
         //formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSXXXXX"
         
         
-         var date = NSDate()
-         let formatter = NSDateFormatter()
-         formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZZZZZ"
-         formatter.timeZone = NSTimeZone(forSecondsFromGMT: 0)
-         formatter.locale = NSLocale(localeIdentifier: "en_US_POSIX")
-         print(formatter.dateFromString(time))
-        date = formatter.dateFromString(time)!
- 
-        
-        let calendar = NSCalendar.autoupdatingCurrentCalendar()
-        
-        //let someDate = dateFormatter.dateFromString(date2)
-        if calendar.isDateInYesterday(date) {
-            time = "Yesterday"
-        }else if(calendar.isDateInToday(date))
-        {
-            time = "Today"
-        }
-        else{
-            formatter.dateFormat = "MMM dd, YYYY"
-           time = formatter.stringFromDate(date)
-           
-        }
-        
-        
-        
-        
-        
-//        let components = calendar.components([.Day , .Month , .Year], fromDate: date)
+//         var date = NSDate()
+//         let formatter = NSDateFormatter()
+//         formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZZZZZ"
+//         formatter.timeZone = NSTimeZone(forSecondsFromGMT: 0)
+//         formatter.locale = NSLocale(localeIdentifier: "en_US_POSIX")
+//         print(formatter.dateFromString(time))
+//        date = formatter.dateFromString(time)!
+// 
 //        
-//        let year =  components.year
-//        let month = components.month
-//        let day = components.day
+//        let calendar = NSCalendar.autoupdatingCurrentCalendar()
 //        
-//        print(year)
-//        print(month)
-//        print(day)
-        
-//        let todayDate = NSDate()
-//        let yearCheck = calendar.component(.Year, fromDate: todayDate)
-//        
-//        if year != yearCheck {
-//            time = String(year)
+//        //let someDate = dateFormatter.dateFromString(date2)
+//        if calendar.isDateInYesterday(date) {
+//            time = "Yesterday"
+//        }else if(calendar.isDateInToday(date))
+//        {
+//            time = "Today"
 //        }
-        
-        
-        
-        cell.lastMsgTime.text = time
-        
-        let msgType = msgArr.lastObject!.valueForKey("msgType") as! NSNumber
-        
-        if msgType == 1 {
-            print("Text message")
-            
-             cell.messageLabel.text = lastMsg
-        }
-        else
-        {
-            print("Image message")
-            cell.messageLabel.text = "Image"
-        }
-        
-        
-        cell.msgSendReceive.hidden=true
+//        else{
+//            formatter.dateFormat = "MMM dd, YYYY"
+//           time = formatter.stringFromDate(date)
+//           
+//        }
         
         
         
@@ -366,38 +251,27 @@ class ChatingListViewController: UIViewController {
     
     func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
         
-            return true
+            return false//true
         
         
     }
     
     
-    func tableView(tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) -> [AnyObject]? {
+    func tableView(_ tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) -> [AnyObject]? {
         
-        let deleteAction = UITableViewRowAction(style: .Default, title: "Delete") {action in
+        let deleteAction = UITableViewRowAction(style: .default, title: "Delete") {action in
             
-           let username = self.usersChat.objectAtIndex(indexPath.row).valueForKey("with")!.objectAtIndex(0).valueForKey("name") as? String ?? "NA"
+           let LocName = ""
 
             
             
-            SweetAlert().showAlert("Confirm Delete?", subTitle: "All your messages with \(username) will be deleted. This action cannot be undone.", style: AlertStyle.CustomImag(imageFile: "alertDelete"), buttonTitle:"Okay", buttonColor: UIColor .clearColor() , otherButtonTitle:  "Cancel", otherButtonColor: UIColor .clearColor()) { (isOtherButton) -> Void in
+            SweetAlert().showAlert("Confirm Delete?", subTitle: "All your messages with \(LocName) will be deleted. This action cannot be undone.", style: AlertStyle.customImag(imageFile: "alertDelete"), buttonTitle:"Okay", buttonColor: UIColor .clear , otherButtonTitle:  "Cancel", otherButtonColor: UIColor .clear) { (isOtherButton) -> Void in
                 if isOtherButton == true {
                     
                     
+                    //hit api her to delete the whole chat
+                        
                     
-                        let convid = self.usersChat.objectAtIndex(indexPath.row).valueForKey("converId") as? String ?? ""
-                        
-                        let defaults = NSUserDefaults.standardUserDefaults()
-                        let uId = defaults .stringForKey("userLoginId")
-                        
-                        
-                        let parmDict: NSDictionary = ["userId": uId!, "converId": convid ]
-                        
-                        self.postRequestDeleteMessages(parmDict, viewController: self)
-                        
-                        
-                        
-        
                     
                 }
                 else {
@@ -421,43 +295,26 @@ class ChatingListViewController: UIViewController {
     
     
     
-     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    func tableView(_ tableView: UITableView, didSelectRowAtIndexPath indexPath: IndexPath)
+    {
         
         
-        
-        let user2Id = usersChat.objectAtIndex(indexPath.row).valueForKey("with")!.objectAtIndex(0).valueForKey("_id") as? String ?? ""
-        let usname = usersChat.objectAtIndex(indexPath.row).valueForKey("with")!.objectAtIndex(0).valueForKey("name") as? String ?? ""
-        
-        //let defaults = NSUserDefaults.standardUserDefaults()
-      
-       // let myName = defaults .stringForKey("userLoginName")!
-        
-        
-        
-    var receiverProfileImage = ""
-        
-        if usersChat.objectAtIndex(indexPath.row).valueForKey("with")!.objectAtIndex(0).valueForKey("picture") != nil {
-    receiverProfileImage = usersChat.objectAtIndex(indexPath.row).valueForKey("with")!.objectAtIndex(0).valueForKey("picture") as? String ?? ""
+        let locnameArr = (self.chattingListArray.object(at: indexPath.row) as AnyObject).value(forKey: "placeName") as! NSArray
+        var locationName2 = ""
+        if locnameArr.count>0{
+            locationName2 = locnameArr.object(at: 0) as? String ?? ""
         }
         
-        let convId = usersChat.objectAtIndex(indexPath.row).valueForKey("converId") as? String ?? ""
-      
-        let locName = usersChat.objectAtIndex(indexPath.row).valueForKey("placeName") as? String ?? ""
-        chatLocation = usersChat.objectAtIndex(indexPath.row).valueForKey("placeId") as? String ?? ""
-        chatLocationType = usersChat.objectAtIndex(indexPath.row).valueForKey("placeType") as? String ?? ""
-            
-            
-        let nxtObj = self.storyboard?.instantiateViewControllerWithIdentifier("ChatViewController") as! ChatViewController
-       // nxtObj.CountTableArray = sendArray
-        nxtObj.receiver_Id = user2Id
-        nxtObj.locationName = locName
-        nxtObj.locationType = chatLocationType
-        nxtObj.receiverName = usname
-        nxtObj.locationId = chatLocation
-        nxtObj.convertationId = convId
-        nxtObj.receiverProfile = receiverProfileImage
+         let activeCounts = (self.chattingListArray.object(at: indexPath.row) as AnyObject).value(forKey: "conver") as! NSMutableArray
+        
+        
+        
+        let nxtObj = self.storyboard?.instantiateViewController(withIdentifier: "chatingUserListViewController") as! chatingUserListViewController
+       nxtObj.locationName = locationName2 as NSString
+        nxtObj.chatingArray = activeCounts
         self.navigationController! .pushViewController(nxtObj, animated: true)
-        nxtObj.hidesBottomBarWhenPushed = true
+        self.tabBarController?.setTabBarVisible(visible: false, animated: true)
+
     
     }
     
@@ -478,15 +335,15 @@ class ChatingListViewController: UIViewController {
         
         if isConnectedInternet
         {
-            let request = NSMutableURLRequest(URL: NSURL(string: "\(appUrl)get_older_conversation")!)
+            let request = NSMutableURLRequest(url: NSURL(string: "\(appUrl)get_older_conversation")! as URL)
             
             
-            request.HTTPMethod = "POST"
+            request.httpMethod = "POST"
             let postString = parameterString
             
             do {
-                let jsonData = try!  NSJSONSerialization.dataWithJSONObject(postString, options: [])
-                request.HTTPBody = jsonData
+                let jsonData = try!  JSONSerialization.data(withJSONObject: postString, options: [])
+                request.httpBody = jsonData
                 
                 
                 // here "jsonData" is the dictionary encoded in JSON data
@@ -499,85 +356,56 @@ class ChatingListViewController: UIViewController {
             
             
             
-            let task = NSURLSession.sharedSession().dataTaskWithRequest(request) { data, response, error in
+           let task = URLSession.shared.dataTask(with: request as URLRequest) { data, response, error in
                 guard error == nil && data != nil else {                                                          // check for fundamental networking error
                     print("error=\(error)")
                     return
                 }
                 
-                if let httpStatus = response as? NSHTTPURLResponse, httpStatus.statusCode != 200 {           // check for http errors
+                if let httpStatus = response as? HTTPURLResponse, httpStatus.statusCode != 200 {           // check for http errors
                     print("statusCode should be 200, but is \(httpStatus.statusCode)")
                     print("response = \(response)")
                 }
                 
-                //let responseString = String(data: data!, encoding: NSUTF8StringEncoding)
-               // print("responseString = \(responseString)")
+            
                 
                 
-                dispatch_async(dispatch_get_main_queue(), {
+                  DispatchQueue.main.async {
                     
                     do {
                         
-                       let result = NSString(data: data!, encoding:NSASCIIStringEncoding)!
+                       let result = NSString(data: data!, encoding:String.Encoding.ascii.rawValue)!
                         print("Body: \(result)")
                         
-                        let anyObj: AnyObject = try NSJSONSerialization.JSONObjectWithData(data!, options: NSJSONReadingOptions.MutableContainers)
+                       let anyObj: Any = try JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.mutableContainers)
                         
                         basicInfo = NSMutableDictionary()
                         basicInfo = anyObj as! NSMutableDictionary
                         
-                        let status = basicInfo .valueForKey("status") as! NSNumber
-                        self.segmentName = NSMutableArray()
-                        self.segmentArray = NSMutableArray()
+                        let status = basicInfo .value(forKey: "status") as! NSNumber
                        
                         
                         
-                        if status == 1{
+                        if status == 1
+                        {
                             
-                            self.segMentControllView.hidden=false
+                            let arr: NSMutableArray = basicInfo .value(forKey: "chat") as! NSMutableArray
                             
-                            let arr: NSMutableArray = basicInfo .valueForKey("chat") as! NSMutableArray
+                            self.chattingListArray = NSMutableArray()
                             
-                           print(arr)
-                            
-                            
-                            
-                            
-                            for i in 0..<arr.count{
-                                
-                                let nameLoc = arr.objectAtIndex(i).valueForKey("placeName") as! NSMutableArray
-                                
-                                var locationSegmentName = "NA"
-                                
-                                if (nameLoc.count > 0){
-                                    locationSegmentName = nameLoc.objectAtIndex(0) as? String ?? " "
-                                    
-                                }
-                                
-                                
-                                self.segmentName .addObject(locationSegmentName)
-                                
-                                
-                                
-                                let locationChat: NSMutableDictionary = arr.objectAtIndex(i) as! NSMutableDictionary
-                                
-                                
-                                self.segmentArray .addObject(locationChat)
-                                
-                                
+                            for i in 0..<arr.count
+                            {
+                              self.chattingListArray .add(arr.object(at: i))
                             }
-                            
+                            print(self.chattingListArray)
                             if arr.count<1 {
-                                self.chatingListTable.hidden=true
+                                self.chatingListTable.isHidden=true
                             }
                             else
                             {
-                                self.chatingListTable.hidden=false
-                                //print(self.segmentArray)
-                               
-                              
-                                
-                                self .updateSegment()
+                                self.chatingListTable.isHidden=false
+                                self.chatingListTable.isUserInteractionEnabled=true
+                                self.chatingListTable.reloadData()
                            
                             }
                            
@@ -587,12 +415,10 @@ class ChatingListViewController: UIViewController {
                         {
                             
                             
-                            self.segMentControllView.hidden=true
-                            
-                            CommonFunctionsClass.sharedInstance().showAlert("Err ...", text: "No chats found.", imageName: "alertChat")
+                            CommonFunctionsClass.sharedInstance().showAlert(title: "Err ...", text: "No chats found.", imageName: "alertChat")
                             
                             
-                             self.chatingListTable.hidden=true
+                             self.chatingListTable.isHidden=true
                             
                         }
                         
@@ -603,21 +429,20 @@ class ChatingListViewController: UIViewController {
                         
                     } catch {
                         print("json error: \(error)")
-                        CommonFunctionsClass.sharedInstance().showAlert("Server Alert", text: "Something doesn't seem right, Please try again!", imageName: "alertServer")
+                        CommonFunctionsClass.sharedInstance().showAlert(title: "Server Alert", text: "Something doesn't seem right, Please try again!", imageName: "alertServer")
                       
                         
                     }
                     
                     
-                    self.chatingIndicator.hidden=true
+                    self.chatingIndicator.isHidden=true
                     self.chatingIndicator.stopAnimating()
                     self.tabBarController?.tabBar.items?[3].badgeValue = nil
-                    let defaults = NSUserDefaults.standardUserDefaults()
-                    let uId = defaults .stringForKey("userLoginId")
-                    SocketIOManager.sharedInstance.sendCounter(uId!)
+                    let uId = Udefaults .string(forKey: "userLoginId")
+                    //SocketIOManager.sharedInstance.sendCounter(uId!)
                 
                     
-                })
+                }
                 
                 
                 
@@ -631,7 +456,7 @@ class ChatingListViewController: UIViewController {
         }
         else
         {
-            CommonFunctionsClass.sharedInstance().showAlert("No Internet Connection", text: "You are currently offline.", imageName: "alertInternet")
+            CommonFunctionsClass.sharedInstance().showAlert(title: "No Internet Connection", text: "You are currently offline.", imageName: "alertInternet")
         }
     }
     
@@ -642,7 +467,7 @@ class ChatingListViewController: UIViewController {
     
     
     
-    
+    /*
     //MARK:- Delete the chat of a location
     
     
@@ -768,7 +593,7 @@ class ChatingListViewController: UIViewController {
         }
     }
     
-    
+    */
     
     
     
@@ -803,17 +628,20 @@ class ChatingListViewController: UIViewController {
 
 
 class chatingTableCell: UITableViewCell {
-    //chatingListCell
+    //chatingListLocations
     
-    @IBOutlet weak var profilePic: UIImageView!
+    @IBOutlet weak var locationPic: UIImageView!
     
-    @IBOutlet weak var userNameLabel: UILabel!
+    @IBOutlet weak var locationName: UILabel!
     
-    @IBOutlet weak var messageLabel: UILabel!
+    @IBOutlet weak var activeChatsLabel: UILabel!
     
-    @IBOutlet weak var msgSendReceive: UIImageView!
+    @IBOutlet weak var nextArrow: UIImageView!
     
-    @IBOutlet weak var lastMsgTime: UILabel!
+    @IBOutlet weak var usersNameslabel: UILabel!
+    
+    @IBOutlet weak var activeCounts: UILabel!
+    
     
 }
 

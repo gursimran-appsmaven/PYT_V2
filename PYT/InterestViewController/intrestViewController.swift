@@ -279,6 +279,8 @@ class intrestViewController: UIViewController, apiClassInterestDelegate ,UITable
     }
     
     
+    
+    
         func segMentManage() {
             
             /////segmentControl

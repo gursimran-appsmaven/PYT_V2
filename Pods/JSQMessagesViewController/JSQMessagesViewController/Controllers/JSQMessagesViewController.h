@@ -31,13 +31,47 @@
  */
 @interface JSQMessagesViewController : UIViewController <JSQMessagesCollectionViewDataSource,
                                                          JSQMessagesCollectionViewDelegateFlowLayout,
-                                                         UITextViewDelegate>
+                                                         UITextViewDelegate, UITableViewDataSource, UITableViewDelegate>
 
 /**
  *  Returns the collection view object managed by this view controller.
  *  This view controller is the collection view's data source and delegate.
  */
 @property (weak, nonatomic, readonly) JSQMessagesCollectionView *collectionView;
+
+
+//ADD custom table to show the images
+@property (weak, nonatomic, readonly) UITableView *ImagesTableView;
+
+
+
+//Uiview for show photos //custom views
+
+@property (weak, nonatomic) IBOutlet UIView *imagesView;
+
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *heightOfImagesView;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *messagesViewBottomSpace;
+
+@property (weak, nonatomic) IBOutlet UIButton *backBtn;
+
+@property (weak, nonatomic) IBOutlet UILabel *headerLabel;
+
+@property (weak, nonatomic) IBOutlet UIImageView *headerImage;
+
+@property (weak, nonatomic) IBOutlet UIScrollView *zoomImageScrollView;
+@property (weak, nonatomic) IBOutlet UIImageView *zoomImageView;
+@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *zoomIndicator;
+
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *bottomSpaceOfZoomView;
+
+
+
+
+
+
+//@property (weak, nonatomic) IBOutlet UICollectionView *ImagesCollectionView;
+
+///
 
 /**
  *  Returns the input toolbar view object managed by this view controller.
@@ -171,6 +205,8 @@
  *  @discussion Use this property to adjust the top content inset to account for a custom subview at the top of your view controller.
  */
 @property (assign, nonatomic) CGFloat topContentAdditionalInset;
+
+
 
 #pragma mark - Class methods
 
@@ -323,5 +359,11 @@
  @param notification The posted notification.
  */
 - (void)didReceiveMenuWillHideNotification:(NSNotification *)notification;
+
+
+
+
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *toolbarBottomLayoutGuide;
+- (void)jsq_setToolbarBottomLayoutGuideConstant:(CGFloat)constant;
 
 @end

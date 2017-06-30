@@ -119,14 +119,24 @@ static void * kJSQMessagesKeyValueObservingContext = &kJSQMessagesKeyValueObserv
 
 
 
-@interface JSQMessagesViewController () <JSQMessagesInputToolbarDelegate,
-JSQMessagesKeyboardControllerDelegate>
+@interface JSQMessagesViewController () <JSQMessagesInputToolbarDelegate,JSQMessagesKeyboardControllerDelegate >
 
 @property (weak, nonatomic) IBOutlet JSQMessagesCollectionView *collectionView;
 @property (weak, nonatomic) IBOutlet JSQMessagesInputToolbar *inputToolbar;
 
+@property (weak, nonatomic) IBOutlet UITableView *ImagesTableView;
+
+
+
+
+
+
+//@property (weak, nonatomic) IBOutlet UIView *imagesView;
+//@property (weak, nonatomic) IBOutlet NSLayoutConstraint *heightOfImagesView;
+
+
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *toolbarHeightConstraint;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *toolbarBottomLayoutGuide;
+//@property (weak, nonatomic) IBOutlet NSLayoutConstraint *toolbarBottomLayoutGuide;
 
 @property (weak, nonatomic) UIView *snapshotView;
 
@@ -226,6 +236,12 @@ JSQMessagesKeyboardControllerDelegate>
 
     [_keyboardController endListeningForKeyboard];
     _keyboardController = nil;
+    
+    _ImagesTableView.delegate = nil;
+    _ImagesTableView.dataSource = nil;
+    
+    
+    
 }
 
 #pragma mark - Setters
@@ -265,11 +281,29 @@ JSQMessagesKeyboardControllerDelegate>
 {
     [super viewDidLoad];
 
+   // self.heightOfImagesView.constant=0;
+    _zoomImageScrollView.delegate=self;
+
+    
     [[[self class] nib] instantiateWithOwner:self options:nil];
 
     [self jsq_configureMessagesViewController];
     [self jsq_registerForNotifications:YES];
+    
+   
+    _ImagesTableView.backgroundColor = [UIColor whiteColor];
+   
+
+    _ImagesTableView.dataSource = self;
+    _ImagesTableView.delegate = self;
+
+    
+    
+    
+    
+    
 }
+
 
 - (void)viewWillAppear:(BOOL)animated
 {
@@ -528,6 +562,7 @@ JSQMessagesKeyboardControllerDelegate>
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
+    
     return 0;
 }
 
@@ -536,94 +571,118 @@ JSQMessagesKeyboardControllerDelegate>
     return 1;
 }
 
+//- (UICollectionViewCell *)collectionView:(JSQMessagesCollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
+
 - (UICollectionViewCell *)collectionView:(JSQMessagesCollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    id<JSQMessageData> messageItem = [collectionView.dataSource collectionView:collectionView messageDataForItemAtIndexPath:indexPath];
-    NSParameterAssert(messageItem != nil);
-
-    BOOL isOutgoingMessage = [self isOutgoingMessage:messageItem];
-    BOOL isMediaMessage = [messageItem isMediaMessage];
-
-    NSString *cellIdentifier = nil;
-    if (isMediaMessage) {
-        cellIdentifier = isOutgoingMessage ? self.outgoingMediaCellIdentifier : self.incomingMediaCellIdentifier;
-    }
-    else {
-        cellIdentifier = isOutgoingMessage ? self.outgoingCellIdentifier : self.incomingCellIdentifier;
-    }
-
-    JSQMessagesCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:cellIdentifier forIndexPath:indexPath];
-    cell.delegate = collectionView;
-
-    if (!isMediaMessage) {
-        cell.textView.text = [messageItem text];
-
-        if ([UIDevice jsq_isCurrentDeviceBeforeiOS8]) {
-            //  workaround for iOS 7 textView data detectors bug
-            cell.textView.text = nil;
-            cell.textView.attributedText = [[NSAttributedString alloc] initWithString:[messageItem text]
-                                                                           attributes:@{ NSFontAttributeName : collectionView.collectionViewLayout.messageBubbleFont }];
+    
+        id<JSQMessageData> messageItem = [collectionView.dataSource collectionView:collectionView messageDataForItemAtIndexPath:indexPath];
+        NSParameterAssert(messageItem != nil);
+        
+        BOOL isOutgoingMessage = [self isOutgoingMessage:messageItem];
+        BOOL isMediaMessage = [messageItem isMediaMessage];
+        
+        NSString *cellIdentifier = nil;
+        if (isMediaMessage) {
+            cellIdentifier = isOutgoingMessage ? self.outgoingMediaCellIdentifier : self.incomingMediaCellIdentifier;
         }
-
-        NSParameterAssert(cell.textView.text != nil);
-
-        id<JSQMessageBubbleImageDataSource> bubbleImageDataSource = [collectionView.dataSource collectionView:collectionView messageBubbleImageDataForItemAtIndexPath:indexPath];
-        cell.messageBubbleImageView.image = [bubbleImageDataSource messageBubbleImage];
-        cell.messageBubbleImageView.highlightedImage = [bubbleImageDataSource messageBubbleHighlightedImage];
-    }
-    else {
-        id<JSQMessageMediaData> messageMedia = [messageItem media];
-        cell.mediaView = [messageMedia mediaView] ?: [messageMedia mediaPlaceholderView];
-        NSParameterAssert(cell.mediaView != nil);
-    }
-
-    BOOL needsAvatar = YES;
-    if (isOutgoingMessage && CGSizeEqualToSize(collectionView.collectionViewLayout.outgoingAvatarViewSize, CGSizeZero)) {
-        needsAvatar = NO;
-    }
-    else if (!isOutgoingMessage && CGSizeEqualToSize(collectionView.collectionViewLayout.incomingAvatarViewSize, CGSizeZero)) {
-        needsAvatar = NO;
-    }
-
-    id<JSQMessageAvatarImageDataSource> avatarImageDataSource = nil;
-    if (needsAvatar) {
-        avatarImageDataSource = [collectionView.dataSource collectionView:collectionView avatarImageDataForItemAtIndexPath:indexPath];
-        if (avatarImageDataSource != nil) {
-
-            UIImage *avatarImage = [avatarImageDataSource avatarImage];
-            if (avatarImage == nil) {
-                cell.avatarImageView.image = [avatarImageDataSource avatarPlaceholderImage];
-                cell.avatarImageView.highlightedImage = nil;
+        else {
+            cellIdentifier = isOutgoingMessage ? self.outgoingCellIdentifier : self.incomingCellIdentifier;
+        }
+        
+        JSQMessagesCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:cellIdentifier forIndexPath:indexPath];
+        cell.delegate = collectionView;
+        
+        if (!isMediaMessage) {
+            cell.textView.text = [messageItem text];
+            
+            if ([UIDevice jsq_isCurrentDeviceBeforeiOS8]) {
+                //  workaround for iOS 7 textView data detectors bug
+                cell.textView.text = nil;
+                cell.textView.attributedText = [[NSAttributedString alloc] initWithString:[messageItem text]
+                                                                               attributes:@{ NSFontAttributeName : collectionView.collectionViewLayout.messageBubbleFont }];
             }
-            else {
-                cell.avatarImageView.image = avatarImage;
-                cell.avatarImageView.highlightedImage = [avatarImageDataSource avatarHighlightedImage];
+            
+            NSParameterAssert(cell.textView.text != nil);
+            
+            id<JSQMessageBubbleImageDataSource> bubbleImageDataSource = [collectionView.dataSource collectionView:collectionView messageBubbleImageDataForItemAtIndexPath:indexPath];
+            cell.messageBubbleImageView.image = [bubbleImageDataSource messageBubbleImage];
+            cell.messageBubbleImageView.highlightedImage = [bubbleImageDataSource messageBubbleHighlightedImage];
+        }
+    
+        else {
+            id<JSQMessageMediaData> messageMedia = [messageItem media];
+            cell.mediaView = [messageMedia mediaView] ?: [messageMedia mediaPlaceholderView];
+            //https://scontent.xx.fbcdn.net/v/t1.0-0/p75x225/14095768_168027430291711_9036618601691145180_n.jpg?oh=9bd69e082c9c402adee773ca809d7e51&oe=58E023A3
+            //cell.messageBubbleImageView.image = nil; //[UIImage imageNamed:@"backgroundImage"];
+        
+            
+            
+            NSParameterAssert(cell.mediaView != nil);
+        }
+        
+        BOOL needsAvatar = YES;
+        if (isOutgoingMessage && CGSizeEqualToSize(collectionView.collectionViewLayout.outgoingAvatarViewSize, CGSizeZero)) {
+            needsAvatar = NO;
+        }
+        else if (!isOutgoingMessage && CGSizeEqualToSize(collectionView.collectionViewLayout.incomingAvatarViewSize, CGSizeZero)) {
+            needsAvatar = NO;
+        }
+        
+        id<JSQMessageAvatarImageDataSource> avatarImageDataSource = nil;
+        if (needsAvatar) {
+            
+            
+        
+            
+            
+            avatarImageDataSource = [collectionView.dataSource collectionView:collectionView avatarImageDataForItemAtIndexPath:indexPath];
+            if (avatarImageDataSource != nil) {
+                
+                UIImage *avatarImage = [avatarImageDataSource avatarImage];
+                if (avatarImage == nil) {
+                    cell.avatarImageView.image = [avatarImageDataSource avatarPlaceholderImage];
+                    cell.avatarImageView.highlightedImage = nil;
+                }
+                else {
+                    cell.avatarImageView.image = avatarImage;
+                    cell.avatarImageView.highlightedImage = [avatarImageDataSource avatarHighlightedImage];
+                }
             }
         }
-    }
-
-    cell.cellTopLabel.attributedText = [collectionView.dataSource collectionView:collectionView attributedTextForCellTopLabelAtIndexPath:indexPath];
-    cell.messageBubbleTopLabel.attributedText = [collectionView.dataSource collectionView:collectionView attributedTextForMessageBubbleTopLabelAtIndexPath:indexPath];
-    cell.cellBottomLabel.attributedText = [collectionView.dataSource collectionView:collectionView attributedTextForCellBottomLabelAtIndexPath:indexPath];
-
-    CGFloat bubbleTopLabelInset = (avatarImageDataSource != nil) ? 60.0f : 15.0f;
-
-    if (isOutgoingMessage) {
-        cell.messageBubbleTopLabel.textInsets = UIEdgeInsetsMake(0.0f, 0.0f, 0.0f, bubbleTopLabelInset);
-    }
-    else {
-        cell.messageBubbleTopLabel.textInsets = UIEdgeInsetsMake(0.0f, bubbleTopLabelInset, 0.0f, 0.0f);
-    }
-
-    cell.textView.dataDetectorTypes = UIDataDetectorTypeAll;
-
-    cell.backgroundColor = [UIColor clearColor];
-    cell.layer.rasterizationScale = [UIScreen mainScreen].scale;
-    cell.layer.shouldRasterize = YES;
-    [self collectionView:collectionView accessibilityForCell:cell indexPath:indexPath message:messageItem];
-
-    return cell;
+        
+        cell.cellTopLabel.attributedText = [collectionView.dataSource collectionView:collectionView attributedTextForCellTopLabelAtIndexPath:indexPath];
+        cell.messageBubbleTopLabel.attributedText = [collectionView.dataSource collectionView:collectionView attributedTextForMessageBubbleTopLabelAtIndexPath:indexPath];
+        cell.cellBottomLabel.attributedText = [collectionView.dataSource collectionView:collectionView attributedTextForCellBottomLabelAtIndexPath:indexPath];
+        
+        CGFloat bubbleTopLabelInset = (avatarImageDataSource != nil) ? 60.0f : 15.0f;
+        
+        if (isOutgoingMessage) {
+            cell.messageBubbleTopLabel.textInsets = UIEdgeInsetsMake(0.0f, 0.0f, 0.0f, bubbleTopLabelInset);
+            cell.textView.textColor = [UIColor blackColor];
+        }
+        else {
+            cell.messageBubbleTopLabel.textInsets = UIEdgeInsetsMake(0.0f, bubbleTopLabelInset, 0.0f, 0.0f);
+            cell.textView.textColor = [UIColor whiteColor];
+        }
+        
+        cell.textView.dataDetectorTypes = UIDataDetectorTypeAll;
+        
+        cell.backgroundColor = [UIColor clearColor];
+        cell.layer.rasterizationScale = [UIScreen mainScreen].scale;
+        cell.layer.shouldRasterize = YES;
+        [self collectionView:collectionView accessibilityForCell:cell indexPath:indexPath message:messageItem];
+        
+        return cell;
+    
+    
 }
+
+
+
+
+
+
 
 - (void)collectionView:(JSQMessagesCollectionView *)collectionView
   accessibilityForCell:(JSQMessagesCollectionViewCell*)cell
@@ -727,7 +786,12 @@ JSQMessagesKeyboardControllerDelegate>
 - (CGSize)collectionView:(JSQMessagesCollectionView *)collectionView
                   layout:(JSQMessagesCollectionViewFlowLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
 {
+    
+    
     return [collectionViewLayout sizeForItemAtIndexPath:indexPath];
+
+    
+    
 }
 
 - (CGFloat)collectionView:(JSQMessagesCollectionView *)collectionView
@@ -801,12 +865,14 @@ JSQMessagesKeyboardControllerDelegate>
 
 - (void)textViewDidBeginEditing:(UITextView *)textView
 {
+    self.heightOfImagesView.constant=0;
     if (textView != self.inputToolbar.contentView.textView) {
         return;
     }
 
     [textView becomeFirstResponder];
-
+    _zoomImageScrollView.hidden=true;
+    
     if (self.automaticallyScrollsToMostRecentMessage) {
         [self scrollToBottomAnimated:YES];
     }
@@ -827,7 +893,14 @@ JSQMessagesKeyboardControllerDelegate>
         return;
     }
 
+    
+    
+    self.heightOfImagesView.constant = 0;
     [textView resignFirstResponder];
+    
+    
+    
+    [self jsq_setToolbarBottomLayoutGuideConstant:0];
 }
 
 #pragma mark - Notifications
@@ -835,9 +908,15 @@ JSQMessagesKeyboardControllerDelegate>
 - (void)jsq_handleDidChangeStatusBarFrameNotification:(NSNotification *)notification
 {
     if (self.keyboardController.keyboardIsVisible) {
+        self.heightOfImagesView.constant=0;
+        _toolbarBottomLayoutGuide.constant=0;
         [self jsq_setToolbarBottomLayoutGuideConstant:CGRectGetHeight(self.keyboardController.currentKeyboardFrame)];
     }
 }
+
+
+
+
 
 - (void)didReceiveMenuWillShowNotification:(NSNotification *)notification
 {
@@ -917,6 +996,7 @@ JSQMessagesKeyboardControllerDelegate>
 
 - (void)jsq_setToolbarBottomLayoutGuideConstant:(CGFloat)constant
 {
+    NSLog(@"%f",constant);
     self.toolbarBottomLayoutGuide.constant = constant;
     [self.view setNeedsUpdateConstraints];
     [self.view layoutIfNeeded];
@@ -1151,5 +1231,33 @@ JSQMessagesKeyboardControllerDelegate>
         self.currentInteractivePopGestureRecognizer = self.navigationController.interactivePopGestureRecognizer;
     }
 }
+
+
+
+#pragma mark -  TableView to show images
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    NSLog(@"Returning num sections");
+    return 1;
+}
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    NSLog(@"Returning num rows");
+    return 1;
+}
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    NSLog(@"Trying to return cell");
+    static NSString *CellIdentifier = @"CellImagesMessages";
+    
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    if (cell == nil) {
+        cell = [[UITableViewCell alloc] initWithFrame:CGRectZero reuseIdentifier:CellIdentifier];
+    }
+    
+    cell.text = @"Hello";
+    NSLog(@"Returning cell");
+    return cell;
+}
+
+
+
 
 @end

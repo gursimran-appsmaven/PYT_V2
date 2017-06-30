@@ -3907,7 +3907,7 @@ extension mainHomeViewController: UICollectionViewDelegate, UICollectionViewData
             let parameterString:NSDictionary = ["imageOwn": userId, "type": globalType, "placeId": globalPlaceid, "fullName": globalFullName, "skip": skip, "userId": self.uId ]
             
             
-            print(parameterString)
+            print("More images parameters-\(parameterString)")
             self .getImages(parameterString, indx: collectionView.tag)
             
             
