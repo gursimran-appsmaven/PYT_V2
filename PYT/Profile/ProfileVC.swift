@@ -90,7 +90,7 @@ class ProfileVC: UIViewController,UITableViewDelegate,UITableViewDataSource,UICo
     func tableView( _ tableView: UITableView, viewForFooterInSection section: Int) -> UIView?
     {
         let footerView = UIView(frame: CGRect(x: 0, y: 0, width: tableView.frame.size.width, height: 20))
-        footerView.backgroundColor = UIColor(red: 208/255.0 , green: 208/255.0 , blue: 208/255.0 , alpha: 0.36)
+        footerView.backgroundColor = UIColor.clear
         return footerView
 
     }
@@ -118,32 +118,42 @@ class ProfileVC: UIViewController,UITableViewDelegate,UITableViewDataSource,UICo
             switch indexPath.row {
             case 0:
                 cell.actionName.text = "Saved Destinations"
+                cell.actionImage.image = UIImage(named:"profilebucket")
 
             case 1:
                 cell.actionName.text = "Travel Plan"
-                
+                cell.actionImage.image = UIImage(named:"travelplans")
+
             default:
                 cell.actionName.text = ""
+                cell.actionImage.image = UIImage(named:"")
+
             }
         case 1:
             switch indexPath.row {
             case 0:
                 cell.actionName.text = "View Tutorial"
+                cell.actionImage.image = UIImage(named:"tutorials")
 
             case 1:
                 cell.actionName.text = "Share Application"
+                cell.actionImage.image = UIImage(named:"Share")
 
             case 2:
                 cell.actionName.text = "Add More Account"
+                cell.actionImage.image = UIImage(named:"addaccount")
 
             case 3:
                 cell.actionName.text = "Choose Interest"
+                cell.actionImage.image = UIImage(named:"Report")
 
             case 4:
                 cell.actionName.text = "Change Password"
+                cell.actionImage.image = UIImage(named:"password")
 
             default:
                 cell.actionName.text = ""
+                cell.actionImage.image = UIImage(named:"")
 
             }
             
@@ -152,15 +162,19 @@ class ProfileVC: UIViewController,UITableViewDelegate,UITableViewDataSource,UICo
             switch indexPath.row {
             case 0:
                 cell.actionName.text = "Report a problem"
+                cell.actionImage.image = UIImage(named:"Report")
 
             case 1:
                 cell.actionName.text = "Help"
+                cell.actionImage.image = UIImage(named:"help")
 
             case 2:
                 cell.actionName.text = "Privacy Policy"
+                cell.actionImage.image = UIImage(named:"privacy")
 
             default:
                 cell.actionName.text = ""
+                cell.actionImage.image = UIImage(named:"")
 
             }
             
@@ -169,8 +183,11 @@ class ProfileVC: UIViewController,UITableViewDelegate,UITableViewDataSource,UICo
             switch indexPath.row {
             case 0:
                 cell.actionName.text = "Logout"
+                cell.actionImage.image = UIImage(named:"Logout")
+
             default:
                 cell.actionName.text = ""
+                cell.actionImage.image = UIImage(named:"")
 
             }
         default:
@@ -287,7 +304,11 @@ class ProfileVC: UIViewController,UITableViewDelegate,UITableViewDataSource,UICo
     {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ProfileCollectionCell", for: indexPath) as! ProfileCollectionCell
         
+        let gradient = cell.viewWithTag(7499) as! GradientView
         
+        gradient.gradientLayer.colors = [UIColor.black.withAlphaComponent(0.75).cgColor, UIColor.clear.cgColor]
+        gradient.gradientLayer.gradient = GradientPoint.bottomTop.draw()
+
         return cell
     }
     
@@ -329,6 +350,21 @@ class ProfileVC: UIViewController,UITableViewDelegate,UITableViewDataSource,UICo
         return true
     }
     
+    @IBOutlet weak var changeNameBtn: UIButton!
+    
+    // MARK: Action Methods
+    @IBAction func ChangeNameBtnAction(_ sender: Any) {
+        if(changeNameBtn.imageView?.image == UIImage(named: "crossprofile"))
+        {
+            changeNameBtn.setImage(UIImage(named:"tickprofile") , for: .normal)
+        }
+        else
+        {
+            changeNameBtn.setImage(UIImage(named:"crossprofile") , for: .normal)
+        }
+    }
+    @IBAction func ChangeImageBtnAction(_ sender: Any) {
+    }
 
 }
 class ProfileActionsCell: UITableViewCell {
