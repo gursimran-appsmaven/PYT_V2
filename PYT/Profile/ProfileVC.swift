@@ -333,7 +333,7 @@ class ProfileVC: UIViewController,UITableViewDelegate,UITableViewDataSource,UICo
             case 0:
                 print("Logout")
 
-                self.ActionLogout()
+//                self.ActionLogout()
                 
                 
             default:
@@ -857,7 +857,7 @@ class ProfileVC: UIViewController,UITableViewDelegate,UITableViewDataSource,UICo
        // profileIndicator.isHidden=false
       //  profileIndicator.startAnimating()
         
-        self.startUploadingImage(testImgView.image!)
+//        self.startUploadingImage(testImgView.image!)
         
         dismiss(animated: true, completion: nil)
         
