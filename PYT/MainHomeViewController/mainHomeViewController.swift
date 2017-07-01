@@ -922,9 +922,9 @@ class mainHomeViewController: UIViewController, SDWebImageManagerDelegate, apiCl
             
             storiesCollectionView.reloadData()
              let indexPath = IndexPath(row: tableIndex, section: 0)
-            //if tableIndex != nil {
+            if  dataArray.count != 0 {
                 self.imagesTableView.reloadRows(at: [indexPath], with: .none)
-            //}
+            }
             
             
         }
@@ -1191,7 +1191,7 @@ class mainHomeViewController: UIViewController, SDWebImageManagerDelegate, apiCl
             cell.imagesCollectionView.collectionViewLayout.invalidateLayout()
 
 //          OperationQueue.main.addOperation({ () -> Void in
-//            cell.imagesCollectionView.reloadData()
+            cell.imagesCollectionView.reloadData()
 //           })
             if segmentBool == true {
                 if indexPath.row > 2 {
@@ -2354,6 +2354,7 @@ class mainHomeViewController: UIViewController, SDWebImageManagerDelegate, apiCl
             
             self.detailView.isHidden=false
             self.view.bringSubview(toFront: self.detailView)
+            self.detailView.bringSubview(toFront: dynamicDetailSubview)
             //self.tabBarController?.tabBar.isHidden = true
            
             
@@ -4960,7 +4961,7 @@ extension mainHomeViewController: UICollectionViewDelegate, UICollectionViewData
     {
         let touches: Set<AnyHashable>? = event.allTouches
         let touch: UITouch? = touches?.first as! UITouch?
-        var currentTouchPosition: CGPoint? = touch?.location(in: imagesTableView)
+        var currentTouchPosition: CGPoint? = touch?.location(in: self.view)
 
         print(currentTouchPosition)
         print("width: \(dynamicDetailSubview.frame.size.width), height: \(dynamicDetailSubview.frame.size.height),tableView.y + 160:\(dynamicDetailSubview.frame.size.height + 100)")
@@ -4976,7 +4977,7 @@ extension mainHomeViewController: UICollectionViewDelegate, UICollectionViewData
             xframe = (currentTouchPosition?.x)! - dynamicDetailSubview.frame.size.width + 5
         }
         
-        if (currentTouchPosition?.y)! < dynamicDetailSubview.frame.size.height + 80
+        if (currentTouchPosition?.y)! < dynamicDetailSubview.frame.size.height + 130
         {
             yframe = (currentTouchPosition?.y)! - 5 //+ dynamicDetailSubview.frame.size.height + 3
         }
