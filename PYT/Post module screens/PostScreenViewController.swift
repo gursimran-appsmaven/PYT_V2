@@ -44,7 +44,6 @@ class PostScreenViewController: UIViewController, UIImagePickerControllerDelegat
     let S3BucketName = "pytphotobucket" //"pytphotobucket"//live
     
     
-    /////
     var imageData = Data()
     var isCamera = Bool()
     var multipleImagesArray = NSMutableArray()
