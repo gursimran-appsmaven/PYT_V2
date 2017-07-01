@@ -41,7 +41,7 @@ class PostScreenViewController: UIViewController, UIImagePickerControllerDelegat
     let S3UploadKeyName: String = "iqtBkg8alWc0rdsXXoxF6aMc9VJPWROfDDOj3TOd"
     let amazoneUrl = "https://s3-us-west-2.amazonaws.com/"
     let myIdentityPoolId = "us-west-2:47968651-2cda-46d4-b851-aea8cbcd663f"//live
-    let S3BucketName = "pytprofilebucket" //"pytphotobucket"//live
+    let S3BucketName = "pytphotobucket" //"pytphotobucket"//live
     
     
     /////
@@ -97,7 +97,8 @@ class PostScreenViewController: UIViewController, UIImagePickerControllerDelegat
     
     
     
-    override func viewDidLoad() {
+    override func viewDidLoad()
+    {
         super.viewDidLoad()
         accessPhoto = "public"
         self.setEmptyImageInbuttons()

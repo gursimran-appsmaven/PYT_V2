@@ -1137,16 +1137,13 @@ class detailViewController: UIViewController, apiClassDelegate {
                 let pImage2 = UIImageView()
                 pImage2.sd_setImage(with: url, placeholderImage: nil)
                 
-//                let block: SDWebImageCompletionBlock! = {(image: UIImage!, error: NSError!, cacheType: SDImageCacheType!, imageURL: URL!) -> Void in
-//                
-//                    self.zoomIndicator.stopAnimating()
-//                    self.zoomIndicator.isHidden=true
-//                    
-//                }
+                let block: SDWebImageCompletionBlock = {(image, error, cacheType, imageURL) -> Void in
+                    self.zoomIndicator.isHidden=true
+                }
                 
-                //completion block of the sdwebimageview
-               // zoomimageView.sd_setImage(with: url2, placeholderImage: pImage2.image, completed: block)
-                zoomimageView.sd_setImage(with: url2, placeholderImage: pImage2.image)
+                zoomimageView.sd_setImage(with: url2, placeholderImage: pImage2.image, options: SDWebImageOptions(rawValue: 0), completed: block)
+                
+              
                 
                 
             }
@@ -1166,16 +1163,12 @@ class detailViewController: UIViewController, apiClassDelegate {
                 let pImage : UIImage = UIImage(named:"dummyBackground1")!
                 zoomIndicator.startAnimating()
                  self.zoomIndicator.isHidden=false
-//                let block: SDWebImageCompletionBlock! = {(image: UIImage!, error: NSError!, cacheType: SDImageCacheType!, imageURL: URL!) -> Void in
-//                    
-//                    self.zoomIndicator.stopAnimating()
-//                    self.zoomIndicator.isHidden=true
-//                    
-//                }
-//                
-//                //completion block of the sdwebimageview
-//                zoomimageView.sd_setImage(with: url2, placeholderImage: pImage, completed: block)
-zoomimageView.sd_setImage(with: url2, placeholderImage: pImage)
+                let block: SDWebImageCompletionBlock = {(image, error, cacheType, imageURL) -> Void in
+                    self.zoomIndicator.isHidden=true
+                }
+                
+                zoomimageView.sd_setImage(with: url2, placeholderImage: pImage, options: SDWebImageOptions(rawValue: 0), completed: block)
+                
             
             }
 
@@ -1213,15 +1206,13 @@ zoomimageView.sd_setImage(with: url2, placeholderImage: pImage)
                 pImage2.sd_setImage(with: url, placeholderImage: nil)
                 self.zoomIndicator.startAnimating()
                 self.zoomIndicator.isHidden=false
-//                let block: SDWebImageCompletionBlock! = {(image: UIImage!, error: NSError!, cacheType: SDImageCacheType!, imageURL: URL!) -> Void in
-//                    self.zoomIndicator.stopAnimating()
-//                    self.zoomIndicator.isHidden=true
-//                }
-//                
-//                //completion block of the sdwebimageview
-//                zoomimageView.sd_setImage(with: url2, placeholderImage: pImage2.image, completed: block)
+                let block: SDWebImageCompletionBlock = {(image, error, cacheType, imageURL) -> Void in
+                    self.zoomIndicator.isHidden=true
+                }
+                
+                zoomimageView.sd_setImage(with: url2, placeholderImage: pImage2.image, options: SDWebImageOptions(rawValue: 0), completed: block)
 
-                zoomimageView.sd_setImage(with: url2, placeholderImage: pImage2.image)
+              
                 
                 
                 
@@ -1245,14 +1236,11 @@ zoomimageView.sd_setImage(with: url2, placeholderImage: pImage)
                 let pImage : UIImage = UIImage(named:"dummyBackground1")!
                  self.zoomIndicator.startAnimating()
                  self.zoomIndicator.isHidden=false
-//                let block: SDWebImageCompletionBlock! = {(image: UIImage!, error: NSError!, cacheType: SDImageCacheType!, imageURL: URL!) -> Void in
-//                    self.zoomIndicator.stopAnimating()
-//                     self.zoomIndicator.isHidden=true
-//                }
-//                
-//                //completion block of the sdwebimageview
-//                zoomimageView.sd_setImage(with: url2, placeholderImage: pImage, completed: block)
-zoomimageView.sd_setImage(with: url2, placeholderImage: pImage)
+                let block: SDWebImageCompletionBlock = {(image, error, cacheType, imageURL) -> Void in
+                    self.zoomIndicator.isHidden=true
+                }
+                
+                zoomimageView.sd_setImage(with: url2, placeholderImage: pImage, options: SDWebImageOptions(rawValue: 0), completed: block)
             
             }
             CATransaction.commit()//moving effect of images
@@ -1276,16 +1264,11 @@ zoomimageView.sd_setImage(with: url2, placeholderImage: pImage)
                 let pImage2 = UIImageView()
                 pImage2.sd_setImage(with: url, placeholderImage: nil)
                 
-//                let block: SDWebImageCompletionBlock! = {(image: UIImage!, error: NSError!, cacheType: SDImageCacheType!, imageURL: URL!) -> Void in
-//                    
-//                    self.zoomIndicator.stopAnimating()
-//                    self.zoomIndicator.isHidden=true
-//                    
-//                }
-//                
-//                //completion block of the sdwebimageview
-//                zoomimageView.sd_setImage(with: url2, placeholderImage: pImage2.image, completed: block)
-zoomimageView.sd_setImage(with: url2, placeholderImage: pImage2.image)
+                let block: SDWebImageCompletionBlock = {(image, error, cacheType, imageURL) -> Void in
+                    self.zoomIndicator.isHidden=true
+                }
+                
+                zoomimageView.sd_setImage(with: url2, placeholderImage: pImage2.image, options: SDWebImageOptions(rawValue: 0), completed: block)
                 
             }
                 
@@ -1297,15 +1280,9 @@ zoomimageView.sd_setImage(with: url2, placeholderImage: pImage2.image)
                 
                  self.zoomIndicator.startAnimating()
                  self.zoomIndicator.isHidden=false
-                
-//                let block: SDWebImageCompletionBlock! = {(image: UIImage!, error: NSError!, cacheType: SDImageCacheType!, imageURL: URL!) -> Void in
-//                    self.zoomIndicator.stopAnimating()
-//                    self.zoomIndicator.isHidden=true
-//                }
-                
                 var slidImg:UIImage = UIImage (named: "dummyBackground1")!
                 
-              //  print(slideShow.currentSlideshowItem?.imageView.image)
+             
                 if slideShow.currentSlideshowItem?.imageView.image==nil {
                     
                     
@@ -1314,9 +1291,12 @@ zoomimageView.sd_setImage(with: url2, placeholderImage: pImage2.image)
                     slidImg = (slideShow.currentSlideshowItem?.imageView.image!)!
                 }
                 
-                //completion block of the sdwebimageview
-                //zoomimageView.sd_setImage(with: url2, placeholderImage: slidImg, completed: block)
-            zoomimageView.sd_setImage(with: url2, placeholderImage: slidImg)
+                let block: SDWebImageCompletionBlock = {(image, error, cacheType, imageURL) -> Void in
+                    self.zoomIndicator.isHidden=true
+                }
+                
+                zoomimageView.sd_setImage(with: url2, placeholderImage: slidImg, options: SDWebImageOptions(rawValue: 0), completed: block)
+           
             
             }
             
@@ -1447,34 +1427,34 @@ zoomimageView.sd_setImage(with: url2, placeholderImage: pImage2.image)
         
         
     
-        if task1 != nil {
-            
-            if task1.state == .running {
-                task1.cancel()
-                print("\n\n Task 1 cancel\n\n")
-            }
-            
-            if task2 != nil {
-                
-                if task2.state == .running {
-                    task2.cancel()
-                    print("\n\n Task 2 cancel\n\n")
-                }
-                
-            }
-            
-            if task3 != nil {
-                
-                if task3.state == .running {
-                    task3.cancel()
-                    print("\n\n Task 3 cancel\n\n")
-              }
-                
-            }
-            
+//        if task1 != nil {
+//            
+//            if task1.state == .running {
+//                task1.cancel()
+//                print("\n\n Task 1 cancel\n\n")
+//            }
+//            
+//            if task2 != nil {
+//                
+//                if task2.state == .running {
+//                    task2.cancel()
+//                    print("\n\n Task 2 cancel\n\n")
+//                }
+//                
+//            }
+//            
+//            if task3 != nil {
+//                
+//                if task3.state == .running {
+//                    task3.cancel()
+//                    print("\n\n Task 3 cancel\n\n")
+//              }
+//                
+//            }
+        
 
             self.navigationController?.popViewController(animated: true)
-        }
+       // }
        
         
         
@@ -2151,17 +2131,15 @@ zoomimageView.sd_setImage(with: url2, placeholderImage: pImage2.image)
             userProfilePicture.layer.cornerRadius = userProfilePicture.frame.size.width/2
             userProfilePicture.clipsToBounds = true
             
+        let block: SDWebImageCompletionBlock = {(image, error, cacheType, imageURL) -> Void in
             
-//            let block: SDWebImageCompletionBlock! = {(image: UIImage!, error: NSError!, cacheType: SDImageCacheType!, imageURL: URL!) -> Void in
-//                
-//            }
-//            
-//            //completion block of the sdwebimageview
-//            userProfilePicture.sd_setImage(with: url2, placeholderImage: pImage, completed: block)
-            
-            userProfilePicture.sd_setImage(with: url2, placeholderImage: pImage)
-            
-            
+        }
+        
+        userProfilePicture.sd_setImage(with: url2, placeholderImage: pImage, options: SDWebImageOptions(rawValue: 0), completed: block)
+        
+        
+        
+        
             
             
             let userNameLabel = cell.contentView .viewWithTag(112) as! UILabel
@@ -2235,15 +2213,15 @@ zoomimageView.sd_setImage(with: url2, placeholderImage: pImage2.image)
             let pImage : UIImage = UIImage(named:"dummyBackground1")!
             
             activityIndicatorView .removeFromSuperview()
-//            let block: SDWebImageCompletionBlock! = {(image: UIImage!, error: NSError!, cacheType: SDImageCacheType!, imageURL: URL!) -> Void in
-//                
-//                activityIndicatorView .removeFromSuperview()
-//            }
+
+            let block: SDWebImageCompletionBlock = {(image, error, cacheType, imageURL) -> Void in
+                
+            }
+            
+            locationimage2.sd_setImage(with: url2, placeholderImage: pImage, options: SDWebImageOptions(rawValue: 0), completed: block)
             
             //completion block of the sdwebimageview
             locationimage2.contentMode = .scaleAspectFill
-           // locationimage2.sd_setImage(with: url2, placeholderImage: pImage, completed: block)
-            locationimage2.sd_setImage(with: url2, placeholderImage: pImage)
             locationimage2.layer.cornerRadius=5
             locationimage2.clipsToBounds=true
             
@@ -2284,14 +2262,12 @@ zoomimageView.sd_setImage(with: url2, placeholderImage: pImage2.image)
             let url2 = URL(string: imageName2 as! String)
             let pImage : UIImage = UIImage(named:"dummyBackground1")!
             
-//            let block: SDWebImageCompletionBlock! = {(image: UIImage!, error: NSError!, cacheType: SDImageCacheType!, imageURL: URL!) -> Void in
-//                activityIndicatorView.stopAnimating()
-//                activityIndicatorView.removeFromSuperview()
-//            }
-//            //completion block of the sdwebimageview
-//            
-//            nearByimage.sd_setImage(with: url2, placeholderImage: pImage, completed: block)
-nearByimage.sd_setImage(with: url2, placeholderImage: pImage)
+            let block: SDWebImageCompletionBlock = {(image, error, cacheType, imageURL) -> Void in
+                
+            }
+            
+            nearByimage.sd_setImage(with: url2, placeholderImage: pImage, options: SDWebImageOptions(rawValue: 0), completed: block)
+            
             nearByimage.layer.cornerRadius=5
             nearByimage.clipsToBounds=true
             

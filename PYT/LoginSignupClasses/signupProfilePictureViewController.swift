@@ -19,6 +19,7 @@ class signupProfilePictureViewController: UIViewController, apiClassDelegate,UII
     var email = NSString()
     var password = NSString()
 
+    @IBOutlet weak var profileIndicator: UIActivityIndicatorView!
     @IBOutlet weak var profileBtn: UIButton!
     //Image picker
     let imagePicker = UIImagePickerController()
@@ -41,11 +42,8 @@ class signupProfilePictureViewController: UIViewController, apiClassDelegate,UII
     
     @IBAction func finishAction(_ sender: Any) {
     
-        loginFromFb = false
-        let parameterString: NSDictionary = ["name":nameTf.text!, "email": email, "password": password, "deviceToken":["token": "", "device": "iphone"]]
-        
-        apiClass.sharedInstance().postRequestSearch(parameterString: parameterString, viewController: self)
-
+          self.startUploadingImage( (self.profileBtn.imageView?.image)!)
+       
         
     }
     
@@ -116,10 +114,10 @@ class signupProfilePictureViewController: UIViewController, apiClassDelegate,UII
         testImgView.image=self.scaleImage(chosenImage!, toSize: CGSize(width: 200, height: 200))// imagePostViewController().scaleImage(chosenImage, toSize: CGSize(width:200, height: 200))
         
         
-       // profileIndicator.isHidden=false
-       // profileIndicator.startAnimating()
+        profileIndicator.isHidden=false
+        profileIndicator.startAnimating()
         
-       // self.startUploadingImage(testImgView.image!)
+      
         
         profileBtn.imageView?.image = testImgView.image
         
@@ -153,7 +151,7 @@ class signupProfilePictureViewController: UIViewController, apiClassDelegate,UII
         let amazoneUrl = "https://s3-us-west-2.amazonaws.com/"
         
         let myIdentityPoolId = "us-west-2:47968651-2cda-46d4-b851-aea8cbcd663f"//liveserver
-        let S3BucketName = "pytprofilepic" //change bucketname only in test server
+        let S3BucketName = "pytphotobucket" //change bucketname only in test server
         
         
         
@@ -191,8 +189,7 @@ class signupProfilePictureViewController: UIViewController, apiClassDelegate,UII
         AWSServiceManager.default().defaultServiceConfiguration = configuration
         
         // Set up AWS Transfer Manager Request
-        //            //let S3BucketName = "testpyt" // test sever
-        //            let S3BucketName = "pytphotobucket"
+                    //let S3BucketName = "testpyt" // test sever
         
         print("Locatl file name= \(localFileName)")
         
@@ -223,18 +220,15 @@ class signupProfilePictureViewController: UIViewController, apiClassDelegate,UII
         
         
         
-        let s3URL = URL(string: "\(amazoneUrl)\(S3BucketName)/\(uploadRequest?.key!)")!
+        let s3URL = URL(string: "\(amazoneUrl)\(S3BucketName)/\(uploadRequest!.key!)")!
         print("Uploaded to:\n\(s3URL)")
         
         
-        /*
+        
         // Perform file upload
-        //transferManager.upload(uploadRequest!).continue { (task) -> AnyObject! in
-     transferManager.upload(uploadRequest!).continue(with: AWSExecutor.mainThread(), withSuccessBlock: { (taskk: AWSTask) -> Any? in
         
-        //transferManager?.upload(uploadRequest).continue(with: AWSExecutor.mainThread(), withSuccessBlock: { (taskk: AWSTask) -> Any? in
+      transferManager.upload(uploadRequest!).continueWith { (task) -> AnyObject! in
         
-    
         
             
             DispatchQueue.main.async {
@@ -243,7 +237,7 @@ class signupProfilePictureViewController: UIViewController, apiClassDelegate,UII
                 
             }
             
-            if let exception = task.exception {
+            if let exception = task.error {
                 print("Upload failed with exception (\(exception))")
                 
                 
@@ -251,18 +245,24 @@ class signupProfilePictureViewController: UIViewController, apiClassDelegate,UII
             }
             
             if task.result != nil {
-                DispatchQueue.main.async {
-                    self.profilePic.contentMode = .scaleAspectFill
-                    self.profilePic.image = profileImage
+                DispatchQueue.main.async
+                    {
+                  
+                    self.profileBtn.contentMode = .scaleAspectFill
+                    
+                  //  self.profileBtn.imageView?.image = profileImage
                     print("Uploaded to:\n\(s3URL)")
                     
-                    let parmDict: NSDictionary = ["userId":uId!, "picture": String(s3URL)]
-                    let defaults = UserDefaults.standard
-                    defaults.set(String(s3URL), forKey: "userProfilePic")
+                    Udefaults.set(String(describing: s3URL), forKey: "userProfilePic")
                     
-                    print(parmDict)
-                    self.boolProfile=true
-                    self.changeUserProfileApi(parmDict)
+                        
+                        
+                        
+                        
+                        self.loginFromFb = false
+                        let parameterString: NSDictionary = ["name":self.nameTf.text!, "email": self.email, "password": self.password, "deviceToken":["token": "", "device": "iphone"], "picture": String(describing: s3URL)]
+                        print(parameterString)
+                        apiClass.sharedInstance().postRequestSearch(parameterString: parameterString, viewController: self)
                     
                     
                 }
@@ -322,7 +322,7 @@ class signupProfilePictureViewController: UIViewController, apiClassDelegate,UII
         }
         
         
-        */
+        
         
         
         
