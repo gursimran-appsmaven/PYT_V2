@@ -921,6 +921,12 @@ class mainHomeViewController: UIViewController, SDWebImageManagerDelegate, apiCl
             }
             
             storiesCollectionView.reloadData()
+             let indexPath = IndexPath(row: tableIndex, section: 0)
+            //if tableIndex != nil {
+                self.imagesTableView.reloadRows(at: [indexPath], with: .none)
+            //}
+            
+            
         }
         
        
@@ -2141,12 +2147,7 @@ class mainHomeViewController: UIViewController, SDWebImageManagerDelegate, apiCl
        ////print( rect2)
         
         
-       
-        
-        
         //rect2.size.height/2)
-        
-        
         
         
         // create a new CAKeyframeAnimation that animates the objects position
@@ -2214,18 +2215,9 @@ class mainHomeViewController: UIViewController, SDWebImageManagerDelegate, apiCl
     
     
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    func deletePhotoTemporary() {
-        
-        
+
+    func deletePhotoTemporary()
+    {
         
         //let tempArray = self.arrayOfimages1[tableIndex] as! NSArray
         let tempDict = self.arrayOfimages1[tableIndex] as! NSMutableDictionary
@@ -2241,13 +2233,13 @@ class mainHomeViewController: UIViewController, SDWebImageManagerDelegate, apiCl
                 newMutableDict .setObject(values, forKey: key as! String as NSCopying)
             }
                 
-            else{
+            else
+            {
                 var value = values as! NSArray
                 
                 var value2 = NSMutableArray()
                 
                 value2 = NSMutableArray(array: value )
-                
                 
                 value2.removeObject(at: collectionIndex)
                 
@@ -2257,7 +2249,8 @@ class mainHomeViewController: UIViewController, SDWebImageManagerDelegate, apiCl
                 
                 if value.count<1 {
                     
-                }else{
+                }else
+                {
                     newMutableDict .setObject(value, forKey: key as! String as NSCopying)
                 }
             }
@@ -2268,7 +2261,8 @@ class mainHomeViewController: UIViewController, SDWebImageManagerDelegate, apiCl
             
         }
         
-        if newMutableDict.count<1 {
+        if newMutableDict.count<1
+        {
             DispatchQueue.main.async(execute: {
            //print(self.dataArray.count)
             self.dataArray .removeObject(at: self.tableIndex)
@@ -2359,6 +2353,7 @@ class mainHomeViewController: UIViewController, SDWebImageManagerDelegate, apiCl
            // toolTimer.invalidate()
             
             self.detailView.isHidden=false
+            self.view.bringSubview(toFront: self.detailView)
             //self.tabBarController?.tabBar.isHidden = true
            
             
@@ -2389,7 +2384,7 @@ class mainHomeViewController: UIViewController, SDWebImageManagerDelegate, apiCl
             
             
             
-            self.tabBarController?.view.bringSubview(toFront: detailView)
+          //  self.tabBarController?.view.bringSubview(toFront: detailView)
             
             
             let tapGestureRecognizer = UITapGestureRecognizer()
@@ -4024,7 +4019,15 @@ extension mainHomeViewController: UICollectionViewDelegate, UICollectionViewData
                     
                     let url2 = URL(string: imageName2 as String)
                     
-                    locationimage.sd_setImage(with: url2, placeholderImage: UIImage (named: "dummyBackground1"))
+                    let block: SDWebImageCompletionBlock = {(image, error, cacheType, imageURL) -> Void in
+                        //activityIndicator.stopAnimating()
+                    }
+                    
+                    locationimage.sd_setImage(with: url2, placeholderImage: UIImage(named: "dummyBackground1"), options: SDWebImageOptions(rawValue: 0), completed: block)
+                    
+                    
+                    
+                 //   locationimage.sd_setImage(with: url2, placeholderImage: UIImage (named: "dummyBackground1"))
                     
                     locationimage.focusOnFaces = true
                     
