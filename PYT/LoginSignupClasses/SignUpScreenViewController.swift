@@ -105,11 +105,11 @@ class SignUpScreenViewController: UIViewController, apiClassDelegate {
         // check all txtFields are not empty
         
         
-        if emailTf.text == ""  {
+        if emailTf.text == ""
+        {
             
             CommonFunctionsClass.sharedInstance().showAlert(title: "Opps!", text: "Please fill all the required fields to continue.", imageName: "alertFill")
-            
-            
+
         }
             
         else
@@ -417,7 +417,7 @@ class SignUpScreenViewController: UIViewController, apiClassDelegate {
                 //}
                 
                 // Socket
-                //  SocketIOManager.sharedInstance.establishConnection()
+                  SocketIOManager.sharedInstance.establishConnection()
                 
                 
                 

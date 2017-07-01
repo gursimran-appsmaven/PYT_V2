@@ -33,7 +33,6 @@ class SocketIOManager: NSObject {
     func establishConnection() {
         socket.connect()
         
-        
     }
     
     

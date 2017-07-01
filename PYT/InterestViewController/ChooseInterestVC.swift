@@ -122,6 +122,12 @@ class ChooseInterestVC: UIViewController , UICollectionViewDelegate,UICollection
              Udefaults .setValue(postArray, forKey: "PostInterest")
             self.navigationController?.popViewController(animated: true)
         }
+        else if(comingFrom == "Profile"){
+            Udefaults .setValue(checked, forKey: "Interests")
+            Udefaults .setValue(categId, forKey: "IntrestsId")
+             Udefaults.set(true, forKey: "refreshInterest")
+            self.navigationController?.popViewController(animated: true)
+        }
         else
         {
         if checked.count<1
@@ -134,11 +140,7 @@ class ChooseInterestVC: UIViewController , UICollectionViewDelegate,UICollection
         Udefaults .setValue(checked, forKey: "Interests")
         Udefaults .setValue(categId, forKey: "IntrestsId")
           Udefaults.set(true, forKey: "refreshInterest")
-//        let transition = CATransition()
-//        transition.duration = 0.5
-//        transition.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
-//        transition.type = kCATransitionFade
-//        self.navigationController?.view.layer.add(transition, forKey: nil)
+
          self.navigationController?.popViewController(animated: true)
     }
             
@@ -155,9 +157,10 @@ class ChooseInterestVC: UIViewController , UICollectionViewDelegate,UICollection
             //Udefaults .setValue(postArray, forKey: "PostInterest")
             self.navigationController?.popViewController(animated: true)
         }
-            
-            
-            
+        else if(comingFrom == "Profile")
+        {
+            self.navigationController?.popViewController(animated: true)
+        }
         else
         {
         

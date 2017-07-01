@@ -56,7 +56,7 @@
 
 @property (weak, nonatomic) IBOutlet UILabel *headerLabel;
 
-@property (weak, nonatomic) IBOutlet UIImageView *headerImage;
+@property (weak, nonatomic) IBOutlet UIButton *deleteButton;
 
 @property (weak, nonatomic) IBOutlet UIScrollView *zoomImageScrollView;
 @property (weak, nonatomic) IBOutlet UIImageView *zoomImageView;

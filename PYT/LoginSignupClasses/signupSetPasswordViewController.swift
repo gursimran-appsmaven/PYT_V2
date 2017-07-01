@@ -386,7 +386,7 @@ class signupSetPasswordViewController: UIViewController, apiClassDelegate
             //}
             
             // Socket
-            //  SocketIOManager.sharedInstance.establishConnection()
+              SocketIOManager.sharedInstance.establishConnection()
             
             
             

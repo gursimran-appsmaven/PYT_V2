@@ -338,20 +338,16 @@ class apiClass: NSObject {
                 
                 DispatchQueue.main.async {
                     
-                    do {
-                        
-                        
-                        
-                        
-                        
-                        
+                    do
+                    {
                         let anyObj: Any = try JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.mutableContainers)
                         
                         self.delegate.serverResponseArrived(Response: anyObj as AnyObject)
                         
                         
                         
-                    } catch {
+                    } catch
+                    {
                         print("json error: \(error)")
                         CommonFunctionsClass.sharedInstance().showAlert(title: "Server Alert", text: "Something doesn't seem right, Please try again!", imageName: "alertServer")
                         

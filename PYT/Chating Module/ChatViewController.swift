@@ -58,10 +58,11 @@ class ChatViewController: JSQMessagesViewController {
     override func viewWillAppear(_ animated: Bool) {
         
         self.headerLabel.text = receiverName as String
-        self.headerImage.image = nil
         self.backBtn .setImage(UIImage (named:"back"), for: UIControlState .normal)
         
         self.backBtn .addTarget(self, action: #selector(ChatViewController.backButtonAction) , for: UIControlEvents .touchUpInside)
+        self.deleteButton .addTarget(self, action: #selector(ChatViewController.backButtonAction), for: .touchUpInside)
+        
         
         
     }
@@ -157,7 +158,7 @@ class ChatViewController: JSQMessagesViewController {
         chatingIndicator.center=self.view.center
         self.view .addSubview(chatingIndicator)
         self.view.bringSubview(toFront: chatingIndicator)
-        //SocketIOManager.sharedInstance.establishConnection()
+        SocketIOManager.sharedInstance.establishConnection()
          self.getOlderMessages(userId: uId!)  ///older messages will be appears
         
        
@@ -172,7 +173,7 @@ class ChatViewController: JSQMessagesViewController {
         
         
         
-        self.tabBarController?.tabBar.isHidden = true
+        //self.tabBarController?.tabBar.isHidden = true
         // Do any additional setup after loading the view.
        
         selectedTag = 91190
@@ -521,7 +522,7 @@ class ChatViewController: JSQMessagesViewController {
                             
                             let arr: NSMutableArray = basicInfo .value(forKey: "chat") as! NSMutableArray
                             
-                            ////print(arr)
+                          //  print(arr)
                             
                            
                             
@@ -544,14 +545,14 @@ class ChatViewController: JSQMessagesViewController {
                                 
                                 let incommsgDic = (arr.object(at: i) as AnyObject).value(forKey: "msg") as! NSDictionary
                                 
-                                let jsonData2 = try!  JSONSerialization.data(withJSONObject: postString, options: [])
+                                let jsonData2 = try!  JSONSerialization.data(withJSONObject: incommsgDic, options: [])
                                 
                                 let jsonString2 = NSString(data: jsonData2, encoding: String.Encoding.utf8.rawValue)! as String
                                 
                                 
                                 
                             let message = JSQMessage(senderId: UsId, senderDisplayName: "", date: NSDate() as Date!, text: jsonString2)
-                                
+                               // print(message?.description)
                                 self.messages .append(message!)
                                 //self.messages += [message]
                                 
@@ -847,7 +848,7 @@ extension ChatViewController {
         //// get the string and convert it into json and get the values what you need
         
        
-        
+      //  print(result)
         if result["msgType"] as! NSNumber == 1 {
          
             

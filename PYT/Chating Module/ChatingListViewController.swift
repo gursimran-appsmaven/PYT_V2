@@ -441,7 +441,7 @@ class ChatingListViewController: UIViewController {
                     self.chatingIndicator.stopAnimating()
                     self.tabBarController?.tabBar.items?[3].badgeValue = nil
                     let uId = Udefaults .string(forKey: "userLoginId")
-                    //SocketIOManager.sharedInstance.sendCounter(uId!)
+                    SocketIOManager.sharedInstance.sendCounter(uId!)
                 
                     
                 }

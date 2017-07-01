@@ -290,7 +290,7 @@ class ViewController: UIViewController, apiClassDelegate , UIScrollViewDelegate,
                 }
                 else
                 {
-                   // SocketIOManager.sharedInstance.establishConnection()
+                    SocketIOManager.sharedInstance.establishConnection()
                     
                     if (tabledata?.count)! < 1
                     {
@@ -635,6 +635,8 @@ class ViewController: UIViewController, apiClassDelegate , UIScrollViewDelegate,
             {
                 var userDetail = NSDictionary()
                 userDetail = jsonResult.object(forKey: "data") as! NSDictionary
+                print(userDetail)
+                
                 let uEmail = userDetail.value(forKey: "email") as? String ?? ""
                 Udefaults.set(uEmail, forKey: "loginEmail")
                 let uname = userDetail.value(forKey: "name") as? String ?? ""
@@ -647,6 +649,11 @@ class ViewController: UIViewController, apiClassDelegate , UIScrollViewDelegate,
                 
                 
                 let runtimeLocations = userDetail.value(forKey: "runTimeLocation") as! NSMutableArray
+                
+                let arrRu = NSMutableArray()
+                UserDefaults.standard.set(arrRu, forKey: "arrayOfIntrest")
+                tabledata = UserDefaults.standard.array(forKey: "arrayOfIntrest")
+                
                 if runtimeLocations.count > 0
                 {
                     let arrayOfLoc = NSMutableArray()
@@ -671,14 +678,14 @@ class ViewController: UIViewController, apiClassDelegate , UIScrollViewDelegate,
                          dic = ["location":loc, "type": placeType, "placeId": placeId,  "delete":false, "fullName": fullName ]
                         
                         
-                        // print(dic)
+                         print(dic)
                         
                         arrayOfLoc .add(dic)
                         
                     }
                     
                     UserDefaults.standard.set(arrayOfLoc, forKey: "arrayOfIntrest")
-                    
+                    tabledata = UserDefaults.standard.array(forKey: "arrayOfIntrest")
                     
                 }
                 
@@ -687,7 +694,10 @@ class ViewController: UIViewController, apiClassDelegate , UIScrollViewDelegate,
                 
                 let nxtObj3 = self.storyboard?.instantiateViewController(withIdentifier: "ViewController") as! ViewController
                 
-                if (nxtObj3.tabledata?.count)!<1 {
+                
+               
+                
+                if (tabledata?.count)!<1 {
                     
                     let nxtObj = self.storyboard?.instantiateViewController(withIdentifier: "searchScreenViewController") as! searchScreenViewController
                     
@@ -738,7 +748,7 @@ class ViewController: UIViewController, apiClassDelegate , UIScrollViewDelegate,
                 
                 
                 // Socket
-               // SocketIOManager.sharedInstance.establishConnection()
+                SocketIOManager.sharedInstance.establishConnection()
                 
                 
                 
@@ -843,7 +853,7 @@ class ViewController: UIViewController, apiClassDelegate , UIScrollViewDelegate,
                     }
                     
                                      // Socket
-                  //  SocketIOManager.sharedInstance.establishConnection()
+                    SocketIOManager.sharedInstance.establishConnection()
                     
                     
                     

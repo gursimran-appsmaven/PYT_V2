@@ -209,6 +209,37 @@ open class SocketIOClient : NSObject, SocketIOClientSpec, SocketEngineClient, So
         status = .connected
 
         handleClientEvent(.connect, data: [])
+        
+        
+        print("Socket is connected")
+        
+        
+       
+        let uId = Udefaults .string(forKey: "userLoginId")
+        
+        if uId == nil || uId == ""{
+            print("Socket is connected but not init")
+            
+            SocketIOManager.sharedInstance.closeConnection()
+            
+        }
+        else
+        {
+            SocketIOManager.sharedInstance.connectToServerWithNickname(uId!, completionHandler: { (userList) -> Void in
+                DispatchQueue.main.async(execute: { () -> Void in
+                    print("Socket is connected and init is also hit")
+                    if userList != nil {
+                        
+                        print("Socket is connected and init is also hit")
+                        
+                    }
+                })
+            })
+            
+        }
+        
+        
+        
     }
 
     func didDisconnect(reason: String) {
@@ -222,6 +253,18 @@ open class SocketIOClient : NSObject, SocketIOClientSpec, SocketEngineClient, So
         // Make sure the engine is actually dead.
         engine?.disconnect(reason: reason)
         handleClientEvent(.disconnect, data: [reason])
+        
+        print("socket is disconnected")
+        
+        let defaults = UserDefaults.standard
+        let uId = defaults .string(forKey: "userLoginId")
+        
+        if uId != ""{
+            SocketIOManager.sharedInstance.establishConnection()
+        }
+        
+        
+        
     }
 
     /// Disconnects the socket.

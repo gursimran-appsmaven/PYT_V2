@@ -177,6 +177,9 @@ class searchScreenViewController: UIViewController, UINavigationControllerDelega
        
         
         let tabledata2 = UserDefaults.standard.array(forKey: "arrayOfIntrest")
+        
+        
+        
         if (tabledata2?.count)!<1
         {
             //do nothing

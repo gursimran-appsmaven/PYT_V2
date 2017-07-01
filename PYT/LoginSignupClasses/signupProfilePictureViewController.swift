@@ -39,15 +39,17 @@ class signupProfilePictureViewController: UIViewController, apiClassDelegate,UII
     }
 
     
+    @IBAction func finishAction(_ sender: Any) {
     
-    
-    func startRegisterUser() {
+        loginFromFb = false
+        let parameterString: NSDictionary = ["name":nameTf.text!, "email": email, "password": password, "deviceToken":["token": "", "device": "iphone"]]
         
-        nameTf.resignFirstResponder()
-        
-        
+        apiClass.sharedInstance().postRequestSearch(parameterString: parameterString, viewController: self)
+
         
     }
+    
+   
     
     
     
@@ -557,7 +559,7 @@ class signupProfilePictureViewController: UIViewController, apiClassDelegate,UII
                 //}
                 
                 // Socket
-                //  SocketIOManager.sharedInstance.establishConnection()
+                  SocketIOManager.sharedInstance.establishConnection()
                 
                 
                 
@@ -577,7 +579,8 @@ class signupProfilePictureViewController: UIViewController, apiClassDelegate,UII
             
 
         }
-        else{
+        else
+        {
             
         
         jsonResult = NSDictionary()
@@ -593,7 +596,7 @@ class signupProfilePictureViewController: UIViewController, apiClassDelegate,UII
           
             let uname = nameTf.text!
             Udefaults.set(uname, forKey: "userLoginName")
-            
+            Udefaults.set(email, forKey: "userLoginEmail")
             
             Udefaults.set("", forKey: "userProfilePic")
             
@@ -609,7 +612,7 @@ class signupProfilePictureViewController: UIViewController, apiClassDelegate,UII
             Udefaults.set(false, forKey: "social")
             
             let nxtObj3 = self.storyboard?.instantiateViewController(withIdentifier: "ViewController") as! ViewController
-            
+   ////crashing
             if (nxtObj3.tabledata?.count)!<1 {
                 
                 
@@ -664,7 +667,7 @@ class signupProfilePictureViewController: UIViewController, apiClassDelegate,UII
             
             
             // Socket
-            // SocketIOManager.sharedInstance.establishConnection()
+             SocketIOManager.sharedInstance.establishConnection()
             
             
             
