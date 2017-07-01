@@ -1409,7 +1409,7 @@ extension ChatViewController {
        
         let arr = NSMutableArray()
         
-        
+        cell.backgroundColor = UIColor .green
         
         
         let count = indexPath.row * 3
@@ -1458,7 +1458,8 @@ extension ChatViewController {
             
             
             
-            if j == 0 {
+            if j == 0
+            {
                 newBtn1.frame = CGRect(x: buttonSpace, y:0, width: buttonWidth, height: 95)//CGRectMake(buttonSpace, 0, buttonWidth, 95)
                 newBtn1 .addTarget(self, action: #selector(ChatViewController.buttonAction(sender:)), for: .touchUpInside)
                 cell.contentView .addSubview(newBtn1)

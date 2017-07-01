@@ -15,6 +15,7 @@
 		100EE3A41EF156A8005A79C1 /* PYTTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 100EE3A31EF156A8005A79C1 /* PYTTests.swift */; };
 		100EE3AF1EF156A8005A79C1 /* PYTUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 100EE3AE1EF156A8005A79C1 /* PYTUITests.swift */; };
 		100EE3BE1EF15F1E005A79C1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 100EE3BD1EF15F1E005A79C1 /* AppDelegate.swift */; };
+		101B9D121F077856006EA33F /* commentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 101B9D111F077856006EA33F /* commentViewController.swift */; };
 		1025FBA11EFBD8000068B557 /* apiClassInterest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1025FB9E1EFBD8000068B557 /* apiClassInterest.swift */; };
 		1025FBA31EFBD8000068B557 /* intrestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1025FBA01EFBD8000068B557 /* intrestViewController.swift */; };
 		102C37511F0374A300D026B5 /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = 102C37501F0374A300D026B5 /* Location.swift */; };
@@ -121,6 +122,7 @@
 		100EE3AE1EF156A8005A79C1 /* PYTUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PYTUITests.swift; sourceTree = "<group>"; };
 		100EE3B01EF156A8005A79C1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		100EE3BD1EF15F1E005A79C1 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		101B9D111F077856006EA33F /* commentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = commentViewController.swift; sourceTree = "<group>"; };
 		1025FB9E1EFBD8000068B557 /* apiClassInterest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = apiClassInterest.swift; sourceTree = "<group>"; };
 		1025FBA01EFBD8000068B557 /* intrestViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = intrestViewController.swift; sourceTree = "<group>"; };
 		102C37501F0374A300D026B5 /* Location.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
@@ -377,6 +379,7 @@
 			isa = PBXGroup;
 			children = (
 				1065FD761EFD2DE100D2C38F /* detailViewController.swift */,
+				101B9D111F077856006EA33F /* commentViewController.swift */,
 			);
 			path = DetailClass;
 			sourceTree = "<group>";
@@ -829,6 +832,7 @@
 				106DDC041F061EBB00ABD16D /* chatingUserListViewController.swift in Sources */,
 				106DDC3A1F06813A00ABD16D /* changePasswordViewController.swift in Sources */,
 				106DDC091F061EBB00ABD16D /* SocketAnyEvent.swift in Sources */,
+				101B9D121F077856006EA33F /* commentViewController.swift in Sources */,
 				106DDC1E1F061EBB00ABD16D /* WebSocket.swift in Sources */,
 				106DDC0E1F061EBB00ABD16D /* SocketEnginePollable.swift in Sources */,
 				106DDC0D1F061EBB00ABD16D /* SocketEnginePacketType.swift in Sources */,
