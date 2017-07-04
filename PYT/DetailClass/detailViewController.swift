@@ -3513,10 +3513,10 @@ class detailViewController: UIViewController, apiClassDelegate {
                                 
                              
                                 
-                                let userPhotoDp = ""//review[0].value(forKey: "userId")!.value(forKey: "picture") as? String ?? " "
+                                let userPhotoDp = ((review[0] as AnyObject).value(forKey: "userId")! as AnyObject).value(forKey: "picture") as? String ?? " "
                                 
-                                let reviewTxt = "wjudgkghkglg"//review[0].value(forKey: "review") as? String ?? " "
-                                let reviewername = "dgdhhfkg"//review[0].value(forKey: "userId")!.value(forKey: "name") as? String ?? " "
+                                let reviewTxt = (review[0] as AnyObject).value(forKey: "review") as? String ?? " "
+                                let reviewername = ((review[0] as AnyObject).value(forKey: "userId")! as AnyObject).value(forKey: "name") as? String ?? " "
                                 
                                 
                                 

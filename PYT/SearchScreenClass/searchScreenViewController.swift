@@ -260,7 +260,7 @@ class searchScreenViewController: UIViewController, UINavigationControllerDelega
         
         self.navigationController?.isNavigationBarHidden = true
         
-        self.tabBarController?.tabBar.isHidden = true
+        self.tabBarController?.setTabBarVisible(visible: false, animated: true)
         
         
         
@@ -1561,7 +1561,6 @@ class searchScreenViewController: UIViewController, UINavigationControllerDelega
             UserDefaults.standard.set(arrayOfIntrest, forKey: "arrayOfIntrest")
             
              let nxtObj = self.storyboard?.instantiateViewController(withIdentifier: "MainTabBarViewController") as! MainTabBarViewController
-            
             
             
             

@@ -368,13 +368,11 @@ class SignUpScreenViewController: UIViewController, apiClassDelegate {
                 
                 
                 let runtimeLocations = jsonResult.value(forKey: "runtimeLocation") as! NSMutableArray
-                
-                if runtimeLocations.count > 0 {
-                    
-                    let arrayOfLoc = NSMutableArray()
-                    for l in 0..<runtimeLocations.count {
-                        
-                        
+                let arrayOfLoc = NSMutableArray()
+                UserDefaults.standard.set(arrayOfLoc, forKey: "arrayOfIntrest")
+                if runtimeLocations.count > 0
+                {
+                        for l in 0..<runtimeLocations.count {
                         
                         
                         let fullName1 = runtimeLocations.object(at: l) as? NSDictionary
