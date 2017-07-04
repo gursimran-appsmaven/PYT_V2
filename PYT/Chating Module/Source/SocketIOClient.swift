@@ -254,7 +254,7 @@ open class SocketIOClient : NSObject, SocketIOClientSpec, SocketEngineClient, So
         engine?.disconnect(reason: reason)
         handleClientEvent(.disconnect, data: [reason])
         
-        print("socket is disconnected")
+        print("socket is disconnected reason:\(reason)")
         
         let defaults = UserDefaults.standard
         let uId = defaults .string(forKey: "userLoginId")

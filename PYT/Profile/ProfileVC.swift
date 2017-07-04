@@ -332,7 +332,7 @@ class ProfileVC: UIViewController,UITableViewDelegate,UITableViewDataSource,UICo
             case 0:
                 print("Logout")
 
-//                self.ActionLogout()
+                self.ActionLogout()
                 
                 
             default:
@@ -1226,7 +1226,8 @@ class ProfileVC: UIViewController,UITableViewDelegate,UITableViewDataSource,UICo
                     return
                 }
                 
-                if let httpStatus = response as? HTTPURLResponse, httpStatus.statusCode != 200 {
+                if let httpStatus = response as? HTTPURLResponse, httpStatus.statusCode != 200
+                {
                 }
                 
                 

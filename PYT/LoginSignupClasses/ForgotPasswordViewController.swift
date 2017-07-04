@@ -51,13 +51,10 @@ class ForgotPasswordViewController: UIViewController {
         else
         {
             CommonFunctionsClass.sharedInstance().showAlert(title: "Invalid Info", text: "The email id you have entered is not correct. Please try again.", imageName: "alertWrong")
-            
             MBProgressHUD.hide(for: self.view, animated: true)
            
         }
 
-        
-        
     }
     
     @IBAction func actionback(sender: AnyObject) {
@@ -68,9 +65,8 @@ class ForgotPasswordViewController: UIViewController {
    
     
     
-    func ChangePasswordifForgot(forgetString: NSDictionary) {
-        
-        
+    func ChangePasswordifForgot(forgetString: NSDictionary)
+    {
         
         let isConnectedInternet = CommonFunctionsClass.sharedInstance().isConnectedToNetwork()
         
@@ -113,7 +109,6 @@ class ForgotPasswordViewController: UIViewController {
                 OperationQueue.main.addOperation
                     {
                         
-                        
                         if data == nil
                         {
                             CommonFunctionsClass.sharedInstance().showAlert(title: "Server Alert", text: "Something doesn't seem right, Please try again!", imageName: "alertServer")
@@ -123,9 +118,8 @@ class ForgotPasswordViewController: UIViewController {
                         else
                         {
                             
-                        
-                            do {
-                                
+                            do
+                            {
                                 let result = NSString(data: data!, encoding:String.Encoding.ascii.rawValue)!
                                 print("Body: Result from forget password \(result)")
                                 
@@ -133,37 +127,28 @@ class ForgotPasswordViewController: UIViewController {
                                 jsonResult = NSDictionary()
                                 jsonResult = anyObj as! NSDictionary
                                 let success = jsonResult.object(forKey: "status") as! NSNumber
-                                if success == 1 {
-                                    
+                                if success == 1
+                                {
                                    // let nxtObj = self.storyboard?.instantiateViewControllerWithIdentifier("changePasswordViewController") as! changePasswordViewController
                                    // nxtObj.forgotPasswordScreen = true
                                    // nxtObj.oldPasswdId = jsonResult.valueForKey("user")!.valueForKey("_id") as? String ?? "Id"
-                                    
-                                    
                                    // self.navigationController?.pushViewController(nxtObj, animated: true)
-                                    
                                     
                                 }
                                 else
                                 {
                                     CommonFunctionsClass.sharedInstance().showAlert(title: "Invalid Info", text: "The email id you have entered is not correct. Please try again.", imageName: "alertWrong")
-                                    
-                                    
                                 }
                                 
                                 MBProgressHUD.hideAllHUDs(for: self.view, animated: true)
                                 
                             }
-                            catch {
+                            catch
+                            {
                                 print("json error: \(error)")
                                 CommonFunctionsClass.sharedInstance().showAlert(title: "Server Alert", text: "Something doesn't seem right, Please try again!", imageName: "alertServer")
-                                
                                 MBProgressHUD.hideAllHUDs(for: self.view, animated: true)
                             }
-                            
-                            
-                            
-                            
                             
                         }
                 }
@@ -174,7 +159,6 @@ class ForgotPasswordViewController: UIViewController {
         else
         {
             CommonFunctionsClass.sharedInstance().showAlert(title: "No Internet Connection", text: "You are currently offline.", imageName: "alertInternet")
-            
             MBProgressHUD.hideAllHUDs(for: self.view, animated: true)
             
         }

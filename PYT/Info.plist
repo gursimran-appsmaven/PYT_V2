@@ -8,16 +8,12 @@
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
 	<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
-	<key>NSPhotoLibraryUsageDescription</key>
-	<string>Allow</string>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>
 	<string>$(PRODUCT_NAME)</string>
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
-	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>Location is required</string>
 	<key>CFBundleShortVersionString</key>
 	<string>1.0</string>
 	<key>CFBundleURLTypes</key>
@@ -29,10 +25,6 @@
 			</array>
 		</dict>
 	</array>
-	<key>FacebookAppID</key>
-	<string>1726736034214210</string>
-	<key>FacebookDisplayName</key>
-	<string>PYT</string>
 	<key>CFBundleVersion</key>
 	<string>1</string>
 	<key>Fabric</key>
@@ -40,6 +32,10 @@
 		<key>APIKey</key>
 		<string>63267469df0c97165b811e73d17974c004b89047</string>
 	</dict>
+	<key>FacebookAppID</key>
+	<string>1726736034214210</string>
+	<key>FacebookDisplayName</key>
+	<string>PYT</string>
 	<key>FirebaseAppDelegateProxyEnabled</key>
 	<false/>
 	<key>LSApplicationCategoryType</key>
@@ -104,6 +100,10 @@
 			<dict/>
 		</dict>
 	</dict>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>Location is required</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Allow</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>SFUIDisplay-Black.otf</string>

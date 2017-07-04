@@ -28,7 +28,7 @@ class intrestViewController: UIViewController, apiClassInterestDelegate ,UITable
     @IBOutlet var popUpView: UIView!
     @IBOutlet weak var pupupsubview: CustomView!
     @IBOutlet weak var likeButtonPopup: UIButton!
-    @IBOutlet weak var addCommentPopup: UIButton!
+   // @IBOutlet weak var addCommentPopup: UIButton!
     @IBOutlet weak var addToPlanPopup: UIButton!
     @IBOutlet weak var addToBucketPopup: UIButton!
     @IBOutlet weak var editBtnPopup: UIButton!
@@ -267,7 +267,7 @@ class intrestViewController: UIViewController, apiClassInterestDelegate ,UITable
         DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + Double(Int64(1 * NSEC_PER_SEC)) / Double(NSEC_PER_SEC), execute: {() -> Void in
             
             self.likeButtonPopup.addTarget(self, action: #selector(intrestViewController.likeImageTapped), for: .touchUpInside)
-            self.addCommentPopup.addTarget(self, action: #selector(intrestViewController.addCommentTapped), for: .touchUpInside)
+            //self.addCommentPopup.addTarget(self, action: #selector(intrestViewController.addCommentTapped), for: .touchUpInside)
             self.addToPlanPopup.addTarget(self, action: #selector(intrestViewController.storyImageTapped), for: .touchUpInside)
             self.addToBucketPopup.addTarget(self, action: #selector(intrestViewController.bucketImageTapped), for: .touchUpInside)
             

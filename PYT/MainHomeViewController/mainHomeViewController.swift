@@ -67,7 +67,7 @@ class mainHomeViewController: UIViewController, SDWebImageManagerDelegate, apiCl
     @IBOutlet var detailView: UIView!
     @IBOutlet weak var dynamicDetailSubview: CustomView!
     @IBOutlet weak var likeButtonDetailView: UIButton!
-    @IBOutlet weak var commentButtonDetailView: UIButton!
+   // @IBOutlet weak var commentButtonDetailView: UIButton!
     @IBOutlet weak var addToPlanBtn: UIButton!
     @IBOutlet weak var addToBucketBtn: UIButton!
     @IBOutlet weak var editButtonDetailview: UIButton!
@@ -330,7 +330,7 @@ class mainHomeViewController: UIViewController, SDWebImageManagerDelegate, apiCl
             if placeIds.contains(globalPlaceid) {
                 print("Contains story")
                 
-                //storyCollectionView .reloadData()
+                storiesCollectionView .reloadData()
             }
             
         }
@@ -554,7 +554,7 @@ class mainHomeViewController: UIViewController, SDWebImageManagerDelegate, apiCl
         
       //add actions to the popup buttons
         likeButtonDetailView.addTarget(self, action: #selector(self.likeButtonPressed(_:)), for: .touchUpInside)
-        commentButtonDetailView.addTarget(self, action: #selector(self.addCommentTapped(_:)), for: .touchUpInside)
+        //commentButtonDetailView.addTarget(self, action: #selector(self.addCommentTapped(_:)), for: .touchUpInside)
         addToPlanBtn.addTarget(self, action: #selector(self.storyButtonTapped(_:)), for: .touchUpInside)
         addToBucketBtn.addTarget(self, action: #selector(self.bucketButtonTapped(_:)), for: .touchUpInside)
         editButtonDetailview.addTarget(self, action: #selector(self.editButtonTapped(_:)), for: .touchUpInside)
@@ -923,7 +923,7 @@ class mainHomeViewController: UIViewController, SDWebImageManagerDelegate, apiCl
             storiesCollectionView.reloadData()
              let indexPath = IndexPath(row: tableIndex, section: 0)
             if  dataArray.count != 0 {
-                self.imagesTableView.reloadRows(at: [indexPath], with: .none)
+                //self.imagesTableView.reloadRows(at: [indexPath], with: .none)
             }
             
             
@@ -2463,11 +2463,8 @@ class mainHomeViewController: UIViewController, SDWebImageManagerDelegate, apiCl
         
         //hit api here
         
-        
-        //let parameterString = NSString(string:"search_data/\(location)/\(country)/\(latitide)/\(longitude)/50/\(type)") as String
-        
-            //let parameterString = NSString(string: "userId=\(self.uId)&type=\(type)&placeId=\(placeId)&fullName=\(globalFullName)")
-        
+     
+            
             let parameterString:NSDictionary = ["userId": self.uId, "type": type, "placeId": placeId, "fullName": globalFullName, "skip": 0]
             
             print(parameterString)
@@ -2477,10 +2474,10 @@ class mainHomeViewController: UIViewController, SDWebImageManagerDelegate, apiCl
         self.dataArray = NSMutableArray()
         self.arrayOfimages1 .removeAllObjects()
         self.userDetailArray .removeAllObjects()
-        
+        self.imagesTableView .reloadData()
             
         
-          OperationQueue.main.cancelAllOperations() //clear all the queues
+         // OperationQueue.main.cancelAllOperations() //clear all the queues
             
         
         Udefaults.set(true, forKey: "refreshInterest")
@@ -2494,10 +2491,10 @@ class mainHomeViewController: UIViewController, SDWebImageManagerDelegate, apiCl
             
            
             let loadingNotification = MBProgressHUD.showAdded(to: self.view, animated: true)
-            DispatchQueue.main.async(execute: {
-                self.imagesTableView .reloadData()
+           // DispatchQueue.main.async(execute: {
+            
                 
-            })
+           // })
             
         OperationQueue.main.cancelAllOperations() //clear all the queues
             DispatchQueue.main.async(execute: {
@@ -2768,9 +2765,10 @@ class mainHomeViewController: UIViewController, SDWebImageManagerDelegate, apiCl
     
     
     
-    func shortData() -> Void {
+    func shortData() -> Void
+    {
         
-          DispatchQueue.main.async(execute: {
+        //  DispatchQueue.main.async(execute: {
         
          self.refreshControl .endRefreshing() // it will showing then will remove
         
@@ -2960,13 +2958,9 @@ class mainHomeViewController: UIViewController, SDWebImageManagerDelegate, apiCl
         
         MBProgressHUD.hide(for: self.view, animated: true)
         
-        })
+       // })
         
     }
-    
-    
-    
-    
     
     
     
@@ -4017,6 +4011,8 @@ extension mainHomeViewController: UICollectionViewDelegate, UICollectionViewData
                     }
                     
                     locationimage.sd_setImage(with: url2, placeholderImage: UIImage(named: "dummyBackground1"), options: SDWebImageOptions(rawValue: 0), completed: block)
+
+                    
                     
                     locationimage.focusOnFaces = true
                     

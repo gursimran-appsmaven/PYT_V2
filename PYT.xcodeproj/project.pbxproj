@@ -18,6 +18,7 @@
 		101B9D121F077856006EA33F /* commentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 101B9D111F077856006EA33F /* commentViewController.swift */; };
 		1025FBA11EFBD8000068B557 /* apiClassInterest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1025FB9E1EFBD8000068B557 /* apiClassInterest.swift */; };
 		1025FBA31EFBD8000068B557 /* intrestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1025FBA01EFBD8000068B557 /* intrestViewController.swift */; };
+		10289B5E1F0A0E8400E10DF1 /* nearByPlacesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10289B5D1F0A0E8400E10DF1 /* nearByPlacesViewController.swift */; };
 		102C37511F0374A300D026B5 /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = 102C37501F0374A300D026B5 /* Location.swift */; };
 		104182681EF253D400078527 /* apiClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 104182671EF253D400078527 /* apiClass.swift */; };
 		1041826B1EF25D4300078527 /* CommonFunctionsClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1041826A1EF25D4300078527 /* CommonFunctionsClass.swift */; };
@@ -125,6 +126,7 @@
 		101B9D111F077856006EA33F /* commentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = commentViewController.swift; sourceTree = "<group>"; };
 		1025FB9E1EFBD8000068B557 /* apiClassInterest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = apiClassInterest.swift; sourceTree = "<group>"; };
 		1025FBA01EFBD8000068B557 /* intrestViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = intrestViewController.swift; sourceTree = "<group>"; };
+		10289B5D1F0A0E8400E10DF1 /* nearByPlacesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = nearByPlacesViewController.swift; sourceTree = "<group>"; };
 		102C37501F0374A300D026B5 /* Location.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
 		104182671EF253D400078527 /* apiClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = apiClass.swift; path = SingltonClass/apiClass.swift; sourceTree = "<group>"; };
 		1041826A1EF25D4300078527 /* CommonFunctionsClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CommonFunctionsClass.swift; path = SingltonClass/CommonFunctionsClass.swift; sourceTree = "<group>"; };
@@ -379,6 +381,7 @@
 			isa = PBXGroup;
 			children = (
 				1065FD761EFD2DE100D2C38F /* detailViewController.swift */,
+				10289B5D1F0A0E8400E10DF1 /* nearByPlacesViewController.swift */,
 				101B9D111F077856006EA33F /* commentViewController.swift */,
 			);
 			path = DetailClass;
@@ -601,7 +604,7 @@
 						CreatedOnToolsVersion = 8.2.1;
 						DevelopmentTeam = 9YDH3T82UC;
 						LastSwiftMigration = 0820;
-						ProvisioningStyle = Automatic;
+						ProvisioningStyle = Manual;
 					};
 					100EE39E1EF156A8005A79C1 = {
 						CreatedOnToolsVersion = 8.2.1;
@@ -851,6 +854,7 @@
 				106DDC161F061EBB00ABD16D /* SocketIOClientSpec.swift in Sources */,
 				10C4E9E81EF3BBE800E05303 /* searchScreenViewController.swift in Sources */,
 				104182B01EF26AEC00078527 /* SweetAlert.swift in Sources */,
+				10289B5E1F0A0E8400E10DF1 /* nearByPlacesViewController.swift in Sources */,
 				10C4E9E21EF3B76600E05303 /* searchTableCell.swift in Sources */,
 				1066F2711F0281D5007CE7E3 /* ProfileVC.swift in Sources */,
 				1089A5AB1EF3EAFC006197FE /* signupSetPasswordViewController.swift in Sources */,
@@ -1029,8 +1033,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Nitin Trehan (CMG56G5U35)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Nitin Trehan (CMG56G5U35)";
 				DEVELOPMENT_TEAM = 9YDH3T82UC;
+				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/PYT/socialFramework",
@@ -1039,10 +1045,10 @@
 				INFOPLIST_FILE = PYT/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.maven.development.PYT;
+				PRODUCT_BUNDLE_IDENTIFIER = com.pictureyourtravel.pyt;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE = "c5906e76-0d1d-4934-8784-b59410785214";
+				PROVISIONING_PROFILE_SPECIFIER = PYT_development;
 				SWIFT_OBJC_BRIDGING_HEADER = "/Users/osx/Documents/PYT_V2/PYT/PYT-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 3.0;
@@ -1056,8 +1062,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Nitin Trehan (CMG56G5U35)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Nitin Trehan (CMG56G5U35)";
 				DEVELOPMENT_TEAM = 9YDH3T82UC;
+				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/PYT/socialFramework",
@@ -1066,8 +1074,10 @@
 				INFOPLIST_FILE = PYT/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.maven.development.PYT;
+				PRODUCT_BUNDLE_IDENTIFIER = com.pictureyourtravel.pyt;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "c5906e76-0d1d-4934-8784-b59410785214";
+				PROVISIONING_PROFILE_SPECIFIER = PYT_development;
 				SWIFT_OBJC_BRIDGING_HEADER = "/Users/osx/Documents/PYT_V2/PYT/PYT-Bridging-Header.h";
 				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = 1;

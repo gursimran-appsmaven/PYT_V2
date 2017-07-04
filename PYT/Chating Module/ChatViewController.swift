@@ -1409,9 +1409,6 @@ extension ChatViewController {
        
         let arr = NSMutableArray()
         
-        cell.backgroundColor = UIColor .green
-        
-        
         let count = indexPath.row * 3
          ////print(count)// to show the 3 images at a time in row of tableview
         
@@ -1429,7 +1426,6 @@ extension ChatViewController {
         let newBtn3 = UIButton()
         
         let indicator1 = UIActivityIndicatorView()
-      
         
         
         cell.clipsToBounds=true
@@ -1478,7 +1474,8 @@ extension ChatViewController {
 //                    indicator1 .removeFromSuperview()
 //                }
                 
-                newBtn1.imageView?.sd_setImage(with: url2 as URL!, placeholderImage: pImage) //sd_setImageWithURL(url2, forState: .Normal, placeholderImage: pImage, completed: block)
+                newBtn1.sd_setImage(with: url2 as URL!, for: .normal, placeholderImage: pImage)
+                //newBtn1.imageView?.sd_setImage(with: url2 as URL!, placeholderImage: pImage) //sd_setImageWithURL(url2, forState: .Normal, placeholderImage: pImage, completed: block)
                 
                 if newBtn1.tag == selectedTag {
                     
@@ -1510,7 +1507,9 @@ extension ChatViewController {
 //                    indicator1 .removeFromSuperview()
 //                }
                 
-                newBtn2.imageView?.sd_setImage(with: url2 as URL!, placeholderImage: pImage) //sd_setImageWithURL(url2, forState: .Normal, placeholderImage: pImage, completed: block)
+                newBtn2.sd_setImage(with: url2 as URL!, for: .normal, placeholderImage: pImage)
+                
+                //newBtn2.imageView?.sd_setImage(with: url2 as URL!, placeholderImage: pImage) //sd_setImageWithURL(url2, forState: .Normal, placeholderImage: pImage, completed: block)
                 
                 
                 if newBtn2.tag == selectedTag {
@@ -1545,7 +1544,8 @@ extension ChatViewController {
 //                    indicator1 .removeFromSuperview()
 //                }
                 
-                newBtn3.imageView?.sd_setImage(with: url2 as URL!, placeholderImage: pImage) //sd_setImageWithURL(url2, forState: .Normal, placeholderImage: pImage, completed: block)
+                newBtn3.sd_setImage(with: url2 as URL!, for: .normal, placeholderImage: pImage)
+                //newBtn3.imageView?.sd_setImage(with: url2 as URL!, placeholderImage: pImage) //sd_setImageWithURL(url2, forState: .Normal, placeholderImage: pImage, completed: block)
                 
                 if newBtn3.tag == selectedTag {
                     

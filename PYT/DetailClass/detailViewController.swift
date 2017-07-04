@@ -116,7 +116,7 @@ class detailViewController: UIViewController, apiClassDelegate {
     
     
     @IBOutlet var userNameTxtv: UILabel!
-       @IBOutlet weak var locationTxtv: UILabel!
+      @IBOutlet weak var locationTxtv: UILabel!
 
     @IBOutlet weak var categoryLabel: UILabel!
     
@@ -222,7 +222,7 @@ class detailViewController: UIViewController, apiClassDelegate {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         
-       self.showMoreComments.isHidden = true
+        self.showMoreComments.isHidden = true
         self.showMoreDescription.isHidden=true
         
         
@@ -288,8 +288,8 @@ class detailViewController: UIViewController, apiClassDelegate {
         
         
         let imageId = (self.arrayWithData[0] as AnyObject).value(forKey: "imageId") as? String ?? ""
-        let defaults = UserDefaults.standard
-        let uId = defaults .string(forKey: "userLoginId")
+        
+        let uId = Udefaults .string(forKey: "userLoginId")
         let otherUserId = (self.arrayWithData[0] as AnyObject).value(forKey: "otherUserId") as? String ?? ""
         
         
@@ -2050,8 +2050,9 @@ class detailViewController: UIViewController, apiClassDelegate {
     
     @IBAction func showCommentsAction(_ sender: AnyObject)
     {
-       // let nxtObj2 = self.storyboard?.instantiateViewController(withIdentifier: "commentsViewController") as? commentsViewController
-      //  nxtObj2!.commentsArray=self.reviewsArray
+        let nxtObj2 = self.storyboard?.instantiateViewController(withIdentifier: "commentViewController") as? commentViewController
+        
+        nxtObj2!.reviewsArray=self.reviewsArray
       
         
         let imageId = (self.arrayWithData[0] as AnyObject).value(forKey: "imageId") as? String ?? ""
@@ -2066,13 +2067,14 @@ class detailViewController: UIViewController, apiClassDelegate {
         let commentParameter = "imageId=\(imageId)&userId=\(uId!)&page=all"//newer version
         
         
-     // nxtObj2!.parameter = commentParameter as NSString
-       // nxtObj2!.imageIdComment = imageId as NSString
-       // nxtObj2!.ownerId = otherUserId as NSString
-   // nxtObj2!.largeUrl = (self.arrayWithData[0] as AnyObject).value(forKey: "locationImage") as? String ?? ""
+      nxtObj2!.parameter = commentParameter as NSString
+        nxtObj2!.imageIdComment = imageId as NSString
+        nxtObj2!.ownerId = otherUserId as NSString
+         nxtObj2?.foursqReviews = self.reviewsArray
+       let wlargeUrl = (self.arrayWithData[0] as AnyObject).value(forKey: "locationImage") as? String ?? ""
+         nxtObj2!.largeUrl = wlargeUrl as NSString
         
-        
-        //self.navigationController! .pushViewController(nxtObj2!, animated: true)
+        self.navigationController! .pushViewController(nxtObj2!, animated: true)
         
     }
     
@@ -2122,7 +2124,8 @@ class detailViewController: UIViewController, apiClassDelegate {
     {
         
        let cell:UITableViewCell = tableView.dequeueReusableCell(withIdentifier: "CommentsCell")!
-            
+        
+        print(tempReviewArray.object(at: indexPath.row))
             let imageName2 = (tempReviewArray.object(at: indexPath.row) as AnyObject).value(forKey: "userPhoto") as? String ?? ""
             let url2 = URL(string: imageName2 )
             let pImage : UIImage = UIImage(named:"dummyProfile1")!
@@ -2336,14 +2339,14 @@ class detailViewController: UIViewController, apiClassDelegate {
             
         else
         {
-           // let nxtObj2 = self.storyboard?.instantiateViewController(withIdentifier: "nearByViewController") as? nearByViewController
+            let nxtObj2 = self.storyboard?.instantiateViewController(withIdentifier: "nearByPlacesViewController") as? nearByPlacesViewController
             
             let detail = self.nearByPlacesArray.object(at: indexPath.row)
-          //  print(detail)
+            print(detail)
             
-           // nxtObj2!.newDetail = detail as! NSDictionary
+            nxtObj2!.newDetail = detail as! NSDictionary
             
-           // self.navigationController! .pushViewController(nxtObj2!, animated: true)
+            self.navigationController! .pushViewController(nxtObj2!, animated: true)
 
         }
         
@@ -2681,14 +2684,6 @@ class detailViewController: UIViewController, apiClassDelegate {
         }
         
         
-        
-        
-        
-       
-        
-        
-        
-        
     }
     
     
@@ -2976,9 +2971,9 @@ class detailViewController: UIViewController, apiClassDelegate {
                                         let combineName = "\(firstName) \(lastName)"
                                         
                                         
-                                        self.reviewsArray .add(["userPhoto": combinePhoto, "userName": combineName, "comment": text])
+                                        self.reviewsArray .add(["userPhoto": combinePhoto, "userName": combineName, "comment": text,"reviewerId": ""])
                                         
-                                        self.tempReviewArray .add(["userPhoto": combinePhoto, "userName": combineName, "comment": text])
+                                        self.tempReviewArray .add(["userPhoto": combinePhoto, "userName": combineName, "comment": text, "reviewerId": ""])
                                         
                                     }
                                     
@@ -3200,7 +3195,7 @@ class detailViewController: UIViewController, apiClassDelegate {
                                             }
                                             
                                             
-                                            print(strDist)
+                                            //print(strDist)
                                             
                                             
                                             /*
@@ -3423,8 +3418,8 @@ class detailViewController: UIViewController, apiClassDelegate {
             
             let success = jsonResult.object(forKey: "status") as! NSNumber
             
-            if success != 1{
-               
+            if success != 1
+            {
                 
                   CommonFunctionsClass.sharedInstance().showAlert(title: "Server Alert", text: "Something doesn't seem right, Please try again!", imageName: "alertServer")
                 
@@ -3468,7 +3463,6 @@ class detailViewController: UIViewController, apiClassDelegate {
         
         if isConnectedInternet
         {
-            //let request = NSMutableURLRequest(URL: NSURL(string: "\(appUrl)get_reviews")!)//older version
             
             let request = NSMutableURLRequest(url: URL(string: "\(appUrl)get_review")!)
             
@@ -3506,15 +3500,7 @@ class detailViewController: UIViewController, apiClassDelegate {
                         basicInfo = anyObj as! NSMutableDictionary
                         
                         let status = basicInfo .value(forKey: "status") as! NSNumber
-                     
-                       // status = 8
                         
-                        
-                       
-                        
-                        
-                        
-                       
                         
                         if status == 1
                         {
@@ -3554,11 +3540,11 @@ class detailViewController: UIViewController, apiClassDelegate {
                             
                             self.tempReviewArray = NSMutableArray() //.removeAllObjects()
                             
-                            let userPhotoDp = ""//self.arrayWithData[0].value(forKey: "profileImage") as? NSString ?? ""
+                            let userPhotoDp = (self.arrayWithData[0] as AnyObject).value(forKey: "profileImage") as? NSString ?? ""
                             
-                            let reviewTxt = "gggj"// self.arrayWithData[0].value(forKey: "Description") as? String ?? " "
+                            let reviewTxt = (self.arrayWithData[0] as AnyObject).value(forKey: "Description") as? String ?? " "
                             
-                            let reviewername = "hjhgf"//self.arrayWithData[0].value(forKey: "userName") as? String ?? ""
+                            let reviewername = (self.arrayWithData[0] as AnyObject).value(forKey: "userName") as? String ?? ""
                             
                             
                             
@@ -3650,17 +3636,20 @@ class detailViewController: UIViewController, apiClassDelegate {
         let otherUserName = (self.arrayWithData[0] as AnyObject).value(forKey: "userName") as? String ?? ""
         let imageId = (self.arrayWithData[0] as AnyObject).value(forKey: "imageId") as? String ?? ""
         let imageThumbnail = (self.arrayWithData[0] as AnyObject).value(forKey: "standardImage") as? String ?? ""
-        //let nxtObj2 = self.storyboard?.instantiateViewController(withIdentifier: "AddCommentViewController") as? AddCommentViewController
+        let nxtObj2 = self.storyboard?.instantiateViewController(withIdentifier: "commentViewController") as? commentViewController
         let locationImageStr = (self.arrayWithData[0] as AnyObject).value(forKey: "locationImage") as? String ?? ""
         let otherUserId = (self.arrayWithData[0] as AnyObject).value(forKey: "otherUserId") as? String ?? ""
        
         var dictData = NSDictionary()
         dictData = ["imageId": imageId, "largeImage": locationImageStr, "thumbnailImage": imageThumbnail, "otherUserId": otherUserId, "otherUserName": otherUserName ]
-        
-       // nxtObj2?.dictionaryData = dictData
-       // nxtObj2?.addComment = true
-       // self.navigationController! .pushViewController(nxtObj2!, animated: true)
-    
+        let uId = Udefaults .string(forKey: "userLoginId")
+        let commentParameter = "imageId=\(imageId)&userId=\(uId!)&page=all"//newer
+        nxtObj2?.dictionaryData = dictData
+        nxtObj2?.addComment = true
+         nxtObj2!.imageIdComment = imageId as NSString
+        nxtObj2?.foursqReviews = self.reviewsArray
+        nxtObj2?.parameter=commentParameter as NSString
+        self.navigationController! .pushViewController(nxtObj2!, animated: true)
         
         
     }
