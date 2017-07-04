@@ -1336,7 +1336,7 @@
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" alpha="0.75" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Inspiration from the best travel bloggers" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oM1-B3-Teh">
-                                                        <rect key="frame" x="8" y="301" width="206" height="17"/>
+                                                        <rect key="frame" x="8" y="301" width="214" height="17"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="17" id="waw-LU-zYL"/>
                                                         </constraints>
@@ -1695,7 +1695,7 @@
                                         </connections>
                                     </searchBar>
                                     <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="H08-Wf-ju0">
-                                        <rect key="frame" x="283" y="383" width="35" height="35"/>
+                                        <rect key="frame" x="283" y="382.5" width="35" height="35"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="35" id="Es6-uW-cqW"/>
                                             <constraint firstAttribute="height" constant="35" id="GzB-wj-qfw"/>
@@ -4456,22 +4456,18 @@
                                                         <rect key="frame" x="204" y="95" width="38" height="38"/>
                                                         <state key="normal" image="changepic"/>
                                                         <connections>
-                                                            <action selector="ChangeImageBtnAction:" destination="RWu-ON-575" eventType="touchUpInside" id="OWU-eW-X81"/>
+                                                            <action selector="changePhotoAction:" destination="RWu-ON-575" eventType="touchUpInside" id="PaS-1K-mqd"/>
                                                         </connections>
                                                     </button>
                                                 </subviews>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 <constraints>
-                                                    <constraint firstItem="mYR-br-Xsp" firstAttribute="height" secondItem="jkK-FF-rLf" secondAttribute="height" id="0Jy-Iv-L81"/>
                                                     <constraint firstItem="aq0-vv-949" firstAttribute="trailing" secondItem="tsS-EU-J6R" secondAttribute="trailing" constant="12" id="0pg-IE-YTi"/>
                                                     <constraint firstAttribute="bottom" secondItem="tzm-OV-W2k" secondAttribute="bottom" constant="23" id="45w-xh-HBd"/>
                                                     <constraint firstItem="NCn-vt-uCH" firstAttribute="centerY" secondItem="tzm-OV-W2k" secondAttribute="centerY" id="7h9-m8-eYn"/>
-                                                    <constraint firstItem="mYR-br-Xsp" firstAttribute="centerX" secondItem="jkK-FF-rLf" secondAttribute="centerX" id="8Fa-AE-XDi"/>
-                                                    <constraint firstItem="mYR-br-Xsp" firstAttribute="centerY" secondItem="jkK-FF-rLf" secondAttribute="centerY" id="AJh-DN-nlX"/>
                                                     <constraint firstItem="tsS-EU-J6R" firstAttribute="trailing" secondItem="jkK-FF-rLf" secondAttribute="trailing" constant="-5" id="BUe-O9-qrA"/>
                                                     <constraint firstAttribute="height" constant="195" id="DQT-ck-5TB"/>
                                                     <constraint firstItem="JFL-zV-ywE" firstAttribute="leading" secondItem="tzm-OV-W2k" secondAttribute="leading" id="NeU-Tz-Grk"/>
-                                                    <constraint firstItem="mYR-br-Xsp" firstAttribute="width" secondItem="jkK-FF-rLf" secondAttribute="width" id="ONT-Wq-gbM"/>
                                                     <constraint firstItem="NCn-vt-uCH" firstAttribute="leading" secondItem="tzm-OV-W2k" secondAttribute="trailing" constant="2.5" id="Owa-dk-fGZ"/>
                                                     <constraint firstItem="hJ4-Jn-9Pu" firstAttribute="trailing" secondItem="tsS-EU-J6R" secondAttribute="trailing" constant="5" id="S8m-FK-NIt"/>
                                                     <constraint firstItem="hJ4-Jn-9Pu" firstAttribute="bottom" secondItem="tsS-EU-J6R" secondAttribute="bottom" constant="5" id="SEN-af-5Um"/>
@@ -4483,7 +4479,6 @@
                                                     <constraint firstItem="DeW-SE-xl1" firstAttribute="top" secondItem="oDV-Pm-PYn" secondAttribute="top" id="bNC-W1-iFi"/>
                                                     <constraint firstAttribute="trailing" secondItem="DeW-SE-xl1" secondAttribute="trailing" id="jQI-rX-2M4"/>
                                                     <constraint firstItem="tsS-EU-J6R" firstAttribute="bottom" secondItem="jkK-FF-rLf" secondAttribute="bottom" constant="-5" id="l9L-aj-Tog"/>
-                                                    <constraint firstItem="mYR-br-Xsp" firstAttribute="leading" secondItem="tsS-EU-J6R" secondAttribute="leading" id="msi-Mb-9zq"/>
                                                     <constraint firstItem="tzm-OV-W2k" firstAttribute="top" secondItem="jkK-FF-rLf" secondAttribute="bottom" constant="13" id="n7f-a9-vWq"/>
                                                     <constraint firstItem="jkK-FF-rLf" firstAttribute="top" secondItem="oDV-Pm-PYn" secondAttribute="top" constant="23" id="rpX-4k-dnk"/>
                                                     <constraint firstItem="tsS-EU-J6R" firstAttribute="leading" secondItem="jkK-FF-rLf" secondAttribute="leading" constant="5" id="ugK-wP-mg3"/>
@@ -4705,7 +4700,6 @@
                         <outlet property="catCollectionView" destination="Wgb-9b-ZNd" id="LR0-ij-nuA"/>
                         <outlet property="changeNameBtn" destination="NCn-vt-uCH" id="6is-hs-zjg"/>
                         <outlet property="contentViewHeight" destination="dtx-ui-yc3" id="UnY-dh-bta"/>
-                        <outlet property="nameBtnOutlet" destination="NCn-vt-uCH" id="FaR-sn-kQ7"/>
                         <outlet property="nameTF" destination="tzm-OV-W2k" id="bHL-Sp-B1t"/>
                         <outlet property="nameTxtWidth" destination="Hzd-zU-JMB" id="Jql-vY-n50"/>
                         <outlet property="outerImg" destination="jkK-FF-rLf" id="ej6-Ri-JTd"/>

@@ -740,16 +740,20 @@ class intrestViewController: UIViewController, apiClassInterestDelegate ,UITable
                 
                 
                 let museumImage = (multiImg.object(at: currentIndex) as AnyObject).value(forKey: "imageThumb") as? String ?? ""
-                //photosArray.objectAtIndex(indexPath.row).valueForKey("photos")!.objectAtIndex(0).valueForKey("imageThumb")! as? String ?? "" //("imageLarge")!
+               
                 let url2 = URL(string: museumImage )
                 
                 
-                //  let museumName = photosArray.objectAtIndex(indexPath.row).valueForKey("")
+             
                 
-                let pImage : UIImage = UIImage(named:"dummyBackground2")! //placeholder image
+                let pImage : UIImage = UIImage(named:"dummyBackground2")!//
                 
+                let block: SDWebImageCompletionBlock = {(image, error, cacheType, imageURL) -> Void in
+                    //activityIndicator.stopAnimating()
+                }
                 
-                cell.locationImage.sd_setImage(with: url2, placeholderImage: pImage)
+                cell.locationImage.sd_setImage(with: url2, placeholderImage: pImage, options: SDWebImageOptions(rawValue: 0), completed: block)
+                
                 
                 //cell.layer.cornerRadius=5
                 cell.clipsToBounds=true

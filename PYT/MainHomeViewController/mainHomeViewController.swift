@@ -2629,8 +2629,7 @@ class mainHomeViewController: UIViewController, SDWebImageManagerDelegate, apiCl
                 
                 showApiHitted = false
                  dataArray.addObjects(from: jsonResult.value(forKey: "data")! as! NSMutableArray as [AnyObject])
-                //print(dataArray.count)
-                // = jsonResult .valueForKey("data")! as! NSMutableArray
+             
                 
                 reuseData .setObject(dataArray, forKey: globalLocation)
                ///here get the bool value of the pagination
@@ -2639,8 +2638,6 @@ class mainHomeViewController: UIViewController, SDWebImageManagerDelegate, apiCl
                     pageNumber = 0
                 }
 
-                
-              //  print(pageNumber)
                 reuseData.setObject(pageNumber, forKey: "ShowMore\(globalLocation)" as NSCopying)
                 
                 if dataArray.count<1
@@ -2773,22 +2770,11 @@ class mainHomeViewController: UIViewController, SDWebImageManagerDelegate, apiCl
     
     func shortData() -> Void {
         
-        
-         //dispatch_async(dispatch_get_main_queue(), {
-        
+          DispatchQueue.main.async(execute: {
         
          self.refreshControl .endRefreshing() // it will showing then will remove
         
          let intrestArray = NSMutableArray()
-        
-        
-        
-        
-        // here data have been getting ino the arrays after get from server
-        
-        
-       //print(self.dataArray.count)
-        
         
         self.arrayOfimages1 .removeAllObjects()
         self.userDetailArray .removeAllObjects()
@@ -2905,7 +2891,7 @@ class mainHomeViewController: UIViewController, SDWebImageManagerDelegate, apiCl
             if ((((self.dataArray.object(at: i) as AnyObject).value(forKey: "userId")! as AnyObject).object(at: 0) as AnyObject).value(forKey: "picture") != nil)
             {
                 
-           let profilest = (((self.dataArray.object(at: i) as AnyObject).value(forKey: "userId")! as AnyObject).object(at: 0) as AnyObject).value(forKey: "picture") as? String ?? "" //(((self.dataArray.object(at: i) as AnyObject).value(forKey: "userId")! as AnyObject).object(at: 0) as AnyObject).value(forKey: "picture") as? String ?? ""
+           let profilest = (((self.dataArray.object(at: i) as AnyObject).value(forKey: "userId")! as AnyObject).object(at: 0) as AnyObject).value(forKey: "picture") as? String ?? ""
                
                 profile = profilest as NSString
                 
@@ -2958,7 +2944,7 @@ class mainHomeViewController: UIViewController, SDWebImageManagerDelegate, apiCl
         
         
         
-        if dataArray.count<1
+        if self.dataArray.count<1
         {
             
            // self.emptyView.isHidden=false
@@ -2973,9 +2959,8 @@ class mainHomeViewController: UIViewController, SDWebImageManagerDelegate, apiCl
         
         
         MBProgressHUD.hide(for: self.view, animated: true)
-        //bucketListCount.text = bucketListTotalCount
         
-       
+        })
         
     }
     
@@ -3471,7 +3456,15 @@ extension mainHomeViewController: UICollectionViewDelegate, UICollectionViewData
                                     cell.planImage.transform = CGAffineTransform(scaleX: 0.02, y: 0.02)
                                 }) { (finished) in
                                     UIView.animate(withDuration: 0.75, animations: {
-                                        cell.planImage.sd_setImage(with: URL(string: imgUrl), placeholderImage: UIImage (named: "dummyBackground1"))
+                                        
+                                        let block: SDWebImageCompletionBlock = {(image, error, cacheType, imageURL) -> Void in
+                                            
+                                        }
+                                        
+                                        cell.planImage.sd_setImage(with: URL(string: imgUrl), placeholderImage: UIImage (named: "dummyBackground1"), options: SDWebImageOptions(rawValue: 0), completed: block)
+                                        
+                                        
+                                        //cell.planImage.sd_setImage(with: URL(string: imgUrl), placeholderImage: UIImage (named: "dummyBackground1"))
                                         cell.planImage.transform = CGAffineTransform.identity
                                     })
                                 }
@@ -4000,7 +3993,6 @@ extension mainHomeViewController: UICollectionViewDelegate, UICollectionViewData
             else
             {
                 
-                
                 if indexPath.row < ((arrayOfimages1[collectionView.tag] as AnyObject).value(forKey: "id")! as AnyObject) .count {
                     
                    
@@ -4025,10 +4017,6 @@ extension mainHomeViewController: UICollectionViewDelegate, UICollectionViewData
                     }
                     
                     locationimage.sd_setImage(with: url2, placeholderImage: UIImage(named: "dummyBackground1"), options: SDWebImageOptions(rawValue: 0), completed: block)
-                    
-                    
-                    
-                 //   locationimage.sd_setImage(with: url2, placeholderImage: UIImage (named: "dummyBackground1"))
                     
                     locationimage.focusOnFaces = true
                     

@@ -23,7 +23,6 @@ class ProfileVC: UIViewController,UITableViewDelegate,UITableViewDataSource,UICo
     @IBOutlet weak var actionsTableView: UITableView!
     @IBOutlet weak var nameTF: UITextField!
     @IBOutlet weak var nameTxtWidth: NSLayoutConstraint!
-    @IBOutlet weak var nameBtnOutlet: UIButton!
     
     
     var boolProfile = Bool()
@@ -857,7 +856,7 @@ class ProfileVC: UIViewController,UITableViewDelegate,UITableViewDataSource,UICo
        // profileIndicator.isHidden=false
       //  profileIndicator.startAnimating()
         
-//        self.startUploadingImage(testImgView.image!)
+        self.startUploadingImage(testImgView.image!)
         
         dismiss(animated: true, completion: nil)
         
@@ -1083,9 +1082,42 @@ class ProfileVC: UIViewController,UITableViewDelegate,UITableViewDataSource,UICo
             changeNameBtn.setImage(UIImage(named:"crossprofile") , for: .normal)
         }
     }
-    @IBAction func ChangeImageBtnAction(_ sender: Any) {
+    
+    
+    
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool
+    {
+        changeNameBtn.tag = 1
+       
+        
+        return true
     }
     
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        let userName = Udefaults .string(forKey: "userLoginName")
+        
+        if textField.text=="" || textField.text == nil || textField.text == userName  {
+          changeNameBtn.setImage(UIImage(named:"crossprofile") , for: .normal)
+            nameTF.text = userName
+        }
+        else
+        {
+            if(changeNameBtn.imageView?.image == UIImage(named: "crossprofile"))
+            {
+                changeNameBtn.setImage(UIImage(named:"tickprofile") , for: .normal)
+            }
+            else
+            {
+                changeNameBtn.setImage(UIImage(named:"crossprofile") , for: .normal)
+            }
+                
+           
+        }
+    }
+    
+    
+    
+   
     
     
     
