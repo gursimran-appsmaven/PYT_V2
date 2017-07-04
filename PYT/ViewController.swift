@@ -44,7 +44,7 @@ class ViewController: UIViewController, apiClassDelegate , UIScrollViewDelegate,
     //tutorials
     let whiteView = UIView()
     let scrollView2 = UIScrollView() //(frame: CGRect(x:0, y:0, width:320,height: 300))
-    var images = ["img1", "img2", "img3"]
+    var images = ["tutorial1", "tutorial2", "tutorial3"]
     var frame: CGRect = CGRect(x:0, y:0, width:0, height:0)
     var pageControl = UIPageControl()
     var skipBtn = UIButton()
@@ -103,7 +103,7 @@ class ViewController: UIViewController, apiClassDelegate , UIScrollViewDelegate,
             whiteView.backgroundColor = UIColor .white
             self.view.addSubview(whiteView)
             
-            scrollView2.frame = CGRect(x:0, y:0, width:self.view.frame.width,height: self.view.frame.size.height-20)
+            scrollView2.frame = CGRect(x:0, y:0, width:self.view.frame.width,height: self.view.frame.size.height)
             scrollView2.showsHorizontalScrollIndicator = false
             pageControl.frame = CGRect(x:self.view.frame.width/2 - 50,y: self.view.frame.height - 50, width:100, height:50)
             
@@ -113,10 +113,10 @@ class ViewController: UIViewController, apiClassDelegate , UIScrollViewDelegate,
             self.whiteView.addSubview(scrollView2)
             
             
-            doneToturials.backgroundColor = UIColor.init(colorLiteralRed: 0/255, green: 44/255, blue: 63/255, alpha: 1)
+            doneToturials.backgroundColor = UIColor.init(colorLiteralRed: 0/255, green: 44/255, blue: 63/255, alpha: 0)
             doneToturials.setTitle("Get Started", for: .normal)
-            doneToturials.titleLabel?.font = UIFont(name:"Roboto-Medium", size: 14)
-            doneToturials.setTitleColor(UIColor .white, for: .normal)
+            doneToturials.titleLabel?.font = UIFont(name:"SFUIDisplay-Bold", size: 20)
+            doneToturials.setTitleColor(UIColor (colorLiteralRed: 255.0/255.0, green: 80.0/255.0, blue: 80.0/255.0, alpha: 1), for: .normal)
             
             
             
@@ -128,7 +128,7 @@ class ViewController: UIViewController, apiClassDelegate , UIScrollViewDelegate,
                 
                 
                 let imageView2 = UIImageView(frame: frame)
-                imageView2.contentMode = .scaleAspectFit
+                imageView2.contentMode = .scaleAspectFill
                 imageView2.image = UIImage(named: String(images[index]))
                 
                 let labeltxt = UILabel()
@@ -143,14 +143,14 @@ class ViewController: UIViewController, apiClassDelegate , UIScrollViewDelegate,
                 labeltxt.textColor = UIColor .darkGray
                 labeltxt.alpha = 0.8
                 if index == 0{
-                    labeltxt.text = "Be a part of community where you can see, like, share, and comment on the travel pictures of your friends and family."
+                    labeltxt.text = ""//"Be a part of community where you can see, like, share, and comment on the travel pictures of your friends and family."
                 }
                 else if(index == 1)
                 {
-                    labeltxt.text = "Discover a place in depth with reviews and nearby places. Add them to your bucketlist to carry them in your pocket as part of your travel plan. Book flights, hotels, tours, and more from one place."
+                    labeltxt.text = ""//"Discover a place in depth with reviews and nearby places. Add them to your bucketlist to carry them in your pocket as part of your travel plan. Book flights, hotels, tours, and more from one place."
                 }
                 else{
-                    labeltxt.text = "Upload and share your travel memories with your friends and family. Geo-tag your photos and become a travel guide."
+                    labeltxt.text = ""//"Upload and share your travel memories with your friends and family. Geo-tag your photos and become a travel guide."
                 }
                 
                 self.scrollView2 .addSubview(imageView2)
@@ -180,20 +180,24 @@ class ViewController: UIViewController, apiClassDelegate , UIScrollViewDelegate,
             self.scrollView2.contentSize = CGSize(width:self.scrollView2.frame.size.width * 3,height: self.scrollView2.frame.size.height)
             pageControl.addTarget(self, action: #selector(changePage(_sender:)), for: .valueChanged)
             
-            pageControl.currentPageIndicatorTintColor = UIColor.init(colorLiteralRed: 104/255, green: 173/255, blue: 120/255, alpha: 1)
-            pageControl.pageIndicatorTintColor = UIColor.init(colorLiteralRed: 104/255, green: 173/255, blue: 120/255, alpha: 0.6)
+            pageControl.currentPageIndicatorTintColor = UIColor.init(colorLiteralRed: 255/255, green: 255/255, blue: 255/255, alpha: 1)
+            pageControl.pageIndicatorTintColor = UIColor.init(colorLiteralRed: 255/255, green: 255/255, blue: 255/255, alpha: 0.5)
+            pageControl.layer.borderColor = UIColor.white.cgColor
+            pageControl.layer.borderWidth = 0.0
+            pageControl.layer.masksToBounds = false
+            
             self.whiteView .bringSubview(toFront: pageControl)
             
             skipBtn.frame = CGRect(x:self.view.frame.size.width - 150 ,y: self.view.frame.height - 80, width:150, height:30)
             skipBtn.setTitle("SKIP TIPS", for: .normal)
             skipBtn.titleLabel?.font = UIFont(name:"Roboto-Medium", size: 14)
             skipBtn.setTitleColor(UIColor.init(colorLiteralRed: 104/255, green: 173/255, blue: 120/255, alpha: 1), for: .normal)
-            self.whiteView .addSubview(skipBtn)
+//            self.whiteView .addSubview(skipBtn)
             skipBtn .addTarget(self, action: #selector(self.skipBtnAction), for: .touchUpInside )
             
             doneToturials.layer.cornerRadius = doneToturials.frame.size.height/2
-            doneToturials.layer.borderColor=UIColor (colorLiteralRed: 157.0/255.0, green: 194.0/255.0, blue: 134.0/255.0, alpha: 1).cgColor
-            doneToturials.layer.borderWidth=1.2
+            doneToturials.layer.borderColor=UIColor (colorLiteralRed: 255.0/255.0, green: 80.0/255.0, blue: 80.0/255.0, alpha: 1).cgColor
+            doneToturials.layer.borderWidth=0
             doneToturials .addTarget(self, action: #selector(self.skipBtnAction), for: .touchUpInside)
             doneToturials.clipsToBounds = true
             

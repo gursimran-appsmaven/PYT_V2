@@ -17,6 +17,7 @@ class changePasswordViewController: UIViewController, settingClassDelegate {
     
     @IBOutlet weak var newPassword: UITextField! //New Password textField
     
+    @IBOutlet weak var backView: UIView!
     
     
     var oldPasswdId = NSString()
@@ -34,6 +35,7 @@ class changePasswordViewController: UIViewController, settingClassDelegate {
          self.tabBarController?.setTabBarVisible(visible: false, animated: true)
          IQKeyboardManager.shared().shouldResignOnTouchOutside = true
         
+        backView.dropShadow(scale: true,right: true,bottom: true)
        // submitButtonOutlet.isHidden = false
        // submitButtonOutlet.layer.cornerRadius=submitButtonOutlet.frame.size.height/2
        // submitButtonOutlet.layer.borderColor = UIColor (colorLiteralRed: 162/255, green: 200/255, blue: 138/255, alpha: 1).cgColor
@@ -222,4 +224,30 @@ class changePasswordViewController: UIViewController, settingClassDelegate {
     }
     */
 
+}
+extension UIView {
+    
+    func dropShadow(scale: Bool = true,right: Bool = false,bottom: Bool = false) {
+        
+        self.layer.masksToBounds = false
+        self.layer.shadowColor = UIColor.black.cgColor
+        self.layer.shadowOpacity = 0.25
+        if(right && bottom)
+        {
+            self.layer.shadowOffset = CGSize(width: 1, height: 1)
+        }
+        else if(right && !bottom)
+        {
+            self.layer.shadowOffset = CGSize(width: 1, height: 0)
+        }
+        else if(!right && bottom)
+        {
+            self.layer.shadowOffset = CGSize(width: 0, height: 1)
+        }
+        self.layer.shadowRadius = 1
+        
+        self.layer.shadowPath = UIBezierPath(rect: self.bounds).cgPath
+        self.layer.shouldRasterize = true
+        self.layer.rasterizationScale = scale ? UIScreen.main.scale : 1
+    }
 }
