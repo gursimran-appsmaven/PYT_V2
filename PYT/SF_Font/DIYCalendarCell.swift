@@ -55,7 +55,8 @@ class DIYCalendarCell: FSCalendarCell {
         
     }
     
-    override func layoutSubviews() {
+    override func layoutSubviews()
+    {
         super.layoutSubviews()
         self.circleImageView.frame = self.contentView.bounds
         self.backgroundView?.frame = self.bounds.insetBy(dx: 1, dy: 1)
