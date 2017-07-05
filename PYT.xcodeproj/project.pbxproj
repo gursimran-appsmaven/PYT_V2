@@ -30,6 +30,7 @@
 		104182981EF26AEC00078527 /* FBSDKShareKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 104182791EF26AEC00078527 /* FBSDKShareKit.framework */; };
 		104182B01EF26AEC00078527 /* SweetAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 104182921EF26AEC00078527 /* SweetAlert.swift */; };
 		104182B11EF26AEC00078527 /* UIColor+CreateMethods.m in Sources */ = {isa = PBXBuildFile; fileRef = 104182941EF26AEC00078527 /* UIColor+CreateMethods.m */; };
+		104BEE751F0B902500D26939 /* UploadedImagesVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 104BEE741F0B902500D26939 /* UploadedImagesVC.swift */; };
 		104D744E1F0A524F00896A02 /* TravelPlanVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 104D744D1F0A524F00896A02 /* TravelPlanVC.swift */; };
 		105ED8DD1EFCE11400C133D0 /* UIImageView+FaceAware.swift in Sources */ = {isa = PBXBuildFile; fileRef = 105ED8DC1EFCE11400C133D0 /* UIImageView+FaceAware.swift */; };
 		105ED8E11EFCE7F000C133D0 /* ChooseInterestVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 105ED8E01EFCE7F000C133D0 /* ChooseInterestVC.swift */; };
@@ -142,6 +143,7 @@
 		104182931EF26AEC00078527 /* UIColor+CreateMethods.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+CreateMethods.h"; sourceTree = "<group>"; };
 		104182941EF26AEC00078527 /* UIColor+CreateMethods.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+CreateMethods.m"; sourceTree = "<group>"; };
 		104182B21EF26DB100078527 /* PYT-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "PYT-Bridging-Header.h"; sourceTree = "<group>"; };
+		104BEE741F0B902500D26939 /* UploadedImagesVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UploadedImagesVC.swift; sourceTree = "<group>"; };
 		104D744D1F0A524F00896A02 /* TravelPlanVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TravelPlanVC.swift; sourceTree = "<group>"; };
 		105ED8DC1EFCE11400C133D0 /* UIImageView+FaceAware.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImageView+FaceAware.swift"; sourceTree = "<group>"; };
 		105ED8E01EFCE7F000C133D0 /* ChooseInterestVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChooseInterestVC.swift; sourceTree = "<group>"; };
@@ -406,6 +408,7 @@
 			children = (
 				106DDC371F062D4700ABD16D /* SettingApiClass.swift */,
 				1066F2701F0281D5007CE7E3 /* ProfileVC.swift */,
+				104BEE741F0B902500D26939 /* UploadedImagesVC.swift */,
 				106DDC391F06813A00ABD16D /* changePasswordViewController.swift */,
 			);
 			path = Profile;
@@ -847,6 +850,7 @@
 				104182721EF26A4600078527 /* objectiveCFile.m in Sources */,
 				1025FBA11EFBD8000068B557 /* apiClassInterest.swift in Sources */,
 				106DDC0C1F061EBB00ABD16D /* SocketEngineClient.swift in Sources */,
+				104BEE751F0B902500D26939 /* UploadedImagesVC.swift in Sources */,
 				1068D15B1EF7A73600047942 /* MainTabBarViewController.swift in Sources */,
 				106DDC041F061EBB00ABD16D /* chatingUserListViewController.swift in Sources */,
 				106DDC3A1F06813A00ABD16D /* changePasswordViewController.swift in Sources */,

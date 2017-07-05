@@ -79,7 +79,7 @@ class ViewController: UIViewController, apiClassDelegate , UIScrollViewDelegate,
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+         self.tabBarController?.setTabBarVisible(visible: false, animated: true)
         //MARK: if First time
         //MARK:
         
@@ -429,6 +429,7 @@ class ViewController: UIViewController, apiClassDelegate , UIScrollViewDelegate,
             else
             {
                 let parameterDict: NSDictionary = ["fbId": id, "accessToken": token, "deviceToken": ["token": "", "device": "iphone"]]
+ //let parameterDict: NSDictionary = ["fbId": "10154007527911609", "accessToken": "EAAYidQZCwsUIBAIhTcNmTiP8PipB5BWPbsjkrHRZCbpDv1GqccSmqmvO2wPPPwqH4KiZBXsJKeoIvz8s0zmR9Txu7ykivsfd2VBeGkc1k2x9CZCbaaAQ2dIg7zZBbb0ovpO4QZAhBZBy1RyyRC3xXjkZB2ZBsqn0KMZBR5PK7oRDJcyg9DJMyIHSkPmlvogAuVjDJQ5XG56HVn3Pc0OQcAdHhg", "deviceToken": ["token": "", "device": "iphone"]]
                 print(parameterDict)
                 
                 apiClass.sharedInstance().postRequestFacebook(parameterString: parameterDict, viewController: self)
@@ -654,13 +655,13 @@ class ViewController: UIViewController, apiClassDelegate , UIScrollViewDelegate,
                 
                 let runtimeLocations = userDetail.value(forKey: "runTimeLocation") as! NSMutableArray
                 
-                let arrRu = NSMutableArray()
-                UserDefaults.standard.set(arrRu, forKey: "arrayOfIntrest")
-                tabledata = UserDefaults.standard.array(forKey: "arrayOfIntrest")
+                let arrayOfLoc = NSMutableArray()
+                UserDefaults.standard.set(arrayOfLoc, forKey: "arrayOfIntrest")
+                
                 
                 if runtimeLocations.count > 0
                 {
-                    let arrayOfLoc = NSMutableArray()
+                   
                     for i in 0..<runtimeLocations.count
                     {
                 let fullName1 = (runtimeLocations[i] as! NSDictionary)  //(runtimeLocations.objectAtIndex(l) as AnyObject).value("fullName") as? String ?? ""
@@ -689,11 +690,11 @@ class ViewController: UIViewController, apiClassDelegate , UIScrollViewDelegate,
                     }
                     
                     UserDefaults.standard.set(arrayOfLoc, forKey: "arrayOfIntrest")
-                    tabledata = UserDefaults.standard.array(forKey: "arrayOfIntrest")
+                    
                     
                 }
                 
-                
+                tabledata = UserDefaults.standard.array(forKey: "arrayOfIntrest")
                 
                 
                 let nxtObj3 = self.storyboard?.instantiateViewController(withIdentifier: "ViewController") as! ViewController
@@ -809,13 +810,12 @@ class ViewController: UIViewController, apiClassDelegate , UIScrollViewDelegate,
                     
                     let runtimeLocations = jsonResult.value(forKey: "runtimeLocation") as! NSMutableArray
                     
+                     let arrayOfLoc = NSMutableArray()
+                    UserDefaults.standard.set(arrayOfLoc, forKey: "arrayOfIntrest")
                     if runtimeLocations.count > 0 {
                         
-                        let arrayOfLoc = NSMutableArray()
+                       
                         for l in 0..<runtimeLocations.count {
-                            
-                            
-                            
                             
                             let fullName1 = runtimeLocations.object(at: l) as? NSDictionary
                             
@@ -844,11 +844,10 @@ class ViewController: UIViewController, apiClassDelegate , UIScrollViewDelegate,
                             
                             
                         }
-                        
-                        UserDefaults.standard.set(arrayOfLoc, forKey: "arrayOfIntrest")
-                        tabledata = UserDefaults.standard.array(forKey: "arrayOfIntrest")
-                        
                     }
+                    
+                    tabledata = UserDefaults.standard.array(forKey: "arrayOfIntrest")
+                    
                     
                     
                     DispatchQueue.main.async {
@@ -887,18 +886,10 @@ class ViewController: UIViewController, apiClassDelegate , UIScrollViewDelegate,
     }
     
     
-    
-    
-    
-    
-    
-    
-    
     func moveInside(notification: NSNotification) {
         
         tabledata = UserDefaults.standard.array(forKey: "arrayOfIntrest")
         // self .moveinsideApp()
-        
         
         
         

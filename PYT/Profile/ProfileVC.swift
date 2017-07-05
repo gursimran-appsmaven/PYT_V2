@@ -31,6 +31,7 @@ class ProfileVC: UIViewController,UITableViewDelegate,UITableViewDataSource,UICo
     var countCategory = Int()
     let imagePicker = UIImagePickerController()
 
+    @IBOutlet weak var profileChangeIndicator: UIActivityIndicatorView!
     
     
     override func viewWillAppear(_ animated: Bool) {
@@ -48,7 +49,7 @@ class ProfileVC: UIViewController,UITableViewDelegate,UITableViewDataSource,UICo
         
         
         let urlProfile = URL(string: (userPic! as? String)! )
-        userImg .sd_setImage(with: urlProfile, placeholderImage: UIImage (named: "dummyProfile1"))
+        userImg .sd_setImage(with: urlProfile, placeholderImage: UIImage (named: "dummyBackground2"))
       
         let prm:NSDictionary = ["userId":uId, "status": "1"]
        // profileIndicator.isHidden=false
@@ -383,6 +384,19 @@ class ProfileVC: UIViewController,UITableViewDelegate,UITableViewDataSource,UICo
         gradient.gradientLayer.colors = [UIColor.black.withAlphaComponent(0.75).cgColor, UIColor.clear.cgColor]
         gradient.gradientLayer.gradient = GradientPoint.bottomTop.draw()
 
+        
+        cell.categoryName.text = (dataArray.object(at: indexPath.row) as AnyObject).value(forKey: "source") as? String ?? ""
+        cell.countLbl.text = (dataArray.object(at: indexPath.row) as AnyObject).value(forKey: "count") as? String ?? ""
+        
+        let imgUrl = (dataArray.object(at: indexPath.row) as AnyObject).value(forKey: "standardimage") as? String ?? ""
+        
+        
+        
+        
+        cell.categoryImage.sd_setImage(with: URL(string: imgUrl), placeholderImage: UIImage (named: "backgroundImage"))
+        cell.categoryImage.contentMode = .scaleAspectFill
+        
+        
         return cell
     }
     
@@ -390,6 +404,67 @@ class ProfileVC: UIViewController,UITableViewDelegate,UITableViewDataSource,UICo
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath){
             
+        
+        let uId = Udefaults .string(forKey: "userLoginId")!
+        var prmtr = ""
+        let source = (dataArray.object(at: indexPath.row) as AnyObject).value(forKey: "source") as? String ?? ""
+        
+        
+        
+        
+//        if boolProfileOther == true {
+//            
+//            if source == "FACEBOOK" {
+//                prmtr = "userId=\(uId)&status=2&friendId=\(otheruserId)" // Facebook
+//                
+//            }
+//            else if(source == "PYT" )
+//            {
+//                prmtr = "userId=\(uId)&status=4&friendId=\(otheruserId)" // Pyt
+//            }
+//            else
+//            {
+//                prmtr = "userId=\(uId)&status=3&friendId=\(otheruserId)" //Instagram
+//            }
+//            
+//            
+//        }
+//        else{
+        
+            if source == "FACEBOOK" {
+                prmtr = "userId=\(uId)&status=2" // Facebook
+                
+            }
+            else if(source == "PYT" ){
+                prmtr = "userId=\(uId)&status=4" // Pyt
+                
+            }
+            else{
+                prmtr = "userId=\(uId)&status=3" //Instagram
+                
+            //}
+            
+        }
+        
+        
+        
+        let obj = self.storyboard?.instantiateViewController(withIdentifier: "UploadedImagesVC") as! UploadedImagesVC
+        
+        obj.parameters = prmtr as NSString
+        
+//        if boolProfileOther == true {
+//            obj.urlload="get_images_of_friend"
+//        }
+//        else{
+            obj.urlload="get_images_for_profile"
+        //}
+        
+        obj.username = nameTF.text!
+        
+        obj.countStrText = (dataArray.object(at: indexPath.row) as AnyObject).value(forKey: "count")! as! NSString
+        
+        self.navigationController?.pushViewController(obj, animated: true)
+
         
         
     }
@@ -857,7 +932,8 @@ class ProfileVC: UIViewController,UITableViewDelegate,UITableViewDataSource,UICo
       //  profileIndicator.startAnimating()
         
         self.startUploadingImage(testImgView.image!)
-        
+        profileChangeIndicator.startAnimating()
+        profileChangeIndicator.isHidden = false
         dismiss(animated: true, completion: nil)
         
         
@@ -972,7 +1048,7 @@ class ProfileVC: UIViewController,UITableViewDelegate,UITableViewDataSource,UICo
             if let error = task.error {
                 print("Upload failed with exception (\(error.localizedDescription))")
                 
-                
+               
                 
             }
             
@@ -1032,7 +1108,8 @@ class ProfileVC: UIViewController,UITableViewDelegate,UITableViewDataSource,UICo
             }
             
             
-            
+            self.profileChangeIndicator.stopAnimating()
+            self.profileChangeIndicator.isHidden = true
             
             
             
@@ -1390,14 +1467,16 @@ class ProfileVC: UIViewController,UITableViewDelegate,UITableViewDataSource,UICo
                                         
                                     }
                                     
-                                    
+                                    self.profileChangeIndicator.stopAnimating()
+                                    self.profileChangeIndicator.isHidden = true
                                     
                                     
                                     
                                 } catch
                                 {
                                     print("json error: \(error)")
-                                    
+                                    self.profileChangeIndicator.stopAnimating()
+                                    self.profileChangeIndicator.isHidden = true
                                     
                                     
                                 }
@@ -1417,7 +1496,8 @@ class ProfileVC: UIViewController,UITableViewDelegate,UITableViewDataSource,UICo
             else
             {
                 CommonFunctionsClass.sharedInstance().showAlert(title: "No Internet Connection", text: "You are currently offline.", imageName: "alertInternet")
-                
+                profileChangeIndicator.stopAnimating()
+                profileChangeIndicator.isHidden = true
             }
             
             

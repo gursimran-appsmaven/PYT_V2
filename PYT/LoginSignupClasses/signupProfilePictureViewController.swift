@@ -510,10 +510,11 @@ class signupProfilePictureViewController: UIViewController, apiClassDelegate,UII
                 
                 
                 let runtimeLocations = jsonResult.value(forKey: "runtimeLocation") as! NSMutableArray
-                
+                let arrayOfLoc = NSMutableArray()
+                UserDefaults.standard.set(arrayOfLoc, forKey: "arrayOfIntrest")
                 if runtimeLocations.count > 0 {
                     
-                    let arrayOfLoc = NSMutableArray()
+                   
                     for l in 0..<runtimeLocations.count {
                         
                         
@@ -600,7 +601,8 @@ class signupProfilePictureViewController: UIViewController, apiClassDelegate,UII
             
             Udefaults.set("", forKey: "userProfilePic")
             
-            
+            let arrayOfLoc = NSMutableArray()
+            UserDefaults.standard.set(arrayOfLoc, forKey: "arrayOfIntrest")
             
             //save The credentail and login to the app
             

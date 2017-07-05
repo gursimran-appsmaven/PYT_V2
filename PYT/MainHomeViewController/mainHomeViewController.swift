@@ -198,8 +198,8 @@ class mainHomeViewController: UIViewController, SDWebImageManagerDelegate, apiCl
              self.callApi(globalPlaceid, type: globalType)
         }
         
-        self.tabBarController?.tabBar.isHidden = false
-       
+        //self.tabBarController?.tabBar.isHidden = false
+        self.tabBarController?.setTabBarVisible(visible: true, animated: true)
        
     
         
@@ -4006,12 +4006,19 @@ extension mainHomeViewController: UICollectionViewDelegate, UICollectionViewData
                     
                     let url2 = URL(string: imageName2 as String)
                     
-                    let block: SDWebImageCompletionBlock = {(image, error, cacheType, imageURL) -> Void in
-                        //activityIndicator.stopAnimating()
-                    }
-                    
-                    locationimage.sd_setImage(with: url2, placeholderImage: UIImage(named: "dummyBackground1"), options: SDWebImageOptions(rawValue: 0), completed: block)
+//                    let block: SDWebImageCompletionBlock = {(image, error, cacheType, imageURL) -> Void in
+//                        //activityIndicator.stopAnimating()
+//                    }
+//                    
+//                    locationimage.sd_setImage(with: url2, placeholderImage: UIImage(named: "dummyBackground1"), options: SDWebImageOptions(rawValue: 0), completed: block)
 
+                    locationimage.sd_setImage(with: url2) { (image, error, cache, urls) in
+                        if (error != nil) {
+                            locationimage.image = UIImage(named: "dummyBackground1")
+                        } else {
+                            locationimage.image = image
+                        }
+                    }
                     
                     
                     locationimage.focusOnFaces = true
