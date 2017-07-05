@@ -72,6 +72,7 @@
 		1089A5A91EF3EAFC006197FE /* signupProfilePictureViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1089A5A51EF3EAFC006197FE /* signupProfilePictureViewController.swift */; };
 		1089A5AA1EF3EAFC006197FE /* SignUpScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1089A5A61EF3EAFC006197FE /* SignUpScreenViewController.swift */; };
 		1089A5AB1EF3EAFC006197FE /* signupSetPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1089A5A71EF3EAFC006197FE /* signupSetPasswordViewController.swift */; };
+		10AC31A11F0D2299005273EC /* TravelPlansListVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10AC31A01F0D2299005273EC /* TravelPlansListVC.swift */; };
 		10B3A32D1EF3DE890053989C /* SFUIDisplay-Black.otf in Resources */ = {isa = PBXBuildFile; fileRef = 10B3A3241EF3DE890053989C /* SFUIDisplay-Black.otf */; };
 		10B3A32E1EF3DE890053989C /* SFUIDisplay-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 10B3A3251EF3DE890053989C /* SFUIDisplay-Bold.otf */; };
 		10B3A32F1EF3DE890053989C /* SFUIDisplay-Heavy.otf in Resources */ = {isa = PBXBuildFile; fileRef = 10B3A3261EF3DE890053989C /* SFUIDisplay-Heavy.otf */; };
@@ -185,6 +186,7 @@
 		1089A5A51EF3EAFC006197FE /* signupProfilePictureViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = signupProfilePictureViewController.swift; path = LoginSignupClasses/signupProfilePictureViewController.swift; sourceTree = "<group>"; };
 		1089A5A61EF3EAFC006197FE /* SignUpScreenViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SignUpScreenViewController.swift; path = LoginSignupClasses/SignUpScreenViewController.swift; sourceTree = "<group>"; };
 		1089A5A71EF3EAFC006197FE /* signupSetPasswordViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = signupSetPasswordViewController.swift; path = LoginSignupClasses/signupSetPasswordViewController.swift; sourceTree = "<group>"; };
+		10AC31A01F0D2299005273EC /* TravelPlansListVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TravelPlansListVC.swift; sourceTree = "<group>"; };
 		10B3A3241EF3DE890053989C /* SFUIDisplay-Black.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SFUIDisplay-Black.otf"; sourceTree = "<group>"; };
 		10B3A3251EF3DE890053989C /* SFUIDisplay-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SFUIDisplay-Bold.otf"; sourceTree = "<group>"; };
 		10B3A3261EF3DE890053989C /* SFUIDisplay-Heavy.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SFUIDisplay-Heavy.otf"; sourceTree = "<group>"; };
@@ -381,6 +383,7 @@
 			isa = PBXGroup;
 			children = (
 				104D744D1F0A524F00896A02 /* TravelPlanVC.swift */,
+				10AC31A01F0D2299005273EC /* TravelPlansListVC.swift */,
 			);
 			path = "Travel Plan";
 			sourceTree = "<group>";
@@ -883,6 +886,7 @@
 				106DDC081F061EBB00ABD16D /* SocketAckManager.swift in Sources */,
 				106DDC031F061EBB00ABD16D /* ChatingListViewController.swift in Sources */,
 				106DDC061F061EBB00ABD16D /* SocketIOManager.swift in Sources */,
+				10AC31A11F0D2299005273EC /* TravelPlansListVC.swift in Sources */,
 				1089A5AA1EF3EAFC006197FE /* SignUpScreenViewController.swift in Sources */,
 				106DDC181F061EBB00ABD16D /* SocketLogger.swift in Sources */,
 				106DDC0B1F061EBB00ABD16D /* SocketEngine.swift in Sources */,

@@ -3937,6 +3937,16 @@ extension mainHomeViewController: UICollectionViewDelegate, UICollectionViewData
                     
                     let location = "\(((storyArr.object(at: storyArr.count-1 - (indexPath.row)) as AnyObject).value(forKey: "image") as AnyObject).value(forKey: "placeTag") as? String ?? ""),\(cityName),\(countryname) " //location(placeTag+city+country)
                     
+                    var vanu = ((storyArr.object(at: storyArr.count-1 - (indexPath.row)) as AnyObject).value(forKey: "image") as AnyObject).value(forKey: "placeTag") as? String ?? "EM"
+                    if vanu == "" || vanu == "EM" {
+                        vanu = cityName
+                        if vanu == "" {
+                            vanu = countryname
+                        }
+                    }
+                    
+                    
+                    
                     let largeImage = ((storyArr.object(at: storyArr.count-1 - (indexPath.row)) as AnyObject).value(forKey: "image") as AnyObject).value(forKey: "imageLarge") as? String ?? "" //Large image url
                     let thumbImage = ((storyArr.object(at: storyArr.count-1 - (indexPath.row)) as AnyObject).value(forKey: "image") as AnyObject).value(forKey: "imageThumb") as? String ?? "" //Large image url
                     
@@ -3972,7 +3982,7 @@ extension mainHomeViewController: UICollectionViewDelegate, UICollectionViewData
                     let strcat = (catArrSt.value(forKey: "displayName") as AnyObject).componentsJoined(by: ",")
                     
                     
-                    let mutableDic:NSMutableDictionary = ["Description":desc, "profileImage": userPicture, "location": location, "locationImage": largeImage, "Venue": cityName, "cityName":cityName , "CountryName": countryname, "geoTag": sendgeoTag,"imageId":"","latitude":lat, "longitude":long, "userName":userName, "Type": "Other", "multipleImagesLarge": multipleImgs, "Category": strcat, "likeBool":false, "standardImage":largeImage, "multipleImagesStandard": multipleImgs ,"categoryMainArray": catArrSt]
+                    let mutableDic:NSMutableDictionary = ["Description":desc, "profileImage": userPicture, "location": location, "locationImage": largeImage, "Venue": vanu, "cityName":cityName , "CountryName": countryname, "geoTag": sendgeoTag,"imageId":"","latitude":lat, "longitude":long, "userName":userName, "Type": "Other", "multipleImagesLarge": multipleImgs, "Category": strcat, "likeBool":false, "standardImage":largeImage, "multipleImagesStandard": multipleImgs ,"categoryMainArray": catArrSt]
                     
                     let arrData = NSMutableArray()
                     arrData .add(mutableDic)
