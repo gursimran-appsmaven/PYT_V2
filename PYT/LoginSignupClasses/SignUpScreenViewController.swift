@@ -23,7 +23,8 @@ class SignUpScreenViewController: UIViewController, apiClassDelegate {
         IQKeyboardManager.shared().shouldResignOnTouchOutside=true
         IQKeyboardManager.shared().isEnableAutoToolbar=true
     apiClass.sharedInstance().delegate = self
-        
+        self.tabBarController?.setTabBarVisible(visible: false, animated: true)
+
     }
     
     

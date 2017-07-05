@@ -67,6 +67,8 @@ class ProfileVC: UIViewController,UITableViewDelegate,UITableViewDataSource,UICo
     override func viewDidLoad() {
         super.viewDidLoad()
         countCategory = 0
+        profileChangeIndicator.isHidden = true
+
         // Do any additional setup after loading the view.
     }
 

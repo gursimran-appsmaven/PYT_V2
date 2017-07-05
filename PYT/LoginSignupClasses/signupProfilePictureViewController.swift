@@ -27,6 +27,7 @@ class signupProfilePictureViewController: UIViewController, apiClassDelegate,UII
     override func viewDidLoad()
     {
         super.viewDidLoad()
+        self.tabBarController?.setTabBarVisible(visible: false, animated: true)
 
         print("email:\(email), Password:\(password)")
         IQKeyboardManager.shared().shouldResignOnTouchOutside=true

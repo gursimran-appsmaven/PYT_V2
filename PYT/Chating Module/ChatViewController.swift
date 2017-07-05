@@ -79,7 +79,6 @@ class ChatViewController: JSQMessagesViewController {
         {
         self.navigationController?.popViewController(animated: true)
             
-        //self.tabBarController?.setTabBarVisible(visible: true, animated: true)
         }
     }
     
@@ -147,8 +146,8 @@ class ChatViewController: JSQMessagesViewController {
         
         zoomImageScrollView.isHidden=true
         
-        
-        
+        self.tabBarController?.setTabBarVisible(visible: false, animated: true)
+
         
        
        

@@ -22,6 +22,8 @@ class chatingUserListViewController: UIViewController {
     
     override func viewDidLoad()
     {
+        self.tabBarController?.setTabBarVisible(visible: false, animated: true)
+
         super.viewDidLoad()
 
         headerLabel.text = locationName as String

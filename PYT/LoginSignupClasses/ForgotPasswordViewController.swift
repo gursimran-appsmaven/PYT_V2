@@ -20,6 +20,7 @@ class ForgotPasswordViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.tabBarController?.setTabBarVisible(visible: false, animated: true)
 
         if(self.view.frame.width==320)
         {

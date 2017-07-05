@@ -24,7 +24,8 @@ class signupSetPasswordViewController: UIViewController, apiClassDelegate
         IQKeyboardManager.shared().shouldResignOnTouchOutside=true
         IQKeyboardManager.shared().isEnableAutoToolbar=true
         apiClass.sharedInstance().delegate = self
-        
+        self.tabBarController?.setTabBarVisible(visible: false, animated: true)
+
 //&& passwordTf.text == "" && confirmPasswordTf.text == ""
         // Do any additional setup after loading the view.
     }

@@ -428,8 +428,8 @@ class ViewController: UIViewController, apiClassDelegate , UIScrollViewDelegate,
             }
             else
             {
-                let parameterDict: NSDictionary = ["fbId": id, "accessToken": token, "deviceToken": ["token": "", "device": "iphone"]]
- //let parameterDict: NSDictionary = ["fbId": "10154007527911609", "accessToken": "EAAYidQZCwsUIBAIhTcNmTiP8PipB5BWPbsjkrHRZCbpDv1GqccSmqmvO2wPPPwqH4KiZBXsJKeoIvz8s0zmR9Txu7ykivsfd2VBeGkc1k2x9CZCbaaAQ2dIg7zZBbb0ovpO4QZAhBZBy1RyyRC3xXjkZB2ZBsqn0KMZBR5PK7oRDJcyg9DJMyIHSkPmlvogAuVjDJQ5XG56HVn3Pc0OQcAdHhg", "deviceToken": ["token": "", "device": "iphone"]]
+               // let parameterDict: NSDictionary = ["fbId": id, "accessToken": token, "deviceToken": ["token": "", "device": "iphone"]]
+ let parameterDict: NSDictionary = ["fbId": "10154007527911609", "accessToken": "EAAYidQZCwsUIBAIhTcNmTiP8PipB5BWPbsjkrHRZCbpDv1GqccSmqmvO2wPPPwqH4KiZBXsJKeoIvz8s0zmR9Txu7ykivsfd2VBeGkc1k2x9CZCbaaAQ2dIg7zZBbb0ovpO4QZAhBZBy1RyyRC3xXjkZB2ZBsqn0KMZBR5PK7oRDJcyg9DJMyIHSkPmlvogAuVjDJQ5XG56HVn3Pc0OQcAdHhg", "deviceToken": ["token": "", "device": "iphone"]]
                 print(parameterDict)
                 
                 apiClass.sharedInstance().postRequestFacebook(parameterString: parameterDict, viewController: self)
@@ -805,9 +805,6 @@ class ViewController: UIViewController, apiClassDelegate , UIScrollViewDelegate,
                     Udefaults.set(pytUserProfilePic, forKey: "userProfilePic")
                     
                     
-                    
-                    
-                    
                     let runtimeLocations = jsonResult.value(forKey: "runtimeLocation") as! NSMutableArray
                     
                      let arrayOfLoc = NSMutableArray()
@@ -845,7 +842,7 @@ class ViewController: UIViewController, apiClassDelegate , UIScrollViewDelegate,
                             
                         }
                     }
-                    
+                    UserDefaults.standard.set(arrayOfLoc, forKey: "arrayOfIntrest")
                     tabledata = UserDefaults.standard.array(forKey: "arrayOfIntrest")
                     
                     

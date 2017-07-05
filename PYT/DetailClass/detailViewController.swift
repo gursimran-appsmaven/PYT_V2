@@ -775,14 +775,6 @@ class detailViewController: UIViewController, apiClassDelegate {
         //self.tabBarController?.tabBar.isHidden = true
         showMoreDescription.isUserInteractionEnabled=false
         
-        
-        
-        
-        
-        
-        
-        
-        
     }
     
     
@@ -796,10 +788,6 @@ class detailViewController: UIViewController, apiClassDelegate {
         self.view .bringSubview(toFront: BackBtn)
         
     }
-    
-    
-    
-    
     
     
     override func viewDidAppear(_ animated: Bool) {

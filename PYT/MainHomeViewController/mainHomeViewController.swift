@@ -172,7 +172,7 @@ class mainHomeViewController: UIViewController, SDWebImageManagerDelegate, apiCl
     {
         
         self.automaticallyAdjustsScrollViewInsets = false;
-        
+        self.tabBarController?.setTabBarVisible(visible: true, animated: true)
         //hide the navigationBar
         self.detailView.isHidden = true
             //Ensures that views are not underneath the tab bar
@@ -199,7 +199,7 @@ class mainHomeViewController: UIViewController, SDWebImageManagerDelegate, apiCl
         }
         
         //self.tabBarController?.tabBar.isHidden = false
-        self.tabBarController?.setTabBarVisible(visible: true, animated: true)
+        
        
     
         
@@ -212,15 +212,8 @@ class mainHomeViewController: UIViewController, SDWebImageManagerDelegate, apiCl
         }
         
         
-        
-        
-        
-        
-        
     }
     
-    
-        
     
     
     
@@ -321,7 +314,7 @@ class mainHomeViewController: UIViewController, SDWebImageManagerDelegate, apiCl
     //MARK:-
     func segmentedControlChangedValue(_ segmentedControl: HMSegmentedControl) {
         
-        planAllLocation = false
+        planAllLocation = false //false to show the plans of that place
         if countArray.count>0 {
             
             let placeIds = (countArray.value(forKey: "_id")) as! NSArray
@@ -1469,7 +1462,7 @@ class mainHomeViewController: UIViewController, SDWebImageManagerDelegate, apiCl
     {
         
         if planAllLocation == false {
-            planAllLocation = true
+            planAllLocation = true//true to show the all plans
             
             storiesCollectionView.reloadData()
             
@@ -1477,7 +1470,7 @@ class mainHomeViewController: UIViewController, SDWebImageManagerDelegate, apiCl
         else
         {
             
-            planAllLocation = false
+            planAllLocation = false//false to show the plans of that place
             
             storiesCollectionView.reloadData()
         }
@@ -3361,7 +3354,8 @@ extension mainHomeViewController: UICollectionViewDelegate, UICollectionViewData
         
         if collectionView.tag == 1221//storyCollectionView 
         {
-            if planAllLocation == false {
+            if planAllLocation == false//false to show the plans of that place
+            {
                 
                 if countArray.count>0 {
                     
@@ -3424,7 +3418,7 @@ extension mainHomeViewController: UICollectionViewDelegate, UICollectionViewData
             cell.contentView.frame = cell.bounds
             cell.contentView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
             print(cell.frame)
-                if planAllLocation == false
+                if planAllLocation == false//false to show the plans of that place
                 {
                     
                      if countArray.count>0 {
@@ -3477,7 +3471,7 @@ extension mainHomeViewController: UICollectionViewDelegate, UICollectionViewData
                     return cell
                 }
                     
-                    //return cell for all locations
+                    //return cell for all locations or all plans
                 else
                 {
                     
@@ -3814,11 +3808,7 @@ extension mainHomeViewController: UICollectionViewDelegate, UICollectionViewData
                 longView.frame=cell.frame
                 longView.tag=1000*collectionView.tag+indexPath.row
                 //cell .addSubview(longView)
-                
-                
-               
-                
-                
+            
             
                 cell.likeButton.tag = 1000*collectionView.tag+indexPath.row
                 cell.likeButton.addTarget(self, action: #selector(self.imageTapped(_:)), for: UIControlEvents .touchUpInside)
@@ -3854,12 +3844,6 @@ extension mainHomeViewController: UICollectionViewDelegate, UICollectionViewData
                     
                     
                 }
-                
-                
-                
-                               
-                
-               
                 
                 
                 
@@ -3936,7 +3920,18 @@ extension mainHomeViewController: UICollectionViewDelegate, UICollectionViewData
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath){
         
-        if collectionView.tag == 1221{
+        if collectionView.tag == 1221
+        {
+            //go to location onfo page
+            if planAllLocation == false //false to show the plans of that place
+            {
+                
+            }
+            //go to plans page
+            else
+            {
+                
+            }
             
             
         }
