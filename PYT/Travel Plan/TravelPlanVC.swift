@@ -707,7 +707,7 @@ class TravelPlanVC: UIViewController ,UITableViewDataSource,UITableViewDelegate,
         let defaults = UserDefaults.standard
         let uId = defaults .string(forKey: "userLoginId")
         
-        let parameter: NSDictionary = ["userId": "59562fd105e9b03d0aa06c1f","countryId":"58c3c09336f8b6180feea0c6"]
+        let parameter: NSDictionary = ["userId": "59562fd105e9b03d0aa06c1f","countryId":countryId]
         
         let isConnectedInternet = CommonFunctionsClass.sharedInstance().isConnectedToNetwork()
         
