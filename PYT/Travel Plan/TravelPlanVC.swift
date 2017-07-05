@@ -8,6 +8,8 @@
 
 import UIKit
 import FSCalendar
+import SDWebImage
+import MBProgressHUD
 
 class TravelPlanVC: UIViewController ,UITableViewDataSource,UITableViewDelegate,UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout,FSCalendarDelegate,FSCalendarDataSource{
 
@@ -22,28 +24,41 @@ class TravelPlanVC: UIViewController ,UITableViewDataSource,UITableViewDelegate,
     @IBOutlet weak var startDateBtn: UIButton!
     @IBOutlet weak var endDateBtn: UIButton!
     
+    @IBOutlet weak var noOfLocations: UILabel!
+    
     var startBool = Bool()
-    var startDate = NSDate()
-    var endDate = NSDate()
+    var startDate = Date()
+    var endDate = Date()
     var boolEdit = Bool()
+    var boolPlanDateEdit = Bool()
     var editedDate = NSDate()
+    var calendarMonthDate = Date()
+    
+    var countryId = String()
+    var bookingIdFinal = String()
+    var planDetails = NSMutableArray()
+    var planLocations = NSMutableArray()
+    @IBOutlet weak var locationsCoolectionView:  UICollectionView!
+    @IBOutlet weak var plansTableView: UITableView!
     
     fileprivate let gregorian = Calendar(identifier: .gregorian)
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        calendarMonthDate = NSDate() as Date
+        
         setUpCalendarProperties()
+        calendarBackView.isHidden = true
+        getPlanDetails()
+        
+        setUpCalendarSelection()
+
         startBool = true
         
-        calendarView.swipeToChooseGesture.isEnabled = true // Swipe-To-Choose
-
-        self.calendarView.appearance.borderRadius = 0
-        self.calendarView.delegate = self
-        self.calendarView.dataSource = self
-        self.calendarView.dropShadow()
-//        startButton.setAttributedTitle(attributedTextClass().setAttributeRobotRegularWithMultipleColor("Start", text1Size: 16, text2: " ", text2Size: 12), forState: UIControlState .Normal)
-        
+         
+        configureVisibleCells()
+   //        startButton.setAttributedTitle(attributedTextClass().setAttributeRobotRegularWithMultipleColor("Start", text1Size: 16, text2: " ", text2Size: 12), forState: UIControlState .Normal)
+//        
 //        endButton.setAttributedTitle(attributedTextClass().setAttributeRobotRegularWithMultipleColor("End", text1Size: 16, text2: " ", text2Size: 12), forState: UIControlState .Normal)
         
 //        if boolEdit == true
@@ -190,7 +205,7 @@ class TravelPlanVC: UIViewController ,UITableViewDataSource,UITableViewDelegate,
     func collectionView(_ collectionView: UICollectionView,numberOfItemsInSection section: Int) -> Int
     {
         
-        return 5
+        return planLocations.count
     }
     
     
@@ -207,7 +222,24 @@ class TravelPlanVC: UIViewController ,UITableViewDataSource,UITableViewDelegate,
     {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "PlanLocationImagesCC", for: indexPath) as! PlanLocationImagesCC
         
-        cell.nameLbl.text = "\(indexPath.row)"
+        let locDetails = (planLocations[indexPath.row] as? NSDictionary)?.value(forKey: "place") as? NSDictionary
+        
+        cell.nameLbl.text = "\(locDetails?.value(forKey: "placeTag") as! String) ,\(locDetails?.value(forKey: "city") as! String)"
+        
+        cell.locationLbl.text = "\(locDetails?.value(forKey: "placeTag") as! String)"
+        
+        let imageToShow = locDetails?.value(forKey: "imageLarge")  as? String ?? ""
+
+        cell.locationImage.backgroundColor = UIColor .white
+
+        cell.locationImage.sd_setImage(with: URL(string: imageToShow), placeholderImage: UIImage (named: "dummyBackground1"), options: SDWebImageOptions(rawValue: 0), completed: nil)
+        
+        cell.calendarBtn.tag = indexPath.row
+        cell.bucketBtn.tag = indexPath.row
+        
+        cell.calendarBtn.addTarget(self, action: #selector(OpenCalendarView), for: .touchUpInside)
+        cell.bucketBtn.addTarget(self, action: #selector(AddToBucket), for: .touchUpInside)
+
         let gradient = cell.viewWithTag(7499) as! GradientView
         
         gradient.gradientLayer.colors = [UIColor.black.withAlphaComponent(0.75).cgColor, UIColor.clear.cgColor]
@@ -229,7 +261,6 @@ class TravelPlanVC: UIViewController ,UITableViewDataSource,UITableViewDelegate,
     /////////////------ manage calendar---------////
      func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition) {
         
-        let date = date as NSDate
         if boolEdit == true {
             editedDate = date as NSDate
             return
@@ -246,33 +277,31 @@ class TravelPlanVC: UIViewController ,UITableViewDataSource,UITableViewDelegate,
             
             if(startDate.equalToDate(dateToCompare: endDate))
             {
-                startDate=date as NSDate
+                startDate=date
                 return
             }
             else if  date.isLessThanDate(dateToCompare: startDate) {
-                if(endDate.equalToDate(dateToCompare: todayDate))
+                if(endDate.equalToDate(dateToCompare: todayDate as Date))
                 {
                     endDate=startDate
-                    startDate=date as NSDate
-                }
+                    startDate=date                 }
                 else
                 {
-                    startDate=date as NSDate
+                    startDate=date
                 }
             }
             else if  date.isLessThanDate(dateToCompare: endDate) {
-                startBool ? (startDate=date as NSDate) : (endDate=date as NSDate)
+                startBool ? (startDate=date ) : (endDate=date )
             }
             else if(date.isGreaterThanDate(dateToCompare: endDate) )
             {
-                endDate=date as NSDate
-            }
+                endDate=date             }
             
             for date1 in calendarView.selectedDates {
                 calendarView .deselect(date1)
             }
             
-            var nextDate = startDate.earlierDate(startDate as Date)
+            var nextDate = startDate
             
             let lastdate =  calendarView.date(byAddingDays: 1, to: endDate as Date)
             
@@ -293,7 +322,7 @@ class TravelPlanVC: UIViewController ,UITableViewDataSource,UITableViewDelegate,
             let date2 = dateFormatter.date(from: String(describing: endDate))// create   date from string
             
             // change to a readable time format and change to local time zone
-            dateFormatter.dateFormat = "MMM dd, YYYY"
+            dateFormatter.dateFormat = "MMM dd"
             dateFormatter.timeZone = NSTimeZone.local
             let timeStamp1 = dateFormatter.string(from: date1!)
             let timeStamp2 = dateFormatter.string(from: date2!)
@@ -316,47 +345,50 @@ class TravelPlanVC: UIViewController ,UITableViewDataSource,UITableViewDelegate,
     
     func calendar(_ calendar: FSCalendar, didDeselect date: Date, at monthPosition: FSCalendarMonthPosition) {
         
-        let date = date as NSDate
+        print("Start Date-\(startDate)\n End Date-\(endDate)")
+
         
         if boolEdit == true {
             return
         }
         
-        let todayDate = NSDate()
+        let todayDate = Date()
         
         if  endDate.isLessThanDate(dateToCompare: startDate) && endDate.equalToDate(dateToCompare: todayDate){
             endDate=startDate
-            startDate=date as NSDate
+            startDate=date
         }
         if(startDate.equalToDate(dateToCompare: endDate))
         {
-            startDate=date as NSDate
+            startDate=date
             return
         }
             
         else if  date.isGreaterThanDate(dateToCompare: startDate) && date.isLessThanDate(dateToCompare: endDate) {
             
-            startBool ? (startDate=date as NSDate) : (endDate=date)
+            startBool ? (startDate=date) : (endDate=date)
             
         }
         else if  date.isLessThanDate(dateToCompare: startDate) {
-            startDate=date as NSDate
+            startDate=date
         }
         else if(date.isGreaterThanDate(dateToCompare: endDate) && date.isGreaterThanDate(dateToCompare: startDate))
         {
-            endDate=date as NSDate
+            endDate=date
         }
         else if(date.isLessThanDate(dateToCompare: endDate) && date.isLessThanDate(dateToCompare: startDate))
         {
             endDate=startDate
-            startDate=date as NSDate
+            startDate=date
         }
         
+        print("Start Date-\(startDate)\n End Date-\(endDate)")
+
         for date1 in calendarView.selectedDates {
             calendarView .deselect(date1)
         }
         
-        var nextDate = startDate.earlierDate(startDate as Date)
+        var nextDate = startDate
         
         let lastdate =  calendarView.date(byAddingDays: 1, to: endDate as Date)
         
@@ -376,7 +408,7 @@ class TravelPlanVC: UIViewController ,UITableViewDataSource,UITableViewDelegate,
         let date2 = dateFormatter.date(from: String(describing: endDate))// create   date from string
         
         // change to a readable time format and change to local time zone
-        dateFormatter.dateFormat = "MMM dd, YYYY"
+        dateFormatter.dateFormat = "MMM dd"
         dateFormatter.timeZone = NSTimeZone.local
         let timeStamp1 = dateFormatter.string(from: date1!)
         let timeStamp2 = dateFormatter.string(from: date2!)
@@ -426,6 +458,74 @@ class TravelPlanVC: UIViewController ,UITableViewDataSource,UITableViewDelegate,
     // MARK: - Calendar Customisation
     
     // MARK:- FSCalendarDataSource
+    func setUpCalendarSelection()
+    {
+        var nextDate = Date()
+        startDate = nextDate
+        let lastdate =  calendarView.date(byAddingDays: 10, to: nextDate as Date)
+        
+        while nextDate .compare(lastdate) == .orderedAscending  {
+            
+            print(nextDate)
+            
+            calendarView.select(nextDate)
+            nextDate = calendarView.date(byAddingDays: 1, to: nextDate)
+            
+        }
+        endDate = lastdate
+        endDate = endDate.addDays(daysToAdd: -1)
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss +0000"
+        dateFormatter.timeZone = NSTimeZone(name: "UTC") as TimeZone!
+        let date1 = dateFormatter.date(from: String(describing: startDate))// create   date from string
+        let date2 = dateFormatter.date(from: String(describing: endDate))// create   date from string
+        
+        // change to a readable time format and change to local time zone
+        dateFormatter.dateFormat = "MMM dd"
+        dateFormatter.timeZone = NSTimeZone.local
+        let timeStamp1 = dateFormatter.string(from: date1!)
+        let timeStamp2 = dateFormatter.string(from: date2!)
+        
+        endDate = endDate.addDays(daysToAdd: -1)
+        
+        startDateLbl.text = timeStamp1
+        endDateLbl.text = timeStamp2
+
+    }
+    func setUpCalendarStartAndEndDate()
+    {
+        var nextDate = Date()
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss +0000"
+        dateFormatter.timeZone = NSTimeZone(name: "UTC") as TimeZone!
+        
+        startDate = (dateFormatter.date(from: String(describing: (self.planDetails.object(at: 0) as! NSDictionary).value(forKey: "startDate") as? String)))!
+            
+        endDate = (dateFormatter.date(from: String(describing: (self.planDetails.object(at: 0) as! NSDictionary).value(forKey: "endDate") as? String)))!
+        
+        let lastdate =  calendarView.date(byAddingDays: 1, to: endDate as Date)
+        
+        while nextDate .compare(lastdate) == .orderedAscending  {
+            
+            print(nextDate)
+            
+            calendarView.select(nextDate)
+            nextDate = calendarView.date(byAddingDays: 1, to: nextDate)
+            
+        }
+        
+        // change to a readable time format and change to local time zone
+        dateFormatter.dateFormat = "MMM dd"
+        dateFormatter.timeZone = NSTimeZone.local
+        let timeStamp1 = dateFormatter.string(from: startDate)
+        let timeStamp2 = dateFormatter.string(from: endDate)
+        
+        startDateLbl.text = timeStamp1
+        endDateLbl.text = timeStamp2
+        
+    }
+
     func setUpCalendarProperties()
     {
         self.calendarView.allowsMultipleSelection=true
@@ -532,6 +632,23 @@ class TravelPlanVC: UIViewController ,UITableViewDataSource,UITableViewDelegate,
 
 
    //MARK: Action Methods
+     @IBAction func ChangeMonthBtnAction(_ sender: Any) {
+        if((sender as AnyObject).tag == 12)
+        {
+            let cal = Calendar.current
+            var comps: DateComponents? = cal.dateComponents([.year, .month, .day], from: calendarMonthDate as Date)
+            comps?.month = (comps?.month)! - 1
+            calendarMonthDate = cal.date(from: comps!)!
+        }
+        else
+        {
+            let cal = Calendar.current
+            var comps: DateComponents? = cal.dateComponents([.year, .month, .day], from: calendarMonthDate as Date)
+            comps?.month = (comps?.month)! + 1
+            calendarMonthDate = cal.date(from: comps!)!
+        }
+
+    }
     @IBAction func StartEndDateBtnACtion(_ sender: Any) {
         if((sender as AnyObject).tag == 10)
         {
@@ -551,15 +668,350 @@ class TravelPlanVC: UIViewController ,UITableViewDataSource,UITableViewDelegate,
     @IBAction func RightBtnAction(_ sender: Any) {
     }
     @IBAction func DoneBtnAction(_ sender: Any) {
+        if(boolEdit)
+        {
+//            MBProgressHUD .showAdded(to: self.view, animated: true)
+//            finaliseBookingDate()
+            return
+        }
+        else  {
+            
+            
+            self.calendarBackView.isHidden = true
+            
+        }
+        
+
     }
     @IBAction func MapViewBtnACtion(_ sender: Any) {
     }
     @IBAction func BackBtnAction(_ sender: Any) {
     }
+    func OpenCalendarView(sender: UIButton)
+    {
+        let selectedLocation = planLocations[sender.tag]
+        print(selectedLocation)
+        calendarBackView.isHidden = false
+    }
+    func AddToBucket(sender: UIButton)
+    {
+        let selectedLocation = planLocations[sender.tag]
+        print(selectedLocation)
+    }
+
+    
+    //MARK: API Methods
+    
+    func getPlanDetails() {
+        
+        let defaults = UserDefaults.standard
+        let uId = defaults .string(forKey: "userLoginId")
+        
+        let parameter: NSDictionary = ["userId": "59562fd105e9b03d0aa06c1f","countryId":"58c3c09336f8b6180feea0c6"]
+        
+        let isConnectedInternet = CommonFunctionsClass.sharedInstance().isConnectedToNetwork()
+        
+        if isConnectedInternet
+        {
+            
+            
+            
+            let urlString = NSString(string:"http://pictureyourtravel.com/get_booking_detail_V2")
+            
+            
+            let isConnectedInternet = CommonFunctionsClass.sharedInstance().isConnectedToNetwork()
+            
+            if isConnectedInternet
+            {
+                
+                var urlString = NSString(string:"\(urlString)")
+                print("WS URL----->>" + (urlString as String))
+                
+                urlString = urlString .replacingOccurrences(of: " ", with: "%20") as NSString
+                
+                let url:NSURL = NSURL(string: urlString as String)!
+                let session = URLSession.shared
+                session.configuration.timeoutIntervalForRequest=20
+                
+                
+                
+                
+                
+                let request = NSMutableURLRequest(url: url as URL)
+                request.httpMethod = "POST"
+                request.cachePolicy = NSURLRequest.CachePolicy.reloadIgnoringCacheData
+                
+                
+                do {
+                    let jsonData = try!  JSONSerialization.data(withJSONObject: parameter, options: [])
+                    request.httpBody = jsonData
+                    
+                    
+                    // here "jsonData" is the dictionary encoded in JSON data
+                } catch let error as NSError {
+                    print(error)
+                }
+                
+                request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+                request.addValue("application/json", forHTTPHeaderField: "Accept")
+                
+                
+                
+                
+                
+                let task = session.dataTask(with: request as URLRequest, completionHandler: {data, response, error -> Void in
+                    
+                    OperationQueue.main.addOperation
+                        {
+                            
+//                            MBProgressHUD.hideAllHUDsForView(self.view, animated: true)
+                            
+                            if data == nil
+                            {
+                                print("server not responding")
+                                
+                                
+                            }
+                            else
+                            {
+                                
+                                
+                                do {
+                                    
+                                    let result = NSString(data: data!, encoding:String.Encoding.ascii.rawValue)!
+                                    print("Body: \(result)")
+                                    
+                                    let anyObj: Any = try JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.mutableContainers)
+                                    
+                                    
+                                    
+                                    basicInfo=NSMutableDictionary()
+                                    basicInfo=anyObj as! NSMutableDictionary
+                                    
+                                    let success = basicInfo.object(forKey: "status") as! NSNumber
+                                    
+                                    if success == 1{
+                                        
+                                        let plans = basicInfo.value(forKey: "data") as! NSMutableArray
+                                        
+                                        self.planDetails=plans
+                                        self.bookingIdFinal = (self.planDetails.object(at: 0) as AnyObject).value(forKey: "_id") as! String
+                                        
+                                        if (self.planDetails.object(at: 0) as AnyObject).value(forKey: "startDate") as? String != nil
+                                        {
+                                            self.setUpCalendarStartAndEndDate()
+                                            self.calendarBackView.isHidden = true
+                                        }
+                                        else
+                                        {
+                                            self.setUpCalendarSelection()
+                                            self.calendarBackView.isHidden = false
+                                            self.boolEdit = false
+                                        }
+                                        if plans.count>0{
+                                            
+                                            let placesArr = ((plans.object(at: 0) as AnyObject).value(forKey: "places") as AnyObject) as! NSArray
+                                            print(placesArr)
+                                            for i in 0..<placesArr.count {
+                                                
+                                                self.planLocations.add(placesArr[i])
+                                            }
+                                            
+                                            let attrs1 = [NSFontAttributeName: UIFont(name: "SFUIDisplay-Bold", size: 11.0) , NSForegroundColorAttributeName : UIColor(red: 20/255.0, green: 44/255.0, blue: 69/255.0, alpha: 1.0)]
+                                            
+                                            let attrs2 = [NSFontAttributeName: UIFont(name: "SFUIDisplay-Regular", size: 11.0), NSForegroundColorAttributeName : UIColor(red: 20/255.0, green: 44/255.0, blue: 69/255.0, alpha: 1.0)]
+                                            
+                                            let attributedString1 = NSMutableAttributedString(string:"\(self.planLocations.count) ", attributes:attrs1)
+                                            
+                                            let attributedString2 = NSMutableAttributedString(string:"Locations", attributes:attrs2)
+                                            
+                                            attributedString1.append(attributedString2)
+                                           
+                                            self.noOfLocations.attributedText = attributedString1
+                                            
+                                            DispatchQueue.main.async(execute: {
+                                                self.locationsCoolectionView.reloadData()
+                                                self.plansTableView.reloadData()
+                                            })
+                                        }
+                                        else
+                                        {
+                                            CommonFunctionsClass.sharedInstance().showAlert(title: "No plans yet", text: "You haven't plan a travel yet.", imageName: "alertWrong")
+                                        }
+                                        
+                                        
+                                        
+                                        
+                                    }
+                                    else
+                                    {
+                                        
+                                        CommonFunctionsClass.sharedInstance().showAlert(title: "No plans yet", text: "You haven't plan a travel yet.", imageName: "alertWrong")
+                                        
+                                    }
+                                    
+                                    
+                                    
+                                    
+                                    
+                                } catch
+                                {
+                                    print("json error: \(error)")
+                                    CommonFunctionsClass.sharedInstance().showAlert(title: "Server Alert", text: "Something doesn't seem right, Please try again!", imageName: "alertServer")
+                                    
+                                    
+                                    
+                                }
+                                
+                                
+                                
+                                
+                                
+                                
+                                
+                            }
+                    }
+                })
+                
+                task.resume()
+            }
+            else
+            {
+                CommonFunctionsClass.sharedInstance().showAlert(title: "No Internet Connection", text: "You are currently offline.", imageName: "alertInternet")
+                
+//                MBProgressHUD.hideAllHUDsForView(self.view, animated: true)
+            }
+            
+            
+        }
+    }
+    
+    func SetPlanDatesWindow()
+    {
+        let isConnectedInternet = CommonFunctionsClass.sharedInstance().isConnectedToNetwork()
+        
+        if isConnectedInternet
+        {
+            // CommonFunctionsClass.sharedInstance().startIndicator(viewController.view)
+            
+            //    API to edit time of booking :- edit_booking_dates 4 parameters 1. userId, 2. bookingId, 3. placeId, 4. time
+            
+            var urlString = NSString(string:"\(appUrl)edit_booking")
+            print("WS URL----->>" + (urlString as String))
+            
+            let parameters: NSDictionary = ["userId": UserDefaults.standard.string(forKey: "userLoginId")!,"bookingId":bookingIdFinal,"startDate":String(describing: startDate),"endDate":String(describing: endDate)]
+            
+            urlString = urlString .replacingOccurrences(of: " ", with: "%20") as NSString
+            
+            let url:NSURL = NSURL(string: urlString as String)!
+            let session = URLSession.shared
+            
+            session.configuration.timeoutIntervalForRequest=30
+            // session.configuration.timeoutIntervalForResource=50
+            
+            let request = NSMutableURLRequest(url: url as URL)
+            request.httpMethod = "POST"
+            request.cachePolicy = NSURLRequest.CachePolicy.reloadIgnoringCacheData
+            
+            
+            do {
+                let jsonData = try!  JSONSerialization.data(withJSONObject: parameters, options: [])
+                request.httpBody = jsonData
+                
+                
+                // here "jsonData" is the dictionary encoded in JSON data
+            } catch let error as NSError {
+                print(error)
+            }
+            
+            
+            
+            // request.HTTPBody = try! NSJSONSerialization.dataWithJSONObject(prmt, options: [])
+            request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+            request.addValue("application/json", forHTTPHeaderField: "Accept")
+            
+            
+            
+            let task = session.dataTask(with: request as URLRequest, completionHandler: {data, response, error -> Void in
+                
+                OperationQueue.main.addOperation
+                    {
+                        
+                        if data == nil
+                        {
+                            CommonFunctionsClass.sharedInstance().showAlert(title: "Server Alert", text: "Something doesn't seem right, Please try again!", imageName: "alertServer")
+                            
+                        }
+                        else
+                        {
+                            
+                            
+                            do {
+                                
+                                let result = NSString(data: data!, encoding:String.Encoding.ascii.rawValue)!
+                                print("Body: \(result)")
+                                
+                                let anyObj: Any = try JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.mutableContainers)
+                                
+                                
+                                jsonResult = NSDictionary()
+                                jsonResult = anyObj as! NSDictionary
+                                
+                                let status = jsonResult.value(forKey: "status") as! NSNumber
+                                
+                                if status == 1{
+                                    
+                                    self.navigationController?.popViewController(animated: true)
+                                    
+                                    //                                    let nxtObj2 = self.storyboard?.instantiateViewControllerWithIdentifier("BookingViewController") as! BookingViewController
+                                    //                                    print(self.selectedArrayCalender)
+                                    //
+                                    //                                    nxtObj2.bookingIdFinal = self.bookingIdFinal
+                                    //                                    nxtObj2.fromView = self.fromView
+                                    //                                    nxtObj2.edited = true
+                                    //
+                                    //                                    dispatch_async(dispatch_get_main_queue(), {
+                                    //                                        self.dismissViewControllerAnimated(true, completion: {})
+                                    //                                        self.tabBarController?.tabBar.hidden = true
+                                    //                                        self.navigationController! .pushViewController(nxtObj2, animated: true)
+                                    //
+                                    //                                    })
+                                }
+                                else{
+                                    print("status = 0")
+                                    CommonFunctionsClass.sharedInstance().showAlert(title: "Server Alert", text: jsonResult.value(forKey: "msg") as! String as NSString, imageName: "alertServer")
+                                }
+                                MBProgressHUD.hideAllHUDs(for: self.view, animated: true)
+                            }
+                            catch
+                            {
+                                print("json error: \(error)")
+                                CommonFunctionsClass.sharedInstance().showAlert(title: "Server Alert", text: jsonResult.value(forKey: "msg") as! String as NSString, imageName: "alertServer")
+                                MBProgressHUD.hideAllHUDs(for: self.view, animated: true)
+                            }
+                        }
+                }
+            })
+            
+            task.resume()
+        }
+        else
+        {
+            CommonFunctionsClass.sharedInstance().showAlert(title: "No Internet Connection", text: "You are currently offline.", imageName: "alertInternet")
+            MBProgressHUD.hideAllHUDs(for: self.view, animated: true)
+        }
+        
+    }
+
+    
+    
     
 }
-extension NSDate {
-    func isGreaterThanDate(dateToCompare: NSDate) -> Bool {
+
+
+
+extension Date {
+    func isGreaterThanDate(dateToCompare: Date) -> Bool {
         //Declare Variables
         var isGreater = false
         
@@ -573,7 +1025,7 @@ extension NSDate {
         return isGreater
     }
     
-    func isLessThanDate(dateToCompare: NSDate) -> Bool {
+    func isLessThanDate(dateToCompare: Date) -> Bool {
         //Declare Variables
         var isLess = false
         
@@ -587,7 +1039,7 @@ extension NSDate {
         return isLess
     }
     
-    func equalToDate(dateToCompare: NSDate) -> Bool {
+    func equalToDate(dateToCompare: Date) -> Bool {
         //Declare Variables
         var isEqualTo = false
         
@@ -601,17 +1053,17 @@ extension NSDate {
         return isEqualTo
     }
     
-    func addDays(daysToAdd: Int) -> NSDate {
+    func addDays(daysToAdd: Int) -> Date {
         let secondsInDays: TimeInterval = Double(daysToAdd) * 60 * 60 * 24
-        let dateWithDaysAdded: NSDate = self.addingTimeInterval(secondsInDays)
+        let dateWithDaysAdded: Date = self.addingTimeInterval(secondsInDays)
         
         //Return Result
         return dateWithDaysAdded
     }
     
-    func addHours(hoursToAdd: Int) -> NSDate {
+    func addHours(hoursToAdd: Int) -> Date {
         let secondsInHours: TimeInterval = Double(hoursToAdd) * 60 * 60
-        let dateWithHoursAdded: NSDate = self.addingTimeInterval(secondsInHours)
+        let dateWithHoursAdded: Date = self.addingTimeInterval(secondsInHours)
         
         //Return Result
         return dateWithHoursAdded
