@@ -309,6 +309,10 @@ class TravelPlanVC: UIViewController ,UITableViewDataSource,UITableViewDelegate,
             startDateLbl.text = timeStamp1
             endDateLbl.text = timeStamp2
 
+            
+            let components = NSCalendar.current.dateComponents([.day], from: date1!, to: date2!)
+            noOfDaysLbl.text = "\(components.day! + 1) Days"
+            
             configureVisibleCells()
 
             print("Start Date-\(startDate)\n End Date-\(endDate)")
@@ -318,41 +322,10 @@ class TravelPlanVC: UIViewController ,UITableViewDataSource,UITableViewDelegate,
     }
     
     
-    
-    
-    
-    
-    //MAXIMUM AND MINIMUM DATE
-    
-    func maximumDate(for calendar: FSCalendar) -> Date {
-        if  boolEdit == true {
-            return endDate as Date
-        }
-        else{
-            return calendar.maximumDate  as Date
-        }
-    }
-    
-    func minimumDate(for calendar: FSCalendar) -> Date {
-        if boolEdit == true {
-            return startDate as Date
-        }
-        else
-        {
-//            if calendar.selectedDates.count == 2 {
-//                return startDate as Date
-//            }
-            return Date()
-        }
-    }
-    
-    
-   
-    
-      func calendar(_ calendar: FSCalendar, didDeselect date: Date, at monthPosition: FSCalendarMonthPosition) {
-    
+    func calendar(_ calendar: FSCalendar, didDeselect date: Date, at monthPosition: FSCalendarMonthPosition) {
+        
         let date = date as NSDate
-
+        
         if boolEdit == true {
             return
         }
@@ -368,7 +341,7 @@ class TravelPlanVC: UIViewController ,UITableViewDataSource,UITableViewDelegate,
             startDate=date as NSDate
             return
         }
-
+            
         else if  date.isGreaterThanDate(dateToCompare: startDate) && date.isLessThanDate(dateToCompare: endDate) {
             
             startBool ? (startDate=date as NSDate) : (endDate=date)
@@ -418,10 +391,45 @@ class TravelPlanVC: UIViewController ,UITableViewDataSource,UITableViewDelegate,
         
         startDateLbl.text = timeStamp1
         endDateLbl.text = timeStamp2
-        configureVisibleCells()
+        
+        let components = NSCalendar.current.dateComponents([.day], from: date1!, to: date2!)
+        noOfDaysLbl.text = "\(components.day! + 1) Days"
 
+        configureVisibleCells()
+        
         
     }
+
+    
+    
+    
+    //MAXIMUM AND MINIMUM DATE
+    
+    func maximumDate(for calendar: FSCalendar) -> Date {
+        if  boolEdit == true {
+            return endDate as Date
+        }
+        else{
+            return calendar.maximumDate  as Date
+        }
+    }
+    
+    func minimumDate(for calendar: FSCalendar) -> Date {
+        if boolEdit == true {
+            return startDate as Date
+        }
+        else
+        {
+//            if calendar.selectedDates.count == 2 {
+//                return startDate as Date
+//            }
+            return Date()
+        }
+    }
+    
+    
+   
+    
     
     // MARK: - Calendar Customisation
     
