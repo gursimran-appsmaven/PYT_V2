@@ -10,7 +10,7 @@ import UIKit
 import SDWebImage
 import MBProgressHUD
 import HMSegmentedControl
-//import ImageSlideshow
+
 
 
 //class mainHomeViewController: UIViewController  {
@@ -915,8 +915,9 @@ class mainHomeViewController: UIViewController, SDWebImageManagerDelegate, apiCl
             
             storiesCollectionView.reloadData()
              let indexPath = IndexPath(row: tableIndex, section: 0)
-            if  dataArray.count != 0 {
-                //self.imagesTableView.reloadRows(at: [indexPath], with: .none)
+            if  dataArray.count != 0
+            {
+                self.imagesTableView.reloadRows(at: [indexPath], with: .none)
             }
             
             
@@ -1172,8 +1173,7 @@ class mainHomeViewController: UIViewController, SDWebImageManagerDelegate, apiCl
             
             cell.ChatButton.layer.cornerRadius=cell.ChatButton.frame.size.height/2
             cell.ChatButton.clipsToBounds=true
-           // cell.arrowBackButton.tag = indexPath.row
-          //  cell.arrowBackButton .addTarget(self, action: #selector(mainHomeViewController.moveToIndex), for: UIControlEvents.touchUpInside)
+           
             
             
             
@@ -1183,18 +1183,19 @@ class mainHomeViewController: UIViewController, SDWebImageManagerDelegate, apiCl
             cell.imagesCollectionView.tag=indexPath.row
             cell.imagesCollectionView.collectionViewLayout.invalidateLayout()
 
-//          OperationQueue.main.addOperation({ () -> Void in
+            DispatchQueue.main.async(execute: {
             cell.imagesCollectionView.reloadData()
-//           })
+           })
             if segmentBool == true {
-                if indexPath.row > 2 {
+                if indexPath.row > 2
+                {
                     self.segmentBool = false
                 }
                 cell.imagesCollectionView.setContentOffset(CGPoint.zero, animated: false)
             }
             
-            cell.layer.shouldRasterize = true
-            cell.layer.rasterizationScale = UIScreen.main.scale
+           // cell.layer.shouldRasterize = true
+           // cell.layer.rasterizationScale = UIScreen.main.scale
 
             return cell
         }
@@ -1202,7 +1203,7 @@ class mainHomeViewController: UIViewController, SDWebImageManagerDelegate, apiCl
         else
         {
             pageNumber = dataArray.count
-            print(pageNumber)
+           // print(pageNumber)
             
             let cell = UITableViewCell() //
             cell.frame = CGRect(x: 0, y: 0, width: self.view.frame.size.width - 9, height: 50)
@@ -1265,7 +1266,7 @@ class mainHomeViewController: UIViewController, SDWebImageManagerDelegate, apiCl
     
     func tableView(_ tableView: UITableView, didSelectRowAtIndexPath indexPath: IndexPath)
     {
-        //print("You tapped cell number \(indexPath.row).")
+       
         
     }
     
@@ -1288,7 +1289,6 @@ class mainHomeViewController: UIViewController, SDWebImageManagerDelegate, apiCl
             let pImage : UIImage = UIImage(named:"dummyBackground2")! //placeholder image
             
             /////------ user profile pics---/////
-           // print(self.userDetailArray.object(at: indexPath.row))
             
             let profileImage = (self.userDetailArray .object(at: indexPath.row) as AnyObject).value(forKey: "profile")! as! NSString
             
@@ -1392,7 +1392,6 @@ class mainHomeViewController: UIViewController, SDWebImageManagerDelegate, apiCl
         
         
         
-       // print(self.arrayOfimages1[sender.tag])
         
         var arrImgThumbnail = NSArray()
         var arrImgLarge = NSArray()
@@ -1410,7 +1409,6 @@ class mainHomeViewController: UIViewController, SDWebImageManagerDelegate, apiCl
                 
                 
             }
-           ////print(sendArray)
             
             
             
@@ -1566,7 +1564,6 @@ class mainHomeViewController: UIViewController, SDWebImageManagerDelegate, apiCl
         let otherUserId = (userDetailArray.object(at: tableIndex) as AnyObject).value(forKey: "id") as? String ?? ""
         
         
-        //print("like image tapped")
         
         
         
@@ -1586,7 +1583,6 @@ class mainHomeViewController: UIViewController, SDWebImageManagerDelegate, apiCl
         var countLik = NSNumber()
         
         let likeCountValue = (self.arrayOfimages1[tableIndex] as AnyObject).value(forKey: "likeCount") as! NSArray
-        //print(likeCountValue)
         if likeCountValue[collectionIndex] as? NSNull != NSNull()  {
             
             countLik = likeCountValue[collectionIndex] as! NSNumber  //as? String ?? "0.0"
@@ -1624,7 +1620,6 @@ class mainHomeViewController: UIViewController, SDWebImageManagerDelegate, apiCl
                     likeimg.image=UIImage (named: "Like")
                     
                     let dat: NSDictionary = ["userId": "\(uId)", "photoId":"\(imageId)", "userLiked":"\(uId)", "status":"0", "imageOwn": "\(otherUserId)", "userName": "\(userNameMy!)"]
-                    //print("Post to like picture---- \(dat)")
                     DispatchQueue.main.async(execute: {
                         apiClass.sharedInstance().postRequestLikeUnlikeImage(parameters: dat, viewController: self)
                     })
@@ -1639,14 +1634,12 @@ class mainHomeViewController: UIViewController, SDWebImageManagerDelegate, apiCl
                     likeCount .add(["userId":uId, "imageId":imageId, "like":true, "count": self.addTheLikes(staticCount!)])
                     
                     
-                    //print(likeCount.lastObject)
                     
                     likeimg.image=UIImage (named: "likefill")
                     
                     let dat: NSDictionary = ["userId": "\(uId)", "photoId":"\(imageId)", "userLiked":"\(uId)", "status":"1", "imageOwn": "\(otherUserId)", "userName": "\(userNameMy!)"]
                     
                     
-                    //print("Post to like picture---- \(dat)")
                     DispatchQueue.main.async(execute: {
                         apiClass.sharedInstance().postRequestLikeUnlikeImage(parameters: dat, viewController: self)
                     })
@@ -1662,7 +1655,6 @@ class mainHomeViewController: UIViewController, SDWebImageManagerDelegate, apiCl
                 let dat: NSDictionary = ["userId": "\(uId)", "photoId":"\(imageId)", "userLiked":"\(uId)", "status":"1", "imageOwn": "\(otherUserId)", "userName": "\(userNameMy!)"]
                 
                 
-                //print("Post to like picture---- \(dat)")
                 DispatchQueue.main.async(execute: {
                     apiClass.sharedInstance().postRequestLikeUnlikeImage(parameters: dat, viewController: self)
                 })
@@ -1681,7 +1673,6 @@ class mainHomeViewController: UIViewController, SDWebImageManagerDelegate, apiCl
             let dat: NSDictionary = ["userId": "\(uId)", "photoId":"\(imageId)", "userLiked":"\(uId)", "status":"1", "imageOwn": "\(otherUserId)", "userName": "\(userNameMy!)"]
             
             
-            //print("Post to like picture---- \(dat)")
             DispatchQueue.main.async(execute: {
                 apiClass.sharedInstance().postRequestLikeUnlikeImage(parameters: dat, viewController: self)
             })
@@ -1751,15 +1742,16 @@ class mainHomeViewController: UIViewController, SDWebImageManagerDelegate, apiCl
        
         if  addToPlanBtn.titleLabel?.text=="Add To Plan" {
             
-        let dat: NSDictionary = ["userId": "\(uId)", "imageId": imageId, "placeId": globalPlaceid, "placeType": self.globalType, "ownerId": ownersId ]
+        //let dat: NSDictionary = ["userId": "\(uId)", "imageId": imageId, "placeId": globalPlaceid, "placeType": self.globalType, "ownerId": ownersId ]
             
+            let dat: NSDictionary = ["userId": "\(uId)", "imageId": imageId, "countryId": globalPlaceid, "countryName": self.globalLocation ]
             
             //type=self,globaltype
             var postDict = NSDictionary()
             
             postDict = dat
             
-            //MBProgressHUD.showHUDAddedTo(self.view, animated: true)
+        
             
            print("Post parameters to select the images for story--- \(postDict)")
             
@@ -3633,10 +3625,10 @@ extension mainHomeViewController: UICollectionViewDelegate, UICollectionViewData
 
                                
                 
-                let activityIndicatorView = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.gray)
-                cell.backgroundView = activityIndicatorView
-                //self.view.bringSubviewToFront(cell.backgroundView!)
-                activityIndicatorView.startAnimating()
+//                let activityIndicatorView = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.gray)
+//                cell.backgroundView = activityIndicatorView
+//                //self.view.bringSubviewToFront(cell.backgroundView!)
+//                activityIndicatorView.startAnimating()
                 
                 
                 
@@ -3925,6 +3917,77 @@ extension mainHomeViewController: UICollectionViewDelegate, UICollectionViewData
             //go to location onfo page
             if planAllLocation == false //false to show the plans of that place
             {
+             
+                let placeIds = (countArray.value(forKey: "_id")) as! NSArray
+                
+                if placeIds.contains(globalPlaceid){//("58c3c09336f8b6180feea0c6"){//(globalPlaceid) {
+                    print("Contains story")
+                    let indx = placeIds .index(of: self.globalPlaceid)
+                    print(indx)
+                    
+                    let storyArr = ((countArray.object(at: indx)) as AnyObject).value(forKey: "story") as! NSMutableArray //contains all story locations
+                    
+                    let userPicture = ((storyArr.object(at: storyArr.count-1 - (indexPath.row)) as AnyObject).value(forKey: "user") as AnyObject).value(forKey: "picture") as? String ?? "" //userProfilePicture
+                    let userName = ((storyArr.object(at: storyArr.count-1 - (indexPath.row)) as AnyObject).value(forKey: "user") as AnyObject).value(forKey: "name") as? String ?? "" //userName
+                    
+                    let desc = ((storyArr.object(at: storyArr.count-1 - (indexPath.row)) as AnyObject).value(forKey: "image") as AnyObject).value(forKey: "description") as? String ?? "" //description
+                    
+                    let countryname = ((storyArr.object(at: storyArr.count-1 - (indexPath.row)) as AnyObject).value(forKey: "image") as AnyObject).value(forKey: "country") as? String ?? ""
+                    let cityName = ((storyArr.object(at: indexPath.row) as AnyObject).value(forKey: "image") as AnyObject).value(forKey: "city") as? String ?? ""
+                    
+                    let location = "\(((storyArr.object(at: storyArr.count-1 - (indexPath.row)) as AnyObject).value(forKey: "image") as AnyObject).value(forKey: "placeTag") as? String ?? ""),\(cityName),\(countryname) " //location(placeTag+city+country)
+                    
+                    let largeImage = ((storyArr.object(at: storyArr.count-1 - (indexPath.row)) as AnyObject).value(forKey: "image") as AnyObject).value(forKey: "imageLarge") as? String ?? "" //Large image url
+                    let thumbImage = ((storyArr.object(at: storyArr.count-1 - (indexPath.row)) as AnyObject).value(forKey: "image") as AnyObject).value(forKey: "imageThumb") as? String ?? "" //Large image url
+                    
+                    var sendgeoTag = ((storyArr.object(at: storyArr.count-1 - (indexPath.row)) as AnyObject).value(forKey: "image") as AnyObject).value(forKey: "placeTag") as? String ?? ""
+                    let fullName22 = sendgeoTag
+                    let fullNameArr22 = fullName22.characters.split{$0 == ","}.map(String.init)
+                    if fullNameArr22.count>0{
+                        sendgeoTag = fullNameArr22[0]
+                    }
+                    //Split the place tag to get the results in foursquare
+                    
+                    
+                     let imageId = ((storyArr.object(at: storyArr.count-1 - (indexPath.row)) as AnyObject).value(forKey: "image") as AnyObject).value(forKey: "_id") as? String ?? "" //Image Id
+                    
+                    
+                    var lat = NSNumber()
+                    var long = NSNumber()
+                    if ((storyArr.object(at: storyArr.count-1 - (indexPath.row)) as AnyObject).value(forKey: "image") as AnyObject).value(forKey: "latitude") as? NSNull != NSNull()
+                    {
+                        lat = ((storyArr.object(at: storyArr.count-1 - (indexPath.row)) as AnyObject).value(forKey: "image") as AnyObject).value(forKey: "latitude") as! NSNumber  //as? String ?? "0.0"
+                        long = ((storyArr.object(at: indexPath.row) as AnyObject).value(forKey: "image") as AnyObject).value(forKey: "longitude") as! NSNumber //as? String ?? "0.0"
+                    }
+                    else
+                    {
+                        lat=0
+                        long=0
+                    }
+                    
+                    var multipleImgs = NSMutableArray()//will empty not to show the multiple images
+                    multipleImgs.add(largeImage)
+                    
+                    let catArrSt = ((storyArr.object(at: storyArr.count-1 - (indexPath.row)) as AnyObject).value(forKey: "image") as AnyObject).value(forKey: "category") as! NSMutableArray
+                    let strcat = (catArrSt.value(forKey: "displayName") as AnyObject).componentsJoined(by: ",")
+                    
+                    
+                    let mutableDic:NSMutableDictionary = ["Description":desc, "profileImage": userPicture, "location": location, "locationImage": largeImage, "Venue": cityName, "cityName":cityName , "CountryName": countryname, "geoTag": sendgeoTag,"imageId":"","latitude":lat, "longitude":long, "userName":userName, "Type": "Other", "multipleImagesLarge": multipleImgs, "Category": strcat, "likeBool":false, "standardImage":largeImage, "multipleImagesStandard": multipleImgs ,"categoryMainArray": catArrSt]
+                    
+                    let arrData = NSMutableArray()
+                    arrData .add(mutableDic)
+                    print(mutableDic)
+                    let nxtObj2 = self.storyboard?.instantiateViewController(withIdentifier: "detailViewController") as! detailViewController
+                    nxtObj2.arrayWithData=arrData
+                    nxtObj2.fromStory=true
+                    self.navigationController! .pushViewController(nxtObj2, animated: true)
+                    
+                }
+                
+                
+                
+                
+              
                 
             }
             //go to plans page
@@ -3976,16 +4039,15 @@ extension mainHomeViewController: UICollectionViewDelegate, UICollectionViewData
         else
         {
             
-            if self.arrayOfimages1.count<1 {
+            if self.arrayOfimages1.count<1
+            {
                 
             }
             else
             {
                 
-                if indexPath.row < ((arrayOfimages1[collectionView.tag] as AnyObject).value(forKey: "id")! as AnyObject) .count {
-                    
-                   
-                    
+                if indexPath.row < ((arrayOfimages1[collectionView.tag] as AnyObject).value(forKey: "id")! as AnyObject) .count
+                {
                     var arrImg2 = NSArray()
                     arrImg2 = (self.arrayOfimages1[collectionView.tag] as AnyObject).value(forKey: "thumbnails") as! NSArray
                     
@@ -4001,20 +4063,10 @@ extension mainHomeViewController: UICollectionViewDelegate, UICollectionViewData
                     
                     let url2 = URL(string: imageName2 as String)
                     
-//                    let block: SDWebImageCompletionBlock = {(image, error, cacheType, imageURL) -> Void in
-//                        //activityIndicator.stopAnimating()
-//                    }
-//                    
-//                    locationimage.sd_setImage(with: url2, placeholderImage: UIImage(named: "dummyBackground1"), options: SDWebImageOptions(rawValue: 0), completed: block)
-
-                    locationimage.sd_setImage(with: url2) { (image, error, cache, urls) in
-                        if (error != nil) {
-                            locationimage.image = UIImage(named: "dummyBackground1")
-                        } else {
-                            locationimage.image = image
-                        }
+                    let block: SDWebImageCompletionBlock = {(image, error, cacheType, imageURL) -> Void in
+                        
                     }
-                    
+                    locationimage.sd_setImage(with: url2!, placeholderImage: UIImage (named: "dummyBackground1"), options: SDWebImageOptions(rawValue: 0), completed: block)
                     
                     locationimage.focusOnFaces = true
                     
@@ -4025,8 +4077,8 @@ extension mainHomeViewController: UICollectionViewDelegate, UICollectionViewData
                     
                     
                     
-                    
-                    if indexPath.row > 0 && indexPath.row < arrImg2.count - 1{
+                    if indexPath.row > 0 && indexPath.row < arrImg2.count - 1
+                    {
                         
                         
                         let imageNameBack = arrImg2[indexPath.row - 1] as! String
@@ -4040,9 +4092,6 @@ extension mainHomeViewController: UICollectionViewDelegate, UICollectionViewData
                         let imageNameNext = arrImg2[indexPath.row + 1] as! String
                         let urlNext = URL(string: imageNameNext as String)
                         tempImgView .sd_setImage(with: urlNext)
-                        
-                        
-                        
                         
                     }
                     
@@ -4582,8 +4631,8 @@ extension mainHomeViewController: UICollectionViewDelegate, UICollectionViewData
             let source = (self.arrayOfimages1[a!] as AnyObject).value(forKey: "source") as! NSArray
             
             
-            if source[b!] as? NSNull != NSNull()  {
-                
+            if source[b!] as? NSNull != NSNull()
+            {
                 
                 let sourceStr = source.object(at: b!) as? String ?? ""
                 if sourceStr == "PYT" {
@@ -4713,7 +4762,7 @@ extension mainHomeViewController: UICollectionViewDelegate, UICollectionViewData
             
             
             
-           
+           print(mutableDic)
             
             
             

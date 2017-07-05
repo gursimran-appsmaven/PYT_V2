@@ -9,8 +9,8 @@
 var bucketListTotalCount = "0"
 var logOut: Bool = true
 var profileUserData = NSMutableDictionary()
-//var appUrl = "http://pictureyourtravel.com/"  //Test
-var appUrl = "http://52.25.207.151/"// Live New server working
+var appUrl = "http://pictureyourtravel.com/"  //Test
+//var appUrl = "http://52.25.207.151/"// Live New server working
 var Udefaults = UserDefaults.standard
 
 
@@ -33,8 +33,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     let storyboard = UIStoryboard(name: "Main", bundle: nil)
     var searchResult:NSMutableDictionary!
-    
-    
     
     
     func application(application: UIApplication, handleEventsForBackgroundURLSession identifier: String, completionHandler: () -> Void) {
@@ -112,12 +110,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 
                 
                 //niteesh.appsmaven for testing by Developer
-                GMSPlacesClient.provideAPIKey("AIzaSyBp0LxOHjPksEh8F4A9nNT7AkMmtUXHUvs")
-                GMSServices.provideAPIKey("AIzaSyBp0LxOHjPksEh8F4A9nNT7AkMmtUXHUvs")
+            GMSPlacesClient.provideAPIKey("AIzaSyClITzB5uJq33QGoj2XMhlCbPssFSlePpI")
+                GMSServices.provideAPIKey("AIzaSyClITzB5uJq33QGoj2XMhlCbPssFSlePpI")
                 
                 
                 FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
-                
                 
                 
                 

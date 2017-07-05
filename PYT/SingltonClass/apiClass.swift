@@ -35,7 +35,7 @@ class apiClass: NSObject {
      let baseUrlfb = appUrl
     let baseUrlLogin = "\(appUrl)login_email"
  
-    let baseUrladdImage = "\(appUrl)save_story"
+    let baseUrladdImage = "\(appUrl)add_place_to_plan"//save_story"
     
     let searchStory = "\(appUrl)set_runTimeLocation" //new version
    
@@ -877,7 +877,8 @@ class apiClass: NSObject {
                                 
                                
                                 
-                               // let anyObj: Any = try JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.mutableContainers)
+                                let result = NSString(data: data!, encoding:String.Encoding.ascii.rawValue)!
+                                print("Body: \(result)")
                                 
                                 
                                DispatchQueue.global(qos: .background).async {

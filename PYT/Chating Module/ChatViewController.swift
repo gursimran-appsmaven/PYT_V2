@@ -193,13 +193,6 @@ class ChatViewController: JSQMessagesViewController {
         self.setup()
       //  self.addDemoMessages()
         
-        //var messages: [JSQMessage] = [JSQMessage]()
-       // var avatarDict = [String: JSQMessagesAvatarImage]()
-        
-        
-        
-        
-        
        // IQKeyboardManager.sharedManager().shouldResignOnTouchOutside=true
         
         self.imagesTableView? .reloadData()
@@ -239,8 +232,8 @@ class ChatViewController: JSQMessagesViewController {
         
         
     
-        self.messagesViewBottomSpace.constant = 200
-        self.openImages(sender: self)
+        self.messagesViewBottomSpace.constant = 0//200
+        //self.openImages(sender: self)
         
         
        
@@ -506,8 +499,8 @@ class ChatViewController: JSQMessagesViewController {
                 DispatchQueue.main.async{
                     do {
                         
-                        //let result = NSString(data: data!, encoding:NSASCIIStringEncoding)!
-                       //print("Body: \(result)")
+                        let result = NSString(data: data!, encoding:String.Encoding.ascii.rawValue)!
+                       print("Body: \(result)")
                         
                         
                         let anyObj: Any = try JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.mutableContainers)
@@ -614,6 +607,16 @@ class ChatViewController: JSQMessagesViewController {
     }
     
     
+    func setSender()
+    {
+        //seen_messages
+        //msgIds
+        
+        //hit api to add sender ie. seen by the user
+        
+        
+    }
+    
     
     
     
@@ -624,9 +627,6 @@ class ChatViewController: JSQMessagesViewController {
     
     func createAvatar()
     {
-        
-        
-        
         
         let imgView1 = UIImageView()
         let imageView2 = UIImageView()

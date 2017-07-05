@@ -44,6 +44,9 @@ class commentViewController: UIViewController, UITextViewDelegate, UITableViewDe
         NotificationCenter.default.addObserver(self, selector: #selector(commentViewController.refreshComments(_:)),name:NSNotification.Name(rawValue: "updateComments"), object: nil)
         addComment = true
         
+        commentTextView.returnKeyType = .done
+        commentTextView.delegate = self
+        
     }
     
     
@@ -60,23 +63,35 @@ class commentViewController: UIViewController, UITextViewDelegate, UITableViewDe
     //MARK: TextView delegate
 
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
-        print(commentTextView.frame.size.height)
-        if commentTextView.frame.size.height<130
+        let newText = (textView.text as NSString).replacingCharacters(in: range, with: text)
+        let numberOfChars = newText.characters.count
+        if(numberOfChars==0)
         {
-            commentTextView.isScrollEnabled = false
+            placeHolderLabel.isHidden = false
         }
         else
         {
-            commentTextView.isScrollEnabled = true
+            placeHolderLabel.isHidden = true
         }
         
-        return true
-        
+        return numberOfChars < 200;
     }
+    
     func textViewDidChange(_ textView: UITextView) {
+       
         revStr = textView.text as NSString
         print(revStr)
     }
+    
+
+//    
+//    func textView(textView: UITextView, shouldChangeTextInRange range: NSRange, replacementText text: String) -> Bool {
+//        if(text == "\n") {
+//            textView.resignFirstResponder()
+//            return false
+//        }
+//        return true
+//    }
     
     
     func textViewDidBeginEditing(_ textView: UITextView) {
@@ -97,6 +112,21 @@ class commentViewController: UIViewController, UITextViewDelegate, UITableViewDe
             
         }
     }
+    
+    
+    
+    override func viewDidLayoutSubviews() {
+        
+        super.viewDidLayoutSubviews()
+        
+        let fixedWidth = commentTextView.frame.size.width
+        commentTextView.sizeThatFits(CGSize(width: fixedWidth, height: CGFloat.greatestFiniteMagnitude))
+        let newSize = commentTextView.sizeThatFits(CGSize(width: fixedWidth, height: CGFloat.greatestFiniteMagnitude))
+        var newFrame = commentTextView.frame
+        newFrame.size = CGSize(width: max(newSize.width, fixedWidth), height: newSize.height)
+        
+    }
+
     
     
     
@@ -201,7 +231,8 @@ class commentViewController: UIViewController, UITextViewDelegate, UITableViewDe
         
         commentTextView.text = nil
         placeHolderLabel.isHidden = false
-        
+        commentTextView.isScrollEnabled = false
+       
         
             //Indicator
             let loadingNotification = MBProgressHUD.showAdded(to: self.view, animated: true)
@@ -227,7 +258,7 @@ class commentViewController: UIViewController, UITextViewDelegate, UITableViewDe
             }
         
         commentTextView.resignFirstResponder()
-        
+        self.commentTextView.layoutIfNeeded()
     }
     
     

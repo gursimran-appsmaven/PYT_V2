@@ -132,7 +132,6 @@ class cellClassTableViewCell: UITableViewCell{
 class collectionViewCellClassFeed: UICollectionViewCell {
     
     @IBOutlet weak var likeView: UIView!
-    
     @IBOutlet weak var geoTagLbl: UILabel!
     @IBOutlet weak var catglbl: UILabel!
     @IBOutlet weak var cityLabel: UILabel!
@@ -160,8 +159,8 @@ class planCollectionViewCell: UICollectionViewCell {
 class planCollectionViewHeaderCell: UICollectionViewCell {
     
 }
-class storyTableHeaderCell: UITableViewCell{
-    
+class storyTableHeaderCell: UITableViewCell
+{
     //}UICollectionViewDelegate, UICollectionViewDataSource {
     @IBOutlet weak var storiesCollectionView: UICollectionView!
     

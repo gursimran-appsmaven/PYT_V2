@@ -297,7 +297,8 @@ class detailViewController: UIViewController, apiClassDelegate {
         
         var parameter = ""
         
-        if self.LAT == 0 {
+        if self.LAT == 0
+        {
             parameter = "https://api.foursquare.com/v2/venues/search?intent=browse&limit=1&client_id=DAKFO3TURLDTUL33JNPRTIGX03NMZM2ACCDWC2HHHZTV2YMT&client_secret=ILF0G3U4DRSC0WDW2EH12SFGTOKIWSKFUIOXV4FFEQOIB34B&v=20140203&near=\(NearLoc)&query=\(tagGeo)"
         }
         else
@@ -693,67 +694,7 @@ class detailViewController: UIViewController, apiClassDelegate {
             firstTime=false
          
             
-        
-    
-            ///// ///////--------UiView contains the collection View--------////////
             
-//            let photosCollectView = self.view.viewWithTag(701010)
-//           photosCollectView!.layer.cornerRadius=0
-//            photosCollectView!.clipsToBounds=true
-//            photosCollectView!.layer.shadowColor = UIColor .init(colorLiteralRed: 215/255, green: 215/255, blue: 215/255, alpha: 1).cgColor
-//            photosCollectView!.layer.shadowOffset = CGSize(width: 0, height: 2.0)
-//            photosCollectView!.layer.shadowOpacity = 1
-//            photosCollectView!.layer.shadowRadius = 1.0
-//           photosCollectView!.layer.masksToBounds=false
-//            
-//            
-//            let shadowPath = UIBezierPath(rect: (photosCollectView?.bounds)!)
-//            layer.masksToBounds = false
-//            layer.shadowColor = UIColor.black.cgColor
-//            layer.shadowOffset = CGSize(width: 0.0, height: 5.0)
-//            layer.shadowOpacity = 0.5
-//            layer.shadowPath = shadowPath.cgPath
-
-            
-            
-            
-            
-            
-//            secondView!.layer.cornerRadius=0
-//            secondView!.clipsToBounds=true
-//            secondView!.layer.shadowColor = UIColor .init(colorLiteralRed: 215/255, green: 215/255, blue: 215/255, alpha: 1).cgColor
-//            secondView!.layer.shadowOffset = CGSize(width: 0, height: 2.0)
-//            secondView!.layer.shadowOpacity = 1
-//            secondView!.layer.shadowRadius = 1.5
-//            secondView!.layer.masksToBounds=false
-            
-//            thirdView!.layer.cornerRadius=5
-//            thirdView!.clipsToBounds=true
-//            thirdView!.layer.shadowColor = UIColor .init(colorLiteralRed: 215/255, green: 215/255, blue: 215/255, alpha: 1).cgColor
-//            thirdView!.layer.shadowOffset = CGSize(width: 0, height: 2.0)
-//            thirdView!.layer.shadowOpacity = 1
-//            thirdView!.layer.shadowRadius = 1.5
-//            thirdView!.layer.masksToBounds=false
-            
-            
-            
-//            forthView!.layer.cornerRadius=5
-//            forthView!.clipsToBounds=true
-//            forthView!.layer.shadowColor = UIColor .init(colorLiteralRed: 215/255, green: 215/255, blue: 215/255, alpha: 1).cgColor
-//            forthView!.layer.shadowOffset = CGSize(width: 0, height: 2.0)
-//            forthView!.layer.shadowOpacity = 1
-//            forthView!.layer.shadowRadius = 1.5
-//            forthView!.layer.masksToBounds=false
-            
-            
-            
-//            self.webLinkBtnOutlet.layer.borderWidth=1.0
-//            self.webLinkBtnOutlet.layer.borderColor=UIColor.black.cgColor
-//            self.webLinkBtnOutlet.layer.cornerRadius=3
-//            self.webLinkBtnOutlet.clipsToBounds=true
-            
-            
-        
             
             
         }
@@ -1584,7 +1525,7 @@ class detailViewController: UIViewController, apiClassDelegate {
         
        
         let globalPlaceid = (self.arrayWithData[0] as AnyObject).value(forKey: "placeId") as? String ?? ""
-        let globalType = (self.arrayWithData[0] as AnyObject).value(forKey: "placeType") as? String ?? ""
+        let globalName = (self.arrayWithData[0] as AnyObject).value(forKey: "CountryName") as! String
         let ownersId = (self.arrayWithData[0] as AnyObject).value(forKey: "otherUserId") as? String ?? ""
         
         
@@ -1615,7 +1556,7 @@ class detailViewController: UIViewController, apiClassDelegate {
             stImg2.image=UIImage.init(named: "locationPlan")
            
             
-            let dat: NSDictionary = ["userId": "\(uId!)", "imageId": imageId, "placeId": globalPlaceid, "placeType": globalType, "ownerId": ownersId ]
+            let dat: NSDictionary = ["userId": "\(uId!)", "imageId": imageId, "countryId": globalPlaceid, "countryName": globalName ] //["userId": "\(uId!)", "imageId": imageId, "placeId": globalPlaceid, "placeType": globalType]
             
             
             
@@ -3115,7 +3056,7 @@ class detailViewController: UIViewController, apiClassDelegate {
                                 
                                 print("comes here")
                                 groupsArray = (resultHotels.value(forKey: "response")! as AnyObject).value(forKey: "groups") as! NSMutableArray
-                                        print(groupsArray)
+                                       // print(groupsArray)
                                         
                                 if groupsArray.count>0
                                 {

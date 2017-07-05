@@ -119,4 +119,4 @@ source 'https://github.com/CocoaPods/Specs.git'
 use_frameworks!
 #target ‘PYT’ do
 pod 'Alamofire' # , '~> 3.4'
-
+#pod 'AlamofireImage'

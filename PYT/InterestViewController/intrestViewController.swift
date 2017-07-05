@@ -2624,12 +2624,12 @@ class intrestViewController: UIViewController, apiClassInterestDelegate ,UITable
         
         
         let headerId = UserDefaults.standard.value(forKey: "selectedLocationId") as? String ?? ""
-        
+        let headerText = UserDefaults.standard.value(forKey: "selectedLocation") as? String ?? ""
         let nxtObjMain = self.storyboard?.instantiateViewController(withIdentifier: "mainHomeViewController") as! mainHomeViewController
         
         if addToPlanPopup.titleLabel?.text=="Add To Plan" {
             
-            let dat: NSDictionary = ["userId": "\(uId!)", "imageId": imageId, "placeId": headerId, "placeType": headerType, "ownerId": ownerId ]
+            let dat: NSDictionary = ["userId": "\(uId!)", "imageId": imageId, "countryId": headerId, "countryName": headerText ] //["userId": "\(uId!)", "imageId": imageId, "placeId": headerId, "placeType": headerType]
             
             
             print("Post parameters to select the images for story--- \(dat)")
