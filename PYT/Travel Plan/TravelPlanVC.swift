@@ -22,28 +22,19 @@ class TravelPlanVC: UIViewController ,UITableViewDataSource,UITableViewDelegate,
     @IBOutlet weak var startDateBtn: UIButton!
     @IBOutlet weak var endDateBtn: UIButton!
     
+    var startBool = Bool()
+    var startDate = NSDate()
+    var endDate = NSDate()
+    var boolEdit = Bool()
+    var editedDate = NSDate()
+    
     fileprivate let gregorian = Calendar(identifier: .gregorian)
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        self.calendarView.allowsMultipleSelection=true
-        self.calendarView.appearance.headerMinimumDissolvedAlpha = 0
-        self.calendarView.appearance.selectionColor=UIColor(red: 255/255.0, green: 80/255.0, blue: 80/255.0, alpha: 1.0)
-         self.calendarView.appearance.todayColor=UIColor(red: 255/255.0, green: 80/255.0, blue: 80/255.0, alpha: 1.0)
-        self.calendarView.appearance.headerTitleColor = UIColor(red: 20/255.0, green: 44/255.0, blue: 69/255.0, alpha: 1.0)
-        self.calendarView.appearance.titleDefaultColor = UIColor.lightGray
-        self.calendarView.appearance.titlePlaceholderColor = UIColor.lightGray.withAlphaComponent(0.25)
-
-        self.calendarView.appearance.headerTitleFont = UIFont(name: "SFUIDisplay-Bold", size: 14.0)!
-        self.calendarView.appearance.titleFont = UIFont(name: "SFUIDisplay-Regular", size: 11.0)!
-        self.calendarView.appearance.weekdayFont = UIFont(name: "SFUIDisplay-Regular", size: 12.0)!
-
-        self.calendarView.appearance.weekdayTextColor = UIColor(red: 255/255.0, green: 80/255.0, blue: 80/255.0, alpha: 1.0)
-
-        calendarView.today = nil // Hide the today circle
-        calendarView.register(DIYCalendarCell.self, forCellReuseIdentifier: "cell")
-        //        calendar.clipsToBounds = true // Remove top/bottom line
+        setUpCalendarProperties()
+        startBool = true
         
         calendarView.swipeToChooseGesture.isEnabled = true // Swipe-To-Choose
 
@@ -123,6 +114,8 @@ class TravelPlanVC: UIViewController ,UITableViewDataSource,UITableViewDelegate,
     }
 
     override func viewWillAppear(_ animated: Bool) {
+        endDateBtn.setBackgroundImage(nil, for: .normal)
+
 //        calendarView.isHidden = true
 //        doneBtn.isHidden = true
     }
@@ -234,210 +227,231 @@ class TravelPlanVC: UIViewController ,UITableViewDataSource,UITableViewDelegate,
     
     
     /////////////------ manage calendar---------////
-    func calendar(_ calendar: FSCalendar, didSelect date: Date)
-    {
+     func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition) {
         
-        configureVisibleCells()
+        let date = date as NSDate
+        if boolEdit == true {
+            editedDate = date as NSDate
+            return
+        }
+            
+        else
+        {
+            
+            print(startDate)
+            print(endDate)
+        
+            
+            let todayDate = NSDate()
+            
+            if(startDate.equalToDate(dateToCompare: endDate))
+            {
+                startDate=date as NSDate
+                return
+            }
+            else if  date.isLessThanDate(dateToCompare: startDate) {
+                if(endDate.equalToDate(dateToCompare: todayDate))
+                {
+                    endDate=startDate
+                    startDate=date as NSDate
+                }
+                else
+                {
+                    startDate=date as NSDate
+                }
+            }
+            else if  date.isLessThanDate(dateToCompare: endDate) {
+                startBool ? (startDate=date as NSDate) : (endDate=date as NSDate)
+            }
+            else if(date.isGreaterThanDate(dateToCompare: endDate) )
+            {
+                endDate=date as NSDate
+            }
+            
+            for date1 in calendarView.selectedDates {
+                calendarView .deselect(date1)
+            }
+            
+            var nextDate = startDate.earlierDate(startDate as Date)
+            
+            let lastdate =  calendarView.date(byAddingDays: 1, to: endDate as Date)
+            
+            while nextDate .compare(lastdate) == .orderedAscending  {
+                
+                print(nextDate)
+                
+                calendar.select(nextDate)
+                nextDate = calendar.date(byAddingDays: 1, to: nextDate)
+                
+                
+            }
+            
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss +0000"
+            dateFormatter.timeZone = NSTimeZone(name: "UTC") as TimeZone!
+            let date1 = dateFormatter.date(from: String(describing: startDate))// create   date from string
+            let date2 = dateFormatter.date(from: String(describing: endDate))// create   date from string
+            
+            // change to a readable time format and change to local time zone
+            dateFormatter.dateFormat = "MMM dd, YYYY"
+            dateFormatter.timeZone = NSTimeZone.local
+            let timeStamp1 = dateFormatter.string(from: date1!)
+            let timeStamp2 = dateFormatter.string(from: date2!)
+        
+            startDateLbl.text = timeStamp1
+            endDateLbl.text = timeStamp2
 
-//        if boolEdit == true {
-//            editedDate = date
-//            return
-//        }
-//            
-//        else
-//        {
-//            
-//            print(startDate)
-//            print(endDate)
-//            
-//            
-//            let todayDate = NSDate()
-//            
-//            if(startDate.equalToDate(endDate))
-//            {
-//                startDate=date
-//                return
-//            }
-//            else if  date.isLessThanDate(startDate) {
-//                if(endDate.equalToDate(todayDate))
-//                {
-//                    endDate=startDate
-//                    startDate=date
-//                }
-//                else
-//                {
-//                    startDate=date
-//                }
-//            }
-//            else if  date.isLessThanDate(endDate) {
-//                startBool ? (startDate=date) : (endDate=date)
-//            }
-//            else if(date.isGreaterThanDate(endDate) )
-//            {
-//                endDate=date
-//            }
-//            
-//            for date1 in calendarView.selectedDates {
-//                calendarView .deselectDate(date1)
-//            }
-//            
-//            var nextDate = startDate.earlierDate(startDate)
-//            
-//            let lastdate =  calendarView.dateByAddingDays(1, toDate: endDate)
-//            
-//            while nextDate .compare(lastdate) == .OrderedAscending  {
-//                
-//                print(nextDate)
-//                
-//                calendar.selectDate(nextDate)
-//                nextDate = calendar.dateByAddingDays(1, toDate: nextDate)
-//                
-//                
-//            }
-//            
-//            let dateFormatter = NSDateFormatter()
-//            dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss +0000"
-//            dateFormatter.timeZone = NSTimeZone(name: "UTC")
-//            let date1 = dateFormatter.dateFromString(String(startDate))// create   date from string
-//            let date2 = dateFormatter.dateFromString(String(endDate))// create   date from string
-//            
-//            // change to a readable time format and change to local time zone
-//            dateFormatter.dateFormat = "MMM dd, YYYY"
-//            dateFormatter.timeZone = NSTimeZone.localTimeZone()
-//            let timeStamp1 = dateFormatter.stringFromDate(date1!)
-//            let timeStamp2 = dateFormatter.stringFromDate(date2!)
-//            
-//            startButton .titleLabel!.lineBreakMode = NSLineBreakMode.ByWordWrapping
-//            startButton.titleLabel!.numberOfLines = 2//if you want unlimited number of lines put 0
-//            startButton.setAttributedTitle(attributedTextClass().setAttributeRobotRegularWithMultipleColor("Start\n", text1Size: 13, text2: timeStamp1, text2Size: 13), forState: UIControlState .Normal)
-//            
-//            endButton.titleLabel!.lineBreakMode = NSLineBreakMode.ByWordWrapping
-//            endButton.titleLabel!.numberOfLines = 2//if you want unlimited number of lines put 0
-//            endButton.setAttributedTitle(attributedTextClass().setAttributeRobotRegularWithMultipleColor("End\n", text1Size: 13, text2: timeStamp2, text2Size: 13), forState: UIControlState .Normal)
-//            
-//            
-//            print("Start Date-\(startDate)\n End Date-\(endDate)")
-//            
-//        }
-        
+            
+            let components = NSCalendar.current.dateComponents([.day], from: date1!, to: date2!)
+            noOfDaysLbl.text = "\(components.day! + 1) Days"
+            
+            configureVisibleCells()
+
+            print("Start Date-\(startDate)\n End Date-\(endDate)")
+            
+        }
+    
     }
     
     
-    
+    func calendar(_ calendar: FSCalendar, didDeselect date: Date, at monthPosition: FSCalendarMonthPosition) {
+        
+        let date = date as NSDate
+        
+        if boolEdit == true {
+            return
+        }
+        
+        let todayDate = NSDate()
+        
+        if  endDate.isLessThanDate(dateToCompare: startDate) && endDate.equalToDate(dateToCompare: todayDate){
+            endDate=startDate
+            startDate=date as NSDate
+        }
+        if(startDate.equalToDate(dateToCompare: endDate))
+        {
+            startDate=date as NSDate
+            return
+        }
+            
+        else if  date.isGreaterThanDate(dateToCompare: startDate) && date.isLessThanDate(dateToCompare: endDate) {
+            
+            startBool ? (startDate=date as NSDate) : (endDate=date)
+            
+        }
+        else if  date.isLessThanDate(dateToCompare: startDate) {
+            startDate=date as NSDate
+        }
+        else if(date.isGreaterThanDate(dateToCompare: endDate) && date.isGreaterThanDate(dateToCompare: startDate))
+        {
+            endDate=date as NSDate
+        }
+        else if(date.isLessThanDate(dateToCompare: endDate) && date.isLessThanDate(dateToCompare: startDate))
+        {
+            endDate=startDate
+            startDate=date as NSDate
+        }
+        
+        for date1 in calendarView.selectedDates {
+            calendarView .deselect(date1)
+        }
+        
+        var nextDate = startDate.earlierDate(startDate as Date)
+        
+        let lastdate =  calendarView.date(byAddingDays: 1, to: endDate as Date)
+        
+        while nextDate .compare(lastdate) == .orderedAscending  {
+            
+            print(nextDate)
+            
+            calendar.select(nextDate)
+            nextDate = calendar.date(byAddingDays: 1, to: nextDate)
+            
+        }
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss +0000"
+        dateFormatter.timeZone = NSTimeZone(name: "UTC") as TimeZone!
+        let date1 = dateFormatter.date(from: String(describing: startDate))// create   date from string
+        let date2 = dateFormatter.date(from: String(describing: endDate))// create   date from string
+        
+        // change to a readable time format and change to local time zone
+        dateFormatter.dateFormat = "MMM dd, YYYY"
+        dateFormatter.timeZone = NSTimeZone.local
+        let timeStamp1 = dateFormatter.string(from: date1!)
+        let timeStamp2 = dateFormatter.string(from: date2!)
+        
+        startDateLbl.text = timeStamp1
+        endDateLbl.text = timeStamp2
+        
+        let components = NSCalendar.current.dateComponents([.day], from: date1!, to: date2!)
+        noOfDaysLbl.text = "\(components.day! + 1) Days"
+
+        configureVisibleCells()
+        
+        
+    }
+
     
     
     
     //MAXIMUM AND MINIMUM DATE
     
-    func maximumDateForCalendar(calendar: FSCalendar) -> NSDate {
-        return NSDate()
-        
-//        if  boolEdit == true {
-//            return endDate
-//        }
-//        else{
-//            return calendar.maximumDate
-//        }
-//    }
-//    
-//    func minimumDateForCalendar(calendar: FSCalendar) -> NSDate {
-//        
-//        if boolEdit == true {
-//            return startDate
-//        }
-//        else
-//        {
+    func maximumDate(for calendar: FSCalendar) -> Date {
+        if  boolEdit == true {
+            return endDate as Date
+        }
+        else{
+            return calendar.maximumDate  as Date
+        }
+    }
+    
+    func minimumDate(for calendar: FSCalendar) -> Date {
+        if boolEdit == true {
+            return startDate as Date
+        }
+        else
+        {
 //            if calendar.selectedDates.count == 2 {
-//                return startDate
+//                return startDate as Date
 //            }
-//            return calendar.today!
-//        }
+            return Date()
+        }
     }
     
     
+   
     
-    
-    
-    
-     func calendar(_ calendar: FSCalendar, didDeselect date: Date) {
-        
-        configureVisibleCells()
-//        if boolEdit == true {
-//            return
-//        }
-//        
-//        let todayDate = NSDate()
-//        
-//        if  endDate.isLessThanDate(startDate) && endDate.equalToDate(todayDate){
-//            endDate=startDate
-//            startDate=date
-//        }
-//        if(startDate.isEqualToDate(endDate))
-//        {
-//            startDate=date
-//        }
-//        else if  date.isGreaterThanDate(startDate) && date.isLessThanDate(endDate) {
-//            
-//            startBool ? (startDate=date) : (endDate=date)
-//            
-//        }
-//        else if  date.isLessThanDate(startDate) {
-//            startDate=date
-//        }
-//        else if(date.isGreaterThanDate(endDate) && date.isGreaterThanDate(startDate))
-//        {
-//            endDate=date
-//        }
-//        else if(date.isLessThanDate(endDate) && date.isLessThanDate(startDate))
-//        {
-//            endDate=startDate
-//            startDate=date
-//        }
-//        
-//        for date1 in calendarView.selectedDates {
-//            calendarView .deselectDate(date1)
-//        }
-//        
-//        var nextDate = startDate.earlierDate(startDate)
-//        
-//        let lastdate =  calendarView.dateByAddingDays(1, toDate: endDate)
-//        
-//        while nextDate .compare(lastdate) == .OrderedAscending  {
-//            
-//            print(nextDate)
-//            
-//            calendar.selectDate(nextDate)
-//            nextDate = calendar.dateByAddingDays(1, toDate: nextDate)
-//            
-//        }
-//        
-//        let dateFormatter = NSDateFormatter()
-//        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss +0000"
-//        dateFormatter.timeZone = NSTimeZone(name: "UTC")
-//        let date1 = dateFormatter.dateFromString(String(startDate))// create   date from string
-//        let date2 = dateFormatter.dateFromString(String(endDate))// create   date from string
-//        
-//        // change to a readable time format and change to local time zone
-//        dateFormatter.dateFormat = "MMM dd, YYYY"
-//        dateFormatter.timeZone = NSTimeZone.localTimeZone()
-//        let timeStamp1 = dateFormatter.stringFromDate(date1!)
-//        let timeStamp2 = dateFormatter.stringFromDate(date2!)
-//        
-//        startButton .titleLabel!.lineBreakMode = NSLineBreakMode.ByWordWrapping
-//        startButton.titleLabel!.numberOfLines = 2//if you want unlimited number of lines put 0
-//        startButton.setAttributedTitle(attributedTextClass().setAttributeRobotRegularWithMultipleColor("Start\n", text1Size: 13, text2: timeStamp1, text2Size: 13), forState: UIControlState .Normal)
-//        
-//        endButton.titleLabel!.lineBreakMode = NSLineBreakMode.ByWordWrapping
-//        endButton.titleLabel!.numberOfLines = 2//if you want unlimited number of lines put 0
-//        endButton.setAttributedTitle(attributedTextClass().setAttributeRobotRegularWithMultipleColor("End\n", text1Size: 13, text2: timeStamp2, text2Size: 13), forState: UIControlState .Normal)
-        
-        
-    }
     
     // MARK: - Calendar Customisation
     
     // MARK:- FSCalendarDataSource
-    
+    func setUpCalendarProperties()
+    {
+        self.calendarView.allowsMultipleSelection=true
+        self.calendarView.appearance.headerMinimumDissolvedAlpha = 0
+        self.calendarView.appearance.selectionColor=UIColor(red: 255/255.0, green: 80/255.0, blue: 80/255.0, alpha: 1.0)
+        self.calendarView.appearance.todayColor=UIColor(red: 255/255.0, green: 80/255.0, blue: 80/255.0, alpha: 1.0)
+        self.calendarView.appearance.headerTitleColor = UIColor(red: 20/255.0, green: 44/255.0, blue: 69/255.0, alpha: 1.0)
+        self.calendarView.appearance.titleDefaultColor = UIColor.lightGray
+        self.calendarView.appearance.titlePlaceholderColor = UIColor.lightGray.withAlphaComponent(0.25)
+        
+        self.calendarView.appearance.headerTitleFont = UIFont(name: "SFUIDisplay-Bold", size: 14.0)!
+        self.calendarView.appearance.titleFont = UIFont(name: "SFUIDisplay-Regular", size: 11.0)!
+        self.calendarView.appearance.weekdayFont = UIFont(name: "SFUIDisplay-Regular", size: 12.0)!
+        
+        self.calendarView.appearance.weekdayTextColor = UIColor(red: 255/255.0, green: 80/255.0, blue: 80/255.0, alpha: 1.0)
+        
+        calendarView.today = nil // Hide the today circle
+        calendarView.register(DIYCalendarCell.self, forCellReuseIdentifier: "cell")
+        //        calendar.clipsToBounds = true // Remove top/bottom line
+        
+        calendarView.swipeToChooseGesture.isEnabled = true // Swipe-To-Choose
+        
+        self.calendarView.appearance.borderRadius = 0
+        self.calendarView.dropShadow()
+
+    }
     func calendar(_ calendar: FSCalendar, cellFor date: Date, at position: FSCalendarMonthPosition) -> FSCalendarCell {
         let cell = calendar.dequeueReusableCell(withIdentifier: "cell", for: date, at: position)
         return cell
@@ -518,6 +532,20 @@ class TravelPlanVC: UIViewController ,UITableViewDataSource,UITableViewDelegate,
 
 
    //MARK: Action Methods
+    @IBAction func StartEndDateBtnACtion(_ sender: Any) {
+        if((sender as AnyObject).tag == 10)
+        {
+            startBool=true
+            startDateBtn.setBackgroundImage(UIImage(named: "dropdown"), for: .normal)
+            endDateBtn.setBackgroundImage(nil, for: .normal)
+        }
+        else
+        {
+            startBool=false
+            startDateBtn.setBackgroundImage(nil, for: .normal)
+            endDateBtn.setBackgroundImage(UIImage(named: "dropdown"), for: .normal)
+        }
+    }
     @IBAction func LeftBtnAction(_ sender: Any) {
     }
     @IBAction func RightBtnAction(_ sender: Any) {
@@ -529,6 +557,65 @@ class TravelPlanVC: UIViewController ,UITableViewDataSource,UITableViewDelegate,
     @IBAction func BackBtnAction(_ sender: Any) {
     }
     
+}
+extension NSDate {
+    func isGreaterThanDate(dateToCompare: NSDate) -> Bool {
+        //Declare Variables
+        var isGreater = false
+        
+        //Compare Values
+        let str = NSCalendar.current.compare(self as Date, to: dateToCompare as Date, toGranularity: .day)
+        if str == ComparisonResult.orderedDescending {
+            isGreater = true
+        }
+        
+        //Return Result
+        return isGreater
+    }
+    
+    func isLessThanDate(dateToCompare: NSDate) -> Bool {
+        //Declare Variables
+        var isLess = false
+        
+        //Compare Values
+        let str = NSCalendar.current.compare(self as Date, to: dateToCompare as Date, toGranularity: .day)
+        if str == ComparisonResult.orderedAscending {
+            isLess = true
+        }
+        
+        //Return Result
+        return isLess
+    }
+    
+    func equalToDate(dateToCompare: NSDate) -> Bool {
+        //Declare Variables
+        var isEqualTo = false
+        
+        //Compare Values
+        let str = NSCalendar.current.compare(self as Date, to: dateToCompare as Date, toGranularity: .day)
+        if str == ComparisonResult.orderedSame {
+            isEqualTo = true
+        }
+        
+        //Return Result
+        return isEqualTo
+    }
+    
+    func addDays(daysToAdd: Int) -> NSDate {
+        let secondsInDays: TimeInterval = Double(daysToAdd) * 60 * 60 * 24
+        let dateWithDaysAdded: NSDate = self.addingTimeInterval(secondsInDays)
+        
+        //Return Result
+        return dateWithDaysAdded
+    }
+    
+    func addHours(hoursToAdd: Int) -> NSDate {
+        let secondsInHours: TimeInterval = Double(hoursToAdd) * 60 * 60
+        let dateWithHoursAdded: NSDate = self.addingTimeInterval(secondsInHours)
+        
+        //Return Result
+        return dateWithHoursAdded
+    }
 }
 
 class PlanLocationImagesCC: UICollectionViewCell
