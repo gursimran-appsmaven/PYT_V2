@@ -151,7 +151,7 @@ class planCollectionViewCell: UICollectionViewCell {
     
     @IBOutlet weak var planImage: CustomImageView!
     @IBOutlet weak var planName: UILabel!
-   
+    @IBOutlet weak var deletplanButton: UIButton!
     
 }
 

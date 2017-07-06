@@ -229,21 +229,14 @@ class ViewController: UIViewController, apiClassDelegate , UIScrollViewDelegate,
             
         }
         
-        
         emailTextField.text = "test@gmail.com"
         passwordTextField.text = "1234"
         
         
     }
     
-    
-    
-    //MARK: 
-    //MARK: Manage the tutorials
-    
-    
-    
-    func configurePageControl() {
+    func configurePageControl()
+    {
         // The total number of pages that are available is based on how many available colors we have.
         self.pageControl.numberOfPages = images.count
         self.pageControl.currentPage = 0

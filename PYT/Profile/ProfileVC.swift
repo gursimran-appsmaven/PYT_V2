@@ -32,6 +32,7 @@ class ProfileVC: UIViewController,UITableViewDelegate,UITableViewDataSource,UICo
     let imagePicker = UIImagePickerController()
 
     @IBOutlet weak var profileChangeIndicator: UIActivityIndicatorView!
+    @IBOutlet weak var userNameIndicator: UIActivityIndicatorView!
     
     
     override func viewWillAppear(_ animated: Bool) {
@@ -68,7 +69,7 @@ class ProfileVC: UIViewController,UITableViewDelegate,UITableViewDataSource,UICo
         super.viewDidLoad()
         countCategory = 0
         profileChangeIndicator.isHidden = true
-
+        userNameIndicator.isHidden = true
         // Do any additional setup after loading the view.
     }
 
@@ -274,6 +275,9 @@ class ProfileVC: UIViewController,UITableViewDelegate,UITableViewDataSource,UICo
             switch indexPath.row {
             case 0:
                 print("View Tutorial")
+                 let nxtObj = self.storyboard?.instantiateViewController(withIdentifier: "contentViewController") as! contentViewController
+                nxtObj.comingFrom = "Tutorials"
+                self.navigationController?.pushViewController(nxtObj, animated: true)
                 
             case 1:
                 print("Share Application")
@@ -361,20 +365,16 @@ class ProfileVC: UIViewController,UITableViewDelegate,UITableViewDataSource,UICo
     
     func collectionView(_ collectionView: UICollectionView,numberOfItemsInSection section: Int) -> Int
     {
-        
         return dataArray.count
     }
     
     
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: IndexPath) -> CGSize {
-        
-        
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: IndexPath) -> CGSize
+    {
         let width1 = collectionView.frame.size.width/2  - 5
-        
         return CGSize(width: width1 , height: width1) // The size of one cell
         
     }
-    
     
     
     func collectionView(_ collectionView: UICollectionView,cellForItemAt indexPath: IndexPath) -> UICollectionViewCell
@@ -385,19 +385,14 @@ class ProfileVC: UIViewController,UITableViewDelegate,UITableViewDataSource,UICo
         
         gradient.gradientLayer.colors = [UIColor.black.withAlphaComponent(0.75).cgColor, UIColor.clear.cgColor]
         gradient.gradientLayer.gradient = GradientPoint.bottomTop.draw()
-
-        
         cell.categoryName.text = (dataArray.object(at: indexPath.row) as AnyObject).value(forKey: "source") as? String ?? ""
         cell.countLbl.text = (dataArray.object(at: indexPath.row) as AnyObject).value(forKey: "count") as? String ?? ""
         
         let imgUrl = (dataArray.object(at: indexPath.row) as AnyObject).value(forKey: "standardimage") as? String ?? ""
         
         
-        
-        
         cell.categoryImage.sd_setImage(with: URL(string: imgUrl), placeholderImage: UIImage (named: "backgroundImage"))
         cell.categoryImage.contentMode = .scaleAspectFill
-        
         
         return cell
     }
@@ -406,49 +401,21 @@ class ProfileVC: UIViewController,UITableViewDelegate,UITableViewDataSource,UICo
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath){
             
-        
-        let uId = Udefaults .string(forKey: "userLoginId")!
         var prmtr = ""
         let source = (dataArray.object(at: indexPath.row) as AnyObject).value(forKey: "source") as? String ?? ""
         
-        
-        
-        
-//        if boolProfileOther == true {
-//            
-//            if source == "FACEBOOK" {
-//                prmtr = "userId=\(uId)&status=2&friendId=\(otheruserId)" // Facebook
-//                
-//            }
-//            else if(source == "PYT" )
-//            {
-//                prmtr = "userId=\(uId)&status=4&friendId=\(otheruserId)" // Pyt
-//            }
-//            else
-//            {
-//                prmtr = "userId=\(uId)&status=3&friendId=\(otheruserId)" //Instagram
-//            }
-//            
-//            
-//        }
-//        else{
-        
-            if source == "FACEBOOK" {
+            if source == "FACEBOOK"
+            {
                 prmtr = "userId=\(uId)&status=2" // Facebook
-                
             }
-            else if(source == "PYT" ){
+            else if(source == "PYT" )
+            {
                 prmtr = "userId=\(uId)&status=4" // Pyt
-                
             }
-            else{
+            else
+            {
                 prmtr = "userId=\(uId)&status=3" //Instagram
-                
-            //}
-            
-        }
-        
-        
+            }
         
         let obj = self.storyboard?.instantiateViewController(withIdentifier: "UploadedImagesVC") as! UploadedImagesVC
         
@@ -466,16 +433,14 @@ class ProfileVC: UIViewController,UITableViewDelegate,UITableViewDataSource,UICo
         obj.countStrText = (dataArray.object(at: indexPath.row) as AnyObject).value(forKey: "count")! as! NSString
         
         self.navigationController?.pushViewController(obj, animated: true)
-
-        
         
     }
 
     
     
     
-    
-    //MARK: get the profile images
+    //MARK: All Api and there responses 
+    //MARK:
     //MARK: Api to get the images and count from server
     //MARK:
     func postApiToGetPYTUserPhotosDetail(_ parameterReview: NSDictionary, urlToSend: NSString) {
@@ -527,13 +492,7 @@ class ProfileVC: UIViewController,UITableViewDelegate,UITableViewDataSource,UICo
                     do {
                         
                         let result = NSString(data: data!, encoding:String.Encoding.ascii.rawValue)!
-                        print("Body: \(result)")
-                        
-                      //  self.profileIndicator.isHidden=true
-                        //self.profileIndicator.stopAnimating()
-                        
-                        
-                        
+                        //print("Body: \(result)")
                        let anyObj: Any = try JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.mutableContainers)
                         
                         basicInfo = NSMutableDictionary()
@@ -556,11 +515,6 @@ class ProfileVC: UIViewController,UITableViewDelegate,UITableViewDataSource,UICo
                             
                             if facebookCount != 0
                             {
-                                
-                                print(facebookCount)
-                                
-                                
-            //self.dataArray .add(["source": "FACEBOOK", "count": String(facebookCount), "largeImage":basicInfo.value(forKey: "data")!.object(at: 0).value(forKey: "fb")!.object(at: 0).value(forKey: "imageLarge")! as! String, "standardimage": basicInfo.value(forKey: "data")!.object(at: 0).value(forKey: "fb")!.object(at: 0).value(forKey: "imageStandard")! as! String])
                 self.dataArray .add(["source": "FACEBOOK", "count": String(describing: facebookCount), "largeImage": ((((basicInfo .value(forKey: "data")! as AnyObject).object(at: 0) as AnyObject).value(forKey: "fb") as AnyObject).object(at: 0) as AnyObject).value(forKey: "imageLarge")  as? String ?? "", "standardimage": ((((basicInfo .value(forKey: "data")! as AnyObject).object(at: 0) as AnyObject).value(forKey: "fb") as AnyObject).object(at: 0) as AnyObject).value(forKey: "imageStandard")  as? String ?? ""])
                              print(self.dataArray)
                                 
@@ -568,24 +522,13 @@ class ProfileVC: UIViewController,UITableViewDelegate,UITableViewDataSource,UICo
                             
                             if InstagramCount != 0
                             {
-                                print(InstagramCount)
-                                
-                              //  print(((basicInfo.value(forKey: "data")! as AnyObject).object(at: 0) as AnyObject).value(forKey: "insta")!.object(at: 0))
-                                
-                                
-                                //self.dataArray .add(["source": "INSTAGRAM", "count": String(InstagramCount), "largeImage":basicInfo.value(forKey: "data")!.object(at: 0).value(forKey: "insta")!.object(at: 0).value(forKey: "imageLarge")! as! String, "standardimage": basicInfo.value(forKey: "data")!.object(at: 0).value(forKey: "insta")!.object(at: 0).value(forKey: "imageStandard")! as! String])
-                                
-                                self.dataArray .add(["source": "INSTAGRAM", "count": String(describing: InstagramCount), "largeImage": ((((basicInfo .value(forKey: "data")! as AnyObject).object(at: 0) as AnyObject).value(forKey: "insta") as AnyObject).object(at: 0) as AnyObject).value(forKey: "imageLarge")  as? String ?? "", "standardimage": ((((basicInfo .value(forKey: "data")! as AnyObject).object(at: 0) as AnyObject).value(forKey: "insta") as AnyObject).object(at: 0) as AnyObject).value(forKey: "imageStandard")  as? String ?? ""])
+                            self.dataArray .add(["source": "INSTAGRAM", "count": String(describing: InstagramCount), "largeImage": ((((basicInfo .value(forKey: "data")! as AnyObject).object(at: 0) as AnyObject).value(forKey: "insta") as AnyObject).object(at: 0) as AnyObject).value(forKey: "imageLarge")  as? String ?? "", "standardimage": ((((basicInfo .value(forKey: "data")! as AnyObject).object(at: 0) as AnyObject).value(forKey: "insta") as AnyObject).object(at: 0) as AnyObject).value(forKey: "imageStandard")  as? String ?? ""])
                                 
                                 
                                 
                             }
-                            if PytCount != 0{
-                                print(PytCount)
-                                
-                                
-                              //  self.dataArray .add(["source": "PYT", "count": String(PytCount), "largeImage":basicInfo.value(forKey: "data")!.object(at: 0).value(forKey: "pyt")!.object(at: 0).value(forKey: "imageLarge")! as! String, "standardimage": basicInfo.value(forKey: "data")!.object(at: 0).value(forKey: "pyt")!.object(at: 0).value(forKey: "imageThumb")! as! String])
-                            
+                            if PytCount != 0
+                            {
                                 self.dataArray .add(["source": "PYT", "count": String(describing: PytCount), "largeImage": ((((basicInfo .value(forKey: "data")! as AnyObject).object(at: 0) as AnyObject).value(forKey: "pyt") as AnyObject).object(at: 0) as AnyObject).value(forKey: "imageLarge")  as? String ?? "", "standardimage": ((((basicInfo .value(forKey: "data")! as AnyObject).object(at: 0) as AnyObject).value(forKey: "pyt") as AnyObject).object(at: 0) as AnyObject).value(forKey: "imageThumb")  as? String ?? ""])
                             
                             }
@@ -681,12 +624,8 @@ class ProfileVC: UIViewController,UITableViewDelegate,UITableViewDataSource,UICo
         
     }
     
-    
-    
-    
-    
-    
-    func shortUserProfile(_ result:NSMutableDictionary) {
+    func shortUserProfile(_ result:NSMutableDictionary)
+    {
         print(result)
         print(result.value(forKey: "status"))
         
@@ -769,19 +708,114 @@ class ProfileVC: UIViewController,UITableViewDelegate,UITableViewDataSource,UICo
             
         }
         
+     
+    }
+    
+    //MARK:
+    //MARK: Api to change user name
+    
+    
+    func changeUserNameApi(_ parameterString:NSDictionary) {
         
-        
-        
-        
-        
+        let isConnectedInternet = CommonFunctionsClass.sharedInstance().isConnectedToNetwork()
+        if isConnectedInternet
+        {
+            let urlString = NSString(string:"\(appUrl)edit_user_name")
+            let isConnectedInternet = CommonFunctionsClass.sharedInstance().isConnectedToNetwork()
+            
+            if isConnectedInternet
+            {
+                
+                
+                var urlString = NSString(string:"\(urlString)")
+                print("WS URL----->>" + (urlString as String))
+                
+                urlString = urlString .replacingOccurrences(of: " ", with: "%20") as NSString
+                
+                let url:URL = URL(string: urlString as String)!
+                let session = URLSession.shared
+                session.configuration.timeoutIntervalForRequest=20
+                
+                let request = NSMutableURLRequest(url: url)
+                request.httpMethod = "POST"
+                request.cachePolicy = NSURLRequest.CachePolicy.reloadIgnoringCacheData
+                
+                do {
+                    let jsonData = try!  JSONSerialization.data(withJSONObject: parameterString, options: [])
+                    request.httpBody = jsonData
+                    
+                    
+                    // here "jsonData" is the dictionary encoded in JSON data
+                } catch let error as NSError {
+                    print(error)
+                }
+                
+                request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+                request.addValue("application/json", forHTTPHeaderField: "Accept")
+                
+                 let task = URLSession.shared.dataTask(with: request as URLRequest) { data, response, error in
+                    
+                    OperationQueue.main.addOperation
+                        {
+                            self.userNameIndicator.isHidden = true
+                            self.userNameIndicator.stopAnimating()
+                            if data == nil
+                            {
+                                print("server not responding")
+                            }
+                            else
+                            {
+                                do
+                                {
+                                    let result = NSString(data: data!, encoding:String.Encoding.ascii.rawValue)!
+                                    print("Body: \(result)")
+                                     let anyObj: Any = try JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.mutableContainers)
+                                    
+                                    basicInfo=NSMutableDictionary()
+                                    basicInfo=anyObj as! NSMutableDictionary
+                                    let success = basicInfo.object(forKey: "status") as! NSNumber
+                                    if success==1
+                                    {
+                                        print("Profile Picture is Updated")
+                                        Udefaults.set(self.nameTF.text!, forKey: "userLoginName")
+                                        self.changeNameBtn.setImage(UIImage(named:"crossprofile") , for: .normal)
+                                        
+                                    }
+                                    else
+                                    {
+                                        CommonFunctionsClass.sharedInstance().showAlert(title: "Server Alert", text: "Unable to update username, please try again!", imageName: "alertServer")
+                                    }
+                                    
+                                } catch
+                                {
+                                    print("json error: \(error)")
+                                    CommonFunctionsClass.sharedInstance().showAlert(title: "Server Alert", text: "Something doesn't seem right, Please try again!", imageName: "alertServer")
+                                    }
+                                
+                            }
+                    }
+                }
+                
+                task.resume()
+            }
+            else
+            {
+                CommonFunctionsClass.sharedInstance().showAlert(title: "No Internet Connection", text: "You are currently offline.", imageName: "alertInternet")
+                userNameIndicator.isHidden = true
+                userNameIndicator.stopAnimating()
+            }
+            
+            
+        }
     }
     
     
     
     
     
-    //MARK: Server class delegate
     
+    
+    //MARK: Server class delegate
     func serverResponseArrivedSetting(_ Response:AnyObject){
         
         ///// the user info will be comes here
@@ -829,9 +863,8 @@ class ProfileVC: UIViewController,UITableViewDelegate,UITableViewDataSource,UICo
                 CommonFunctionsClass.sharedInstance().showAlert(title: "PYT", text: "\(jsonResult.value(forKey: "msg")!)" as NSString, imageName: "")
                 
                 
-                let uId = defaults .string(forKey: "userLoginId")
                 SettingApiClass.sharedInstance().delegate=self
-                SettingApiClass.sharedInstance().getUSerProfile("\(uId!)" as NSString, viewController: self)
+                SettingApiClass.sharedInstance().getUSerProfile("\(uId)" as NSString, viewController: self)
                 boolProfile=true
                 
                 
@@ -977,12 +1010,11 @@ class ProfileVC: UIViewController,UITableViewDelegate,UITableViewDataSource,UICo
         
         
         
-        let uId = Udefaults .string(forKey: "userLoginId")
+       
         let userName = Udefaults .string(forKey: "userLoginName")
         let uEmail = Udefaults .string(forKey: "userLoginEmail")
         
-        var localFileName:String? = "\(uId!)profile-\(uEmail)-\(stringDate).jpg"
-        //var localFileName:String? = "\(uId!)profileImage-\(userName!)\(stringDate).jpg"//st
+        var localFileName:String? = "\(uId)profile-\(uEmail)-\(stringDate).jpg"
         localFileName = localFileName!.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed)!
         
         print(localFileName)
@@ -1060,7 +1092,7 @@ class ProfileVC: UIViewController,UITableViewDelegate,UITableViewDataSource,UICo
                     self.userImg.image = profileImage
                     print("Uploaded to:\n\(s3URL)")
                     
-                    let parmDict: NSDictionary = ["userId":uId!, "picture": String(describing: s3URL)]
+                    let parmDict: NSDictionary = ["userId":self.uId, "picture": String(describing: s3URL)]
                     Udefaults.set(String(describing: s3URL), forKey: "userProfilePic")
                     
                     print(parmDict)
@@ -1069,8 +1101,6 @@ class ProfileVC: UIViewController,UITableViewDelegate,UITableViewDataSource,UICo
                     
                     
                 }
-                
-                
                 
             }
             else {
@@ -1155,11 +1185,18 @@ class ProfileVC: UIViewController,UITableViewDelegate,UITableViewDataSource,UICo
         if(changeNameBtn.imageView?.image == UIImage(named: "crossprofile"))
         {
             changeNameBtn.setImage(UIImage(named:"tickprofile") , for: .normal)
+            nameTF.text = nil
+            nameTF.becomeFirstResponder()
         }
         else
         {
-            changeNameBtn.setImage(UIImage(named:"crossprofile") , for: .normal)
+            userNameIndicator.isHidden = false
+            userNameIndicator.startAnimating()
+             let parmDic: NSDictionary = ["userId": uId, "name": nameTF.text!]
+            self.changeUserNameApi(parmDic)
+            nameTF.resignFirstResponder()
         }
+        
     }
     
     
@@ -1167,7 +1204,7 @@ class ProfileVC: UIViewController,UITableViewDelegate,UITableViewDataSource,UICo
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool
     {
         changeNameBtn.tag = 1
-       
+       changeNameBtn.setImage(UIImage(named:"tickprofile") , for: .normal)
         
         return true
     }
@@ -1181,15 +1218,15 @@ class ProfileVC: UIViewController,UITableViewDelegate,UITableViewDataSource,UICo
         }
         else
         {
-            if(changeNameBtn.imageView?.image == UIImage(named: "crossprofile"))
-            {
-                changeNameBtn.setImage(UIImage(named:"tickprofile") , for: .normal)
-            }
-            else
-            {
-                changeNameBtn.setImage(UIImage(named:"crossprofile") , for: .normal)
-            }
-                
+//            if(changeNameBtn.imageView?.image == UIImage(named: "crossprofile"))
+//            {
+//                changeNameBtn.setImage(UIImage(named:"tickprofile") , for: .normal)
+//            }
+//            else
+//            {
+//                changeNameBtn.setImage(UIImage(named:"crossprofile") , for: .normal)
+//            }
+            
            
         }
     }
@@ -1224,7 +1261,6 @@ class ProfileVC: UIViewController,UITableViewDelegate,UITableViewDataSource,UICo
         
         
         
-        let uId = Udefaults .string(forKey: "userLoginId")!
         let token = Udefaults.string(forKey: "deviceToken")!
         
         

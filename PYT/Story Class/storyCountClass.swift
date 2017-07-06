@@ -86,7 +86,7 @@ class storyCountClass: NSObject
                                 let anyObj: Any = try JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.mutableContainers)
                                 
                                 let result = NSString(data: data!, encoding:String.Encoding.ascii.rawValue)!
-                                print("Body: Result from story count \(result)")
+                              //  print("Body: Result from story count \(result)")
 
                                 
                                 

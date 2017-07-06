@@ -224,7 +224,7 @@ class TravelPlanVC: UIViewController ,UITableViewDataSource,UITableViewDelegate,
         
         let locDetails = (planLocations[indexPath.row] as? NSDictionary)?.value(forKey: "place") as? NSDictionary
         
-        cell.nameLbl.text = "\(locDetails?.value(forKey: "placeTag") as! String) ,\(locDetails?.value(forKey: "city") as! String)"
+        cell.nameLbl.text = "\(locDetails?.value(forKey: "placeTag") as? String ?? "") ,\(locDetails?.value(forKey: "city") as? String ?? "")"
         
         cell.locationLbl.text = "\(locDetails?.value(forKey: "placeTag") as! String)"
         
@@ -686,6 +686,7 @@ class TravelPlanVC: UIViewController ,UITableViewDataSource,UITableViewDelegate,
     @IBAction func MapViewBtnACtion(_ sender: Any) {
     }
     @IBAction func BackBtnAction(_ sender: Any) {
+        self.navigationController?.popViewController(animated: true)
     }
     func OpenCalendarView(sender: UIButton)
     {
