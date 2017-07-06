@@ -31,15 +31,21 @@ class TravelPlanVC: UIViewController ,UITableViewDataSource,UITableViewDelegate,
     var endDate = Date()
     var boolEdit = Bool()
     var boolPlanDateEdit = Bool()
-    var editedDate = NSDate()
+    var locationFinalDate = NSDate()
     var calendarMonthDate = Date()
     
     var countryId = String()
     var bookingIdFinal = String()
+    var placeBookingId = String()
     var planDetails = NSMutableArray()
-    var planLocations = NSMutableArray()
-    @IBOutlet weak var locationsCoolectionView:  UICollectionView!
+    var planAllLocations = NSMutableArray()
+    var planSelctedLocations = NSMutableArray()
+    
+    var reloadTableOnly = Bool()
+
+    @IBOutlet weak var locationsCollectionView:  UICollectionView!
     @IBOutlet weak var plansTableView: UITableView!
+    @IBOutlet weak var tablePlaceholderView: UIView!
     
     fileprivate let gregorian = Calendar(identifier: .gregorian)
 
@@ -51,6 +57,9 @@ class TravelPlanVC: UIViewController ,UITableViewDataSource,UITableViewDelegate,
         calendarBackView.isHidden = true
         getPlanDetails()
         
+        calendarView.register(DIYCalendarCell.self, forCellReuseIdentifier: "cell")
+        self.calendarView.dropShadow()
+
         setUpCalendarSelection()
 
         startBool = true
@@ -130,7 +139,7 @@ class TravelPlanVC: UIViewController ,UITableViewDataSource,UITableViewDelegate,
 
     override func viewWillAppear(_ animated: Bool) {
         endDateBtn.setBackgroundImage(nil, for: .normal)
-
+        
 //        calendarView.isHidden = true
 //        doneBtn.isHidden = true
     }
@@ -146,14 +155,22 @@ class TravelPlanVC: UIViewController ,UITableViewDataSource,UITableViewDelegate,
     
     func numberOfSections(in tableView: UITableView) -> Int
     {
-        return 4
+        if(self.planSelctedLocations.count==0)
+        {
+            tablePlaceholderView.isHidden = false
+        }
+        else
+        {
+            tablePlaceholderView.isHidden = true
+        }
+        return self.planSelctedLocations.count
         
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int
     {
         
-        return 5
+        return ((self.planSelctedLocations[section] as AnyObject).value(forKey: "places") as AnyObject).count
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -165,6 +182,20 @@ class TravelPlanVC: UIViewController ,UITableViewDataSource,UITableViewDelegate,
     func tableView( _ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView?
     {
         let cell = tableView.dequeueReusableCell(withIdentifier: "DateWiseListTHeader") as! DateWiseListTHeader
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "dd/MM/yyyy"
+        dateFormatter.timeZone = NSTimeZone(name: "UTC") as TimeZone!
+        
+        
+        let dat = dateFormatter.date(from: String(describing: ((self.planSelctedLocations[section] as AnyObject).value(forKey: "date") as? String)!))
+        
+        // change to a readable time format and change to local time zone
+        dateFormatter.dateFormat = "dd MMM, yyyy"
+        dateFormatter.timeZone = NSTimeZone.local
+        let timeStamp1 = dateFormatter.string(from: dat!)
+        
+        cell.dateLbl.text = timeStamp1
+        
         return cell
     }
     func tableView( _ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat
@@ -182,6 +213,20 @@ class TravelPlanVC: UIViewController ,UITableViewDataSource,UITableViewDelegate,
     {
         let cell = tableView.dequeueReusableCell(withIdentifier: "DateWiseListTCell", for: indexPath) as! DateWiseListTCell
         
+        cell.nameLbl.text = ((((self.planSelctedLocations[indexPath.section] as AnyObject).value(forKey: "places") as AnyObject)[indexPath.row] as AnyObject).value(forKey: "placeTag")) as? String ?? "NA"
+         var city = ((((self.planSelctedLocations[indexPath.section] as AnyObject).value(forKey: "places") as AnyObject)[indexPath.row] as AnyObject).value(forKey: "city")) as? String ?? ""
+        if(city != "")
+        {
+            city = city + ", "
+        }
+        let country = ((((self.planSelctedLocations[indexPath.section] as AnyObject).value(forKey: "places") as AnyObject)[indexPath.row] as AnyObject).value(forKey: "country")) as? String ?? ""
+        
+        cell.locationLbl.text = city + country
+        
+        let imageUrl = ((((self.planSelctedLocations[indexPath.section] as AnyObject).value(forKey: "places") as AnyObject)[indexPath.row] as AnyObject).value(forKey: "imageThumb")) as? String ?? ""
+        cell.llocationImage.contentMode = .scaleAspectFill
+        cell.llocationImage.focusOnFaces = true
+        cell.llocationImage.sd_setImage(with: URL (string: imageUrl), placeholderImage: UIImage (named: "dummyBackground1"))
         
         return cell
     }
@@ -205,7 +250,7 @@ class TravelPlanVC: UIViewController ,UITableViewDataSource,UITableViewDelegate,
     func collectionView(_ collectionView: UICollectionView,numberOfItemsInSection section: Int) -> Int
     {
         
-        return planLocations.count
+        return planAllLocations.count
     }
     
     
@@ -222,7 +267,7 @@ class TravelPlanVC: UIViewController ,UITableViewDataSource,UITableViewDelegate,
     {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "PlanLocationImagesCC", for: indexPath) as! PlanLocationImagesCC
         
-        let locDetails = (planLocations[indexPath.row] as? NSDictionary)?.value(forKey: "place") as? NSDictionary
+        let locDetails = (planAllLocations[indexPath.row] as? NSDictionary)?.value(forKey: "place") as? NSDictionary
         
         cell.nameLbl.text = "\(locDetails?.value(forKey: "placeTag") as! String) ,\(locDetails?.value(forKey: "city") as! String)"
         
@@ -231,7 +276,7 @@ class TravelPlanVC: UIViewController ,UITableViewDataSource,UITableViewDelegate,
         let imageToShow = locDetails?.value(forKey: "imageLarge")  as? String ?? ""
 
         cell.locationImage.backgroundColor = UIColor .white
-
+        cell.locationImage.contentMode = .scaleAspectFill
         cell.locationImage.sd_setImage(with: URL(string: imageToShow), placeholderImage: UIImage (named: "dummyBackground1"), options: SDWebImageOptions(rawValue: 0), completed: nil)
         
         cell.calendarBtn.tag = indexPath.row
@@ -262,7 +307,8 @@ class TravelPlanVC: UIViewController ,UITableViewDataSource,UITableViewDelegate,
      func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition) {
         
         if boolEdit == true {
-            editedDate = date as NSDate
+            locationFinalDate = date as NSDate
+            calendar.reloadData()
             return
         }
             
@@ -303,16 +349,10 @@ class TravelPlanVC: UIViewController ,UITableViewDataSource,UITableViewDelegate,
             
             var nextDate = startDate
             
-            let lastdate =  calendarView.date(byAddingDays: 1, to: endDate as Date)
-            
-            while nextDate .compare(lastdate) == .orderedAscending  {
-                
-                print(nextDate)
-                
-                calendar.select(nextDate)
-                nextDate = calendar.date(byAddingDays: 1, to: nextDate)
-                
-                
+            let lastdate =  self.gregorian.date(byAdding: .day, value: 1, to: endDate as Date)
+            while nextDate .compare(lastdate!) == .orderedAscending  {
+                calendarView.select(nextDate)
+                nextDate = self.gregorian.date(byAdding: .day, value: 1, to: nextDate as Date)!
             }
             
             let dateFormatter = DateFormatter()
@@ -334,7 +374,10 @@ class TravelPlanVC: UIViewController ,UITableViewDataSource,UITableViewDelegate,
             let components = NSCalendar.current.dateComponents([.day], from: date1!, to: date2!)
             noOfDaysLbl.text = "\(components.day! + 1) Days"
             
-            configureVisibleCells()
+            if(!boolEdit)
+            {
+                configureVisibleCells()
+            }
 
             print("Start Date-\(startDate)\n End Date-\(endDate)")
             
@@ -349,6 +392,7 @@ class TravelPlanVC: UIViewController ,UITableViewDataSource,UITableViewDelegate,
 
         
         if boolEdit == true {
+            calendar.reloadData()
             return
         }
         
@@ -390,15 +434,10 @@ class TravelPlanVC: UIViewController ,UITableViewDataSource,UITableViewDelegate,
         
         var nextDate = startDate
         
-        let lastdate =  calendarView.date(byAddingDays: 1, to: endDate as Date)
-        
-        while nextDate .compare(lastdate) == .orderedAscending  {
-            
-            print(nextDate)
-            
-            calendar.select(nextDate)
-            nextDate = calendar.date(byAddingDays: 1, to: nextDate)
-            
+        let lastdate =  self.gregorian.date(byAdding: .day, value: 1, to: endDate as Date)
+        while nextDate .compare(lastdate!) == .orderedAscending  {
+            calendarView.select(nextDate)
+            nextDate = self.gregorian.date(byAdding: .day, value: 1, to: nextDate as Date)!
         }
         
         let dateFormatter = DateFormatter()
@@ -419,7 +458,10 @@ class TravelPlanVC: UIViewController ,UITableViewDataSource,UITableViewDelegate,
         let components = NSCalendar.current.dateComponents([.day], from: date1!, to: date2!)
         noOfDaysLbl.text = "\(components.day! + 1) Days"
 
-        configureVisibleCells()
+        if(!boolEdit)
+        {
+            configureVisibleCells()
+        }
         
         
     }
@@ -444,9 +486,6 @@ class TravelPlanVC: UIViewController ,UITableViewDataSource,UITableViewDelegate,
         }
         else
         {
-//            if calendar.selectedDates.count == 2 {
-//                return startDate as Date
-//            }
             return Date()
         }
     }
@@ -462,17 +501,12 @@ class TravelPlanVC: UIViewController ,UITableViewDataSource,UITableViewDelegate,
     {
         var nextDate = Date()
         startDate = nextDate
-        let lastdate =  calendarView.date(byAddingDays: 10, to: nextDate as Date)
-        
-        while nextDate .compare(lastdate) == .orderedAscending  {
-            
-            print(nextDate)
-            
+        let lastdate =  self.gregorian.date(byAdding: .day, value: 10, to: nextDate as Date)
+        while nextDate .compare(lastdate!) == .orderedAscending  {
             calendarView.select(nextDate)
-            nextDate = calendarView.date(byAddingDays: 1, to: nextDate)
-            
+            nextDate = self.gregorian.date(byAdding: .day, value: 1, to: nextDate as Date)!
         }
-        endDate = lastdate
+        endDate = lastdate!
         endDate = endDate.addDays(daysToAdd: -1)
         
         let dateFormatter = DateFormatter()
@@ -491,27 +525,27 @@ class TravelPlanVC: UIViewController ,UITableViewDataSource,UITableViewDelegate,
         
         startDateLbl.text = timeStamp1
         endDateLbl.text = timeStamp2
+        self.calendarView.allowsMultipleSelection=true
+        self.calendarView.reloadData()
 
     }
     func setUpCalendarStartAndEndDate()
     {
-        var nextDate = Date()
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss +0000"
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
         dateFormatter.timeZone = NSTimeZone(name: "UTC") as TimeZone!
         
-        startDate = (dateFormatter.date(from: String(describing: (self.planDetails.object(at: 0) as! NSDictionary).value(forKey: "startDate") as? String)))!
-            
-        endDate = (dateFormatter.date(from: String(describing: (self.planDetails.object(at: 0) as! NSDictionary).value(forKey: "endDate") as? String)))!
         
-        let lastdate =  calendarView.date(byAddingDays: 1, to: endDate as Date)
+        startDate = (dateFormatter.date(from: String(describing: ((self.planDetails.object(at: 0) ) as AnyObject).value(forKey: "startDate") as! String)))!
+            
+        endDate = (dateFormatter.date(from: String(describing: ((self.planDetails.object(at: 0) ) as AnyObject).value(forKey: "endDate") as! String)))!
         
-        while nextDate .compare(lastdate) == .orderedAscending  {
-            
-            print(nextDate)
-            
+        var nextDate = startDate
+
+        let lastdate =  self.gregorian.date(byAdding: .day, value: 1, to: endDate as Date)
+        while nextDate .compare(lastdate!) == .orderedAscending  {
             calendarView.select(nextDate)
-            nextDate = calendarView.date(byAddingDays: 1, to: nextDate)
+            nextDate = self.gregorian.date(byAdding: .day, value: 1, to: nextDate)!
             
         }
         
@@ -528,12 +562,18 @@ class TravelPlanVC: UIViewController ,UITableViewDataSource,UITableViewDelegate,
 
     func setUpCalendarProperties()
     {
-        self.calendarView.allowsMultipleSelection=true
         self.calendarView.appearance.headerMinimumDissolvedAlpha = 0
         self.calendarView.appearance.selectionColor=UIColor(red: 255/255.0, green: 80/255.0, blue: 80/255.0, alpha: 1.0)
         self.calendarView.appearance.todayColor=UIColor(red: 255/255.0, green: 80/255.0, blue: 80/255.0, alpha: 1.0)
         self.calendarView.appearance.headerTitleColor = UIColor(red: 20/255.0, green: 44/255.0, blue: 69/255.0, alpha: 1.0)
-        self.calendarView.appearance.titleDefaultColor = UIColor.lightGray
+        if(boolEdit)
+        {
+            self.calendarView.appearance.titleDefaultColor = UIColor(red: 20/255.0, green: 44/255.0, blue: 69/255.0, alpha: 1.0)
+        }
+        else
+        {
+            self.calendarView.appearance.titleDefaultColor = UIColor.lightGray
+        }
         self.calendarView.appearance.titlePlaceholderColor = UIColor.lightGray.withAlphaComponent(0.25)
         
         self.calendarView.appearance.headerTitleFont = UIFont(name: "SFUIDisplay-Bold", size: 14.0)!
@@ -543,13 +583,11 @@ class TravelPlanVC: UIViewController ,UITableViewDataSource,UITableViewDelegate,
         self.calendarView.appearance.weekdayTextColor = UIColor(red: 255/255.0, green: 80/255.0, blue: 80/255.0, alpha: 1.0)
         
         calendarView.today = nil // Hide the today circle
-        calendarView.register(DIYCalendarCell.self, forCellReuseIdentifier: "cell")
         //        calendar.clipsToBounds = true // Remove top/bottom line
         
-        calendarView.swipeToChooseGesture.isEnabled = true // Swipe-To-Choose
+//        calendarView.swipeToChooseGesture.isEnabled = true // Swipe-To-Choose
         
         self.calendarView.appearance.borderRadius = 0
-        self.calendarView.dropShadow()
 
     }
     func calendar(_ calendar: FSCalendar, cellFor date: Date, at position: FSCalendarMonthPosition) -> FSCalendarCell {
@@ -590,11 +628,12 @@ class TravelPlanVC: UIViewController ,UITableViewDataSource,UITableViewDelegate,
         
         let diyCell = (cell as! DIYCalendarCell)
         // Custom today circle
-        diyCell.circleImageView.isHidden = !self.gregorian.isDateInToday(date)
+//        diyCell.circleImageView.isHidden = !self.gregorian.isDateInToday(date)
         // Configure selection layer
+
         if position == .current {
-            
             var selectionType = SelectionType.none
+
             print(calendarView.selectedDates)
             if calendarView.selectedDates.contains(date) {
                 let previousDate = self.gregorian.date(byAdding: .day, value: -1, to: date)!
@@ -625,9 +664,10 @@ class TravelPlanVC: UIViewController ,UITableViewDataSource,UITableViewDelegate,
             diyCell.selectionType = selectionType
             
         } else {
-            diyCell.circleImageView.isHidden = true
+//            diyCell.circleImageView.isHidden = true
             diyCell.selectionLayer.isHidden = true
         }
+        
     }
 
 
@@ -662,40 +702,91 @@ class TravelPlanVC: UIViewController ,UITableViewDataSource,UITableViewDelegate,
             startDateBtn.setBackgroundImage(nil, for: .normal)
             endDateBtn.setBackgroundImage(UIImage(named: "dropdown"), for: .normal)
         }
+        if(calendarBackView.isHidden)
+        {
+            boolEdit = false
+            calendarBackView.isHidden = false
+            self.calendarView.allowsMultipleSelection=true
+            setUpCalendarProperties()
+            var nextDate = startDate
+            
+            let lastdate =  self.gregorian.date(byAdding: .day, value: 1, to: endDate as Date)             
+            while nextDate .compare(lastdate!) == .orderedAscending  {
+                calendarView.select(nextDate)
+                nextDate = self.gregorian.date(byAdding: .day, value: 1, to: nextDate as Date)!
+            }
+            calendarView.reloadData()
+            configureVisibleCells()
+        }
+
     }
     @IBAction func LeftBtnAction(_ sender: Any) {
+        let visibleItems: NSArray = self.locationsCollectionView.indexPathsForVisibleItems as NSArray
+        let currentItem: IndexPath = visibleItems.object(at: 0) as! IndexPath
+        let nextItem: IndexPath = IndexPath(item: currentItem.item - 1, section: 0)
+        // This is where I'm trying to detect the value
+        if nextItem.row < 0 {
+            return
+        }
+        self.locationsCollectionView.scrollToItem(at: nextItem, at: .right, animated: true)
     }
     @IBAction func RightBtnAction(_ sender: Any) {
+        let visibleItems: NSArray = self.locationsCollectionView.indexPathsForVisibleItems as NSArray
+        let currentItem: IndexPath = visibleItems.object(at: 0) as! IndexPath
+        let nextItem: IndexPath = IndexPath(item: currentItem.item + 1, section: 0)
+        // This is where I'm trying to detect the value
+        if nextItem.row == planAllLocations.count {
+            return
+        }
+        self.locationsCollectionView.scrollToItem(at: nextItem, at: .left, animated: true)
     }
     @IBAction func DoneBtnAction(_ sender: Any) {
         if(boolEdit)
         {
-//            MBProgressHUD .showAdded(to: self.view, animated: true)
-//            finaliseBookingDate()
+            self.calendarBackView.isHidden = true
+            MBProgressHUD .showAdded(to: self.view, animated: true)
+            reloadTableOnly = true
+            setLocationFinalDate()
             return
         }
         else  {
             
-            
-            self.calendarBackView.isHidden = true
-            
+            MBProgressHUD .showAdded(to: self.view, animated: true)
+            SetPlanDatesWindow()
         }
-        
+        startDateBtn.setBackgroundImage(nil, for: .normal)
+        endDateBtn.setBackgroundImage(nil, for: .normal)
+
 
     }
     @IBAction func MapViewBtnACtion(_ sender: Any) {
     }
     @IBAction func BackBtnAction(_ sender: Any) {
+        _=self.navigationController?.popViewController(animated: true)
     }
     func OpenCalendarView(sender: UIButton)
     {
-        let selectedLocation = planLocations[sender.tag]
+        let selectedLocation = planAllLocations[sender.tag]
         print(selectedLocation)
+        placeBookingId = ((selectedLocation as AnyObject).value(forKey:"place")! as AnyObject).value(forKey:"_id")as! String
         calendarBackView.isHidden = false
+        boolEdit = true
+        self.calendarView.allowsMultipleSelection=false
+        setUpCalendarProperties()
+        var nextDate = Date()
+        
+        let lastdate =  self.gregorian.date(byAdding: .day, value: 1, to: endDate as Date)
+        while nextDate .compare(lastdate!) == .orderedAscending  {
+            calendarView.deselect(nextDate)
+            nextDate = self.gregorian.date(byAdding: .day, value: 1, to: nextDate as Date)!
+        }
+
+        calendarView.reloadData()
+        configureVisibleCells()
     }
     func AddToBucket(sender: UIButton)
     {
-        let selectedLocation = planLocations[sender.tag]
+        let selectedLocation = planAllLocations[sender.tag]
         print(selectedLocation)
     }
 
@@ -707,7 +798,7 @@ class TravelPlanVC: UIViewController ,UITableViewDataSource,UITableViewDelegate,
         let defaults = UserDefaults.standard
         let uId = defaults .string(forKey: "userLoginId")
         
-        let parameter: NSDictionary = ["userId": "59562fd105e9b03d0aa06c1f","countryId":countryId]
+        let parameter: NSDictionary = ["userId": uId! ,"countryId":countryId]
         
         let isConnectedInternet = CommonFunctionsClass.sharedInstance().isConnectedToNetwork()
         
@@ -716,7 +807,7 @@ class TravelPlanVC: UIViewController ,UITableViewDataSource,UITableViewDelegate,
             
             
             
-            let urlString = NSString(string:"http://pictureyourtravel.com/get_booking_detail_V2")
+            let urlString = NSString(string:"\(appUrl)get_booking_detail_V3")
             
             
             let isConnectedInternet = CommonFunctionsClass.sharedInstance().isConnectedToNetwork()
@@ -793,8 +884,19 @@ class TravelPlanVC: UIViewController ,UITableViewDataSource,UITableViewDelegate,
                                     if success == 1{
                                         
                                         let plans = basicInfo.value(forKey: "data") as! NSMutableArray
+                                        self.planSelctedLocations = basicInfo.value(forKey: "dateVise") as! NSMutableArray
+                                        
+                                        let sortedArray = self.planSelctedLocations.sorted{ (($0 as! Dictionary<String, AnyObject>)["date"] as? String)! < (($1 as! Dictionary<String, AnyObject>)["date"] as? String)! }
+                                        
+                                        self.planSelctedLocations.removeAllObjects()
+                                        
+                                        for item in sortedArray
+                                        {
+                                            self.planSelctedLocations.add(item)
+                                        }
                                         
                                         self.planDetails=plans
+                                        
                                         self.bookingIdFinal = (self.planDetails.object(at: 0) as AnyObject).value(forKey: "_id") as! String
                                         
                                         if (self.planDetails.object(at: 0) as AnyObject).value(forKey: "startDate") as? String != nil
@@ -814,14 +916,14 @@ class TravelPlanVC: UIViewController ,UITableViewDataSource,UITableViewDelegate,
                                             print(placesArr)
                                             for i in 0..<placesArr.count {
                                                 
-                                                self.planLocations.add(placesArr[i])
+                                                self.planAllLocations.add(placesArr[i])
                                             }
                                             
                                             let attrs1 = [NSFontAttributeName: UIFont(name: "SFUIDisplay-Bold", size: 11.0) , NSForegroundColorAttributeName : UIColor(red: 20/255.0, green: 44/255.0, blue: 69/255.0, alpha: 1.0)]
                                             
                                             let attrs2 = [NSFontAttributeName: UIFont(name: "SFUIDisplay-Regular", size: 11.0), NSForegroundColorAttributeName : UIColor(red: 20/255.0, green: 44/255.0, blue: 69/255.0, alpha: 1.0)]
                                             
-                                            let attributedString1 = NSMutableAttributedString(string:"\(self.planLocations.count) ", attributes:attrs1)
+                                            let attributedString1 = NSMutableAttributedString(string:"\(self.planAllLocations.count) ", attributes:attrs1)
                                             
                                             let attributedString2 = NSMutableAttributedString(string:"Locations", attributes:attrs2)
                                             
@@ -830,8 +932,16 @@ class TravelPlanVC: UIViewController ,UITableViewDataSource,UITableViewDelegate,
                                             self.noOfLocations.attributedText = attributedString1
                                             
                                             DispatchQueue.main.async(execute: {
-                                                self.locationsCoolectionView.reloadData()
-                                                self.plansTableView.reloadData()
+                                                if(self.reloadTableOnly)
+                                                {
+                                                    self.plansTableView.reloadData()
+                                                }
+                                                else
+                                                {
+                                                    self.plansTableView.reloadData()
+                                                    self.locationsCollectionView.reloadData()
+                                                }
+                                                
                                             })
                                         }
                                         else
@@ -960,22 +1070,115 @@ class TravelPlanVC: UIViewController ,UITableViewDataSource,UITableViewDelegate,
                                 let status = jsonResult.value(forKey: "status") as! NSNumber
                                 
                                 if status == 1{
+                                    self.endDateBtn.setBackgroundImage(nil, for: .normal)
+                                    self.startDateBtn.setBackgroundImage(nil, for: .normal)
+                                    self.calendarBackView.isHidden = true
                                     
-                                    self.navigationController?.popViewController(animated: true)
+                                   }
+                                else{
+                                    print("status = 0")
+                                    CommonFunctionsClass.sharedInstance().showAlert(title: "Server Alert", text: jsonResult.value(forKey: "msg") as! String as NSString, imageName: "alertServer")
+                                }
+                                MBProgressHUD.hideAllHUDs(for: self.view, animated: true)
+                            }
+                            catch
+                            {
+                                print("json error: \(error)")
+                                CommonFunctionsClass.sharedInstance().showAlert(title: "Server Alert", text: jsonResult.value(forKey: "msg") as! String as NSString, imageName: "alertServer")
+                                MBProgressHUD.hideAllHUDs(for: self.view, animated: true)
+                            }
+                        }
+                }
+            })
+            
+            task.resume()
+        }
+        else
+        {
+            CommonFunctionsClass.sharedInstance().showAlert(title: "No Internet Connection", text: "You are currently offline.", imageName: "alertInternet")
+            MBProgressHUD.hideAllHUDs(for: self.view, animated: true)
+        }
+        
+    }
+
+    func setLocationFinalDate()
+    {
+        let isConnectedInternet = CommonFunctionsClass.sharedInstance().isConnectedToNetwork()
+        
+        if isConnectedInternet
+        {
+            // CommonFunctionsClass.sharedInstance().startIndicator(viewController.view)
+            
+            //    API to edit time of booking :- edit_booking_dates 4 parameters 1. userId, 2. bookingId, 3. placeId, 4. time
+            
+            var urlString = NSString(string:"\(appUrl)edit_booking_dates")
+            print("WS URL----->>" + (urlString as String))
+            
+            let parameters: NSDictionary = ["userId": UserDefaults.standard.string(forKey: "userLoginId")!,"bookingId":bookingIdFinal,"placeId":placeBookingId,"time":String(describing: locationFinalDate)]
+            
+            urlString = urlString .replacingOccurrences(of: " ", with: "%20") as NSString
+            
+            let url:NSURL = NSURL(string: urlString as String)!
+            let session = URLSession.shared
+            
+            session.configuration.timeoutIntervalForRequest=30
+            // session.configuration.timeoutIntervalForResource=50
+            
+            let request = NSMutableURLRequest(url: url as URL)
+            request.httpMethod = "POST"
+            request.cachePolicy = NSURLRequest.CachePolicy.reloadIgnoringCacheData
+            
+            
+            do {
+                let jsonData = try!  JSONSerialization.data(withJSONObject: parameters, options: [])
+                request.httpBody = jsonData
+                
+                
+                // here "jsonData" is the dictionary encoded in JSON data
+            } catch let error as NSError {
+                print(error)
+            }
+            
+            
+            
+            // request.HTTPBody = try! NSJSONSerialization.dataWithJSONObject(prmt, options: [])
+            request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+            request.addValue("application/json", forHTTPHeaderField: "Accept")
+            
+            
+            
+            let task = session.dataTask(with: request as URLRequest, completionHandler: {data, response, error -> Void in
+                
+                OperationQueue.main.addOperation
+                    {
+                        
+                        if data == nil
+                        {
+                            CommonFunctionsClass.sharedInstance().showAlert(title: "Server Alert", text: "Something doesn't seem right, Please try again!", imageName: "alertServer")
+                            
+                        }
+                        else
+                        {
+                            
+                            
+                            do {
+                                
+                                let result = NSString(data: data!, encoding:String.Encoding.ascii.rawValue)!
+                                print("Body: \(result)")
+                                
+                                let anyObj: Any = try JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.mutableContainers)
+                                
+                                
+                                jsonResult = NSDictionary()
+                                jsonResult = anyObj as! NSDictionary
+                                
+                                let status = jsonResult.value(forKey: "status") as! NSNumber
+                                
+                                if status == 1{
                                     
-                                    //                                    let nxtObj2 = self.storyboard?.instantiateViewControllerWithIdentifier("BookingViewController") as! BookingViewController
-                                    //                                    print(self.selectedArrayCalender)
-                                    //
-                                    //                                    nxtObj2.bookingIdFinal = self.bookingIdFinal
-                                    //                                    nxtObj2.fromView = self.fromView
-                                    //                                    nxtObj2.edited = true
-                                    //
-                                    //                                    dispatch_async(dispatch_get_main_queue(), {
-                                    //                                        self.dismissViewControllerAnimated(true, completion: {})
-                                    //                                        self.tabBarController?.tabBar.hidden = true
-                                    //                                        self.navigationController! .pushViewController(nxtObj2, animated: true)
-                                    //
-                                    //                                    })
+                                   // self.navigationController?.popViewControllerAnimated(true)
+                                    self.calendarBackView.isHidden = true
+                                    self.getPlanDetails()
                                 }
                                 else{
                                     print("status = 0")
@@ -1003,7 +1206,6 @@ class TravelPlanVC: UIViewController ,UITableViewDataSource,UITableViewDelegate,
         
     }
 
-    
     
     
 }

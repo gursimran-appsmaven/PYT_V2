@@ -37,9 +37,9 @@ class DIYCalendarCell: FSCalendarCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        let circleImageView = UIImageView(image: UIImage(named: "circle")!)
-        self.contentView.insertSubview(circleImageView, at: 0)
-        self.circleImageView = circleImageView
+//        let circleImageView = UIImageView(image: UIImage(named: "circle")!)
+//        self.contentView.insertSubview(circleImageView, at: 0)
+//        self.circleImageView = circleImageView
         
         let selectionLayer = CAShapeLayer()
         selectionLayer.fillColor = UIColor(red: 20/255.0, green: 44/255.0, blue: 69/255.0, alpha: 1.0).cgColor
@@ -58,7 +58,7 @@ class DIYCalendarCell: FSCalendarCell {
     override func layoutSubviews()
     {
         super.layoutSubviews()
-        self.circleImageView.frame = self.contentView.bounds
+//        self.circleImageView.frame = self.contentView.bounds
         self.backgroundView?.frame = self.bounds.insetBy(dx: 1, dy: 1)
         self.selectionLayer.frame = self.contentView.bounds
         
@@ -82,7 +82,8 @@ class DIYCalendarCell: FSCalendarCell {
             self.selectionLayer.path = UIBezierPath(roundedRect: self.selectionLayer.bounds, byRoundingCorners: [.topRight, .bottomRight], cornerRadii: CGSize(width:0, height: 0)).cgPath
         }
         else if selectionType == .single {
-            
+             selectionLayer.fillColor = UIColor(red: 255/255.0, green: 80/255.0, blue: 80/255.0, alpha: 1.0).cgColor
+            self.selectionLayer.frame = CGRect(x:0 , y:-2, width:self.contentView.bounds.width-4,height: self.contentView.bounds.height-4)
             let diameter: CGFloat = min(self.selectionLayer.frame.height, self.selectionLayer.frame.width)
             self.selectionLayer.path = UIBezierPath(ovalIn: CGRect(x: self.contentView.frame.width / 2 - diameter / 2, y: self.contentView.frame.height / 2 - diameter / 2, width: diameter, height: diameter)).cgPath
         }

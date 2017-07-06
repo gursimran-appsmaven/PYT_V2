@@ -8,9 +8,10 @@
 
 import UIKit
 import MBProgressHUD
+import SDWebImage
 
 
-class travelPlansViewController: UIViewController {
+class TravelPlansListVC: UIViewController {
 
     @IBOutlet weak var travelPlansTableView: UITableView!
     
@@ -27,7 +28,7 @@ class travelPlansViewController: UIViewController {
 
     override func viewWillAppear(_ animated: Bool) {
         MBProgressHUD .showAdded(to: self.view, animated: true)
-        self.getBookings()
+        self.getPlans()
     }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -47,72 +48,66 @@ class travelPlansViewController: UIViewController {
     
     
     //MARK:- TableView datasource and delgates
-    func numberOfSectionsInTableView(tableView: UITableView) -> Int
+    func numberOfSectionsInTableView(_ tableView: UITableView) -> Int
     {
         return 1
         
     }
     
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int
     {
-        return plansArray.count
+        return self.plansArray.count
     }
        
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell
+    func tableView(_ tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell
     {
         
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "TravelPlansListTC") as! TravelPlansListTC
         
 
-//        print(plansArray)
-//        
-//        let place = (plansArray.objectAtIndex(indexPath.row) as AnyObject).value("name") as? String ?? "NA"
-//        cell.travelLocation.text = place
-//        
-//        
-//        
-//        let startDate = (plansArray.objectAtIndex(indexPath.row) as AnyObject).value("startDate") as? String ?? ""
-//        let endDate = plansArray.objectAtIndex(indexPath.row).valueForKey("endDate") as? String ?? ""
-//        
-//       
-//        let dateFormatter = NSDateFormatter()
-//        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
-//        dateFormatter.timeZone = NSTimeZone(name: "UTC")
-//        let date2 = dateFormatter.dateFromString(String(startDate))
-//        let date3 = dateFormatter.dateFromString(String(endDate))// create   date from string
-//     
-//        // change to a readable time format and change to local time zone
-//        dateFormatter.dateFormat = "MMM dd, YYYY"
-//        dateFormatter.timeZone = NSTimeZone.localTimeZone()
-//        var timeStamp = dateFormatter.stringFromDate(date2!)
-//        var timeStamp2 = dateFormatter.stringFromDate(date3!)
-//       
-//        
-//        let calendar = NSCalendar.autoupdatingCurrentCalendar()
-//        let todayDate = NSDate()
-//        
-//        //let someDate = dateFormatter.dateFromString(date2)
-////        if calendar.isDateInYesterday(date2!) {
-////            timeStamp = "Yesterday"
-////        }else
-//        
-//    
-//        if( date2!.earlierDate(todayDate) .isEqualToDate(date2!))  {
-//            print("date1 is earlier than date2")
-//            timeStamp = "Plan over"
-//            
-//             cell.travelInfo.text = timeStamp
-//            
-//        }
-//        else
-//        {
-//         cell.travelInfo.text = "\(timeStamp) - \(timeStamp2)"
-//        }
-       
+        print(plansArray)
 
+        cell.travelLocation.text = (plansArray.object(at: indexPath.row) as AnyObject).value(forKey:"name") as? String ?? "NA"
+
+        if (plansArray.object(at: indexPath.row) as AnyObject).value(forKey:"startDate") as? String != nil
+        {
+            let startDate = (plansArray.object(at: indexPath.row) as AnyObject).value(forKey:"startDate") as? String ?? ""
+            let endDate = (plansArray.object(at: indexPath.row) as AnyObject).value(forKey:"endDate") as? String ?? ""
+            
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
+            dateFormatter.timeZone = NSTimeZone(name: "UTC") as TimeZone!
+            let date2 = dateFormatter.date(from: String(startDate))
+            let date3 = dateFormatter.date(from: String(endDate))// create   date from string
+            
+            // change to a readable time format and change to local time zone
+            dateFormatter.dateFormat = "E, d MMM yyyy"
+            dateFormatter.timeZone = NSTimeZone.local
+            let timeStamp = dateFormatter.string(from: date2!)
+            let timeStamp2 = dateFormatter.string(from: date3!)
+            
+            cell.travelDate.text = "\(timeStamp) - \(timeStamp2)"
+        }
+        else
+        {
+             cell.travelDate.text = "NA"
+        }
         
+       
+        var locations = String()
         
+        for item in ((plansArray.object(at: indexPath.row) as AnyObject).value(forKey:"places") as? NSArray)!
+        {
+            if let loc = (((((item as AnyObject).value(forKey: "place") as AnyObject).value(forKey: "placeTag")) as? String) )
+            {
+                locations = locations + loc + ", "
+            }
+        }
+        
+        locations = String(locations.characters.dropLast())
+        
+        cell.travelInfo.text = locations
        
         
         
@@ -123,11 +118,10 @@ class travelPlansViewController: UIViewController {
 //        let imageToShow = plansArray.objectAtIndex(indexPath.row).valueForKey("places")!.objectAtIndex(0).valueForKey("place")!.valueForKey("imageThumb") as? String ?? ""
 //        
 //        
-//        let imgurl = NSURL (string: imageToShow)
-//        
-//        cell.travelImage.backgroundColor = UIColor .whiteColor()
-//        cell.travelImage.sd_setImageWithURL(imgurl, placeholderImage: UIImage (named: "backgroundImage"))
+//        let imgurl = NSURL (string: "")
         
+        cell.travelImage.backgroundColor = UIColor .white
+        cell.travelImage.sd_setImage(with: URL(string: ""), placeholderImage: UIImage (named: "dummyBackground1"), options: SDWebImageOptions(rawValue: 0), completed: nil)
         
         
      return cell
@@ -135,7 +129,7 @@ class travelPlansViewController: UIViewController {
     }
     
     
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    func tableView(_ tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
      
 //        let nxtObj2 = self.storyboard?.instantiateViewControllerWithIdentifier("BookingViewController") as! BookingViewController
 //        //                                    nxtObj2.arrayOfStories = self.selectedArrayCalender
@@ -156,12 +150,12 @@ class travelPlansViewController: UIViewController {
         
     }
     
-    func tableView(tableView: UITableView, canEditRowAt indexPath: NSIndexPath) -> Bool
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: NSIndexPath) -> Bool
     {
         return true
     }
     
-    func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+    func tableView(_ tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
 //        if (editingStyle == UITableViewCellEditingStyle.Delete) {
 //            // handle delete (by removing the data from your array and updating the tableview)
 //            let bookingId = plansArray.objectAtIndex(indexPath.row).valueForKey("_id") as? String
@@ -175,7 +169,7 @@ class travelPlansViewController: UIViewController {
     
     //Mark: Function to get the booking from server
     
-    func getBookings() {
+    func getPlans() {
         
         let defaults = UserDefaults.standard
         let uId = defaults .string(forKey: "userLoginId")
