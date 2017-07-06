@@ -1467,7 +1467,7 @@ class mainHomeViewController: UIViewController, SDWebImageManagerDelegate, apiCl
         nxtObj.receiverProfile = receiverProfileImage as NSString
         nxtObj.locationId = globalPlaceid
         self.navigationController! .pushViewController(nxtObj, animated: true)
-        nxtObj.hidesBottomBarWhenPushed = true
+       // nxtObj.hidesBottomBarWhenPushed = true
         
         
     }
