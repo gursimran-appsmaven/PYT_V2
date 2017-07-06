@@ -30,6 +30,7 @@
 		104182981EF26AEC00078527 /* FBSDKShareKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 104182791EF26AEC00078527 /* FBSDKShareKit.framework */; };
 		104182B01EF26AEC00078527 /* SweetAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 104182921EF26AEC00078527 /* SweetAlert.swift */; };
 		104182B11EF26AEC00078527 /* UIColor+CreateMethods.m in Sources */ = {isa = PBXBuildFile; fileRef = 104182941EF26AEC00078527 /* UIColor+CreateMethods.m */; };
+		1046ADA91F0E744100A233D3 /* FinalTravelPlanVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1046ADA81F0E744100A233D3 /* FinalTravelPlanVC.swift */; };
 		104BEE751F0B902500D26939 /* UploadedImagesVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 104BEE741F0B902500D26939 /* UploadedImagesVC.swift */; };
 		104D744E1F0A524F00896A02 /* TravelPlanVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 104D744D1F0A524F00896A02 /* TravelPlanVC.swift */; };
 		105ED8DD1EFCE11400C133D0 /* UIImageView+FaceAware.swift in Sources */ = {isa = PBXBuildFile; fileRef = 105ED8DC1EFCE11400C133D0 /* UIImageView+FaceAware.swift */; };
@@ -145,6 +146,7 @@
 		104182931EF26AEC00078527 /* UIColor+CreateMethods.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+CreateMethods.h"; sourceTree = "<group>"; };
 		104182941EF26AEC00078527 /* UIColor+CreateMethods.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+CreateMethods.m"; sourceTree = "<group>"; };
 		104182B21EF26DB100078527 /* PYT-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "PYT-Bridging-Header.h"; sourceTree = "<group>"; };
+		1046ADA81F0E744100A233D3 /* FinalTravelPlanVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FinalTravelPlanVC.swift; sourceTree = "<group>"; };
 		104BEE741F0B902500D26939 /* UploadedImagesVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UploadedImagesVC.swift; sourceTree = "<group>"; };
 		104D744D1F0A524F00896A02 /* TravelPlanVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TravelPlanVC.swift; sourceTree = "<group>"; };
 		105ED8DC1EFCE11400C133D0 /* UIImageView+FaceAware.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImageView+FaceAware.swift"; sourceTree = "<group>"; };
@@ -388,6 +390,7 @@
 			children = (
 				104D744D1F0A524F00896A02 /* TravelPlanVC.swift */,
 				10AC31A01F0D2299005273EC /* TravelPlansListVC.swift */,
+				1046ADA81F0E744100A233D3 /* FinalTravelPlanVC.swift */,
 			);
 			path = "Travel Plan";
 			sourceTree = "<group>";
@@ -869,6 +872,7 @@
 				106DDC3A1F06813A00ABD16D /* changePasswordViewController.swift in Sources */,
 				106DDC091F061EBB00ABD16D /* SocketAnyEvent.swift in Sources */,
 				101B9D121F077856006EA33F /* commentViewController.swift in Sources */,
+				1046ADA91F0E744100A233D3 /* FinalTravelPlanVC.swift in Sources */,
 				106DDC1E1F061EBB00ABD16D /* WebSocket.swift in Sources */,
 				106DDC0E1F061EBB00ABD16D /* SocketEnginePollable.swift in Sources */,
 				106DDC0D1F061EBB00ABD16D /* SocketEnginePacketType.swift in Sources */,

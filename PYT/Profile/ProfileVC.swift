@@ -266,7 +266,8 @@ class ProfileVC: UIViewController,UITableViewDelegate,UITableViewDataSource,UICo
                 
             case 1:
                 print("Travel Plan")
-                
+                let obj = self.storyboard?.instantiateViewController(withIdentifier: "TravelPlansListVC") as! TravelPlansListVC
+                self.navigationController?.pushViewController(obj, animated: true)
             default:
                 print(" ")
 
