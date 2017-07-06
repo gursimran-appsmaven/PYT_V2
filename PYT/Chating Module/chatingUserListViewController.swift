@@ -14,16 +14,27 @@ class chatingUserListViewController: UIViewController {
     
     var chatingArray = NSMutableArray()
     var locationName = NSString()
+    var indexOfRow = Int()
     
     @IBOutlet weak var headerLabel: UILabel!
     @IBOutlet weak var chatingListTableview: UITableView!
     @IBOutlet weak var bottomShadow: GradientView!
-
+ @IBOutlet weak var chatingIndicator: UIActivityIndicatorView!
     
+    override func viewWillAppear(_ animated: Bool) {
+        self.tabBarController?.setTabBarVisible(visible: false, animated: true)
+        
+        let uId = Udefaults .string(forKey: "userLoginId")
+        
+        let prmDict: NSDictionary = ["userId": uId!]
+        chatingIndicator.isHidden = false
+        chatingIndicator.startAnimating()
+        self.postRequestGetMessages(parameterString: prmDict, viewController: self)
+        
+    }
     override func viewDidLoad()
     {
-        self.tabBarController?.setTabBarVisible(visible: false, animated: true)
-
+        
         super.viewDidLoad()
 
         headerLabel.text = locationName as String
@@ -217,6 +228,142 @@ class chatingUserListViewController: UIViewController {
     
     
 
+    
+    //MARK: Api to get the chats
+    func postRequestGetMessages(parameterString : NSDictionary , viewController : UIViewController)
+    {
+        
+        print(parameterString)
+        
+        let isConnectedInternet = CommonFunctionsClass.sharedInstance().isConnectedToNetwork()
+        
+        if isConnectedInternet
+        {
+            let request = NSMutableURLRequest(url: NSURL(string: "\(appUrl)get_older_conversation")! as URL)
+            
+            
+            request.httpMethod = "POST"
+            let postString = parameterString
+            
+            do {
+                let jsonData = try!  JSONSerialization.data(withJSONObject: postString, options: [])
+                request.httpBody = jsonData
+                
+                
+                // here "jsonData" is the dictionary encoded in JSON data
+            } catch let error as NSError {
+                print(error)
+            }
+            
+            request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+            request.addValue("application/json", forHTTPHeaderField: "Accept")
+            
+            
+            
+            let task = URLSession.shared.dataTask(with: request as URLRequest) { data, response, error in
+                guard error == nil && data != nil else {                                                          // check for fundamental networking error
+                    print("error=\(error)")
+                    return
+                }
+                
+                if let httpStatus = response as? HTTPURLResponse, httpStatus.statusCode != 200 {           // check for http errors
+                    print("statusCode should be 200, but is \(httpStatus.statusCode)")
+                    print("response = \(response)")
+                }
+                
+                
+                
+                
+                DispatchQueue.main.async {
+                    
+                    do {
+                        
+                        let result = NSString(data: data!, encoding:String.Encoding.ascii.rawValue)!
+                       // print("Body: \(result)")
+                        
+                        let anyObj: Any = try JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.mutableContainers)
+                        
+                        basicInfo = NSMutableDictionary()
+                        basicInfo = anyObj as! NSMutableDictionary
+                        
+                        let status = basicInfo .value(forKey: "status") as! NSNumber
+                        
+                        
+                        
+                        if status == 1
+                        {
+                            
+                            let arr: NSMutableArray = basicInfo .value(forKey: "chat") as! NSMutableArray
+                            
+                            var chattingListArray = NSMutableArray()
+                            
+                            for i in 0..<arr.count
+                            {
+                                chattingListArray .add(arr.object(at: i))
+                            }
+                          //  print(chattingListArray)
+                            if arr.count<1 {
+                               
+                            }
+                            else
+                            {
+                                print(self.indexOfRow)
+                                let activeCounts = (chattingListArray.object(at: self.indexOfRow) as AnyObject).value(forKey: "conver") as! NSMutableArray
+                                self.chatingArray = activeCounts
+                            }
+                            self.chatingListTableview.reloadData()
+                            
+                        }
+                        else
+                        {
+                            
+                            
+                            CommonFunctionsClass.sharedInstance().showAlert(title: "Err ...", text: "No chats found.", imageName: "alertChat")
+                            
+                            
+                            self.backBtnAction(self)
+                            
+                        }
+                        
+                        
+                        
+                        
+                        
+                        
+                    } catch {
+                        print("json error: \(error)")
+                        CommonFunctionsClass.sharedInstance().showAlert(title: "Server Alert", text: "Something doesn't seem right, Please try again!", imageName: "alertServer")
+                        
+                        
+                    }
+                    
+                    
+                    self.chatingIndicator.isHidden=true
+                    self.chatingIndicator.stopAnimating()
+                    self.tabBarController?.tabBar.items?[3].badgeValue = nil
+                    let uId = Udefaults .string(forKey: "userLoginId")
+                    SocketIOManager.sharedInstance.sendCounter(uId!)
+                    
+                    
+                }
+                
+                
+                
+                
+                
+                
+                
+            }
+            task.resume()
+            
+        }
+        else
+        {
+            CommonFunctionsClass.sharedInstance().showAlert(title: "No Internet Connection", text: "You are currently offline.", imageName: "alertInternet")
+        }
+    }
+    
+    
     
     
     

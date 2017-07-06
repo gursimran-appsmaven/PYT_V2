@@ -34,10 +34,7 @@ class detailViewController: UIViewController, apiClassDelegate {
     
     @IBOutlet var heightOfFirstView: NSLayoutConstraint!//1st View of scroll
     
-    
-    
     @IBOutlet var heightOfSecondView: NSLayoutConstraint! //2nd View of scroll
-    
     
     @IBOutlet var heightOfThirdView: NSLayoutConstraint!
     
@@ -49,14 +46,11 @@ class detailViewController: UIViewController, apiClassDelegate {
     @IBOutlet var firstView: UIView!//contains slide images and user info
     @IBOutlet var secondView: UIView!//contaion description view
     
-    
-    @IBOutlet var thirdView: UIView!//contains reviews table view 
-    
+    @IBOutlet var thirdView: UIView!//contains reviews table view
     
     @IBOutlet var forthView: UIView!//contains near by collection view
     
     @IBOutlet weak var ThumbnailsView: UIView!//Contaims thumbnails collection view
-    
     
     @IBOutlet var userNameHeight: NSLayoutConstraint!
     
@@ -81,9 +75,6 @@ class detailViewController: UIViewController, apiClassDelegate {
     
     @IBOutlet weak var bottomView2: UIView!
    
-    
-    
-    
     
     
     @IBOutlet weak var reviewslableinView: UILabel!
@@ -222,20 +213,8 @@ class detailViewController: UIViewController, apiClassDelegate {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         
-        self.showMoreComments.isHidden = true
-        self.showMoreDescription.isHidden=true
         
-        
-        self.detailTable.estimatedRowHeight = 90.0
-        
-        let cateArr = (self.arrayWithData[0] as AnyObject).value(forKey: "categoryMainArray") as! NSMutableArray
-        
-        self.view .bringSubview(toFront: BackBtn)
-       
-        print(arrayWithData)
-        
-        
-        
+      //  print(arrayWithData)
         
         let profileImage = (self.arrayWithData[0] as AnyObject).value(forKey: "profileImage") as? NSString ?? ""
         let url = URL(string: profileImage as String)
@@ -256,14 +235,7 @@ class detailViewController: UIViewController, apiClassDelegate {
         
         var multiImgStandard = NSMutableArray()
         multiImgStandard = (self.arrayWithData[0] as AnyObject).value(forKey: "multipleImagesStandard")as! NSMutableArray
-        
-        
-        
-        
-        
         self.slideImages(multiImgStandard, imageLink: locationImageStandard)
-        
-        
         
         
         
@@ -289,11 +261,11 @@ class detailViewController: UIViewController, apiClassDelegate {
         
         let imageId = (self.arrayWithData[0] as AnyObject).value(forKey: "imageId") as? String ?? ""
         
-        let uId = Udefaults .string(forKey: "userLoginId")
-        let otherUserId = (self.arrayWithData[0] as AnyObject).value(forKey: "otherUserId") as? String ?? ""
+        //let uId = Udefaults .string(forKey: "userLoginId")
+       // let otherUserId = (self.arrayWithData[0] as AnyObject).value(forKey: "otherUserId") as? String ?? ""
         
         
-          DispatchQueue.main.async(execute: {
+        //  DispatchQueue.main.async(execute: {
         
         var parameter = ""
         
@@ -305,13 +277,13 @@ class detailViewController: UIViewController, apiClassDelegate {
         {
             parameter = "https://api.foursquare.com/v2/venues/search?intent=browse&limit=1&client_id=DAKFO3TURLDTUL33JNPRTIGX03NMZM2ACCDWC2HHHZTV2YMT&client_secret=ILF0G3U4DRSC0WDW2EH12SFGTOKIWSKFUIOXV4FFEQOIB34B&v=20140203&query=\(tagGeo)&ll=\(String(describing: self.LAT)),\(String(describing: self.LONG))&radius=1500"
         }
-        
-         DispatchQueue.main.async(execute: {
+         DispatchQueue.global(qos: .background).async {
+        // DispatchQueue.main.async(execute: {
         self.datafromFoursquare(parameter)// get the data from four square api
         
-         })
-            
-            
+       //  })
+        }
+        
             
             
             
@@ -326,23 +298,7 @@ class detailViewController: UIViewController, apiClassDelegate {
             singleTapGesture2.numberOfTapsRequired = 1 // Optional for single tap
             self.zoomView.addGestureRecognizer(singleTapGesture2)
             
-            
-            
-            
-            
-            //////---- Add gesture on zoom view to swipe left and right on zoom view
-            let swipeRight = UISwipeGestureRecognizer(target: self, action: #selector(detailViewController.swiped(_:))) // put : at the end of method name
-            swipeRight.direction = UISwipeGestureRecognizerDirection.right
-            self.zoomView.addGestureRecognizer(swipeRight)
-            
-            let swipeLeft = UISwipeGestureRecognizer(target: self, action: #selector(detailViewController.swiped(_:))) // put : at the end of method name
-            swipeLeft.direction = UISwipeGestureRecognizerDirection.left
-            self.zoomView.addGestureRecognizer(swipeLeft)
-
-            
-            
-            
-            
+        
             
             //manage for Like and unlike
             let like = (self.arrayWithData[0] as AnyObject).value(forKey: "likeBool") as! Bool
@@ -414,7 +370,7 @@ class detailViewController: UIViewController, apiClassDelegate {
             
             
             
-            })
+           // })
         
         
         
@@ -434,9 +390,6 @@ class detailViewController: UIViewController, apiClassDelegate {
         if (self.arrayWithData[0] as AnyObject).value(forKey: "Type") as! String == "PYT"
         {
             
-//            let combinePhoto = self.arrayWithData[0].valueForKey("profileImage") as? String ?? ""
-//            let combineName = self.arrayWithData[0].valueForKey("userName") as? String ?? ""
-            
             let descriptionAsComment = (self.arrayWithData[0] as AnyObject).value(forKey: "Description") as? String ?? ""
             
             if descriptionAsComment == "" || descriptionAsComment == "Enter description here.." {
@@ -449,19 +402,7 @@ class detailViewController: UIViewController, apiClassDelegate {
             
         }
         
-        
-        
-        
-        
-        
-        
-        
-        
-        
-       
-        
-        
-        
+
         
         firstIndicator .startAnimating()
         secondIndicator .startAnimating()
@@ -474,42 +415,6 @@ class detailViewController: UIViewController, apiClassDelegate {
         
         
         
-        
-       
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        ////category
-        
-        var type = (self.arrayWithData[0] as AnyObject).value(forKey: "Category") as? String ?? " "
-        
-        //// temporary change the category random to Others
-        let newCatRr = type.components(separatedBy: ",") as NSArray //type .components(separatedBy: ",")
-    print(newCatRr)
-        
-        let  newcat2 = NSMutableArray()
-        
-        for ll in 0..<newCatRr.count {
-            
-            var stCat = newCatRr.object(at: ll) as? String ?? ""
-            print(stCat)
-            
-            if stCat == "Random" || stCat == "random" {
-                stCat = "Others"
-            }
-            newcat2 .add(stCat)
-        }
-        
-        
-        type = newcat2.componentsJoined(by: ",")
-        self.categoryLabel.text = type
-       
         
 
         
@@ -531,48 +436,6 @@ class detailViewController: UIViewController, apiClassDelegate {
         self.locationTxtv.textAlignment=NSTextAlignment .left
         print(self.locationTxtv.frame)
         self.locationTxtv.numberOfLines=0
-      
-        
-        
-        
-        
-        
-        
-        ////MANAGE the images to delete of pyt
-        
-        bottomView.isHidden=true
-        bottomView2.isHidden=false
-        
-        
-        
-        let photoType = (self.arrayWithData[0] as AnyObject).value(forKey: "Type") as? String ?? ""
-        
-        
-        
-        if photoType == "PYT" {
-            
-            if otherUserId == uId! {
-                
-                print("Enter if match the user id")
-                
-                bottomView.isHidden=false
-                bottomView2.isHidden=true
-                
-                
-            }
-            
-            
-        }
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
         
         
         NotificationCenter.default.addObserver(self, selector: #selector(detailViewController.loadDeletedCell(_:)),name:NSNotification.Name(rawValue: "loadDeleteDetail"), object: nil)
@@ -618,21 +481,17 @@ class detailViewController: UIViewController, apiClassDelegate {
     
     
     
-    
     override func viewWillAppear(_ animated: Bool)
     {
-       
-       
+        self.showMoreComments.isHidden = true
+        self.showMoreDescription.isHidden=true
         
-      
-        
+        self.detailTable.estimatedRowHeight = 90.0
+
         let imageId = (self.arrayWithData[0] as AnyObject).value(forKey: "imageId") as? String ?? ""
         
         let defaults = UserDefaults.standard
         let uId = defaults .string(forKey: "userLoginId")
-        //let otherUserId = self.arrayWithData[0] .valueForKey("otherUserId") as? String ?? ""
-       // let commentParameter = "imageId=\(imageId)&userId=\(uId!)&imageOwner=\(otherUserId)&paging=last"//older version
-        
         
         let commentParameter = "imageId=\(imageId)&userId=\(uId!)&page=last"
         self.postApiToGetPYTReview(commentParameter as NSString) //get the comments from the pyt server
@@ -648,26 +507,19 @@ class detailViewController: UIViewController, apiClassDelegate {
         {
             
             
-            
-            
-           
-            
-            
             self.view .setNeedsLayout()
-            
-            
             
             
             /////-------- Gradient background color ----/////////
             
-            let layer = CAGradientLayer()
-            layer.frame = CGRect(x: 0, y: 0, width: headerView.frame.size.width, height: self.headerView.frame.origin.y+self.headerView.frame.size.height)
-            let blueColor = UIColor(red: 0/255, green: 146/255, blue: 198/255, alpha: 1.0).cgColor as CGColor
-            let purpleColor = UIColor(red: 117/255, green: 42/255, blue: 211/255, alpha: 1.0).cgColor as CGColor
-            layer.colors = [purpleColor, blueColor]
-            layer.startPoint = CGPoint(x: 0.1, y: 0.5)
-            layer.endPoint = CGPoint(x: 1.0, y: 0.5)
-            layer.locations = [0.25,1.0]
+//            let layer = CAGradientLayer()
+//            layer.frame = CGRect(x: 0, y: 0, width: headerView.frame.size.width, height: self.headerView.frame.origin.y+self.headerView.frame.size.height)
+//            let blueColor = UIColor(red: 0/255, green: 146/255, blue: 198/255, alpha: 1.0).cgColor as CGColor
+//            let purpleColor = UIColor(red: 117/255, green: 42/255, blue: 211/255, alpha: 1.0).cgColor as CGColor
+//            layer.colors = [purpleColor, blueColor]
+//            layer.startPoint = CGPoint(x: 0.1, y: 0.5)
+//            layer.endPoint = CGPoint(x: 1.0, y: 0.5)
+//            layer.locations = [0.25,1.0]
             //self.headerView.layer.addSublayer(layer)
             
             headerView.gradientLayer.colors = [UIColor.black.withAlphaComponent(0.75).cgColor, UIColor.clear.cgColor]
@@ -680,29 +532,36 @@ class detailViewController: UIViewController, apiClassDelegate {
             self.headerView .bringSubview(toFront: headerLabel)
           
             
-            
-            
-            
-            
-            
-            
             //// add border to profile picture///
             borderView.layer.cornerRadius=borderView.frame.size.width/2
             borderView.clipsToBounds=true
             //self.profilePicImage.bringSubviewToFront(borderView)
             
             firstTime=false
-         
-            
-            
             
             
         }
         
         
+        ////MANAGE the images to delete of pyt
         
-        
-        
+        bottomView.isHidden=true
+        bottomView2.isHidden=false
+        let photoType = (self.arrayWithData[0] as AnyObject).value(forKey: "Type") as? String ?? ""
+        let otherUserId = (self.arrayWithData[0] as AnyObject).value(forKey: "otherUserId") as? String ?? ""
+        if photoType == "PYT" {
+            
+            if otherUserId == uId! {
+                
+                print("Enter if match the user id")
+                
+                bottomView.isHidden=false
+                bottomView2.isHidden=true
+            }
+            
+            
+        }
+        //Hide both views if coming from the plan or story
         if fromStory==true
         {
             bottomView.isHidden=true
@@ -710,11 +569,51 @@ class detailViewController: UIViewController, apiClassDelegate {
         }
         
         
+        
+        ////category
+        
+        var type = (self.arrayWithData[0] as AnyObject).value(forKey: "Category") as? String ?? " "
+        
+        //// temporary change the category random to Others
+        let newCatRr = type.components(separatedBy: ",") as NSArray //type .components(separatedBy: ",")
+        print(newCatRr)
+        
+        let  newcat2 = NSMutableArray()
+        
+        for ll in 0..<newCatRr.count {
+            
+            var stCat = newCatRr.object(at: ll) as? String ?? ""
+            print(stCat)
+            
+            if stCat == "Random" || stCat == "random" {
+                stCat = "Others"
+            }
+            newcat2 .add(stCat)
+        }
+        
+        
+        type = newcat2.componentsJoined(by: ",")
+        self.categoryLabel.text = type
+        
+
+        //////---- Add gesture on zoom view to swipe left and right on zoom view
+        let swipeRight = UISwipeGestureRecognizer(target: self, action: #selector(detailViewController.swiped(_:))) // put : at the end of method name
+        swipeRight.direction = UISwipeGestureRecognizerDirection.right
+        self.zoomView.addGestureRecognizer(swipeRight)
+        
+        let swipeLeft = UISwipeGestureRecognizer(target: self, action: #selector(detailViewController.swiped(_:))) // put : at the end of method name
+        swipeLeft.direction = UISwipeGestureRecognizerDirection.left
+        self.zoomView.addGestureRecognizer(swipeLeft)
+    
         self.view .bringSubview(toFront: BackBtn)
-         
         self.tabBarController?.setTabBarVisible(visible: false, animated: true)
         //self.tabBarController?.tabBar.isHidden = true
         showMoreDescription.isUserInteractionEnabled=false
+     
+        
+        
+        
+        
         
     }
     
@@ -2999,9 +2898,6 @@ class detailViewController: UIViewController, apiClassDelegate {
         if isConnectedInternet
         {
             
-            
-            
-            
             let urlString = NSString(string:"https://api.foursquare.com/v2/venues/explore/?ll=\(lat as String),\(long as String)&venuePhotos=1&radius=\(radius as String)&client_id=DAKFO3TURLDTUL33JNPRTIGX03NMZM2ACCDWC2HHHZTV2YMT&client_secret=ILF0G3U4DRSC0WDW2EH12SFGTOKIWSKFUIOXV4FFEQOIB34B&v=20140203")
             
           
@@ -3091,16 +2987,11 @@ class detailViewController: UIViewController, apiClassDelegate {
                                             let combineString = "\(prefix)400x400\(suffix)"
                                             
                                         let pictureId = (((((((itemsArray.object(at: i) as AnyObject).value(forKey: "venue") as AnyObject).value(forKey: "photos") as AnyObject).value(forKey: "groups") as AnyObject).object(at: 0) as AnyObject).value(forKey: "items") as AnyObject).object(at: 0) as AnyObject).value(forKey: "id") as? String ?? ""
-                                            //itemsArray.object(at: i).value(forKey: "venue")?.value(forKey: "photos")?.value(forKey: "groups")?.object(at: 0).value(forKey: "items")?.object(at: 0).value(forKey: "id") as? String ?? ""
+                                           
                                             
                                             
                                             
                                         let distance = (((itemsArray.object(at: i) as AnyObject).value(forKey: "venue") as AnyObject).value(forKey: "location") as AnyObject).value(forKey: "distance") as! NSNumber
-                                            
-                                            
-                                           // print("Distance is ============= \(String(distance!))m")
-                                            
-                                          
                                             
                                             
                                             var strDist:NSString = String(describing: distance) as NSString
@@ -3114,9 +3005,6 @@ class detailViewController: UIViewController, apiClassDelegate {
                                                 strDist = String (format: "%.2f", Double(distance)/1000) as NSString
                                                 strDist = "\(strDist) Km" as NSString
                                                 
-                                              //  strDist = NSString("\(Double(describing: distance as! NSNumber)/1000) Km")
-//                                                strDist = String (format: "%.2f", Double(distance as! NSNumber)/1000) as NSString
-//                                                strDist = "\(strDist) Km" as NSString
                                                 
                                             }
                                             else{
@@ -3141,8 +3029,7 @@ class detailViewController: UIViewController, apiClassDelegate {
                                             
                                             
                                             let arrCon = self.nearByPlacesArray.value(forKey: "imageId") as! NSArray
-                                            
-                                           // if (self.nearByPlacesArray.value(forKey: "imageId") as AnyObject).contains(pictureId){
+                                        
                                             if arrCon.contains(pictureId){
                                             
                                             print("contains picture id")
@@ -3189,7 +3076,7 @@ class detailViewController: UIViewController, apiClassDelegate {
                                             self.updateFirstView()
                                             
                                             self.forthView.isHidden=true
-                                             self.contentViewHeight.constant = 200 + self.heightOfFirstView.constant + self.heightOfSecondView.constant + self.heightOfThirdView.constant + self.collectionContainView.constant
+                                    self.contentViewHeight.constant = 200 + self.heightOfFirstView.constant + self.heightOfSecondView.constant + self.heightOfThirdView.constant + self.collectionContainView.constant - 29
                                             
                                             self.nearByPlacesTopSpace.constant = 1
                                             
@@ -3208,7 +3095,7 @@ class detailViewController: UIViewController, apiClassDelegate {
                                         self.collectionViewImages.reloadData()
                                         self.updateFirstView()
                                         self.forthView.isHidden=false
-                                        self.contentViewHeight.constant = 200 + self.heightOfFirstView.constant + self.heightOfSecondView.constant + self.heightOfThirdView.constant + self.collectionContainView.constant
+                            self.contentViewHeight.constant = 200 + self.heightOfFirstView.constant + self.heightOfSecondView.constant + self.heightOfThirdView.constant + self.collectionContainView.constant - 29
                                         self.nearByPlacesTopSpace.constant = 1
                                         self.view .setNeedsLayout()
                                         self.view .layoutIfNeeded()
@@ -3238,9 +3125,7 @@ class detailViewController: UIViewController, apiClassDelegate {
                                         
                                     else
                                     {
-                                        
-                                    
-                                        // sort
+                                    // sort
                                         
                                         // print(self.nearByPlacesArray)
                                         //sort here
@@ -3262,7 +3147,7 @@ class detailViewController: UIViewController, apiClassDelegate {
                                         
                                         self.updateFirstView()
                                        self.forthView.isHidden=false
-                                        self.contentViewHeight.constant = 200 + self.heightOfFirstView.constant + self.heightOfSecondView.constant + self.heightOfThirdView.constant + self.collectionContainView.constant
+                            self.contentViewHeight.constant = 200 + self.heightOfFirstView.constant + self.heightOfSecondView.constant + self.heightOfThirdView.constant + self.collectionContainView.constant - 29
                                         self.nearByPlacesTopSpace.constant = 1
                                         self.view .setNeedsLayout()
                                         self.view .layoutIfNeeded()
@@ -3278,15 +3163,13 @@ class detailViewController: UIViewController, apiClassDelegate {
                                     
                                     self.updateFirstView()
                                     self.forthView.isHidden=true
-                                    self.contentViewHeight.constant = 200 + self.heightOfFirstView.constant + self.heightOfSecondView.constant + self.heightOfThirdView.constant + self.collectionContainView.constant
+                                    self.contentViewHeight.constant = 200 + self.heightOfFirstView.constant + self.heightOfSecondView.constant + self.heightOfThirdView.constant + self.collectionContainView.constant - 29
                                     self.nearByPlacesTopSpace.constant = 0
                                     self.view .setNeedsLayout()
                                     self.view .layoutIfNeeded()
                                     
                                     
                                 }
-                                
-                                
                                 
                                 
                             }

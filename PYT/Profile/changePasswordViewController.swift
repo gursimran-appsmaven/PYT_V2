@@ -94,12 +94,10 @@ class changePasswordViewController: UIViewController, settingClassDelegate {
         
             SettingApiClass.sharedInstance().changePasswordApi(parameter, urlToSend: "edit_user_password", viewController: self)
                     
-                    
                 }
                 else
                 {
                     self.showAlert("Oops!", text: "Please fill all the required fields", imageName: "alertFill")
-                    
                 }
                 
         

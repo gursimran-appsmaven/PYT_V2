@@ -27,8 +27,8 @@ class ChatViewController: JSQMessagesViewController {
     
     
     //Messages
-    let incomingBubble = JSQMessagesBubbleImageFactory().incomingMessagesBubbleImage(with: UIColor(red: 153/255, green: 189/255, blue: 131/255, alpha: 1.0))
-    let outgoingBubble = JSQMessagesBubbleImageFactory().outgoingMessagesBubbleImage(with: UIColor.white)
+    let incomingBubble = JSQMessagesBubbleImageFactory().incomingMessagesBubbleImage(with: UIColor.white)
+    let outgoingBubble = JSQMessagesBubbleImageFactory().outgoingMessagesBubbleImage(with: UIColor(red: 253/255, green: 77/255, blue: 82/255, alpha: 1.0))
     var messages = [JSQMessage]()
     
     
@@ -48,12 +48,8 @@ class ChatViewController: JSQMessagesViewController {
     
     
     var avatars = [String: JSQMessagesAvatarImage]()
-    
     var chatingIndicator = UIActivityIndicatorView()
      let uId = Udefaults .string(forKey: "userLoginId")
-    
-    
-    
     
     override func viewWillAppear(_ animated: Bool) {
         
@@ -63,7 +59,7 @@ class ChatViewController: JSQMessagesViewController {
         self.backBtn .addTarget(self, action: #selector(ChatViewController.backButtonAction) , for: UIControlEvents .touchUpInside)
         self.deleteButton .addTarget(self, action: #selector(ChatViewController.backButtonAction), for: .touchUpInside)
         
-        
+         self.tabBarController?.setTabBarVisible(visible: false, animated: true)
         
     }
     
@@ -145,13 +141,9 @@ class ChatViewController: JSQMessagesViewController {
         super.viewDidLoad()
         
         zoomImageScrollView.isHidden=true
-        
-        self.tabBarController?.setTabBarVisible(visible: false, animated: true)
+        self.inputToolbar?.contentView.rightBarButtonItem?.setImage(UIImage(named: "send"), for: .normal)
+        self.inputToolbar?.contentView.rightBarButtonItem.setTitle("", for: .normal)
 
-        
-       
-       
-        
         //SocketIOManager.sharedInstance.closeConnection()
        chatingIndicator.startAnimating()
         chatingIndicator.center=self.view.center

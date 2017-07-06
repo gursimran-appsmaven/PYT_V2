@@ -27,7 +27,8 @@ class mainHomeViewController: UIViewController, SDWebImageManagerDelegate, apiCl
     var showApiHitted = Bool()
     var segmentBool = Bool()
     var planAllLocation = Bool()
-    
+    var planTap = Bool()
+    var PlanDeleteBool = Bool()
     
     //Main View outlets
     @IBOutlet var imagesTableView: UITableView!
@@ -37,6 +38,8 @@ class mainHomeViewController: UIViewController, SDWebImageManagerDelegate, apiCl
     @IBOutlet weak var storiesCollectionView: UICollectionView!
     @IBOutlet weak var storiesView: UIView!
     @IBOutlet weak var ContentView: UIView!
+    @IBOutlet weak var planCountLbl: CustomLabel!
+    
 //    var oldContentOffset = CGPointZero
 //    var topConstraintRange = (CGFloat(2)..<CGFloat(73))
 //    
@@ -831,7 +834,18 @@ class mainHomeViewController: UIViewController, SDWebImageManagerDelegate, apiCl
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        
+        SocketIOManager.sharedInstance.getChatMessageNotify { (messageInfo) -> Void in
+            // dispatch_async(dispatch_get_main_queue(), { () -> Void in
+            
+            let count: String = String(describing: messageInfo["count"]!)
+            
+            self.tabBarController?.tabBar.items?[3].badgeValue = count
+            
+            
+            
+            
+            //  })
+        }
     }
 
     
@@ -917,7 +931,31 @@ class mainHomeViewController: UIViewController, SDWebImageManagerDelegate, apiCl
              let indexPath = IndexPath(row: tableIndex, section: 0)
             if  dataArray.count != 0
             {
-                self.imagesTableView.reloadRows(at: [indexPath], with: .none)
+                if planTap == true {
+//                    let a:Int? = (sender.tag) / 1000
+//                    let b:Int? = (sender.tag) % 1000
+//                    
+//                    collectionIndex = b!
+//                    tableIndex = a!
+
+                    let BtnPln = longTapedView.viewWithTag(2000*tableIndex+collectionIndex) as! UIButton
+                    
+                   
+                if (BtnPln.currentImage?.isEqual(UIImage(named: "travelplanbuttonactive")))! {
+                        BtnPln.setImage(UIImage (named: "travelplanbutton"), for: .normal)
+                    }
+                    else
+                    {
+                         BtnPln.setImage(UIImage (named: "travelplanbuttonactive"), for: .normal)
+                    }
+                    
+                    planTap = false
+                }
+                
+                
+               
+                
+               // self.imagesTableView.reloadRows(at: [indexPath], with: .none)
             }
             
             
@@ -1026,6 +1064,8 @@ class mainHomeViewController: UIViewController, SDWebImageManagerDelegate, apiCl
                 
             }
            
+            self.view .bringSubview(toFront: imagesTableView)
+            
         }
     
    
@@ -1713,7 +1753,7 @@ class mainHomeViewController: UIViewController, SDWebImageManagerDelegate, apiCl
         // Your action
         
        //"Story image tapped")
-        
+        planTap = true
         storyBucketBool = true //make true when add to story
         
         var imageId = NSString()
@@ -1722,18 +1762,8 @@ class mainHomeViewController: UIViewController, SDWebImageManagerDelegate, apiCl
         var arrId = NSArray()
         arrId = (self.arrayOfimages1[tableIndex] as AnyObject).value(forKey: "id") as! NSArray
         
-        
-      
-        
-        
-        
-        
         imageId = arrId[collectionIndex] as! String as NSString
        
-        
-       
-        
-        
         var countst = NSNumber()
         countst = 0
        
@@ -3361,19 +3391,22 @@ extension mainHomeViewController: UICollectionViewDelegate, UICollectionViewData
                     
                 let imageUrlArray = ((countArray.object(at: indx)) as AnyObject).value(forKey: "story") as! NSMutableArray
                     if imageUrlArray.count>0 {
+                        planCountLbl.text = String(imageUrlArray.count)
                         return imageUrlArray.count
                         
                     }
                     
                     
                     }
+                    planCountLbl.text = "0"
                     return 0
                 }
+                planCountLbl.text = "0"
                 return 0 // returen the plans of selected location
             }
             
             print(countArray.count)
-
+            planCountLbl.text = String(countArray.count)
             return countArray.count //return the whole plans
         }
             
@@ -3413,8 +3446,8 @@ extension mainHomeViewController: UICollectionViewDelegate, UICollectionViewData
                 if planAllLocation == false//false to show the plans of that place
                 {
                     
-                     if countArray.count>0 {
-                        
+                     if countArray.count>0
+                     {
                         let placeIds = (countArray.value(forKey: "_id")) as! NSArray
                         
                         if placeIds.contains(globalPlaceid) {
@@ -3458,6 +3491,12 @@ extension mainHomeViewController: UICollectionViewDelegate, UICollectionViewData
                             }
                             
                         }
+                        cell.deletplanButton.isHidden = true
+                        if PlanDeleteBool == true {
+                            cell.deletplanButton.isHidden = false
+                        }
+                        
+                        
                         
                     }
                     return cell
@@ -3503,10 +3542,10 @@ extension mainHomeViewController: UICollectionViewDelegate, UICollectionViewData
             
             
             
-        else{
-        
-        
-        if arrayOfimages1.count<1 {
+        else
+        {
+        if arrayOfimages1.count<1
+        {
             
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cellCollectionView",for: indexPath) as! collectionViewCellClassFeed
             
@@ -3806,10 +3845,10 @@ extension mainHomeViewController: UICollectionViewDelegate, UICollectionViewData
                 cell.likeButton.addTarget(self, action: #selector(self.imageTapped(_:)), for: UIControlEvents .touchUpInside)
                 
                 cell.menuButton.tag = 1000*collectionView.tag+indexPath.row
-                
                 cell.menuButton.addTarget(self, action: #selector(self.openLongTap(_:event:)), for: UIControlEvents .touchUpInside)
-             
-                cell.planButton.tag = 1000*collectionView.tag+indexPath.row
+                cell.menuButton.setImage(UIImage (named: "More"), for: .normal)
+                
+                cell.planButton.tag = 2000*collectionView.tag+indexPath.row
                 cell.planButton .addTarget(self, action: #selector(self.planBtnTapCollectionView(_:)), for: .touchUpInside)
                 
                 
@@ -5000,9 +5039,8 @@ extension mainHomeViewController: UICollectionViewDelegate, UICollectionViewData
     
     func planBtnTapCollectionView(_ sender: UIButton) {
         
-        print(sender.tag)
-        let a:Int? = (sender.tag) / 1000
-        let b:Int? = (sender.tag) % 1000
+       let a:Int? = (sender.tag) / 2000
+        let b:Int? = (sender.tag) % 2000
         
         collectionIndex = b!
         tableIndex = a!

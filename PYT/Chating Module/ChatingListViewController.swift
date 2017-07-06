@@ -313,9 +313,10 @@ class ChatingListViewController: UIViewController {
         
         let nxtObj = self.storyboard?.instantiateViewController(withIdentifier: "chatingUserListViewController") as! chatingUserListViewController
        nxtObj.locationName = locationName2 as NSString
-        nxtObj.chatingArray = activeCounts
+        nxtObj.indexOfRow = indexPath.row
+       //nxtObj.chatingArray = activeCounts
         self.navigationController! .pushViewController(nxtObj, animated: true)
-        self.tabBarController?.setTabBarVisible(visible: false, animated: true)
+        //self.tabBarController?.setTabBarVisible(visible: false, animated: true)
 
     
     }

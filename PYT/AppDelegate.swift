@@ -118,8 +118,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 
                 
                 
-                
-                
                 //iqkeyboard manager
                 IQKeyboardManager.shared().isEnabled = true
                 IQKeyboardManager.shared().keyboardDistanceFromTextField=90
@@ -428,14 +426,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             
             let info = launchOptions![UIApplicationLaunchOptionsKey.remoteNotification]
             if (info != nil) {
+                  let tabledata2 = Udefaults.array(forKey: "arrayOfIntrest")
+                if (tabledata2?.count)! > 0 {
+                    let initialViewController = storyboard.instantiateViewController(withIdentifier: "MainTabBarViewController") as! MainTabBarViewController
+                    
+                    self.window?.rootViewController = initialViewController
+                    self.window?.makeKeyAndVisible()
+                    
+                    initialViewController.selectedIndex = 3
+                }
                 
-                
-                // let initialViewController = storyboard.instantiateViewControllerWithIdentifier("MainTabBarViewController") as! MainTabBarViewController
-                
-                // self.window?.rootViewController = initialViewController
-                // self.window?.makeKeyAndVisible()
-                
-                // initialViewController.selectedIndex = 3
                 
                 
                 application.applicationIconBadgeNumber = 0

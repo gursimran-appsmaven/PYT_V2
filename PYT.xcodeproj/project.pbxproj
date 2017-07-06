@@ -90,6 +90,7 @@
 		10CD188A1EF7FE440031093F /* GestureViewClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10CD18881EF7FE440031093F /* GestureViewClass.swift */; };
 		10CD188B1EF7FE440031093F /* LongPressGesture.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10CD18891EF7FE440031093F /* LongPressGesture.swift */; };
 		10D005801EF78B81002BED25 /* mainHomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10D0057F1EF78B81002BED25 /* mainHomeViewController.swift */; };
+		10EFBE2E1F0E029A001507C6 /* contentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10EFBE2D1F0E029A001507C6 /* contentViewController.swift */; };
 		10F445DA1F0B56A600C2780C /* DIYCalendarCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10F445D91F0B56A600C2780C /* DIYCalendarCell.swift */; };
 		3560C2CC3CCBA85BAE977F76 /* Pods_PYT.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1513D63A44D48DD66BDE374E /* Pods_PYT.framework */; };
 		3F0A1A839E646D951FB2AFE2 /* Pods_PYTTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E7F872540E6E55EA79995C4E /* Pods_PYTTests.framework */; };
@@ -205,6 +206,8 @@
 		10CD18881EF7FE440031093F /* GestureViewClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GestureViewClass.swift; sourceTree = "<group>"; };
 		10CD18891EF7FE440031093F /* LongPressGesture.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LongPressGesture.swift; sourceTree = "<group>"; };
 		10D0057F1EF78B81002BED25 /* mainHomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = mainHomeViewController.swift; sourceTree = "<group>"; };
+		10E936871F0E6D0D0048D001 /* PYT.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = PYT.entitlements; sourceTree = "<group>"; };
+		10EFBE2D1F0E029A001507C6 /* contentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = contentViewController.swift; sourceTree = "<group>"; };
 		10F445D91F0B56A600C2780C /* DIYCalendarCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DIYCalendarCell.swift; path = SF_Font/DIYCalendarCell.swift; sourceTree = "<group>"; };
 		1513D63A44D48DD66BDE374E /* Pods_PYT.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PYT.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		189BCB752BE844C72E8099AE /* Pods-PYTTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PYTTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-PYTTests/Pods-PYTTests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -284,6 +287,7 @@
 		100EE38D1EF156A7005A79C1 /* PYT */ = {
 			isa = PBXGroup;
 			children = (
+				10E936871F0E6D0D0048D001 /* PYT.entitlements */,
 				100EE3921EF156A7005A79C1 /* Main.storyboard */,
 				10B3A3231EF3DE890053989C /* SF_Font */,
 				105ED8DB1EFCE11400C133D0 /* FaceAware */,
@@ -415,6 +419,7 @@
 				106DDC371F062D4700ABD16D /* SettingApiClass.swift */,
 				1066F2701F0281D5007CE7E3 /* ProfileVC.swift */,
 				104BEE741F0B902500D26939 /* UploadedImagesVC.swift */,
+				10EFBE2D1F0E029A001507C6 /* contentViewController.swift */,
 				106DDC391F06813A00ABD16D /* changePasswordViewController.swift */,
 			);
 			path = Profile;
@@ -628,6 +633,11 @@
 						DevelopmentTeam = 9YDH3T82UC;
 						LastSwiftMigration = 0820;
 						ProvisioningStyle = Manual;
+						SystemCapabilities = {
+							com.apple.Push = {
+								enabled = 1;
+							};
+						};
 					};
 					100EE39E1EF156A8005A79C1 = {
 						CreatedOnToolsVersion = 8.2.1;
@@ -873,6 +883,7 @@
 				104182B11EF26AEC00078527 /* UIColor+CreateMethods.m in Sources */,
 				10D005801EF78B81002BED25 /* mainHomeViewController.swift in Sources */,
 				106DDC0F1F061EBB00ABD16D /* SocketEngineSpec.swift in Sources */,
+				10EFBE2E1F0E029A001507C6 /* contentViewController.swift in Sources */,
 				106DDC361F06202100ABD16D /* ApiServices.swift in Sources */,
 				106DDC111F061EBB00ABD16D /* SocketEventHandler.swift in Sources */,
 				10B3A3371EF3E5980053989C /* extensions.swift in Sources */,
@@ -1061,8 +1072,9 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Nitin Trehan (CMG56G5U35)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Nitin Trehan (CMG56G5U35)";
+				CODE_SIGN_ENTITLEMENTS = PYT/PYT.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Nitin Trehan (9YDH3T82UC)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Nitin Trehan (9YDH3T82UC)";
 				DEVELOPMENT_TEAM = 9YDH3T82UC;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -1075,8 +1087,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.pictureyourtravel.pyt;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "c5906e76-0d1d-4934-8784-b59410785214";
-				PROVISIONING_PROFILE_SPECIFIER = PYT_development;
+				PROVISIONING_PROFILE = "7dce8d15-3b76-444b-8876-c2ed71a1067c";
+				PROVISIONING_PROFILE_SPECIFIER = distribution;
 				SWIFT_OBJC_BRIDGING_HEADER = "/Users/osx/Documents/PYT_V2/PYT/PYT-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 3.0;
@@ -1090,8 +1102,9 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Nitin Trehan (CMG56G5U35)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Nitin Trehan (CMG56G5U35)";
+				CODE_SIGN_ENTITLEMENTS = PYT/PYT.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Nitin Trehan (9YDH3T82UC)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Nitin Trehan (9YDH3T82UC)";
 				DEVELOPMENT_TEAM = 9YDH3T82UC;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -1104,8 +1117,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.pictureyourtravel.pyt;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "c5906e76-0d1d-4934-8784-b59410785214";
-				PROVISIONING_PROFILE_SPECIFIER = PYT_development;
+				PROVISIONING_PROFILE = "7dce8d15-3b76-444b-8876-c2ed71a1067c";
+				PROVISIONING_PROFILE_SPECIFIER = distribution;
 				SWIFT_OBJC_BRIDGING_HEADER = "/Users/osx/Documents/PYT_V2/PYT/PYT-Bridging-Header.h";
 				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = 1;
