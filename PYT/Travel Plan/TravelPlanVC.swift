@@ -212,18 +212,19 @@ class TravelPlanVC: UIViewController ,UITableViewDataSource,UITableViewDelegate,
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell
     {
         let cell = tableView.dequeueReusableCell(withIdentifier: "DateWiseListTCell", for: indexPath) as! DateWiseListTCell
+        let place = ((self.planSelctedLocations[indexPath.section] as AnyObject).value(forKey: "places") as AnyObject) as! NSArray
         
-        cell.nameLbl.text = ((((self.planSelctedLocations[indexPath.section] as AnyObject).value(forKey: "places") as AnyObject)[indexPath.row] as AnyObject).value(forKey: "placeTag")) as? String ?? "NA"
-         var city = ((((self.planSelctedLocations[indexPath.section] as AnyObject).value(forKey: "places") as AnyObject)[indexPath.row] as AnyObject).value(forKey: "city")) as? String ?? ""
+        cell.nameLbl.text = ((place[indexPath.row] as AnyObject).value(forKey: "placeTag")) as? String ?? "NA"
+         var city = ((place[indexPath.row] as AnyObject).value(forKey: "city")) as? String ?? ""
         if(city != "")
         {
             city = city + ", "
         }
-        let country = ((((self.planSelctedLocations[indexPath.section] as AnyObject).value(forKey: "places") as AnyObject)[indexPath.row] as AnyObject).value(forKey: "country")) as? String ?? ""
+        let country = ((place[indexPath.row] as AnyObject).value(forKey: "country")) as? String ?? ""
         
         cell.locationLbl.text = city + country
         
-        let imageUrl = ((((self.planSelctedLocations[indexPath.section] as AnyObject).value(forKey: "places") as AnyObject)[indexPath.row] as AnyObject).value(forKey: "imageThumb")) as? String ?? ""
+        let imageUrl = ((place[indexPath.row] as AnyObject).value(forKey: "imageThumb")) as? String ?? ""
         cell.llocationImage.contentMode = .scaleAspectFill
         cell.llocationImage.focusOnFaces = true
         cell.llocationImage.sd_setImage(with: URL (string: imageUrl), placeholderImage: UIImage (named: "dummyBackground1"))
@@ -788,6 +789,12 @@ class TravelPlanVC: UIViewController ,UITableViewDataSource,UITableViewDelegate,
     {
         let selectedLocation = planAllLocations[sender.tag]
         print(selectedLocation)
+    }
+    func ViewTravelPlanBtnAction(sender: UIButton)
+    {
+        let obj = self.storyboard?.instantiateViewController(withIdentifier: "FinalTravelPlanVC") as! FinalTravelPlanVC
+        obj.countryId = countryId
+        self.navigationController?.pushViewController(obj, animated: true)
     }
 
     

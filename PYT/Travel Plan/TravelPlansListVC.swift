@@ -105,7 +105,7 @@ class TravelPlansListVC: UIViewController {
             }
         }
         
-        locations = String(locations.characters.dropLast())
+        locations = String(locations.characters.dropLast(2))
         
         cell.travelInfo.text = locations
        
