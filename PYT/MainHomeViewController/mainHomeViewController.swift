@@ -1775,7 +1775,7 @@ class mainHomeViewController: UIViewController, SDWebImageManagerDelegate, apiCl
             
         //let dat: NSDictionary = ["userId": "\(uId)", "imageId": imageId, "placeId": globalPlaceid, "placeType": self.globalType, "ownerId": ownersId ]
             
-            let dat: NSDictionary = ["userId": "\(uId)", "imageId": imageId, "countryId": globalPlaceid, "countryName": self.globalLocation ]
+            let dat: NSDictionary = ["userId": "\(uId)", "imageId": imageId, "countryId": globalPlaceid, "countryName": self.globalLocation, "imageOwn": ownersId ]
             
             //type=self,globaltype
             var postDict = NSDictionary()
