@@ -78,7 +78,6 @@ class storyCountClass: NSObject
                         }
                         else
                         {
-                                                        
                             
                             
                             do
@@ -228,7 +227,7 @@ class storyCountClass: NSObject
                             do {
                                 
                                 let result = NSString(data: data!, encoding:String.Encoding.ascii.rawValue)!
-                               // print("Body:   ENTERS HERE for story and bucket count  \(result)")
+                                print("Body:   ENTERS HERE for story and bucket count  \(result)")
                                 
                                 let anyObj: Any = try JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.mutableContainers)
                                 
