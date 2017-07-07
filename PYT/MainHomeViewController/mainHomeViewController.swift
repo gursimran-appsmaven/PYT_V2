@@ -939,7 +939,10 @@ class mainHomeViewController: UIViewController, SDWebImageManagerDelegate, apiCl
 //                    collectionIndex = b!
 //                    tableIndex = a!
 
-                    let BtnPln = longTapedView.viewWithTag(2000*tableIndex+collectionIndex) as! UIButton
+                    print(longTapedView.subviews)
+                    print(longTapedView.viewWithTag(2000*tableIndex+collectionIndex))
+                    
+            let BtnPln = longTapedView as! UIButton //.viewWithTag(2000*tableIndex+collectionIndex) as! UIButton
                     
                    
                 if (BtnPln.currentImage?.isEqual(UIImage(named: "travelplanbuttonactive")))! {
@@ -3877,6 +3880,7 @@ extension mainHomeViewController: UICollectionViewDelegate, UICollectionViewData
                 cell.menuButton.setImage(UIImage (named: "More"), for: .normal)
                 
                 cell.planButton.tag = 2000*collectionView.tag+indexPath.row
+                
                 cell.planButton .addTarget(self, action: #selector(self.planBtnTapCollectionView(_:)), for: .touchUpInside)
                 
                 
@@ -5101,7 +5105,7 @@ extension mainHomeViewController: UICollectionViewDelegate, UICollectionViewData
         
         collectionIndex = b!
         tableIndex = a!
-        longTapedView = sender.superview!
+        longTapedView = sender //.superview!
         
         self.storyButtonTapped(self)
     }
