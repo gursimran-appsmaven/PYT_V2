@@ -114,6 +114,7 @@ class FinalTravelPlanVC: UIViewController {
         obj.fromFinalScreen = true
         obj.change = "planWindow"
         obj.countryId = ((self.planDetails.object(at: 0) as AnyObject).value(forKey: "countryId") as? String)!
+        obj.bookingIdFinal = ((self.planDetails.object(at: 0) as AnyObject).value(forKey: "_id") as? String)!
         self.navigationController?.pushViewController(obj, animated: true)
         
     }
@@ -124,8 +125,9 @@ class FinalTravelPlanVC: UIViewController {
         obj.fromFinalScreen = true
         obj.change = "locationDate"
         obj.countryId = ((self.planDetails.object(at: 0) as AnyObject).value(forKey: "countryId") as? String)!
+        obj.bookingIdFinal = ((self.planDetails.object(at: 0) as AnyObject).value(forKey: "_id") as? String)!
         obj.previousDateForLocation = ((locationsArray.object(at: sender.tag) as AnyObject).value(forKey:"time")  as? String )!
-        obj.locationDateToBeEditId = (((locationsArray.object(at: sender.tag) as AnyObject).value(forKey:"place") as AnyObject).value(forKey: "_id") as? String)!
+        obj.placeBookingId = (((locationsArray.object(at: sender.tag) as AnyObject).value(forKey:"place") as AnyObject).value(forKey: "_id") as? String)!
         
         self.navigationController?.pushViewController(obj, animated: true)
     }

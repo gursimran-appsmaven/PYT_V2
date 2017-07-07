@@ -391,7 +391,11 @@ class TravelPlanVC: UIViewController ,UITableViewDataSource,UITableViewDelegate,
                     }
                     else
                     {
-                        endDate=startDate.addDays(daysToAdd: noOfDays-1)
+//                        print(startDate)
+//                        print(noOfDays)
+                        endDate=startDate.addDays(daysToAdd: 1)
+//                        print(endDate)
+
                     }
                 }
                 else
@@ -637,7 +641,15 @@ class TravelPlanVC: UIViewController ,UITableViewDataSource,UITableViewDelegate,
                 for date1 in calendarView.selectedDates {
                     calendarView .deselect(date1)
                 }
-                calendarView.select(previousDateForLocation)
+                let dateFormatter = DateFormatter()
+                dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
+                dateFormatter.timeZone = NSTimeZone(name: "UTC") as TimeZone!
+                
+                
+                let dat = dateFormatter.date(from: String(describing: previousDateForLocation))!
+
+                calendarView.select(dat)
+                self.calendarView.allowsMultipleSelection=false
             }
             calendarView.reloadData()
             configureVisibleCells()
@@ -896,7 +908,7 @@ class TravelPlanVC: UIViewController ,UITableViewDataSource,UITableViewDelegate,
         let defaults = UserDefaults.standard
         let uId = defaults .string(forKey: "userLoginId")
         
-        let parameter: NSDictionary = ["userId": uId! ,"countryId":countryId]
+        let parameter: NSDictionary = ["userId": uId! ,"bookingId":bookingIdFinal]
         
         let isConnectedInternet = CommonFunctionsClass.sharedInstance().isConnectedToNetwork()
         
