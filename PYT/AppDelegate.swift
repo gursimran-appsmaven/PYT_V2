@@ -9,8 +9,8 @@
 var bucketListTotalCount = "0"
 var logOut: Bool = true
 var profileUserData = NSMutableDictionary()
-//var appUrl = "http://pictureyourtravel.com/"  //Test
-var appUrl = "http://52.25.207.151/"// Live New server working
+var appUrl = "http://pictureyourtravel.com/"  //Test
+//var appUrl = "http://52.25.207.151/"// Live New server working
 var Udefaults = UserDefaults.standard
 
 
