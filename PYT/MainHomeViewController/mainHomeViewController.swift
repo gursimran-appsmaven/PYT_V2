@@ -4067,6 +4067,7 @@ extension mainHomeViewController: UICollectionViewDelegate, UICollectionViewData
                
                 let nxtObj2 = self.storyboard?.instantiateViewController(withIdentifier: "TravelPlanVC") as! TravelPlanVC
                 nxtObj2.countryId = countriesId
+                nxtObj2.bookingIdFinal = (((countArray.object(at: indexPath.row )) as AnyObject).value(forKey: "_id") as? String)!
                 self.navigationController! .pushViewController(nxtObj2, animated: true)
                 
             }
