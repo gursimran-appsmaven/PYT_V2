@@ -75,7 +75,8 @@ class DIYCalendarCell: FSCalendarCell {
              selectionLayer.fillColor = UIColor(red: 255/255.0, green: 80/255.0, blue: 80/255.0, alpha: 1.0).cgColor
             self.selectionLayer.path = UIBezierPath(roundedRect: self.selectionLayer.bounds, byRoundingCorners: [.topLeft, .bottomLeft], cornerRadii: CGSize(width:0, height: 0)).cgPath
         }
-        else if selectionType == .rightBorder {
+        else if selectionType == .rightBorder
+        {
             self.selectionLayer.frame =  CGRect(x:2 , y:0, width:self.contentView.bounds.width-4,height: self.contentView.bounds.height-2)
 
              selectionLayer.fillColor = UIColor(red: 255/255.0, green: 80/255.0, blue: 80/255.0, alpha: 1.0).cgColor

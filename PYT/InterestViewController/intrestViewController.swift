@@ -33,6 +33,7 @@ class intrestViewController: UIViewController, apiClassInterestDelegate ,UITable
     @IBOutlet weak var addToBucketPopup: UIButton!
     @IBOutlet weak var editBtnPopup: UIButton!
     @IBOutlet weak var emptyView: UIView!
+    @IBOutlet weak var editBtnBottomSpace: NSLayoutConstraint!
     
     
     
@@ -744,7 +745,8 @@ class intrestViewController: UIViewController, apiClassInterestDelegate ,UITable
                 let url2 = URL(string: museumImage )
                 
                 
-             
+                let name = ((((self.photosArray .object(at: indexPath.row) as AnyObject).value(forKey: "photos")! as AnyObject).object(at: 0) as AnyObject).value(forKey: "user")! as AnyObject).value(forKey: "name") as? String ?? " " //userName
+                cell.userNameLabel.text=name
                 
                 let pImage : UIImage = UIImage(named:"dummyBackground2")!//
                 
@@ -2139,45 +2141,43 @@ class intrestViewController: UIViewController, apiClassInterestDelegate ,UITable
             //MANAGE Delete Image icon
             let source = (((self.photosArray .object(at: index2) as AnyObject).value(forKey: "photos")! as AnyObject).object(at: 0) as AnyObject).value(forKey: "source") as? String ?? " "
             print("Source ----\(source)")
-//            deleteViewBottom.constant = -(deleteViewInDetail.frame.size.height)
-//            deleteViewInDetail.isHidden=true
+            editBtnBottomSpace.constant = -(editBtnPopup.frame.size.height)
+            editBtnPopup.isHidden=true
             
             
             
             
-//            if source != NSNull() || source != ""  {
-//                
-//                
-//                
-//                if source == "PYT" {
-//                    
-//                    print(((((self.photosArray .object(at: index2) as AnyObject).value(forKey: "photos")! as AnyObject).object(at: 0) as AnyObject).value(forKey: "user")! as AnyObject).value(forKey: "_id")) //change "name" to _id if want to edit picture
-//                    
-//                    if ((((self.photosArray .object(at: index2) as AnyObject).value(forKey: "photos")! as AnyObject).object(at: 0) as AnyObject).value(forKey: "user")! as AnyObject).value(forKey: "name") as? String == uId! {
-//                        
-//                        print("Enter if match the user id")
-//                        
-//                        if deleteViewBottom.constant<9
-//                        {
-//                            deleteViewBottom.constant = 9
-//                            deleteViewInDetail.isHidden=false
-//                        }
-//                        
-//                        
-//                        
-//                    }
-//                    
-//                    
-//                    
-//                    
-//                    
-//                    ///can delete
-//                    
-//                }
-//                
-//                
-//            }
-            
+            if source != " " || source != ""  {
+                
+                
+                
+                if source == "PYT"
+                {
+                    if ((((self.photosArray .object(at: index2) as AnyObject).value(forKey: "photos")! as AnyObject).object(at: 0) as AnyObject).value(forKey: "user")! as AnyObject).value(forKey: "name") as? String == uId! {
+                        
+                        print("Enter if match the user id")
+                        
+                        if editBtnBottomSpace.constant<9
+                        {
+                            editBtnBottomSpace.constant = 9
+                            editBtnPopup.isHidden=false
+                        }
+                        
+                        
+                        
+                    }
+                    
+                    
+                    
+                    
+                    
+                    ///can delete
+                    
+                }
+                
+                
+            }
+        
             
             
             

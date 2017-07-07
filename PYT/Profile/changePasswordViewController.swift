@@ -31,8 +31,8 @@ class changePasswordViewController: UIViewController, settingClassDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-         self.tabBarController?.setTabBarVisible(visible: false, animated: true)
+         self.tabBarController?.tabBar.isHidden = false
+         //self.tabBarController?.setTabBarVisible(visible: false, animated: true)
          IQKeyboardManager.shared().shouldResignOnTouchOutside = true
         
         backView.dropShadow(scale: true,right: true,bottom: true)

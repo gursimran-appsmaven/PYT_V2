@@ -35,7 +35,7 @@ class storyCountClass: NSObject
         if isConnectedInternet
         {
            
-            var urlString = NSString(string:"\(appUrl)get_story")
+            var urlString = NSString(string:"\(appUrl)show_booking") //get_story")
          
             
             
@@ -86,9 +86,7 @@ class storyCountClass: NSObject
                                 let anyObj: Any = try JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.mutableContainers)
                                 
                                 let result = NSString(data: data!, encoding:String.Encoding.ascii.rawValue)!
-                              //  print("Body: Result from story count \(result)")
-
-                                
+                                print("Body: Result from story count \(result)")
                                 
                                 basicInfo = NSMutableDictionary()
                                 basicInfo = anyObj as! NSMutableDictionary

@@ -89,6 +89,7 @@
 		10CD18861EF7EA780031093F /* cellClassTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10CD18851EF7EA780031093F /* cellClassTableViewCell.swift */; };
 		10CD188A1EF7FE440031093F /* GestureViewClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10CD18881EF7FE440031093F /* GestureViewClass.swift */; };
 		10CD188B1EF7FE440031093F /* LongPressGesture.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10CD18891EF7FE440031093F /* LongPressGesture.swift */; };
+		10CE3C641F0F4DCE00594855 /* EditPostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10CE3C631F0F4DCE00594855 /* EditPostViewController.swift */; };
 		10D005801EF78B81002BED25 /* mainHomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10D0057F1EF78B81002BED25 /* mainHomeViewController.swift */; };
 		10EFBE2E1F0E029A001507C6 /* contentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10EFBE2D1F0E029A001507C6 /* contentViewController.swift */; };
 		10F445DA1F0B56A600C2780C /* DIYCalendarCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10F445D91F0B56A600C2780C /* DIYCalendarCell.swift */; };
@@ -205,6 +206,7 @@
 		10CD18851EF7EA780031093F /* cellClassTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = cellClassTableViewCell.swift; sourceTree = "<group>"; };
 		10CD18881EF7FE440031093F /* GestureViewClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GestureViewClass.swift; sourceTree = "<group>"; };
 		10CD18891EF7FE440031093F /* LongPressGesture.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LongPressGesture.swift; sourceTree = "<group>"; };
+		10CE3C631F0F4DCE00594855 /* EditPostViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditPostViewController.swift; sourceTree = "<group>"; };
 		10D0057F1EF78B81002BED25 /* mainHomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = mainHomeViewController.swift; sourceTree = "<group>"; };
 		10E936871F0E6D0D0048D001 /* PYT.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = PYT.entitlements; sourceTree = "<group>"; };
 		10EFBE2D1F0E029A001507C6 /* contentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = contentViewController.swift; sourceTree = "<group>"; };
@@ -258,6 +260,7 @@
 				106DDC351F06202100ABD16D /* ApiServices.swift */,
 				102C37501F0374A300D026B5 /* Location.swift */,
 				100CE5441F023BF4005C5C8D /* PostScreenViewController.swift */,
+				10CE3C631F0F4DCE00594855 /* EditPostViewController.swift */,
 			);
 			path = "Post module screens";
 			sourceTree = "<group>";
@@ -902,6 +905,7 @@
 				106DDC031F061EBB00ABD16D /* ChatingListViewController.swift in Sources */,
 				106DDC061F061EBB00ABD16D /* SocketIOManager.swift in Sources */,
 				10AC31A11F0D2299005273EC /* TravelPlansListVC.swift in Sources */,
+				10CE3C641F0F4DCE00594855 /* EditPostViewController.swift in Sources */,
 				1089A5AA1EF3EAFC006197FE /* SignUpScreenViewController.swift in Sources */,
 				106DDC181F061EBB00ABD16D /* SocketLogger.swift in Sources */,
 				106DDC0B1F061EBB00ABD16D /* SocketEngine.swift in Sources */,
