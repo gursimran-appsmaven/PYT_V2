@@ -337,7 +337,7 @@
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="GTN-Gr-G2c" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="lJP-BG-Gho">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="lJP-BG-Gho">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -1391,13 +1391,13 @@
                                                                                     <rect key="frame" x="0.0" y="43" width="140" height="12"/>
                                                                                     <subviews>
                                                                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="likeblogger" translatesAutoresizingMaskIntoConstraints="NO" id="VNB-DP-KR3">
-                                                                                            <rect key="frame" x="20" y="1" width="12" height="12"/>
+                                                                                            <rect key="frame" x="20.5" y="1" width="12" height="12"/>
                                                                                             <constraints>
                                                                                                 <constraint firstAttribute="width" secondItem="VNB-DP-KR3" secondAttribute="height" multiplier="1:1" id="BVz-At-jr0"/>
                                                                                             </constraints>
                                                                                         </imageView>
                                                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="75 Likes" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.44999998807907104" translatesAutoresizingMaskIntoConstraints="NO" id="kwL-YC-jZv">
-                                                                                            <rect key="frame" x="34" y="1" width="33" height="11"/>
+                                                                                            <rect key="frame" x="34.5" y="1" width="32.5" height="11"/>
                                                                                             <fontDescription key="fontDescription" name="SFUIDisplay-Regular" family="SF UI Display" pointSize="9"/>
                                                                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                                             <nil key="highlightedColor"/>
@@ -1885,7 +1885,7 @@
                                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ej3-h5-o08">
                                                                     <rect key="frame" x="0.0" y="-90" width="264" height="44"/>
                                                                 </button>
-                                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="clip" translatesAutoresizingMaskIntoConstraints="NO" id="PCs-TX-3fi">
+                                                                <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="clip" translatesAutoresizingMaskIntoConstraints="NO" id="PCs-TX-3fi">
                                                                     <rect key="frame" x="329" y="13" width="46" height="25"/>
                                                                     <constraints>
                                                                         <constraint firstAttribute="width" constant="46" id="TOo-Ch-Odo"/>
@@ -1938,7 +1938,7 @@
                                                                     <rect key="frame" x="7" y="141" width="20" height="30"/>
                                                                 </imageView>
                                                                 <label opaque="NO" userInteractionEnabled="NO" tag="7478" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" lineBreakMode="wordWrap" baselineAdjustment="alignBaselines" minimumFontSize="6" translatesAutoresizingMaskIntoConstraints="NO" id="rdD-hW-woV">
-                                                                    <rect key="frame" x="32" y="148" width="7" height="16"/>
+                                                                    <rect key="frame" x="32" y="148" width="6" height="16"/>
                                                                     <constraints>
                                                                         <constraint firstAttribute="height" constant="16" id="Egh-Kf-p5U"/>
                                                                     </constraints>
@@ -2030,7 +2030,6 @@
                                                     <outlet property="moreButton" destination="sAr-NH-5Xe" id="PMw-1X-Wy5"/>
                                                     <outlet property="planButton" destination="H8I-Ta-DNs" id="gIt-Vh-VhE"/>
                                                     <outlet property="userNameLabel" destination="747-VB-ls2" id="VYJ-qw-MeC"/>
-                                                    <outlet property="useraddressLabel" destination="747-VB-ls2" id="O21-fz-JPe"/>
                                                 </connections>
                                             </tableViewCell>
                                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="showMoreCell" rowHeight="60" id="Msr-aJ-Qta">
@@ -2179,6 +2178,7 @@
                     <connections>
                         <outlet property="addToBucketPopup" destination="rZ3-Pz-sLT" id="A6p-VO-a0G"/>
                         <outlet property="addToPlanPopup" destination="7r6-mD-OgL" id="XGu-aP-liR"/>
+                        <outlet property="editBtnBottomSpace" destination="Gn1-b6-FXJ" id="REV-u8-glh"/>
                         <outlet property="editBtnPopup" destination="4Ph-vz-OaM" id="rhb-V5-Mdb"/>
                         <outlet property="headerLabel" destination="qpr-Wc-TQm" id="pWH-ZC-DRE"/>
                         <outlet property="likeButtonPopup" destination="Cdj-MV-tII" id="2WM-5y-142"/>
@@ -2363,7 +2363,7 @@
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Inj-fu-HYb">
                                             <rect key="frame" x="0.0" y="0.0" width="70" height="69"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Discover" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="f7x-oQ-eAm">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Travel Plan" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="f7x-oQ-eAm">
                                                     <rect key="frame" x="2" y="50" width="66" height="14"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="14" id="lxa-b3-1U1"/>
@@ -2585,7 +2585,7 @@
                                                                         <rect key="frame" x="7" y="120" width="20" height="30"/>
                                                                     </imageView>
                                                                     <label opaque="NO" userInteractionEnabled="NO" tag="7478" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" lineBreakMode="wordWrap" baselineAdjustment="alignBaselines" minimumFontSize="6" translatesAutoresizingMaskIntoConstraints="NO" id="Q74-72-eHr">
-                                                                        <rect key="frame" x="32" y="127" width="7" height="16"/>
+                                                                        <rect key="frame" x="32" y="127" width="6" height="16"/>
                                                                         <constraints>
                                                                             <constraint firstAttribute="height" constant="16" id="uro-cf-y8T"/>
                                                                         </constraints>
@@ -2822,14 +2822,13 @@
                             <constraint firstAttribute="trailing" secondItem="Xbs-H2-SNq" secondAttribute="trailing" id="yF4-Xj-zf3"/>
                         </constraints>
                     </view>
-                    <tabBarItem key="tabBarItem" title="" image="Discover" selectedImage="Discoveractive" id="xRE-I3-O8e">
-                        <inset key="imageInsets" minX="0.0" minY="4" maxX="0.0" maxY="-4"/>
-                    </tabBarItem>
+                    <navigationItem key="navigationItem" id="yIu-fQ-nsI"/>
                     <connections>
                         <outlet property="addToBucketBtn" destination="oTY-Gf-BR9" id="iw8-V8-Mc2"/>
                         <outlet property="addToPlanBtn" destination="5xu-ss-yGj" id="2k3-8U-emo"/>
                         <outlet property="detailView" destination="y9b-eU-uCJ" id="AEg-Ee-ael"/>
                         <outlet property="dynamicDetailSubview" destination="j3v-Z3-JHV" id="yrW-86-hxl"/>
+                        <outlet property="editBottomSpace" destination="LrR-cB-pYD" id="Qm9-o4-0gg"/>
                         <outlet property="editButtonDetailview" destination="VGU-gU-c50" id="ceP-e4-PcG"/>
                         <outlet property="imagesTableView" destination="Xbs-H2-SNq" id="mZU-je-K6y"/>
                         <outlet property="likeButtonDetailView" destination="m24-yc-dBd" id="hS1-ac-7Lu"/>
@@ -2842,7 +2841,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="591-tU-3Th" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2274.5" y="-829.5"/>
+            <point key="canvasLocation" x="2866" y="-826"/>
         </scene>
         <!--Main Tab Bar View Controller-->
         <scene sceneID="Dt3-7n-OFV">
@@ -2855,7 +2854,7 @@
                         <color key="barTintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </tabBar>
                     <connections>
-                        <segue destination="gHH-58-bjG" kind="relationship" relationship="viewControllers" id="m2x-d4-8bZ"/>
+                        <segue destination="BCN-6F-sD7" kind="relationship" relationship="viewControllers" id="m2x-d4-8bZ"/>
                         <segue destination="AMf-na-Dr3" kind="relationship" relationship="viewControllers" id="0dF-Hz-Kjb"/>
                         <segue destination="sDY-pb-9lv" kind="relationship" relationship="viewControllers" id="ZyP-41-vgH"/>
                         <segue destination="Tvw-It-MAY" kind="relationship" relationship="viewControllers" id="mDv-mf-3ea"/>
@@ -3326,6 +3325,9 @@
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qaq-ad-9l5">
                                                 <rect key="frame" x="15" y="6" width="258" height="216"/>
                                                 <state key="normal" image="india"/>
+                                                <connections>
+                                                    <action selector="actionSheet:" destination="Vmd-Up-Jn7" eventType="touchUpInside" id="3UG-xa-Zbh"/>
+                                                </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ySO-Us-693">
                                                 <rect key="frame" x="276" y="6" width="84" height="70"/>
@@ -3925,7 +3927,7 @@
                             <constraint firstAttribute="trailing" secondItem="AzH-WV-TYq" secondAttribute="trailing" id="8ss-UU-Odx"/>
                             <constraint firstItem="4pN-vX-3Qs" firstAttribute="leading" secondItem="8ko-VN-IZD" secondAttribute="leading" id="Dd0-V9-5CK"/>
                             <constraint firstItem="iWr-J8-O9b" firstAttribute="width" secondItem="8ko-VN-IZD" secondAttribute="width" id="GAx-fu-BAL"/>
-                            <constraint firstItem="XFA-cX-T0q" firstAttribute="top" secondItem="AzH-WV-TYq" secondAttribute="bottom" id="KSK-5z-Nwo"/>
+                            <constraint firstItem="XFA-cX-T0q" firstAttribute="top" secondItem="AzH-WV-TYq" secondAttribute="bottom" id="LTu-JN-Q9x"/>
                             <constraint firstItem="6mT-iF-J1L" firstAttribute="top" secondItem="8ko-VN-IZD" secondAttribute="top" id="SXb-XY-jZg"/>
                             <constraint firstItem="6mT-iF-J1L" firstAttribute="leading" secondItem="8ko-VN-IZD" secondAttribute="leading" id="TnV-Q0-sW1"/>
                             <constraint firstAttribute="trailing" secondItem="4pN-vX-3Qs" secondAttribute="trailing" id="XNc-2b-0q1"/>
@@ -4001,14 +4003,14 @@
                                                     </constraints>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="India" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6oL-Ok-Jfy">
-                                                    <rect key="frame" x="77" y="23" width="30" height="16"/>
+                                                    <rect key="frame" x="77" y="23.5" width="30" height="16"/>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                     <fontDescription key="fontDescription" name="SFUIDisplay-Bold" family="SF UI Display" pointSize="13"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="10 active chats" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DE3-OL-hHv">
-                                                    <rect key="frame" x="77" y="36" width="72" height="14"/>
+                                                    <rect key="frame" x="77" y="36.5" width="71.5" height="13"/>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                     <fontDescription key="fontDescription" name="SFUIDisplay-Regular" family="SF UI Display" pointSize="11"/>
                                                     <color key="textColor" red="1" green="0.30588235294117649" blue="0.32156862745098036" alpha="1" colorSpace="calibratedRGB"/>
@@ -4029,7 +4031,7 @@
                                                     <rect key="frame" x="324" y="32" width="22" height="22"/>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Micky, Mohit, Dimple, Kunal, Puneet, Ajay, Rohit, akash" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IY7-dJ-FWW">
-                                                    <rect key="frame" x="77" y="50" width="213" height="11"/>
+                                                    <rect key="frame" x="77" y="49.5" width="213" height="11"/>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                     <fontDescription key="fontDescription" name="SFUIDisplay-Regular" family="SF UI Display" pointSize="9"/>
                                                     <color key="textColor" red="0.67450980392156867" green="0.67450980392156867" blue="0.67450980392156867" alpha="1" colorSpace="calibratedRGB"/>
@@ -4109,7 +4111,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="64"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Chat" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="clo-2d-RjF">
-                                        <rect key="frame" x="170" y="30" width="35" height="21"/>
+                                        <rect key="frame" x="170.5" y="30" width="34.5" height="20"/>
                                         <fontDescription key="fontDescription" name="SFUIDisplay-Light" family="SF UI Display" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
@@ -4164,7 +4166,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="arK-Ih-0Rz" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3917.5" y="-546.5"/>
+            <point key="canvasLocation" x="4515" y="-595"/>
         </scene>
         <!--Chating User List View Controller-->
         <scene sceneID="ePk-mt-NrH">
@@ -4194,7 +4196,7 @@
                                         </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Chat" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Pt5-uZ-W3l">
-                                        <rect key="frame" x="170" y="30" width="35" height="21"/>
+                                        <rect key="frame" x="170.5" y="30" width="34.5" height="20"/>
                                         <fontDescription key="fontDescription" name="SFUIDisplay-Light" family="SF UI Display" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
@@ -4241,7 +4243,7 @@
                                                     </constraints>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VcW-CR-BCv">
-                                                    <rect key="frame" x="77" y="31" width="36" height="16"/>
+                                                    <rect key="frame" x="77" y="31" width="35.5" height="16"/>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                     <fontDescription key="fontDescription" name="SFUIDisplay-Bold" family="SF UI Display" pointSize="13"/>
                                                     <nil key="textColor"/>
@@ -4363,7 +4365,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="08s-nv-uMF" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4541" y="-579"/>
+            <point key="canvasLocation" x="5127.5" y="-579.5"/>
         </scene>
         <!--ProfileVC-->
         <scene sceneID="d0x-br-GeF">
@@ -4989,7 +4991,7 @@
                                         </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Add comment" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dRy-mI-kez">
-                                        <rect key="frame" x="133" y="30" width="109" height="22"/>
+                                        <rect key="frame" x="133.5" y="30" width="108.5" height="21"/>
                                         <fontDescription key="fontDescription" name="SFUIDisplay-Light" family="SF UI Display" pointSize="18"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
@@ -5180,7 +5182,7 @@
                         <inset key="imageInsets" minX="0.0" minY="4" maxX="0.0" maxY="-4"/>
                     </tabBarItem>
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="num-wO-wEk">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="num-wO-wEk">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -5665,7 +5667,7 @@
                                                 <rect key="frame" x="0.0" y="461" width="600" height="125"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="More Images" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hKY-qT-6bd">
-                                                        <rect key="frame" x="10" y="20" width="81" height="17"/>
+                                                        <rect key="frame" x="10" y="20" width="80.5" height="17"/>
                                                         <fontDescription key="fontDescription" name="SFUIDisplay-Medium" family="SF UI Display" pointSize="14"/>
                                                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="0.90304418099999995" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <nil key="highlightedColor"/>
@@ -5964,7 +5966,7 @@
                                                 <rect key="frame" x="0.0" y="758" width="600" height="158"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Nearby Places" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5qu-zs-ynO">
-                                                        <rect key="frame" x="10" y="10" width="90" height="30"/>
+                                                        <rect key="frame" x="10" y="10" width="89.5" height="30"/>
                                                         <fontDescription key="fontDescription" name="SFUIDisplay-Medium" family="SF UI Display" pointSize="14"/>
                                                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="0.90304418099999995" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <nil key="highlightedColor"/>
@@ -6221,7 +6223,7 @@
                     </connections>
                 </pinchGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="2725" y="-1468"/>
+            <point key="canvasLocation" x="3312" y="-1468"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="F0t-V3-DLm">
@@ -6232,7 +6234,7 @@
                         <offsetWrapper key="titlePositionAdjustment" horizontal="0.0" vertical="0.0"/>
                     </tabBarItem>
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="Nhy-Ui-lfB">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="Nhy-Ui-lfB">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -6273,7 +6275,7 @@
                                         </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Add comment" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bQD-AQ-AVW">
-                                        <rect key="frame" x="133" y="30" width="109" height="22"/>
+                                        <rect key="frame" x="133.5" y="30" width="108.5" height="21"/>
                                         <fontDescription key="fontDescription" name="SFUIDisplay-Light" family="SF UI Display" pointSize="18"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
@@ -6522,7 +6524,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xW0-wR-1nK" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5136.5" y="-1023.5"/>
+            <point key="canvasLocation" x="5659" y="-580"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="EWW-6j-tXa">
@@ -6532,7 +6534,7 @@
                         <inset key="imageInsets" minX="0.0" minY="4" maxX="0.0" maxY="-4"/>
                     </tabBarItem>
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="xJ5-6j-pLo">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="xJ5-6j-pLo">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -6543,7 +6545,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4AX-va-Flk" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3330.5" y="-546.5"/>
+            <point key="canvasLocation" x="3917.5" y="-546.5"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="wyI-Ef-rIk">
@@ -6553,7 +6555,7 @@
                         <inset key="imageInsets" minX="0.0" minY="4" maxX="0.0" maxY="-4"/>
                     </tabBarItem>
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="6xd-cv-9TT">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="6xd-cv-9TT">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -6761,7 +6763,7 @@
                                                 <rect key="frame" x="0.0" y="391" width="600" height="140"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="More Images" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cG9-Ea-qYr">
-                                                        <rect key="frame" x="10" y="20" width="81" height="17"/>
+                                                        <rect key="frame" x="10" y="20" width="80.5" height="17"/>
                                                         <fontDescription key="fontDescription" name="SFUIDisplay-Medium" family="SF UI Display" pointSize="14"/>
                                                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="0.90304418099999995" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <nil key="highlightedColor"/>
@@ -7571,7 +7573,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="catergory or type of location" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2pE-YF-Ubb">
-                                                    <rect key="frame" x="21" y="214" width="232" height="14"/>
+                                                    <rect key="frame" x="21" y="214" width="232" height="13"/>
                                                     <fontDescription key="fontDescription" name="SFUIDisplay-Light" family="SF UI Display" pointSize="11"/>
                                                     <color key="textColor" red="0.90196079019999997" green="0.90196079019999997" blue="0.90196079019999997" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
@@ -8109,7 +8111,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Zo9-xi-9x8" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5670.5" y="-1226.5"/>
+            <point key="canvasLocation" x="6257.5" y="-1226.5"/>
         </scene>
         <!--Final Travel PlanVC-->
         <scene sceneID="oVP-5c-OVn">
@@ -8347,7 +8349,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="64"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Travel Plan" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dfq-Tu-chY">
-                                        <rect key="frame" x="149" y="30" width="77" height="21"/>
+                                        <rect key="frame" x="149.5" y="30" width="77" height="20"/>
                                         <fontDescription key="fontDescription" name="SFUIDisplay-Light" family="SF UI Display" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
@@ -8620,7 +8622,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="64"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Travel Plan" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="19w-qi-Tge">
-                                        <rect key="frame" x="149" y="30" width="77" height="21"/>
+                                        <rect key="frame" x="149.5" y="30" width="77" height="20"/>
                                         <fontDescription key="fontDescription" name="SFUIDisplay-Light" family="SF UI Display" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
@@ -8682,12 +8684,15 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="P7s-h7-6SA" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5670.5" y="-470.5"/>
+            <point key="canvasLocation" x="6257.5" y="-470.5"/>
         </scene>
         <!--Navigation Controller-->
-        <scene sceneID="6uB-H0-m0N">
+        <scene sceneID="VQd-Bq-jnB">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" navigationBarHidden="YES" id="FiV-LH-RzL" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="BCN-6F-sD7" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="" image="Discover" selectedImage="Discoveractive" id="xRE-I3-O8e">
+                        <inset key="imageInsets" minX="0.0" minY="4" maxX="0.0" maxY="-4"/>
+                    </tabBarItem>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="jvK-pW-c3X">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
@@ -8695,12 +8700,12 @@
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
-                        <segue destination="dNE-Uf-tXP" kind="relationship" relationship="rootViewController" id="g1Y-MP-Xrp"/>
+                        <segue destination="gHH-58-bjG" kind="relationship" relationship="rootViewController" id="f30-Ji-coW"/>
                     </connections>
                 </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="hV9-lt-dLa" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="VUO-S1-iYU" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4549.5" y="-1024.5"/>
+            <point key="canvasLocation" x="2314.5" y="-825.5"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="XMz-BB-lqq">
@@ -8728,6 +8733,7 @@
         <image name="Button" width="140" height="62"/>
         <image name="Calander" width="18" height="18"/>
         <image name="Close" width="22" height="22"/>
+        <image name="Delete" width="25" height="25"/>
         <image name="Discover" width="25" height="25"/>
         <image name="Discoveractive" width="25" height="25"/>
         <image name="Fcalander" width="12" height="12"/>

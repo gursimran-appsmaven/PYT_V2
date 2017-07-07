@@ -75,6 +75,7 @@ class mainHomeViewController: UIViewController, SDWebImageManagerDelegate, apiCl
     @IBOutlet weak var addToBucketBtn: UIButton!
     @IBOutlet weak var editButtonDetailview: UIButton!
     
+    @IBOutlet weak var editBottomSpace: NSLayoutConstraint!
     
     
     var dataArray = NSMutableArray()
@@ -315,12 +316,13 @@ class mainHomeViewController: UIViewController, SDWebImageManagerDelegate, apiCl
     
     //MARK:-/////////////// function for hit api when segment change//////////////////
     //MARK:-
-    func segmentedControlChangedValue(_ segmentedControl: HMSegmentedControl) {
-        
+    func segmentedControlChangedValue(_ segmentedControl: HMSegmentedControl)
+    {
+        PlanDeleteBool = false
         planAllLocation = false //false to show the plans of that place
         if countArray.count>0 {
             
-            let placeIds = (countArray.value(forKey: "_id")) as! NSArray
+            let placeIds = (countArray.value(forKey: "countryId")) as! NSArray
             print(placeIds)
             print(globalPlaceid)
             if placeIds.contains(globalPlaceid) {
@@ -395,15 +397,14 @@ class mainHomeViewController: UIViewController, SDWebImageManagerDelegate, apiCl
     {
         super.viewDidLoad()
         
+        
+        
         self.navigationController?.isNavigationBarHidden=true
         
         apiClass.sharedInstance().delegate=self //delegate for response api
     
-        
         uId = Udefaults .string(forKey: "userLoginId")!
-        
         print(Udefaults .integer(forKey: "indexToolTips"))
-       
        
         let loadingNotification = MBProgressHUD.showAdded(to: self.view, animated: true)
         loadingNotification.mode = MBProgressHUDMode.indeterminate
@@ -1467,7 +1468,7 @@ class mainHomeViewController: UIViewController, SDWebImageManagerDelegate, apiCl
         nxtObj.receiverProfile = receiverProfileImage as NSString
         nxtObj.locationId = globalPlaceid
         self.navigationController! .pushViewController(nxtObj, animated: true)
-        nxtObj.hidesBottomBarWhenPushed = true
+       // nxtObj.hidesBottomBarWhenPushed = true
         
         
     }
@@ -1498,7 +1499,7 @@ class mainHomeViewController: UIViewController, SDWebImageManagerDelegate, apiCl
     
     @IBAction func ReloadStoriesCollection(_ sender: AnyObject)
     {
-        
+        PlanDeleteBool = false
         if planAllLocation == false {
             planAllLocation = true//true to show the all plans
             
@@ -1936,9 +1937,9 @@ class mainHomeViewController: UIViewController, SDWebImageManagerDelegate, apiCl
         
         
         
-        // let nxtObj2 = self.storyboard?.instantiateViewController(withIdentifier: "imageEditViewController") as! imageEditViewController
+         let nxtObj2 = self.storyboard?.instantiateViewController(withIdentifier: "EditPostViewController") as! EditPostViewController
         
-        // nxtObj2.screenName = "Feed"
+         nxtObj2.screenName = "Feed"
         
         
         //print(self.arrayOfimages1[self.tableIndex])
@@ -1983,11 +1984,9 @@ class mainHomeViewController: UIViewController, SDWebImageManagerDelegate, apiCl
         dictionaryToEditdata.setValue(imageId, forKey: "imgId")
         
         
-        //print(dictionaryToEditdata)
-        //  nxtObj2.dataDictionary = dictionaryToEditdata
-        //  nxtObj2.screenName = "Feed"
-        
-        // self.navigationController! .pushViewController(nxtObj2, animated: true)
+        print(dictionaryToEditdata)
+          nxtObj2.dataDictionary = dictionaryToEditdata
+       self.navigationController! .pushViewController(nxtObj2, animated: true)
         
         
         
@@ -3382,15 +3381,16 @@ extension mainHomeViewController: UICollectionViewDelegate, UICollectionViewData
                 if countArray.count>0 {
                     
                 
-                let placeIds = (countArray.value(forKey: "_id")) as! NSArray
+                let placeIds = (countArray.value(forKey: "countryId")) as! NSArray
                 
                     if placeIds.contains(globalPlaceid){//("58c3c09336f8b6180feea0c6"){//(globalPlaceid) {
                     print("Contains story")
                     let indx = placeIds .index(of: self.globalPlaceid)
                     print(indx)
                     
-                let imageUrlArray = ((countArray.object(at: indx)) as AnyObject).value(forKey: "story") as! NSMutableArray
-                    if imageUrlArray.count>0 {
+                let imageUrlArray = ((countArray.object(at: indx)) as AnyObject).value(forKey: "places") as! NSMutableArray
+                    if imageUrlArray.count>0
+                    {
                         planCountLbl.text = String(imageUrlArray.count)
                         return imageUrlArray.count
                         
@@ -3448,7 +3448,7 @@ extension mainHomeViewController: UICollectionViewDelegate, UICollectionViewData
                     
                      if countArray.count>0
                      {
-                        let placeIds = (countArray.value(forKey: "_id")) as! NSArray
+                        let placeIds = (countArray.value(forKey: "countryId")) as! NSArray
                         
                         if placeIds.contains(globalPlaceid) {
                             print("Contains story")
@@ -3456,12 +3456,11 @@ extension mainHomeViewController: UICollectionViewDelegate, UICollectionViewData
                             print(indx)
                             
                             
-                            
-                            let imageUrlArray = ((countArray.object(at: indx)) as AnyObject).value(forKey: "story") as! NSMutableArray
+                            let imageUrlArray = ((countArray.object(at: indx)) as AnyObject).value(forKey: "places") as! NSMutableArray
                             if imageUrlArray.count > 0
                             {
                                 print(imageUrlArray.count - 1 - (indexPath.row))
-                                let imgUrl = (((imageUrlArray.object(at: imageUrlArray.count-1 - (indexPath.row ))) as! NSDictionary).value(forKey: "image")as! NSDictionary) .value(forKey: "imageThumb") as? String ?? ""
+                                let imgUrl = (((imageUrlArray.object(at: imageUrlArray.count-1 - (indexPath.row ))) as! NSDictionary).value(forKey: "place")as! NSDictionary) .value(forKey: "imageThumb") as? String ?? ""
                                 
                                 print(imgUrl)
                                
@@ -3483,22 +3482,36 @@ extension mainHomeViewController: UICollectionViewDelegate, UICollectionViewData
                                 }
 
                                 
-                                let placetag = (((imageUrlArray.object(at:  imageUrlArray.count-1 - (indexPath.row))) as! NSDictionary).value(forKey: "image")as! NSDictionary) .value(forKey: "placeTag") as? String ?? ""
+                                let placetag = (((imageUrlArray.object(at:  imageUrlArray.count-1 - (indexPath.row))) as! NSDictionary).value(forKey: "place")as! NSDictionary) .value(forKey: "placeTag") as? String ?? ""
                                 cell.planName.text = placetag
-                                
-                                
                                 
                             }
                             
                         }
                         cell.deletplanButton.isHidden = true
-                        if PlanDeleteBool == true {
+                        if PlanDeleteBool == true
+                        {
                             cell.deletplanButton.isHidden = false
                         }
-                        
-                        
+                        else
+                        {
+                            cell.deletplanButton.isHidden = true
+                            let longTapGest = LongPressGesture(target: self, action: #selector(mainHomeViewController.longTap(_:)))
+                            
+                            cell.addGestureRecognizer(longTapGest)
+                            cell.deletplanButton.tag = 1000+indexPath.row
+                            cell.deletplanButton.addTarget(self, action: #selector(self.deletePlanApiHit(_:)), for: .touchUpInside)
+                            
+                            
+                        }
                         
                     }
+                    
+                    
+                   
+
+                    
+                    
                     return cell
                 }
                     
@@ -3506,14 +3519,14 @@ extension mainHomeViewController: UICollectionViewDelegate, UICollectionViewData
                 else
                 {
                     
-                    let countriesName = ((countArray.object(at: indexPath.row )) as AnyObject).value(forKey: "country") as! NSArray
+                    let countriesName = ((countArray.object(at: indexPath.row )) as AnyObject).value(forKey: "name") as? String ?? "" //as! NSArray
                     var countryname = "NA"
-                    if countriesName.count > 0
-                    {
-                        countryname = countriesName.object(at: 0) as! String
-                    }
+                   // if countriesName.count > 0
+                    //{
+                        countryname = countriesName//.object(at: 0) as! String
+                   // }
                     
-                    let imgUrl = (((((countArray.object(at: indexPath.row )) as AnyObject).value(forKey: "story") as! NSArray).object(at: 0) as AnyObject).value(forKey: "image")as! NSDictionary).value(forKey: "imageThumb") as? String ?? ""
+                    let imgUrl = (((((countArray.object(at: indexPath.row )) as AnyObject).value(forKey: "places") as! NSArray).object(at: 0) as AnyObject).value(forKey: "place")as! NSDictionary).value(forKey: "imageThumb") as? String ?? ""
 
                     UIView.animate(withDuration: 0.75, animations: {
                         cell.planImage.transform = CGAffineTransform(scaleX: 0.02, y: 0.02)
@@ -3532,7 +3545,23 @@ extension mainHomeViewController: UICollectionViewDelegate, UICollectionViewData
                     
                     cell.planName.text = countryname
                     
-                    
+                    cell.deletplanButton.isHidden = true
+                    if PlanDeleteBool == true
+                    {
+                        cell.deletplanButton.isHidden = false
+                    }
+                    else
+                    {
+                        cell.deletplanButton.isHidden = true
+                        let longTapGest = LongPressGesture(target: self, action: #selector(mainHomeViewController.longTap(_:)))
+                        
+                        cell.addGestureRecognizer(longTapGest)
+                        
+                        cell.deletplanButton.tag = 5000+indexPath.row //5000 for whole plan delete
+                        cell.deletplanButton.addTarget(self, action: #selector(self.deletePlanApiHit(_:)), for: .touchUpInside)
+                        
+                        
+                    }
                     return cell
                 }
 
@@ -3540,8 +3569,7 @@ extension mainHomeViewController: UICollectionViewDelegate, UICollectionViewData
             
  
             
-            
-            
+           //images array
         else
         {
         if arrayOfimages1.count<1
@@ -3940,15 +3968,7 @@ extension mainHomeViewController: UICollectionViewDelegate, UICollectionViewData
     
     
     
-    //MARK:
-    
-    
-    
-    
-    
-    
-    
-    
+    //MARK:-
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath){
         
         if collectionView.tag == 1221
@@ -3957,26 +3977,26 @@ extension mainHomeViewController: UICollectionViewDelegate, UICollectionViewData
             if planAllLocation == false //false to show the plans of that place
             {
              
-                let placeIds = (countArray.value(forKey: "_id")) as! NSArray
+                let placeIds = (countArray.value(forKey: "countryId")) as! NSArray
                 
                 if placeIds.contains(globalPlaceid){//("58c3c09336f8b6180feea0c6"){//(globalPlaceid) {
                     print("Contains story")
                     let indx = placeIds .index(of: self.globalPlaceid)
                     print(indx)
                     
-                    let storyArr = ((countArray.object(at: indx)) as AnyObject).value(forKey: "story") as! NSMutableArray //contains all story locations
+                    let storyArr = ((countArray.object(at: indx)) as AnyObject).value(forKey: "places") as! NSMutableArray //contains all story locations
                     
                     let userPicture = ((storyArr.object(at: storyArr.count-1 - (indexPath.row)) as AnyObject).value(forKey: "user") as AnyObject).value(forKey: "picture") as? String ?? "" //userProfilePicture
                     let userName = ((storyArr.object(at: storyArr.count-1 - (indexPath.row)) as AnyObject).value(forKey: "user") as AnyObject).value(forKey: "name") as? String ?? "" //userName
                     
-                    let desc = ((storyArr.object(at: storyArr.count-1 - (indexPath.row)) as AnyObject).value(forKey: "image") as AnyObject).value(forKey: "description") as? String ?? "" //description
+                    let desc = ((storyArr.object(at: storyArr.count-1 - (indexPath.row)) as AnyObject).value(forKey: "place") as AnyObject).value(forKey: "description") as? String ?? "" //description
                     
-                    let countryname = ((storyArr.object(at: storyArr.count-1 - (indexPath.row)) as AnyObject).value(forKey: "image") as AnyObject).value(forKey: "country") as? String ?? ""
-                    let cityName = ((storyArr.object(at: indexPath.row) as AnyObject).value(forKey: "image") as AnyObject).value(forKey: "city") as? String ?? ""
+                    let countryname = ((storyArr.object(at: storyArr.count-1 - (indexPath.row)) as AnyObject).value(forKey: "place") as AnyObject).value(forKey: "country") as? String ?? ""
+                    let cityName = ((storyArr.object(at: indexPath.row) as AnyObject).value(forKey: "place") as AnyObject).value(forKey: "city") as? String ?? ""
                     
-                    let location = "\(((storyArr.object(at: storyArr.count-1 - (indexPath.row)) as AnyObject).value(forKey: "image") as AnyObject).value(forKey: "placeTag") as? String ?? ""),\(cityName),\(countryname) " //location(placeTag+city+country)
+                    let location = "\(((storyArr.object(at: storyArr.count-1 - (indexPath.row)) as AnyObject).value(forKey: "place") as AnyObject).value(forKey: "placeTag") as? String ?? ""),\(cityName),\(countryname) " //location(placeTag+city+country)
                     
-                    var vanu = ((storyArr.object(at: storyArr.count-1 - (indexPath.row)) as AnyObject).value(forKey: "image") as AnyObject).value(forKey: "placeTag") as? String ?? "EM"
+                    var vanu = ((storyArr.object(at: storyArr.count-1 - (indexPath.row)) as AnyObject).value(forKey: "place") as AnyObject).value(forKey: "placeTag") as? String ?? "EM"
                     if vanu == "" || vanu == "EM" {
                         vanu = cityName
                         if vanu == "" {
@@ -3986,10 +4006,10 @@ extension mainHomeViewController: UICollectionViewDelegate, UICollectionViewData
                     
                     
                     
-                    let largeImage = ((storyArr.object(at: storyArr.count-1 - (indexPath.row)) as AnyObject).value(forKey: "image") as AnyObject).value(forKey: "imageLarge") as? String ?? "" //Large image url
-                    let thumbImage = ((storyArr.object(at: storyArr.count-1 - (indexPath.row)) as AnyObject).value(forKey: "image") as AnyObject).value(forKey: "imageThumb") as? String ?? "" //Large image url
+                    let largeImage = ((storyArr.object(at: storyArr.count-1 - (indexPath.row)) as AnyObject).value(forKey: "place") as AnyObject).value(forKey: "imageLarge") as? String ?? "" //Large image url
+                    let thumbImage = ((storyArr.object(at: storyArr.count-1 - (indexPath.row)) as AnyObject).value(forKey: "place") as AnyObject).value(forKey: "imageThumb") as? String ?? "" //Large image url
                     
-                    var sendgeoTag = ((storyArr.object(at: storyArr.count-1 - (indexPath.row)) as AnyObject).value(forKey: "image") as AnyObject).value(forKey: "placeTag") as? String ?? ""
+                    var sendgeoTag = ((storyArr.object(at: storyArr.count-1 - (indexPath.row)) as AnyObject).value(forKey: "place") as AnyObject).value(forKey: "placeTag") as? String ?? ""
                     let fullName22 = sendgeoTag
                     let fullNameArr22 = fullName22.characters.split{$0 == ","}.map(String.init)
                     if fullNameArr22.count>0{
@@ -3998,15 +4018,15 @@ extension mainHomeViewController: UICollectionViewDelegate, UICollectionViewData
                     //Split the place tag to get the results in foursquare
                     
                     
-                     let imageId = ((storyArr.object(at: storyArr.count-1 - (indexPath.row)) as AnyObject).value(forKey: "image") as AnyObject).value(forKey: "_id") as? String ?? "" //Image Id
+                     let imageId = ((storyArr.object(at: storyArr.count-1 - (indexPath.row)) as AnyObject).value(forKey: "place") as AnyObject).value(forKey: "_id") as? String ?? "" //Image Id
                     
                     
                     var lat = NSNumber()
                     var long = NSNumber()
-                    if ((storyArr.object(at: storyArr.count-1 - (indexPath.row)) as AnyObject).value(forKey: "image") as AnyObject).value(forKey: "latitude") as? NSNull != NSNull()
+                    if ((storyArr.object(at: storyArr.count-1 - (indexPath.row)) as AnyObject).value(forKey: "place") as AnyObject).value(forKey: "latitude") as? NSNull != NSNull()
                     {
-                        lat = ((storyArr.object(at: storyArr.count-1 - (indexPath.row)) as AnyObject).value(forKey: "image") as AnyObject).value(forKey: "latitude") as! NSNumber  //as? String ?? "0.0"
-                        long = ((storyArr.object(at: indexPath.row) as AnyObject).value(forKey: "image") as AnyObject).value(forKey: "longitude") as! NSNumber //as? String ?? "0.0"
+                        lat = ((storyArr.object(at: storyArr.count-1 - (indexPath.row)) as AnyObject).value(forKey: "place") as AnyObject).value(forKey: "latitude") as! NSNumber  //as? String ?? "0.0"
+                        long = ((storyArr.object(at: indexPath.row) as AnyObject).value(forKey: "place") as AnyObject).value(forKey: "longitude") as! NSNumber //as? String ?? "0.0"
                     }
                     else
                     {
@@ -4017,7 +4037,7 @@ extension mainHomeViewController: UICollectionViewDelegate, UICollectionViewData
                     var multipleImgs = NSMutableArray()//will empty not to show the multiple images
                     multipleImgs.add(largeImage)
                     
-                    let catArrSt = ((storyArr.object(at: storyArr.count-1 - (indexPath.row)) as AnyObject).value(forKey: "image") as AnyObject).value(forKey: "category") as! NSMutableArray
+                    let catArrSt = ((storyArr.object(at: storyArr.count-1 - (indexPath.row)) as AnyObject).value(forKey: "place") as AnyObject).value(forKey: "category") as! NSMutableArray
                     let strcat = (catArrSt.value(forKey: "displayName") as AnyObject).componentsJoined(by: ",")
                     
                     
@@ -4034,29 +4054,18 @@ extension mainHomeViewController: UICollectionViewDelegate, UICollectionViewData
                 }
                 
                 
-                
-                
-              
-                
             }
             //go to plans page
             else
-            {
-                
-                
-                let countriesId = ((countArray.object(at: indexPath.row )) as AnyObject).value(forKey: "_id") as? String ?? ""
-                
+            { //use _id for get booking id instead of countryId
+                let countriesId = ((countArray.object(at: indexPath.row )) as AnyObject).value(forKey: "countryId") as? String ?? ""
                 
                
                 let nxtObj2 = self.storyboard?.instantiateViewController(withIdentifier: "TravelPlanVC") as! TravelPlanVC
                 nxtObj2.countryId = countriesId
                 self.navigationController! .pushViewController(nxtObj2, animated: true)
                 
-                
-                
-                
             }
-            
             
         }
         
@@ -4308,43 +4317,91 @@ extension mainHomeViewController: UICollectionViewDelegate, UICollectionViewData
     //MARK:-
    
     //MARK: Long Tap
-    func longTap(_ sender: LongPressGesture) {
-        
-      // dispatch_async(dispatch_get_main_queue(), {
-        
-        storyBool=true
-        toolTimer.invalidate()
-    
-        
+    func longTap(_ sender: LongPressGesture)
+    {
+       
         if sender.state == .began
         {
-            
-            let a:Int? = (sender.view?.tag)! / 1000
-            let b:Int? = (sender.view?.tag)! % 1000
-            
-           ////print("table=\(a!), Collect\(b!)")
-            
-            collectionIndex = b!
-            tableIndex = a!
-            longTapedView=sender.view!
-
-            
-            self.manageViewLongTap()
-            
-           
+            PlanDeleteBool = true
+            storiesCollectionView.reloadData()
         }
         
-        
-        
-        
-        Udefaults.set(true, forKey: "refreshStory")
+//      // dispatch_async(dispatch_get_main_queue(), {
+//        storyBool=true
+//        toolTimer.invalidate()
+//        if sender.state == .began
+//        {
+//            let a:Int? = (sender.view?.tag)! / 1000
+//            let b:Int? = (sender.view?.tag)! % 1000
+//            collectionIndex = b!
+//            tableIndex = a!
+//            longTapedView=sender.view!
+//            self.manageViewLongTap()
+//        }
+//        Udefaults.set(true, forKey: "refreshStory")
         
 
         
-        
-        
+    }
+    
+    //MARK: delet the plan from the list 
+    func deletePlanApiHit(_ sender: UIButton) {
+        let stTag = String(sender.tag)
+        print(stTag.startIndex)
+        let cH = stTag[stTag.startIndex]
+        print(cH)
+        if cH == "5" {
+            print("Delete the whole plan ")
+            
+            SweetAlert().showAlert("Confirm Delete?", subTitle: "Once deleted, you will no longer be able to see this whole plan.", style: AlertStyle.customImag(imageFile: "alertDelete"), buttonTitle:"Okay", buttonColor: UIColor.red , otherButtonTitle:  "Cancel", otherButtonColor: UIColor.green) { (isOtherButton) -> Void in
+                if isOtherButton == true
+                {
+                    
+                    //Retry function
+                    print("delete image tapped")
+                    
+                    
+                }
+                else
+                {
+                    
+                    print("Cancel Pressed")
+                }
+            }
+            
+            
+        }
+            //delete images from plan
+        else
+        {
+            SweetAlert().showAlert("Confirm Delete?", subTitle: "Once deleted, you will no longer be able to see this location in your plan.", style: AlertStyle.customImag(imageFile: "alertDelete"), buttonTitle:"Okay", buttonColor: UIColor.red , otherButtonTitle:  "Cancel", otherButtonColor: UIColor.green) { (isOtherButton) -> Void in
+                if isOtherButton == true
+                {
+                    
+                    //Retry function
+                    print("delete image tapped")
+                    
+                    
+                }
+                else
+                {
+                    
+                    print("Cancel Pressed")
+                }
+            }
+            
+            print("Delete image from plan")
+        }
+        print("comes here")
+        PlanDeleteBool = false
+        storiesCollectionView.reloadData()
         
     }
+    
+    
+    
+    
+    
     
     
    
@@ -5192,7 +5249,8 @@ extension mainHomeViewController: UICollectionViewDelegate, UICollectionViewData
         
         if source[b] as? NSNull != NSNull()  {
             
-            
+            self.editBottomSpace.constant = -(self.editButtonDetailview.frame.size.height)
+            self.editButtonDetailview.isHidden = true
             let sourceStr = source.object(at: b) as? String ?? ""
             if sourceStr == "PYT" {
                 
@@ -5202,15 +5260,11 @@ extension mainHomeViewController: UICollectionViewDelegate, UICollectionViewData
                     
                     //print("Enter if match the user id")
                     
-                    
-                    
+                    self.editBottomSpace.constant = 1
+                    self.editButtonDetailview.isHidden = false
                     
                 }
-                
-                
-                
-                
-                
+            
                 ///can delete
                 
             }

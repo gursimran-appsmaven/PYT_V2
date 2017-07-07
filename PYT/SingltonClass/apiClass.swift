@@ -925,6 +925,11 @@ class apiClass: NSObject {
     
     
     
+    //MARK: Post request to delete image  from travel plan
+    
+    
+    
+    
    
     
     

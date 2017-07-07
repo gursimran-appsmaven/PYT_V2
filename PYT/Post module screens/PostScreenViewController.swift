@@ -10,7 +10,6 @@ import UIKit
 import DKImagePickerController
 import MBProgressHUD
 import GooglePlaces
-import MBProgressHUD
 import  AWSS3
 
 
@@ -106,6 +105,9 @@ class PostScreenViewController: UIViewController, UIImagePickerControllerDelegat
         
          NotificationCenter.default.addObserver(self, selector: #selector(PostScreenViewController.Start_Upload_Here(_:)),name:NSNotification.Name(rawValue: "uploadingStart"), object: nil)
         
+        
+        
+        
         // Do any additional setup after loading the view.
     }
 
@@ -158,7 +160,7 @@ class PostScreenViewController: UIViewController, UIImagePickerControllerDelegat
         
        // print(sender.tag)
         
-        if sender.imageView??.image == UIImage( named: "SmallImagethumb") {
+        if sender.imageView??.image == UIImage( named: "SmallImagethumb") || sender.imageView??.image == UIImage ( named: "Bigimagethumbpost") {
             self.openActionSheet()
         }
         else
@@ -1841,7 +1843,7 @@ class PostScreenViewController: UIViewController, UIImagePickerControllerDelegat
                             
                             
                
-//                            
+                            
 //                            SweetAlert().showAlert("PYT", subTitle: json["msg"].string! , style: AlertStyle.success, buttonTitle:"Okay") { (isOtherButton) -> Void in
 //                                if isOtherButton == true {
 //                                    

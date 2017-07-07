@@ -105,9 +105,10 @@ class ApiServices: NSObject
                     
                     onCompletion(json, error as NSError?, self.status)
                 }
-                else{
+                else
+            {
                     print(response as? HTTPURLResponse)
-                }
+            }
         })
 
 
