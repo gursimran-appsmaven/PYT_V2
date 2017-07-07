@@ -32,6 +32,7 @@
 		104182B11EF26AEC00078527 /* UIColor+CreateMethods.m in Sources */ = {isa = PBXBuildFile; fileRef = 104182941EF26AEC00078527 /* UIColor+CreateMethods.m */; };
 		1046ADA91F0E744100A233D3 /* FinalTravelPlanVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1046ADA81F0E744100A233D3 /* FinalTravelPlanVC.swift */; };
 		104BEE751F0B902500D26939 /* UploadedImagesVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 104BEE741F0B902500D26939 /* UploadedImagesVC.swift */; };
+		104CA1391F0F6477001D74F3 /* PlanMapVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 104CA1381F0F6477001D74F3 /* PlanMapVC.swift */; };
 		104D744E1F0A524F00896A02 /* TravelPlanVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 104D744D1F0A524F00896A02 /* TravelPlanVC.swift */; };
 		105ED8DD1EFCE11400C133D0 /* UIImageView+FaceAware.swift in Sources */ = {isa = PBXBuildFile; fileRef = 105ED8DC1EFCE11400C133D0 /* UIImageView+FaceAware.swift */; };
 		105ED8E11EFCE7F000C133D0 /* ChooseInterestVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 105ED8E01EFCE7F000C133D0 /* ChooseInterestVC.swift */; };
@@ -149,6 +150,7 @@
 		104182B21EF26DB100078527 /* PYT-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "PYT-Bridging-Header.h"; sourceTree = "<group>"; };
 		1046ADA81F0E744100A233D3 /* FinalTravelPlanVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FinalTravelPlanVC.swift; sourceTree = "<group>"; };
 		104BEE741F0B902500D26939 /* UploadedImagesVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UploadedImagesVC.swift; sourceTree = "<group>"; };
+		104CA1381F0F6477001D74F3 /* PlanMapVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlanMapVC.swift; sourceTree = "<group>"; };
 		104D744D1F0A524F00896A02 /* TravelPlanVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TravelPlanVC.swift; sourceTree = "<group>"; };
 		105ED8DC1EFCE11400C133D0 /* UIImageView+FaceAware.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImageView+FaceAware.swift"; sourceTree = "<group>"; };
 		105ED8E01EFCE7F000C133D0 /* ChooseInterestVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChooseInterestVC.swift; sourceTree = "<group>"; };
@@ -394,6 +396,7 @@
 				104D744D1F0A524F00896A02 /* TravelPlanVC.swift */,
 				10AC31A01F0D2299005273EC /* TravelPlansListVC.swift */,
 				1046ADA81F0E744100A233D3 /* FinalTravelPlanVC.swift */,
+				104CA1381F0F6477001D74F3 /* PlanMapVC.swift */,
 			);
 			path = "Travel Plan";
 			sourceTree = "<group>";
@@ -633,9 +636,9 @@
 				TargetAttributes = {
 					100EE38A1EF156A6005A79C1 = {
 						CreatedOnToolsVersion = 8.2.1;
-						DevelopmentTeam = 9YDH3T82UC;
+						DevelopmentTeam = WUM6Q4H6BB;
 						LastSwiftMigration = 0820;
-						ProvisioningStyle = Manual;
+						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.Push = {
 								enabled = 1;
@@ -920,6 +923,7 @@
 				100EE3911EF156A7005A79C1 /* ViewController.swift in Sources */,
 				106DDC1C1F061EBB00ABD16D /* SocketTypes.swift in Sources */,
 				104182681EF253D400078527 /* apiClass.swift in Sources */,
+				104CA1391F0F6477001D74F3 /* PlanMapVC.swift in Sources */,
 				106DDC1D1F061EBB00ABD16D /* SSLSecurity.swift in Sources */,
 				1041826D1EF2688C00078527 /* storyCountClass.swift in Sources */,
 				106DDC051F061EBB00ABD16D /* ChatViewController.swift in Sources */,
@@ -1077,9 +1081,9 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = PYT/PYT.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Nitin Trehan (9YDH3T82UC)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Nitin Trehan (9YDH3T82UC)";
-				DEVELOPMENT_TEAM = 9YDH3T82UC;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = WUM6Q4H6BB;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1089,10 +1093,10 @@
 				INFOPLIST_FILE = PYT/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.pictureyourtravel.pyt;
+				PRODUCT_BUNDLE_IDENTIFIER = com.maven.development;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "7dce8d15-3b76-444b-8876-c2ed71a1067c";
-				PROVISIONING_PROFILE_SPECIFIER = distribution;
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "/Users/osx/Documents/PYT_V2/PYT/PYT-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 3.0;
@@ -1107,9 +1111,9 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = PYT/PYT.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Nitin Trehan (9YDH3T82UC)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Nitin Trehan (9YDH3T82UC)";
-				DEVELOPMENT_TEAM = 9YDH3T82UC;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = WUM6Q4H6BB;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1119,10 +1123,10 @@
 				INFOPLIST_FILE = PYT/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.pictureyourtravel.pyt;
+				PRODUCT_BUNDLE_IDENTIFIER = com.maven.development;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "7dce8d15-3b76-444b-8876-c2ed71a1067c";
-				PROVISIONING_PROFILE_SPECIFIER = distribution;
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "/Users/osx/Documents/PYT_V2/PYT/PYT-Bridging-Header.h";
 				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = 1;

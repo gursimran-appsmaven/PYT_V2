@@ -105,7 +105,7 @@ class TravelPlansListVC: UIViewController {
             }
         }
         
-        locations = String(locations.characters.dropLast())
+        locations = String(locations.characters.dropLast(2))
         
         cell.travelInfo.text = locations
        
@@ -131,22 +131,11 @@ class TravelPlansListVC: UIViewController {
     
     func tableView(_ tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
      
-//        let nxtObj2 = self.storyboard?.instantiateViewControllerWithIdentifier("BookingViewController") as! BookingViewController
-//        //                                    nxtObj2.arrayOfStories = self.selectedArrayCalender
-//        nxtObj2.bookingIdFinal = (plansArray.objectAtIndex(indexPath.row).valueForKey("_id") as? String)!
-//        
-//        
-//        dispatch_async(dispatch_get_main_queue(), {
-//            
-//            self.navigationController! .pushViewController(nxtObj2, animated: true)
-//            
-//            self.dismissViewControllerAnimated(true, completion: {})
-//            
-//            self.tabBarController?.tabBar.hidden = true
-//            
-//            
-//        })
+        let obj = self.storyboard?.instantiateViewController(withIdentifier: "FinalTravelPlanVC") as! FinalTravelPlanVC
+        obj.countryId = (plansArray.object(at: indexPath.row) as AnyObject).value(forKey:"countryId") as! String
+        obj.bookingIdFinal = (plansArray.object(at: indexPath.row) as AnyObject).value(forKey:"_id") as! String
 
+        self.navigationController! .pushViewController(obj, animated: true)
         
     }
     
@@ -156,11 +145,11 @@ class TravelPlansListVC: UIViewController {
     }
     
     func tableView(_ tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
-//        if (editingStyle == UITableViewCellEditingStyle.Delete) {
-//            // handle delete (by removing the data from your array and updating the tableview)
-//            let bookingId = plansArray.objectAtIndex(indexPath.row).valueForKey("_id") as? String
-//            deleteBooking(bookingId!,indexPath: indexPath)
-//        }
+        if (editingStyle == UITableViewCellEditingStyle.delete) {
+            // handle delete (by removing the data from your array and updating the tableview)
+            let bookingId = (plansArray.object(at: indexPath.row) as AnyObject).value(forKey:"_id") as! String
+            deleteBooking(bookingId: bookingId,indexPath: indexPath)
+        }
     }
     
     
