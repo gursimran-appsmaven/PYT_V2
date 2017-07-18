@@ -28,7 +28,7 @@
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>1</string>
+	<string>28</string>
 	<key>Fabric</key>
 	<dict>
 		<key>APIKey</key>
@@ -102,10 +102,12 @@
 			<dict/>
 		</dict>
 	</dict>
+	<key>NSCameraUsageDescription</key>
+	<string>Pyt will access photos so that you can upload the photos on the app.</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>Location is required</string>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>Allow</string>
+	<string>Pyt will access photos so that you can upload the photos on the app.</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>SFUIDisplay-Black.otf</string>

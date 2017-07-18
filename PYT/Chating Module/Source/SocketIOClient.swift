@@ -220,7 +220,7 @@ open class SocketIOClient : NSObject, SocketIOClientSpec, SocketEngineClient, So
         if uId == nil || uId == ""{
             print("Socket is connected but not init")
             
-            SocketIOManager.sharedInstance.closeConnection()
+           // SocketIOManager.sharedInstance.closeConnection()
             
         }
         else

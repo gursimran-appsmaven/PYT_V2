@@ -51,7 +51,7 @@ class ForgotPasswordViewController: UIViewController {
         }
         else
         {
-            CommonFunctionsClass.sharedInstance().showAlert(title: "Invalid Info", text: "The email id you have entered is not correct. Please try again.", imageName: "alertWrong")
+           CommonFunctionsClass.sharedInstance().showAlert(title: "Incorrect Info", text: "The email id you have entered is not correct. \n Please try again.", imageName: "exclamationAlert")
             MBProgressHUD.hide(for: self.view, animated: true)
            
         }
@@ -138,7 +138,7 @@ class ForgotPasswordViewController: UIViewController {
                                 }
                                 else
                                 {
-                                    CommonFunctionsClass.sharedInstance().showAlert(title: "Invalid Info", text: "The email id you have entered is not correct. Please try again.", imageName: "alertWrong")
+                                    CommonFunctionsClass.sharedInstance().showAlert(title: "Incorrect Info", text: "The email id you have entered is not correct. \n Please try again.", imageName: "exclamationAlert")
                                 }
                                 
                                 MBProgressHUD.hideAllHUDs(for: self.view, animated: true)

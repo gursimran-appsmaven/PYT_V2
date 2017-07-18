@@ -229,8 +229,8 @@ class ViewController: UIViewController, apiClassDelegate , UIScrollViewDelegate,
             
         }
         
-        emailTextField.text = "test@gmail.com"
-        passwordTextField.text = "1234"
+//        emailTextField.text = "test@gmail.com"
+//        passwordTextField.text = "1234"
         
         
     }
@@ -355,7 +355,7 @@ class ViewController: UIViewController, apiClassDelegate , UIScrollViewDelegate,
                 if(fbloginresult.isCancelled)
                 {
                     
-                    CommonFunctionsClass.sharedInstance().showAlert(title: "Anything wrong?", text: "You just cancelled the sign-in process.", imageName: "alertDelete")
+                    CommonFunctionsClass.sharedInstance().showAlert(title: "Anything wrong?", text: "You just cancelled the sign-in process.", imageName: "exclamationAlert")
                     
                     MBProgressHUD.hide(for: self.view, animated: true)
                 }
@@ -583,7 +583,7 @@ class ViewController: UIViewController, apiClassDelegate , UIScrollViewDelegate,
         
         self.instagramWebView .removeFromSuperview()
         
-        CommonFunctionsClass.sharedInstance().showAlert(title: "What Happen?", text: "You just cancelled the sign-in process.", imageName: "alertDelete")
+        CommonFunctionsClass.sharedInstance().showAlert(title: "Anything wrong?", text: "You just cancelled the sign-in process.", imageName: "exclamationAlert")
         myActivityIndicator.removeFromSuperview()
         
     }
@@ -758,7 +758,7 @@ class ViewController: UIViewController, apiClassDelegate , UIScrollViewDelegate,
             {
                 //print(jsonResult)
                 
-                CommonFunctionsClass.sharedInstance().showAlert(title: "Incorrect Info", text: "The username or password do not match", imageName: "alertWrong")
+                CommonFunctionsClass.sharedInstance().showAlert(title: "Incorrect Info", text: "The username and password you have entered is invalid. Please try again.", imageName: "exclamationAlert")
                 
                 
             }
@@ -857,7 +857,7 @@ class ViewController: UIViewController, apiClassDelegate , UIScrollViewDelegate,
             
                     Udefaults.set("", forKey: "userLoginId")
                     
-                    CommonFunctionsClass.sharedInstance().showAlert(title: "Session Expire", text: "Your session is expired, Please login again", imageName: "alertDelete")
+                    CommonFunctionsClass.sharedInstance().showAlert(title: "Session Expire", text: "Your session is expired, Please login again", imageName: "exclamationAlert")
                     
                     
                     
@@ -916,7 +916,7 @@ class ViewController: UIViewController, apiClassDelegate , UIScrollViewDelegate,
         
         if emailTextField.text == ""
         {
-            CommonFunctionsClass.sharedInstance().showAlert(title: "Opps!", text: "Please enter a valid email address.", imageName: "alertWrong")
+            CommonFunctionsClass.sharedInstance().showAlert(title: "Incorrect Info", text: "The email id you have entered is not correct. \n Please try again.", imageName: "exclamationAlert")
             
             
         }
@@ -928,14 +928,13 @@ class ViewController: UIViewController, apiClassDelegate , UIScrollViewDelegate,
                 
                 if passwordTextField.text=="" {
                     
-                    CommonFunctionsClass.sharedInstance().showAlert(title: "Opps!", text: "The password you have entered is not correct. Please try again.", imageName: "alertWrong")
+                    CommonFunctionsClass.sharedInstance().showAlert(title: "Opps!", text: "The password you have entered is not correct.\n Please try again.", imageName: "exclamationAlert")
                     
                     
                     
                 }
                 else
                 {
-                    
                     
                     
                     let loadingNotification = MBProgressHUD.showAdded(to: self.view, animated: true)

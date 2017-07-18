@@ -245,7 +245,10 @@ class searchScreenViewController: UIViewController, UINavigationControllerDelega
         }
         else
         {
-            self.postApiForTrendingLocationsSearch(userid: uId! as NSString) //api to get the trending and popular places
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+                self.postApiForTrendingLocationsSearch(userid: uId! as NSString)
+                
+            } //api to get the trending and popular places
             
         }
         
@@ -985,7 +988,8 @@ class searchScreenViewController: UIViewController, UINavigationControllerDelega
             
             // [searchBar performSelectorOnMainThread:@selector(resignFirstResponder) withObject:nil waitUntilDone:NO];
             
-            CommonFunctionsClass.sharedInstance().showAlert(title: "Too many locations!", text: "You can search for up to 5 locations at once if you'd like to search and explore more, please delete one or moreof the previous locations you've searched.", imageName: "alertLimit")
+            
+            CommonFunctionsClass.sharedInstance().showAlert(title: "Too many locations!", text: "You can search for up to 5 locations at once if you'd like to search and explore more, please delete one or moreof the previous locations you've searched.", imageName: "oopsAlert")
             
             
             
@@ -1508,7 +1512,7 @@ class searchScreenViewController: UIViewController, UINavigationControllerDelega
     
         if arrayOfIntrest.count<1
         {
-            CommonFunctionsClass.sharedInstance().showAlert(title: "Opps!", text: "Please add minimum one location.", imageName: "alertFill")
+            CommonFunctionsClass.sharedInstance().showAlert(title: "Opps!", text: "Please add minimum one location.", imageName: "exclamationAlert")
             
            
         }
@@ -1566,7 +1570,7 @@ class searchScreenViewController: UIViewController, UINavigationControllerDelega
             
             
             self.navigationController! .pushViewController(nxtObj, animated: true)
-            self.dismiss(animated: true, completion: {})
+            //self.dismiss(animated: true, completion: {})
             URLCache.shared.removeAllCachedResponses()
             
             
@@ -1793,16 +1797,14 @@ class searchScreenViewController: UIViewController, UINavigationControllerDelega
         
         
         
-            
+            print(promptArray)
             let selectedString = ((promptArray.object(at: indexPath.row)) as AnyObject).value(forKey: "fullName") as? String ?? ""//promptArray.objectAtIndex(indexPath.row).valueForKey("fullName") as? String ?? ""
             print(selectedString)
             
             locationAutoPrompt = selectedString as NSString
             
             
-            
-            
-            
+        
             let str = ((promptArray.object(at: indexPath.row)) as AnyObject).value(forKey: "type") as? String ?? ""//promptArray.objectAtIndex(indexPath.row).valueForKey("type") as? String ?? ""
             
            let locationId = ((promptArray.object(at: indexPath.row)) as AnyObject).value(forKey: "_id") as? String ?? "" //promptArray.objectAtIndex(indexPath.row).valueForKey("_id") as? String ?? ""
@@ -1841,15 +1843,21 @@ class searchScreenViewController: UIViewController, UINavigationControllerDelega
             
             /////////////  Automatic add locations ////////
            var containBool = Bool()
-            
+        if arrayOfIntrest.count<1 {
+            containBool = false
+        }
+        else
+        {
             for diction in arrayOfIntrest {
              let dic2 =  diction as! NSDictionary
                 print(dic2)
+              
+                
                 if dic2["placeId"]as? String == locationId
                 {
                     print("contains")
                     
-                        CommonFunctionsClass.sharedInstance().showAlert(title: "Opps!", text: "Please enter different name.", imageName: "alertFill")
+                        CommonFunctionsClass.sharedInstance().showAlert(title: "Opps!", text: "Please enter different name.", imageName: "exclamationAlert")
                     
                         self.messageFrame.removeFromSuperview()
                         containBool = true
@@ -1858,21 +1866,9 @@ class searchScreenViewController: UIViewController, UINavigationControllerDelega
                     break
                 }
                 
-                
+                }
             }
-            
-            
-            
-            
-//            if (((arrayOfIntrest.value(forKey: "placeId")) as! NSString).contains(locationId)) {
-//                
-//                CommonFunctionsClass.sharedInstance().showAlert(title: "Opps!", text: "Please enter different name.", imageName: "alertFill")
-//                //CommonFunctionsClass.sharedInstance().alertViewOpen("Please Enter Different Name", viewController: self)
-//                self.messageFrame.removeFromSuperview()
-//                
-//                
-//            }
-//            else
+
 
             if containBool == false {
                 
@@ -2065,6 +2061,21 @@ class searchScreenViewController: UIViewController, UINavigationControllerDelega
                             
                             if self.trendingArray == trdArr {
                                 print("equal")
+                                if self.trendingArray.count<1{
+                                    self.trendingArray=trdArr
+                                    UserDefaults.standard.set(self.trendingArray, forKey: "arrayOfTrending")
+                                    print(self.trendingArray.count)
+                                    
+                                    print(self.trendingArray)
+                                    
+                                    
+                                    self.trendingPlacesCollectionView.reloadData()
+                                    //self.updateTrending()
+                                    
+                                    self.adjustHeightOftableView()
+
+                                }
+                                
                                 
                             }else
                             {
@@ -2090,11 +2101,6 @@ class searchScreenViewController: UIViewController, UINavigationControllerDelega
                         {
                             print("Unable to get the trending places from the server")
                         }
-                        
-                        
-                        
-                        
-                        
                         
                         
                         

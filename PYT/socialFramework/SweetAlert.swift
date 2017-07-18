@@ -17,15 +17,15 @@ public enum AlertStyle {
 
 open class SweetAlert: UIViewController {
     let kBakcgroundTansperancy: CGFloat = 0.7
-    let kHeightMargin: CGFloat = 10.0
-    let KTopMargin: CGFloat = 20.0
+    let kHeightMargin: CGFloat = 05.0
+    let KTopMargin: CGFloat = 10.0
     let kWidthMargin: CGFloat = 10.0
-    let kAnimatedViewHeight: CGFloat = 70.0
+    let kAnimatedViewHeight: CGFloat = 50.0
     let kMaxHeight: CGFloat = 300.0
     var kContentWidth: CGFloat = 300.0
     let kButtonHeight: CGFloat = 35.0
     var textViewHeight: CGFloat = 90.0
-    let kTitleHeight:CGFloat = 30.0
+    let kTitleHeight:CGFloat = 27.0
     var strongSelf:SweetAlert?
     var contentView = UIView()
     var titleLabel: UILabel = UILabel()
@@ -34,7 +34,7 @@ open class SweetAlert: UIViewController {
     var imageView:UIImageView?
     var subTitleTextView = UITextView()
     var userAction:((_ isOtherButton: Bool) -> Void)? = nil
-    let kFont = "Helvetica"
+    let kFont = "SFUIDisplay"
 
     init() {
         super.init(nibName: nil, bundle: nil)
@@ -67,14 +67,15 @@ open class SweetAlert: UIViewController {
         titleLabel.text = ""
         titleLabel.numberOfLines = 1
         titleLabel.textAlignment = .center
-        titleLabel.font = UIFont(name: kFont, size:25)
-        titleLabel.textColor = UIColor.colorFromRGB(0x575757)
+        titleLabel.font = UIFont(name: "SFUIDisplay-Bold", size:16)
+        titleLabel.textColor = UIColor.black//colorFromRGB(0x575757)
     }
     
-    fileprivate func setupSubtitleTextView() {
+    fileprivate func setupSubtitleTextView()
+    {
         subTitleTextView.text = ""
         subTitleTextView.textAlignment = .center
-        subTitleTextView.font = UIFont(name: kFont, size:16)
+        subTitleTextView.font = UIFont(name: "SFUIDisplay-Regular", size:14)
         subTitleTextView.textColor = UIColor.colorFromRGB(0x797979)
         subTitleTextView.isEditable = false
     }
@@ -92,14 +93,16 @@ open class SweetAlert: UIViewController {
             y += kAnimatedViewHeight + kHeightMargin
         }
         
-        if imageView != nil {
+        if imageView != nil
+        {
             imageView!.frame = CGRect(x: (kContentWidth - kAnimatedViewHeight) / 2.0, y: y, width: kAnimatedViewHeight, height: kAnimatedViewHeight)
             contentView.addSubview(imageView!)
             y += imageView!.frame.size.height + kHeightMargin
         }
 
         // Title
-        if self.titleLabel.text != nil {
+        if self.titleLabel.text != nil
+        {
             titleLabel.frame = CGRect(x: x, y: y, width: width, height: kTitleHeight)
             contentView.addSubview(titleLabel)
             y += kTitleHeight + kHeightMargin
@@ -109,7 +112,7 @@ open class SweetAlert: UIViewController {
         if self.subTitleTextView.text.isEmpty == false {
             let subtitleString = subTitleTextView.text! as NSString
             let rect = subtitleString.boundingRect(with: CGSize(width: width, height: 0.0), options: NSStringDrawingOptions.usesLineFragmentOrigin, attributes: [NSFontAttributeName:subTitleTextView.font!], context: nil)
-            textViewHeight = ceil(rect.size.height) + 10.0
+            textViewHeight = ceil(rect.size.height) + 07.0
             subTitleTextView.frame = CGRect(x: x, y: y, width: width, height: textViewHeight)
             contentView.addSubview(subTitleTextView)
             y += textViewHeight + kHeightMargin
@@ -123,19 +126,31 @@ open class SweetAlert: UIViewController {
         
         var totalWidth: CGFloat = 0.0
         if buttons.count == 2 {
-            totalWidth = buttonRect[0].size.width + buttonRect[1].size.width + kWidthMargin + 40.0
+            totalWidth = buttonRect[0].size.width + buttonRect[1].size.width + kWidthMargin + 20.0
         }
-        else{
+        else
+        {
             totalWidth = buttonRect[0].size.width + 20.0
         }
         y += kHeightMargin
         var buttonX = (kContentWidth - totalWidth ) / 2.0
-        for i in 0 ..< buttons.count {
-            
-                buttons[i].frame = CGRect(x: buttonX, y: y, width: buttonRect[i].size.width + 20.0, height: buttonRect[i].size.height + 10.0)
+        for i in 0 ..< buttons.count
+        {
+            var btnX:CGFloat = 10
+            if  i == 1 {
+                buttonX = (kContentWidth - totalWidth ) / 2.0
+                btnX =  contentView.frame.size.width - buttonRect[1].size.width - 20
+            }
+            else
+            {
+                if buttons.count == 1 {
+                btnX = buttonX
+                }}
+                buttons[i].frame = CGRect(x: btnX, y: y, width: buttonRect[i].size.width + 20.0, height: buttonRect[i].size.height + 10.0)
                 buttonX = buttons[i].frame.origin.x + kWidthMargin + buttonRect[i].size.width + 20.0
                 buttons[i].layer.cornerRadius = 5.0
                 self.contentView.addSubview(buttons[i])
+            
                 buttons[i].addTarget(self, action: #selector(SweetAlert.pressed(_:)), for: UIControlEvents.touchUpInside)
 
         }
@@ -211,7 +226,7 @@ open class SweetAlert: UIViewController {
     }
     
     open func showAlert(_ title: String, subTitle: String?, style: AlertStyle) -> SweetAlert {
-        _ = showAlert(title, subTitle: subTitle, style: style, buttonTitle: "OK")
+        _ = showAlert(title, subTitle: subTitle, style: style, buttonTitle: "Okay")
         return self
 
     }
@@ -274,18 +289,22 @@ open class SweetAlert: UIViewController {
             if buttonTitle.isEmpty == false {
                 let button: UIButton = UIButton(type: UIButtonType.custom)
                 button.setTitle(buttonTitle, for: UIControlState())
-                button.backgroundColor = buttonColor
+                button.backgroundColor = UIColor .clear//buttonColor
+                button.setTitleColor(UIColor (colorLiteralRed: 255.0/255.0, green: 0.0/255.0, blue: 17.0/255.0, alpha: 1), for: .normal)
                 button.isUserInteractionEnabled = true
                 button.tag = 0
+                button.titleLabel?.font = UIFont (name: "SFUIDisplay-Regular", size: 14)
                 buttons.append(button)
             }
             
             if otherButtonTitle != nil && otherButtonTitle!.isEmpty == false {
                 let button: UIButton = UIButton(type: UIButtonType.custom)
                 button.setTitle(otherButtonTitle, for: UIControlState())
-                button.backgroundColor = otherButtonColor
+                button.backgroundColor = UIColor .clear//otherButtonColor
+                button.setTitleColor(UIColor .black, for: .normal)
                 button.addTarget(self, action: #selector(SweetAlert.pressed(_:)), for: UIControlEvents.touchUpInside)
                 button.tag = 1
+                button.titleLabel?.font = UIFont (name: "SFUIDisplay-Regular", size: 14)
                 buttons.append(button)
             }
 

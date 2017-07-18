@@ -97,7 +97,7 @@ class changePasswordViewController: UIViewController, settingClassDelegate {
                 }
                 else
                 {
-                    self.showAlert("Oops!", text: "Please fill all the required fields", imageName: "alertFill")
+                    CommonFunctionsClass.sharedInstance().showAlert(title: "Fill required fields", text: "Please fill required fields to continue.", imageName: "oopsAlert")
                 }
                 
         
@@ -155,7 +155,7 @@ class changePasswordViewController: UIViewController, settingClassDelegate {
             
             
             
-            self.showAlert("Success!", text: "Your password has been changed successfully.", imageName: "alertPassword")
+            self.showAlert("Success!", text: "Your password has been changed successfully.", imageName: "doneAlert")
             
             self.backButtonAction(self)
             

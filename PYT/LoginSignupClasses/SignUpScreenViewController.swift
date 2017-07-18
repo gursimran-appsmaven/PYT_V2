@@ -109,7 +109,7 @@ class SignUpScreenViewController: UIViewController, apiClassDelegate {
         if emailTf.text == ""
         {
             
-            CommonFunctionsClass.sharedInstance().showAlert(title: "Opps!", text: "Please fill all the required fields to continue.", imageName: "alertFill")
+            CommonFunctionsClass.sharedInstance().showAlert(title: "Fill required fields", text: "Please fill required fields to continue.", imageName: "oopsAlert")
 
         }
             
@@ -120,7 +120,7 @@ class SignUpScreenViewController: UIViewController, apiClassDelegate {
             if let email:Bool = self.checkIngTextField(txtF: emailTf) {
                 if email == false {
                     // self.emailTf.becomeFirstResponder()
-                    CommonFunctionsClass.sharedInstance().showAlert(title: "Opps!", text: "Please enter a valid email address.", imageName: "alertFill")
+                    CommonFunctionsClass.sharedInstance().showAlert(title: "Incorrect Info", text: "The email id you have entered is not correct. \n Please try again.", imageName: "exclamationAlert")
                 }
                 else
                 {
@@ -262,7 +262,7 @@ class SignUpScreenViewController: UIViewController, apiClassDelegate {
                 if(fbloginresult.isCancelled)
                 {
                     
-                    CommonFunctionsClass.sharedInstance().showAlert(title: "Anything wrong?", text: "You just cancelled the sign-in process.", imageName: "alertDelete")
+                   CommonFunctionsClass.sharedInstance().showAlert(title: "Anything wrong?", text: "You just cancelled the sign-in process.", imageName: "exclamationAlert")
                     
                     MBProgressHUD.hide(for: self.view, animated: true)
                 }
@@ -427,7 +427,7 @@ class SignUpScreenViewController: UIViewController, apiClassDelegate {
                 
                 Udefaults.set("", forKey: "userLoginId")
                 
-                CommonFunctionsClass.sharedInstance().showAlert(title: "Session Expire", text: "Your session is expired, Please login again", imageName: "alertDelete")
+                CommonFunctionsClass.sharedInstance().showAlert(title: "Session Expire", text: "Your session is expired, Please login again", imageName: "exclamationAlert")
                 
                 
                 

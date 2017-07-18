@@ -271,7 +271,7 @@ class intrestViewController: UIViewController, apiClassInterestDelegate ,UITable
             //self.addCommentPopup.addTarget(self, action: #selector(intrestViewController.addCommentTapped), for: .touchUpInside)
             self.addToPlanPopup.addTarget(self, action: #selector(intrestViewController.storyImageTapped), for: .touchUpInside)
             self.addToBucketPopup.addTarget(self, action: #selector(intrestViewController.bucketImageTapped), for: .touchUpInside)
-            
+            self.editBtnPopup.addTarget(self, action: #selector(intrestViewController.editImageTapped), for: .touchUpInside)
             
         })
         
@@ -301,7 +301,7 @@ class intrestViewController: UIViewController, apiClassInterestDelegate ,UITable
             let title2 = tabledata2
             
             
-            print(title2)
+          //  print(title2)
             
             segmentControl.clipsToBounds=true
             segmentControl.sectionTitles = title2 as! [String]
@@ -393,7 +393,7 @@ class intrestViewController: UIViewController, apiClassInterestDelegate ,UITable
                     if (arrayOfKeys.contains(String(describing: categId.object(at: segmentControl.selectedSegmentIndex)))) {
                         dataArray2 = self.allCategoryDictionary .value(forKey: String(describing: categId.object(at: segmentControl.selectedSegmentIndex))) as! NSMutableArray
                         
-                        print(dataArray2)
+                      //  print(dataArray2)
                         newTempArr = dataArray2
                         
                     }
@@ -918,32 +918,27 @@ class intrestViewController: UIViewController, apiClassInterestDelegate ,UITable
                     }
                     
                     
-                    
                 }
                 
                 ///story manage
                 
-                if countsDictionary.object(forKey: "storyImages") != nil  {
+                if countsDictionary.object(forKey: "bookings") != nil  {
                     
-                    let countst = countsDictionary.value(forKey: "storyImages") as! NSArray
+                    let countst = countsDictionary.value(forKey: "bookings") as! NSArray
                    cell.planButton.setImage(UIImage (named: "travelplanbutton"), for: .normal)
                     cell.planButton .addTarget(self, action: #selector(intrestViewController.addToPlanAction(_:)), for: .touchUpInside)
                      if countst.count>0
                     {
                         print(countst)
+                        addToPlanPopup.setTitle("Add To Plan", for: .normal)
                         if countst.contains(imageId2)
                         {
                             cell.planButton.setImage(UIImage (named: "travelplanbuttonactive"), for: .normal)
-                            cell.planButton.removeTarget(nil, action: nil, for: .allEvents)
+                            addToPlanPopup.setTitle("Remove From Plan", for: .normal)
+                            //cell.planButton.removeTarget(nil, action: nil, for: .allEvents)
                         }
-                        
-                        
                     }
                 }
-                
-
-                
-                
                 
                 
                 
@@ -965,7 +960,7 @@ class intrestViewController: UIViewController, apiClassInterestDelegate ,UITable
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
             
-            print(photosArray[indexPath.row])
+         //   print(photosArray[indexPath.row])
             
             
             //self.photosArray .objectAtIndex(indexPath.row).valueForKey("photos")!.objectAtIndex(0).valueForKey("userLiked")
@@ -1012,7 +1007,7 @@ class intrestViewController: UIViewController, apiClassInterestDelegate ,UITable
             let ddd = changeStr.replacingOccurrences(of: "&", with: " and ") //replace & with and
             sendgeoTag = ddd
         let loc1 = self.captitalString(sendgeoTag as NSString)
-        print(self.photosArray.object(at: indexPath.row))
+       // print(self.photosArray.object(at: indexPath.row))
         let loc2 = self.captitalString((self.photosArray.object(at: indexPath.row)as! NSDictionary).value(forKey: "city") as? String as NSString? ?? "")
         let loc3 = self.captitalString((self.photosArray.object(at: indexPath.row) as! NSDictionary).value(forKey: "country") as? String as NSString? ?? "")
         
@@ -1032,7 +1027,7 @@ class intrestViewController: UIViewController, apiClassInterestDelegate ,UITable
             
             
             
-            print(arrImgStand)
+           // print(arrImgStand)
             
             
             let name = ((((self.photosArray .object(at: indexPath.row) as AnyObject).value(forKey: "photos")! as AnyObject).object(at: 0) as AnyObject).value(forKey: "user")! as AnyObject).value(forKey: "name") as? String ?? " " //userName
@@ -1058,41 +1053,17 @@ class intrestViewController: UIViewController, apiClassInterestDelegate ,UITable
             
             let txt = headerLabel.text
             
-            //print(multiplePhotosArray.objectAtIndex(indexPath.row))
-            // print(multiplePhotosArray.count)
+        
             let multiImg = multiplePhotosArray.object(at: indexPath.row) as! NSMutableArray
-            
-            
-            
-            // print(multiImg)
             let newTmpArr = NSMutableArray()
-            
-            for ll in 0..<(multiImg as AnyObject).count {
-                
-                // print(multiImg.objectAtIndex(ll))
-                // print(multiImg.objectAtIndex(ll).valueForKey("imageLarge"))
-                
-                
-                
-                //newTmpArr.add(["large":"\(multiImg.object(at: ll).value(forKey: "imageLarge")! as? String ?? "")", "standard": "\(multiImg.object(at: ll).value(forKey: "imageThumb")! as? String ?? "")"])
-                
+            for ll in 0..<(multiImg as AnyObject).count
+            {
                 let imgurlLarge = ((multiImg.object(at: ll)) as AnyObject).value(forKey: "imageLarge") as? String ?? ""
                 let imgurlThumb = ((multiImg.object(at: ll)) as AnyObject).value(forKey: "imageThumb") as? String ?? ""
                 
                 newTmpArr .add(["large": imgurlLarge, "standard": imgurlThumb])
                 
-                
-                
-                
-                
             }
-            
-            // print(newTmpArr)
-            
-            
-            
-            //let multiImgStandard: NSMutableArray = (multiplePhotosArray.objectAtIndex(indexPath.row) as? NSMutableArray)!
-            //print(arrImgStand)
             
             let multiImgArr = NSMutableArray()
             let multiImgStandArr = NSMutableArray()
@@ -1118,12 +1089,12 @@ class intrestViewController: UIViewController, apiClassInterestDelegate ,UITable
             
             multiImgArr .insert(arrImg, at: 0)
             multiImgStandArr .insert(arrImgStand, at: 0)
-            print(multiImgStandArr)
+           // print(multiImgStandArr)
             
             let categoriesArray:NSArray = (((photosArray.object(at: indexPath.row) as AnyObject).value(forKey: "photos")! as AnyObject).object(at: 0) as AnyObject).value(forKey: "category") as! NSArray
             let countryName = (((photosArray.object(at: indexPath.row) as AnyObject).value(forKey: "photos")! as AnyObject).object(at: 0) as AnyObject).value(forKey: "country") as? String ?? ""
             var cityName = (((photosArray.object(at: indexPath.row) as AnyObject).value(forKey: "photos")! as AnyObject).object(at: 0) as AnyObject).value(forKey: "city") as? String ?? ""
-            
+            var countryId = (((photosArray.object(at: indexPath.row) as AnyObject).value(forKey: "photos")! as AnyObject).object(at: 0) as AnyObject).value(forKey: "countryId") as? String ?? ""
             
             
             
@@ -1132,7 +1103,7 @@ class intrestViewController: UIViewController, apiClassInterestDelegate ,UITable
             
             
             let strcat = (categoriesArray.value(forKey: "displayName") as AnyObject).componentsJoined(by: ",")
-            print(strcat)
+           // print(strcat)
             
             
             
@@ -1198,7 +1169,7 @@ class intrestViewController: UIViewController, apiClassInterestDelegate ,UITable
                     
                     if (self.likeCount.object(at: index) as AnyObject).value(forKey: "like") as! Bool == true {
                         
-                        mutableDic = ["Description":str, "profileImage": profileImage, "location": location, "locationImage": arrImg, "Venue": cityName, "CountryName": countryName, "geoTag": sendgeoTag,"imageId":imId ,"latitude":lat, "longitude":long, "userName":name, "Type": sourceType, "multipleImagesLarge": multiImgArr, "Category": strcat, "likeBool":true, "otherUserId":otherUserId, "likeCount":countLik, "cityName": cityName, "standardImage":arrImgStand, "multipleImagesStandard": multiImgStandArr, "categoryMainArray": catArrSt, "placeType": type, "placeId": headerId]
+                        mutableDic = ["Description":str, "profileImage": profileImage, "location": location, "locationImage": arrImg, "Venue": cityName, "CountryName": countryName, "geoTag": sendgeoTag,"imageId":imId ,"latitude":lat, "longitude":long, "userName":name, "Type": sourceType, "multipleImagesLarge": multiImgArr, "Category": strcat, "likeBool":true, "otherUserId":otherUserId, "likeCount":countLik, "cityName": cityName, "standardImage":arrImgStand, "multipleImagesStandard": multiImgStandArr, "categoryMainArray": catArrSt, "placeType": type, "placeId": headerId, "countryId": countryId]
                         
                         arrayData .add(mutableDic)
                     }
@@ -1207,7 +1178,7 @@ class intrestViewController: UIViewController, apiClassInterestDelegate ,UITable
                     else
                     {
                         
-                        mutableDic = ["Description":str, "profileImage": profileImage, "location": location, "locationImage": arrImg, "Venue": cityName, "CountryName": countryName, "geoTag": sendgeoTag,"imageId":imId ,"latitude":lat, "longitude":long, "userName":name, "Type": sourceType, "multipleImagesLarge": multiImgArr, "Category": strcat, "likeBool":false, "otherUserId":otherUserId, "likeCount":countLik, "cityName": cityName, "standardImage":arrImgStand, "multipleImagesStandard": multiImgStandArr, "categoryMainArray": catArrSt, "placeType": type, "placeId": headerId]
+                        mutableDic = ["Description":str, "profileImage": profileImage, "location": location, "locationImage": arrImg, "Venue": cityName, "CountryName": countryName, "geoTag": sendgeoTag,"imageId":imId ,"latitude":lat, "longitude":long, "userName":name, "Type": sourceType, "multipleImagesLarge": multiImgArr, "Category": strcat, "likeBool":false, "otherUserId":otherUserId, "likeCount":countLik, "cityName": cityName, "standardImage":arrImgStand, "multipleImagesStandard": multiImgStandArr, "categoryMainArray": catArrSt, "placeType": type, "placeId": headerId, "countryId": countryId]
                         
                         arrayData .add(mutableDic)
                         
@@ -1218,7 +1189,7 @@ class intrestViewController: UIViewController, apiClassInterestDelegate ,UITable
                 }
                 else
                 {
-                    mutableDic = ["Description":str, "profileImage": profileImage, "location": location, "locationImage": arrImg, "Venue": cityName, "CountryName": countryName, "geoTag": sendgeoTag,"imageId":imId ,"latitude":lat, "longitude":long, "userName":name, "Type": sourceType, "multipleImagesLarge": multiImgArr, "Category": strcat, "likeBool":false, "otherUserId":otherUserId, "likeCount":countLik, "cityName": cityName, "standardImage":arrImgStand, "multipleImagesStandard": multiImgStandArr, "categoryMainArray": catArrSt, "placeType": type, "placeId": headerId]
+                    mutableDic = ["Description":str, "profileImage": profileImage, "location": location, "locationImage": arrImg, "Venue": cityName, "CountryName": countryName, "geoTag": sendgeoTag,"imageId":imId ,"latitude":lat, "longitude":long, "userName":name, "Type": sourceType, "multipleImagesLarge": multiImgArr, "Category": strcat, "likeBool":false, "otherUserId":otherUserId, "likeCount":countLik, "cityName": cityName, "standardImage":arrImgStand, "multipleImagesStandard": multiImgStandArr, "categoryMainArray": catArrSt, "placeType": type, "placeId": headerId, "countryId": countryId]
                     
                     arrayData .add(mutableDic)
                 }
@@ -1226,7 +1197,7 @@ class intrestViewController: UIViewController, apiClassInterestDelegate ,UITable
             }
             else
             {
-                mutableDic = ["Description":str, "profileImage": profileImage, "location": location, "locationImage": arrImg, "Venue": cityName, "CountryName": countryName, "geoTag": sendgeoTag,"imageId":imId ,"latitude":lat, "longitude":long, "userName":name, "Type": sourceType, "multipleImagesLarge": multiImgArr, "Category": strcat, "likeBool":false, "otherUserId":otherUserId, "likeCount":countLik, "cityName": cityName, "standardImage":arrImgStand, "multipleImagesStandard": multiImgStandArr, "categoryMainArray": catArrSt, "placeType": type, "placeId": headerId]
+                mutableDic = ["Description":str, "profileImage": profileImage, "location": location, "locationImage": arrImg, "Venue": cityName, "CountryName": countryName, "geoTag": sendgeoTag,"imageId":imId ,"latitude":lat, "longitude":long, "userName":name, "Type": sourceType, "multipleImagesLarge": multiImgArr, "Category": strcat, "likeBool":false, "otherUserId":otherUserId, "likeCount":countLik, "cityName": cityName, "standardImage":arrImgStand, "multipleImagesStandard": multiImgStandArr, "categoryMainArray": catArrSt, "placeType": type, "placeId": headerId, "countryId": countryId]
                 
                 arrayData .add(mutableDic)
                 
@@ -1234,7 +1205,7 @@ class intrestViewController: UIViewController, apiClassInterestDelegate ,UITable
             
             
             
-            print(arrayData)
+          //  print(arrayData)
             
            
             
@@ -1321,18 +1292,19 @@ class intrestViewController: UIViewController, apiClassInterestDelegate ,UITable
         let indexPathTable = IndexPath(row: index2, section: 0)
         tableOfIntrests.reloadRows(at: [indexPathTable], with: .none)
         
-        if countsDictionary.object(forKey: "storyCount") != nil {
-            if let stCount = countsDictionary.value(forKey: "storyCount"){
+        if countsDictionary.object(forKey: "bookings") != nil {
+            if let stCount = countsDictionary.value(forKey: "bookings"){
                 
                 //self.storyCountLabel.text=String(describing: stCount)
             }
             
         }
         
-        
+        //Bucket
         if countsDictionary.object(forKey: "bucketCount") != nil {
-            if let stCount = countsDictionary.value(forKey: "bucketCount"){
-                
+            if let stCount = countsDictionary.value(forKey: "bucketCount")
+            {
+            
                
             }
             
@@ -1351,14 +1323,7 @@ class intrestViewController: UIViewController, apiClassInterestDelegate ,UITable
         super.viewDidLoad()
         self.navigationController?.isNavigationBarHidden=true //hide the navigationBar
         
-        
-        
-        
-        
-        
-        
         likeCount .removeAllObjects() // clear the liked
-        
         NotificationCenter.default.addObserver(self, selector: #selector(intrestViewController.loadInterest(_:)),name:NSNotification.Name(rawValue: "loadInterest"), object: nil)
         
         
@@ -1562,7 +1527,7 @@ class intrestViewController: UIViewController, apiClassInterestDelegate ,UITable
         if (arrayOfKeys.contains(String(describing: categId.object(at: segmentedControl.selectedSegmentIndex)))) {
             let dataArray2: NSMutableArray = self.allCategoryDictionary .value(forKey: String(describing: categId.object(at: segmentedControl.selectedSegmentIndex))) as! NSMutableArray
             
-            print(dataArray2)
+          //  print(dataArray2)
            MBProgressHUD.showAdded(to: self.view, animated: true)
             
             
@@ -1878,7 +1843,8 @@ class intrestViewController: UIViewController, apiClassInterestDelegate ,UITable
     //MARK:- Function to short the data with categories
     //MARK:-
     
-    func shortData(_ dataArray: NSMutableArray) -> Void {
+    func shortData(_ dataArray: NSMutableArray) -> Void
+    {
         
     
         
@@ -2094,13 +2060,13 @@ class intrestViewController: UIViewController, apiClassInterestDelegate ,UITable
             let uId = Udefaults .string(forKey: "userLoginId")
             
             
-            if countsDictionary.object(forKey: "storyImages") != nil  {
+            if countsDictionary.object(forKey: "bookings") != nil  {
                 
-                let countst = countsDictionary.value(forKey: "storyImages") as! NSArray
+                let countst = countsDictionary.value(forKey: "bookings") as! NSArray
                 addToPlanPopup.setTitle("Add To Plan", for: .normal)
                 if countst.count>0
                 {
-                    print(countst)
+                   // print(countst)
                     if countst.contains(imageId)
                     {
                         addToPlanPopup.setTitle("Remove From Plan", for: .normal)
@@ -2123,7 +2089,7 @@ class intrestViewController: UIViewController, apiClassInterestDelegate ,UITable
                 
                 if countst.count>0 {
                     
-                    print(countst)
+                   // print(countst)
                     if countst.contains(imageId)
                     {
                         addToBucketPopup.setTitle("Remove From Bucket", for: .normal)
@@ -2153,7 +2119,7 @@ class intrestViewController: UIViewController, apiClassInterestDelegate ,UITable
                 
                 if source == "PYT"
                 {
-                    if ((((self.photosArray .object(at: index2) as AnyObject).value(forKey: "photos")! as AnyObject).object(at: 0) as AnyObject).value(forKey: "user")! as AnyObject).value(forKey: "name") as? String == uId! {
+                    if ((((self.photosArray .object(at: index2) as AnyObject).value(forKey: "photos")! as AnyObject).object(at: 0) as AnyObject).value(forKey: "user")! as AnyObject).value(forKey: "_id") as? String == uId! {
                         
                         print("Enter if match the user id")
                         
@@ -2400,7 +2366,7 @@ class intrestViewController: UIViewController, apiClassInterestDelegate ,UITable
         print("like image tapped")
         
         
-       print(photosArray.object(at: index2))
+     //  print(photosArray.object(at: index2))
         let uId = Udefaults .string(forKey: "userLoginId")
         let userNameMy = Udefaults.string(forKey: "userLoginName")
        let imageId = (((self.photosArray.object(at: index2) as AnyObject).value(forKey: "photos")! as AnyObject).object(at: 0) as AnyObject).value(forKey: "photoId") as? String ?? " "
@@ -2565,13 +2531,13 @@ class intrestViewController: UIViewController, apiClassInterestDelegate ,UITable
         let imageId = (((self.photosArray.object(at: index2) as AnyObject).value(forKey: "photos")! as AnyObject).object(at: 0) as AnyObject).value(forKey: "photoId") as? String ?? ""
       
         
-        if countsDictionary.object(forKey: "storyImages") != nil  {
+        if countsDictionary.object(forKey: "bookings") != nil  {
             
-            let countst = countsDictionary.value(forKey: "storyImages") as! NSArray
+            let countst = countsDictionary.value(forKey: "bookings") as! NSArray
             addToPlanPopup.setTitle("Add To Plan", for: .normal)
             if countst.count>0
             {
-                print(countst)
+               // print(countst)
                 if countst.contains(imageId)
                 {
                     addToPlanPopup.setTitle("Remove From Plan", for: .normal)
@@ -2581,12 +2547,9 @@ class intrestViewController: UIViewController, apiClassInterestDelegate ,UITable
             }
         }
         
-        
         self.storyImageTapped()
         
-        
     }
-    
     
     
     ///story image tapped
@@ -2604,8 +2567,8 @@ class intrestViewController: UIViewController, apiClassInterestDelegate ,UITable
         
         let ownerId = ((((self.photosArray.object(at: index2) as AnyObject).value(forKey: "photos")! as AnyObject).object(at: 0) as AnyObject).value(forKey: "user")as AnyObject).value(forKey: "_id") as? String ?? " "
         
-        
-        
+        let countryId = (((self.photosArray.object(at: index2) as AnyObject).value(forKey: "photos")! as AnyObject).object(at: 0) as AnyObject).value(forKey: "countryId") as? String ?? " "
+        let countryName = (((self.photosArray.object(at: index2) as AnyObject).value(forKey: "photos")! as AnyObject).object(at: 0) as AnyObject).value(forKey: "country") as? String ?? " "
         
         
         self.detailSelectBtnAction(true)
@@ -2618,50 +2581,60 @@ class intrestViewController: UIViewController, apiClassInterestDelegate ,UITable
         let uId = Udefaults .string(forKey: "userLoginId")
         
         
-        
-        
+         let placeIds = (countArray.value(forKey: "countryId")) as! NSArray
         
         
         
         let headerId = UserDefaults.standard.value(forKey: "selectedLocationId") as? String ?? ""
         let headerText = UserDefaults.standard.value(forKey: "selectedLocation") as? String ?? ""
-        let nxtObjMain = self.storyboard?.instantiateViewController(withIdentifier: "mainHomeViewController") as! mainHomeViewController
+       // let nxtObjMain = self.storyboard?.instantiateViewController(withIdentifier: "mainHomeViewController") as! mainHomeViewController
         
         if addToPlanPopup.titleLabel?.text=="Add To Plan" {
             
-            let dat: NSDictionary = ["userId": "\(uId!)", "imageId": imageId, "countryId": headerId, "countryName": headerText ] //["userId": "\(uId!)", "imageId": imageId, "placeId": headerId, "placeType": headerType]
+            
+            var dat = NSDictionary()
+           
+            
+            if placeIds.contains(countryId)
+            {
+                print("Contains story")
+                let indx = placeIds .index(of: countryId)
+                print(indx)
+                
+                let bookingid = ((countArray.object(at: indx)) as AnyObject).value(forKey: "_id") as? String ?? ""
+                
+                dat = ["userId": "\(uId!)", "imageId": imageId, "countryId": countryId, "countryName": countryName, "imageOwn": ownerId, "bookingId": bookingid ]
+                
+            }
+            else
+            {
+                dat = ["userId": "\(uId!)", "imageId": imageId, "countryId": countryId, "countryName": countryName, "imageOwn": ownerId ]
+            }
+            
+            
+            
+           // let dat: NSDictionary = ["userId": "\(uId!)", "imageId": imageId, "countryId": headerId, "countryName": headerText, "imageOwn": ownerId ]
             
             
             print("Post parameters to select the images for story--- \(dat)")
             self.proceedBtnAction(self)
             //add image to story
             apiClass.sharedInstance().postRequestWithMultipleImage(parameterString: "", parameters: dat, viewController: self)
-            //storyCountLabel.text=String(nxtObjMain.addTheLikes(countst))
         }
             
         else
         {
+            let indx = placeIds .index(of: countryId)
+            let bookingid = ((countArray.object(at: indx)) as AnyObject).value(forKey: "_id") as? String ?? ""
             
-            
-            
-            let dataStr: NSDictionary = ["userId": uId!, "imageId": imageId]
-            print(dataStr)
-            
-            // apiClassStory.sharedInstance().postRequestDeleteStory(dataStr, viewController: self)
-            // storyCountLabel.text=String(nxtObjMain.subtractTheLikes(countst))
+            apiClass.sharedInstance().deleteLocationFromPlan(placeId: imageId as NSString, bookingIdFinal: bookingid as NSString)
             
         }
         
         
         self.tempFunc()
         
-        
-        
-        
-        
     }
-    
-    
     
     
     
@@ -2756,14 +2729,48 @@ class intrestViewController: UIViewController, apiClassInterestDelegate ,UITable
         
         
         
-        // print(self.photosArray.objectAtIndex(self.index2))
+         print(self.photosArray.object(at: self.index2))
+        
+       
+        let geoTagStr = (((self.photosArray.object(at: index2) as AnyObject).value(forKey: "photos")! as AnyObject).object(at: 0) as AnyObject).value(forKey: "placeTag") as? String ?? " "
+       let thumbnailStr = (((self.photosArray.object(at: index2) as AnyObject).value(forKey: "photos")! as AnyObject).object(at: 0) as AnyObject).value(forKey: "imageThumb") as? String ?? " "
+        
+        let imageUrl = (((self.photosArray.object(at: index2) as AnyObject).value(forKey: "photos")! as AnyObject).object(at: 0) as AnyObject).value(forKey: "imageLarge") as? String ?? " "
+        
+        let descriptionStr = (((self.photosArray.object(at: index2) as AnyObject).value(forKey: "photos")! as AnyObject).object(at: 0) as AnyObject).value(forKey: "description") as? String ?? " "
+        
+         let imageId = (((self.photosArray.object(at: index2) as AnyObject).value(forKey: "photos")! as AnyObject).object(at: 0) as AnyObject).value(forKey: "photoId") as? String ?? " "
+        
+        let cateArr = (((self.photosArray.object(at: index2) as AnyObject).value(forKey: "photos")! as AnyObject).object(at: 0) as AnyObject).value(forKey: "category") as! NSArray
+        
+        
+       
+        
+        
+        
+        
+        let dictionaryToEditdata = NSMutableDictionary()
+        dictionaryToEditdata.setValue(geoTagStr, forKey: "geoTag")
+        dictionaryToEditdata.setValue(thumbnailStr, forKey: "thumbnail")
+        dictionaryToEditdata.setValue(imageUrl, forKey: "large")
+        dictionaryToEditdata.setValue(descriptionStr, forKey: "description")
+        dictionaryToEditdata.setValue(cateArr, forKey: "category")
+        dictionaryToEditdata.setValue("public", forKey: "privacy")
+        dictionaryToEditdata.setValue(imageId, forKey: "imgId")
+        
+        print( dictionaryToEditdata)
+        
         
         
         //self.navigationController! .pushViewController(nxtObj2, animated: true)
         
         
+        let nxtObj2 = self.storyboard?.instantiateViewController(withIdentifier: "EditPostViewController") as! EditPostViewController
         
-        
+        nxtObj2.screenName = "Interest"
+        nxtObj2.dataDictionary = dictionaryToEditdata
+
+        self.navigationController?.pushViewController(nxtObj2, animated: true)
         
         
     }
@@ -2779,15 +2786,18 @@ class intrestViewController: UIViewController, apiClassInterestDelegate ,UITable
         
         let uId = Udefaults .string(forKey: "userLoginId")
         let headerText = UserDefaults.standard.value(forKey: "selectedLocation") as? String ?? ""
+        let headerId = UserDefaults.standard.value(forKey: "selectedLocationId") as? String ?? ""
         
-        let parameterString = "userId=\(uId!)&placeName=\(headerText)&placeType=\(type)&category=\(strarr)"//testing
-        print(parameterString)
+      //  let parameterString = "userId=\(uId!)&placeName=\(headerText)&placeType=\(type)&category=\(strarr)"//testing
+        //print(parameterString)
+        
+        let parameterDict: NSMutableDictionary = ["userId": uId!, "placeId": headerId, "placeType": type, "category": strarr, "skip": 0 ]
         self.interestCase=true
         
         //hit the api for shorted interests from web
         
-        //apiClassInterest.sharedInstance().postRequestInterestWiseData(parameterString, viewController: self)
-        //self.segMentManage()
+       apiClassInterest.sharedInstance().postRequestInterestWiseData(parameterDict, viewController: self)
+        self.segMentManage()
         
         
         

@@ -100,7 +100,7 @@ class signupSetPasswordViewController: UIViewController, apiClassDelegate
 
         if (passwordTf.text?.characters.count)!<1 && (confirmPasswordTf.text?.characters.count)!<1
         {
-        CommonFunctionsClass.sharedInstance().showAlert(title: "Oops!", text: "Please fill both fields.", imageName: "alertFill")
+        CommonFunctionsClass.sharedInstance().showAlert(title: "Fill required fields", text: "Please fill required fields to continue.", imageName: "oopsAlert")
             
         }
         else
@@ -111,7 +111,7 @@ class signupSetPasswordViewController: UIViewController, apiClassDelegate
                 if pass == false
                 {
                     //self.passwordTf.becomeFirstResponder()
-                    CommonFunctionsClass.sharedInstance().showAlert(title: "Oops!", text: "Please fill password.", imageName: "alertFill")
+                     CommonFunctionsClass.sharedInstance().showAlert(title: "Fill required fields", text: "Please fill Password.", imageName: "oopsAlert")
                 }
                 else
                 {
@@ -121,7 +121,7 @@ class signupSetPasswordViewController: UIViewController, apiClassDelegate
                         {
                             //self.confirmPasswordTf.becomeFirstResponder()
                             
-                            CommonFunctionsClass.sharedInstance().showAlert(title: "Oops!", text: "The passwords you entered do not match.", imageName: "alertFill")
+                             CommonFunctionsClass.sharedInstance().showAlert(title: "Fill required fields", text: "The passwod you entered do not match.", imageName: "oopsAlert")
                         }
                         else
                         {
@@ -153,7 +153,7 @@ class signupSetPasswordViewController: UIViewController, apiClassDelegate
                             {
                                 // self.confirmPasswordTf.becomeFirstResponder()
                                 
-                                CommonFunctionsClass.sharedInstance().showAlert(title: "Oops!", text: "Please fill same password", imageName: "alertFill")
+                                CommonFunctionsClass.sharedInstance().showAlert(title: "Oops!", text: "Please fill same password", imageName: "exclamationAlert")
                                 
                             }
                         }
@@ -196,6 +196,10 @@ class signupSetPasswordViewController: UIViewController, apiClassDelegate
             
             
         }
+    @IBAction func backAction(_ sender: Any) {
+        self.navigationController?.popViewController(animated: true)
+
+    }
     
     
     
@@ -231,7 +235,7 @@ class signupSetPasswordViewController: UIViewController, apiClassDelegate
                 if(fbloginresult.isCancelled)
                 {
                     
-                    CommonFunctionsClass.sharedInstance().showAlert(title: "Anything wrong?", text: "You just cancelled the sign-in process.", imageName: "alertDelete")
+                    CommonFunctionsClass.sharedInstance().showAlert(title: "Anything wrong?", text: "You just cancelled the sign-in process.", imageName: "exclamationAlert")
                     
                     MBProgressHUD.hide(for: self.view, animated: true)
                 }
@@ -396,7 +400,7 @@ class signupSetPasswordViewController: UIViewController, apiClassDelegate
             
             Udefaults.set("", forKey: "userLoginId")
             
-            CommonFunctionsClass.sharedInstance().showAlert(title: "Session Expire", text: "Your session is expired, Please login again", imageName: "alertDelete")
+            CommonFunctionsClass.sharedInstance().showAlert(title: "Session Expire", text: "Your session is expired, Please login again", imageName: "exclamationAlert")
             
             
             

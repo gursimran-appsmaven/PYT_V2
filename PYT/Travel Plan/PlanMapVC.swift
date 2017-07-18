@@ -17,11 +17,12 @@ class PlanMapVC: UIViewController,GMSMapViewDelegate {
     @IBOutlet var mapView: GMSMapView!
     var locationsArray = NSMutableArray()
     
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        getLocations()
+        self.mapView.delegate = self
         // Do any additional setup after loading the view.
+        self.setPinsInMap()
     }
 
     override func didReceiveMemoryWarning() {
@@ -32,7 +33,7 @@ class PlanMapVC: UIViewController,GMSMapViewDelegate {
 
     //MARK: Action Methods
     @IBAction func backBtnACtion(_ sender: Any) {
-        _=self.navigationController?.popViewController(animated: true)
+        self.navigationController?.popViewController(animated: true)
     }
     
     //MARK: MAP Delegates
@@ -47,30 +48,21 @@ class PlanMapVC: UIViewController,GMSMapViewDelegate {
             
             
 //            print((locationsArray.object(at: i) as AnyObject).value(forKey:"image"))
+            var latTemp:Double = 0
+            var longTemp: Double = 0
             
-            let latTemp = Double(((locationsArray.object(at: i) as AnyObject).value(forKey:"image")! as AnyObject).value(forKey:"latitude") as! NSNumber)
+            if ((locationsArray.object(at: i) as AnyObject).value(forKey: "place") as AnyObject ).value(forKey: "imageThumb") as? NSNull != NSNull() {
+               
+                latTemp = Double(((locationsArray.object(at: i) as AnyObject).value(forKey:"place")! as AnyObject).value(forKey:"latitude") as! NSNumber)
+                
+                longTemp = Double(((locationsArray.object(at: i) as AnyObject).value(forKey:"place")! as AnyObject).value(forKey:"longitude") as! NSNumber)
+            }
             
-            //            let latTempCheck = dataArray.objectAtIndex(i).valueForKey("image")!.valueForKey("latitude") != nil
-            //
-            //            var latTemp = Double()
-            //            var longTemp = Double()
-            //
-            //            latTemp = 0
-            //            longTemp = 0
-            //
-            //            if latTempCheck == true {
-            
-            // latTemp = Double(dataArray.objectAtIndex(i).valueForKey("image")!.valueForKey("longitude") as! NSNumber)
-            
-            let longTemp = Double(((locationsArray.object(at: i) as AnyObject).value(forKey:"image")! as AnyObject).value(forKey:"longitude") as! NSNumber)
+            let imgUrl = ((locationsArray.object(at: i) as AnyObject).value(forKey: "place") as AnyObject ).value(forKey: "imageThumb") as? String ?? ""
             
             
-            
-            //  }
-            
-            
-            //            let longTemp = Double(dataArray.objectAtIndex(i).valueForKey("image")!.valueForKey("longitude") as! NSNumber) //Double(dataArray.objectAtIndex(i).valueForKey("image")!.valueForKey("longitude") )
-            let geoTag = ((locationsArray.object(at: i) as AnyObject).value(forKey:"image")! as AnyObject).value(forKey:"placeTag") as? String ?? ""
+        
+            let geoTag = ((locationsArray.object(at: i) as AnyObject).value(forKey:"place")! as AnyObject).value(forKey:"placeTag") as? String ?? ""
             
             
             if latTemp==0 {
@@ -78,19 +70,31 @@ class PlanMapVC: UIViewController,GMSMapViewDelegate {
             }
             else
             {
-                // let latTemp =  dict["latitude"] as! Double
-                //let longTemp =  dict["longitude"] as! Double
-                
                 let marker = GMSMarker()
                 marker.position = CLLocationCoordinate2D(latitude: latTemp, longitude: longTemp)
                 marker.title = geoTag
 //                marker.appearAnimation = kGMSMarkerAnimationNone
                 marker.map=mapView
-                marker.icon=UIImage (named: "blueMarker")
-                //path.addCoordinate(CLLocationCoordinate2DMake(latTemp!, longTemp!))
+                let customMarkerView = UIView()
+                customMarkerView.frame = CGRect(x: 0.0, y: 0.0, width: 65, height: 65)
+                customMarkerView.backgroundColor = UIColor .clear
+                
+                let imgvi = UIImageView()
+                imgvi.frame=customMarkerView.frame
+                imgvi.image = UIImage (named: "whiteMarker")
+                //sd_setImage(with: URL(string: imgUrl), placeholderImage: UIImage (named: "dummyBackground1"))
+                customMarkerView .addSubview(imgvi)
+                
+                let iconImage = UIImageView()
+                iconImage.frame=CGRect(x: 5.0, y: 0.0, width: 55, height: 55)
+                iconImage.sd_setImage(with: URL(string: imgUrl), placeholderImage: UIImage (named: "dummyBackground1"))
+                iconImage.contentMode = .scaleAspectFill
+                iconImage.clipsToBounds = true
+                customMarkerView .addSubview(iconImage)
                 
                 
-                ////additional
+                marker.iconView = customMarkerView
+                               ////additional
                 let position = CLLocationCoordinate2DMake(latTemp, longTemp)
                 path .add(position)
                 
@@ -99,13 +103,32 @@ class PlanMapVC: UIViewController,GMSMapViewDelegate {
         }
         let mapBounds = GMSCoordinateBounds(path: path)
         let cameraUpdate = GMSCameraUpdate.fit(mapBounds, withPadding: 20)
-        // let cameraUpdate = GMSCameraUpdate.fitBounds(mapBounds) //GMSCameraUpdate.fit(mapBounds)
+       
         self.mapView.moveCamera(cameraUpdate)
+       
         
-        //        let bounds = GMSCoordinateBounds(path: path)
-        //       self.mapView!.animateWithCameraUpdate(GMSCameraUpdate.fitBounds(bounds, withPadding: 50.0))
+    }
+    
+    func scaleImage(_ image: UIImage, toSize newSize: CGSize) -> UIImage {
+        var scaledSize:CGSize = newSize
+        var scaleFactor: Float = 1
+        if image.size.width > image.size.height {
+            scaleFactor = Float(image.size.width / image.size.height)
+            scaledSize.width = newSize.width
+            scaledSize.height =  newSize.height / CGFloat(scaleFactor)
+        }
+        else {
+            scaleFactor = Float(image.size.height / image.size.width)
+            scaledSize.height = newSize.height
+            scaledSize.width = newSize.width / CGFloat(scaleFactor)
+        }
+        UIGraphicsBeginImageContextWithOptions(scaledSize, false, 0.0)
+        let scaledImageRect = CGRect(x: 0.0, y: 0.0, width: scaledSize.width, height: scaledSize.height)
+        image.draw(in: scaledImageRect)
+        let scaledImage = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
         
-        
+        return scaledImage!
     }
     
     
@@ -113,26 +136,24 @@ class PlanMapVC: UIViewController,GMSMapViewDelegate {
     
     func mapView(_ mapView: GMSMapView, markerInfoWindow marker: GMSMarker) -> UIView? {
         let infoWindow = UIView()
-        infoWindow.frame=CGRect(x:0,y:0,width:150,height:30)
+        infoWindow.frame=CGRect(x:0,y:0,width:130,height:40)
         infoWindow.backgroundColor=UIColor .white
         infoWindow.layer.cornerRadius=5
         infoWindow.clipsToBounds=true
         
-        let labelBack = UILabel()
-        labelBack.backgroundColor=UIColor (colorLiteralRed: 32.0/255.0, green: 47.0/255.0, blue: 65.0/255.0, alpha: 1.0)
-        labelBack.frame=CGRect(x:0,y:0,width:30,height:30)
-        infoWindow .addSubview(labelBack)
+//        let labelBack = UILabel()
+//        labelBack.backgroundColor=UIColor (colorLiteralRed: 32.0/255.0, green: 47.0/255.0, blue: 65.0/255.0, alpha: 1.0)
+//        labelBack.frame=CGRect(x:0,y:0,width:30,height:30)
+//        infoWindow .addSubview(labelBack)
         
-        let imageIcon = UIImageView()
-        imageIcon.backgroundColor=UIColor .clear //UIColor (colorLiteralRed: 32.0/255.0, green: 47.0/255.0, blue: 65.0/255.0, alpha: 0.8)
-        imageIcon.frame=CGRect(x:4,y:4,width:22,height:22)
-        imageIcon.image=UIImage (named: "whiteMarkerIcon")
-        infoWindow .addSubview(imageIcon)
+        
         
         let titleLabel = UILabel()
         titleLabel.text=marker.title
+        titleLabel.numberOfLines = 2
+        titleLabel.textAlignment = .left
         titleLabel.font=UIFont(name: "Roboto-Regular", size: 12)!
-        titleLabel.frame=CGRect(x:imageIcon.frame.origin.x + 31,y:0,width:80,height:30)
+        titleLabel.frame=CGRect(x:5 ,y:0,width:130,height:30)
         titleLabel.textColor=UIColor.black
         infoWindow .addSubview(titleLabel)
         

@@ -38,7 +38,9 @@ class mainHomeViewController: UIViewController, SDWebImageManagerDelegate, apiCl
     @IBOutlet weak var storiesCollectionView: UICollectionView!
     @IBOutlet weak var storiesView: UIView!
     @IBOutlet weak var ContentView: UIView!
-    @IBOutlet weak var planCountLbl: CustomLabel!
+    @IBOutlet weak var planCountLbl: CustomLabel!    
+    @IBOutlet weak var changePlanImage: CustomImageView!
+    
     
 //    var oldContentOffset = CGPointZero
 //    var topConstraintRange = (CGFloat(2)..<CGFloat(73))
@@ -202,7 +204,6 @@ class mainHomeViewController: UIViewController, SDWebImageManagerDelegate, apiCl
              self.callApi(globalPlaceid, type: globalType)
         }
         
-        //self.tabBarController?.tabBar.isHidden = false
         
        
     
@@ -318,18 +319,18 @@ class mainHomeViewController: UIViewController, SDWebImageManagerDelegate, apiCl
     //MARK:-
     func segmentedControlChangedValue(_ segmentedControl: HMSegmentedControl)
     {
-        PlanDeleteBool = false
+        PlanDeleteBool = true //false
         planAllLocation = false //false to show the plans of that place
         if countArray.count>0 {
             
-            let placeIds = (countArray.value(forKey: "countryId")) as! NSArray
-            print(placeIds)
-            print(globalPlaceid)
-            if placeIds.contains(globalPlaceid) {
-                print("Contains story")
-                
+//            let placeIds = (countArray.value(forKey: "countryId")) as! NSArray
+//            print(placeIds)
+//            print(globalPlaceid)
+//            if placeIds.contains(globalPlaceid) {
+//                print("Contains story")
+            
                 storiesCollectionView .reloadData()
-            }
+           // }
             
         }
         
@@ -398,7 +399,7 @@ class mainHomeViewController: UIViewController, SDWebImageManagerDelegate, apiCl
         super.viewDidLoad()
         
         
-        
+        PlanDeleteBool = true
         self.navigationController?.isNavigationBarHidden=true
         
         apiClass.sharedInstance().delegate=self //delegate for response api
@@ -919,7 +920,8 @@ class mainHomeViewController: UIViewController, SDWebImageManagerDelegate, apiCl
        print(countArray.count)
       
         
-        if countArray.count>0 {
+        if countArray.count>0
+        {
             
             let placeIds = (countArray.value(forKey: "_id")) as! NSArray
             
@@ -939,19 +941,34 @@ class mainHomeViewController: UIViewController, SDWebImageManagerDelegate, apiCl
 //                    collectionIndex = b!
 //                    tableIndex = a!
 
-                    print(longTapedView.subviews)
-                    print(longTapedView.viewWithTag(2000*tableIndex+collectionIndex))
-                    
-            let BtnPln = longTapedView as! UIButton //.viewWithTag(2000*tableIndex+collectionIndex) as! UIButton
-                    
-                   
-                if (BtnPln.currentImage?.isEqual(UIImage(named: "travelplanbuttonactive")))! {
-                        BtnPln.setImage(UIImage (named: "travelplanbutton"), for: .normal)
+                 
+                    var BtnPln = UIButton()
+                    if longTapedView is UIButton {
+                        BtnPln = longTapedView as! UIButton
+                        if (BtnPln.currentImage?.isEqual(UIImage(named: "travelplanbuttonactive")))! {
+                            BtnPln.setImage(UIImage (named: "travelplanbutton"), for: .normal)
+                        }
+                        else
+                        {
+                            BtnPln.setImage(UIImage (named: "travelplanbuttonactive"), for: .normal)
+                        }
                     }
                     else
                     {
-                         BtnPln.setImage(UIImage (named: "travelplanbuttonactive"), for: .normal)
+                        print(self.longTapedView.subviews)
+                         let indexPathCollection = IndexPath(row: collectionIndex, section: 0)//collectionView Index
+                         let indexPathTable = IndexPath(row: tableIndex, section: 0)//tableView Index
+                        let cell:cellClassTableViewCell = imagesTableView.cellForRow(at: indexPathTable) as! cellClassTableViewCell
+                        cell.imagesCollectionView.reloadItems(at: [indexPathCollection])
+                        
+                       // BtnPln = self.longTapedView.viewWithTag(2000*tableIndex+collectionIndex)! as! UIButton
+                        
                     }
+                    
+                    
+                    
+                    
+                
                     
                     planTap = false
                 }
@@ -959,7 +976,6 @@ class mainHomeViewController: UIViewController, SDWebImageManagerDelegate, apiCl
                 
                
                 
-               // self.imagesTableView.reloadRows(at: [indexPath], with: .none)
             }
             
             
@@ -1224,10 +1240,11 @@ class mainHomeViewController: UIViewController, SDWebImageManagerDelegate, apiCl
             
             cell.imagesCollectionView.delegate=self
             cell.imagesCollectionView.dataSource=self
-            cell.imagesCollectionView.tag=indexPath.row
-            cell.imagesCollectionView.collectionViewLayout.invalidateLayout()
+            
 
             DispatchQueue.main.async(execute: {
+                cell.imagesCollectionView.tag=indexPath.row
+                cell.imagesCollectionView.collectionViewLayout.invalidateLayout()
             cell.imagesCollectionView.reloadData()
            })
             if segmentBool == true {
@@ -1494,7 +1511,8 @@ class mainHomeViewController: UIViewController, SDWebImageManagerDelegate, apiCl
        
          //DispatchQueue.main.async(execute: {
             self.navigationController! .pushViewController(nxtObj, animated: true)
-            nxtObj.hidesBottomBarWhenPushed = true
+        self.tabBarController?.setTabBarVisible(visible: false, animated: true)
+
        // })
         
     }
@@ -1502,10 +1520,13 @@ class mainHomeViewController: UIViewController, SDWebImageManagerDelegate, apiCl
     
     @IBAction func ReloadStoriesCollection(_ sender: AnyObject)
     {
-        PlanDeleteBool = false
+        
+        
+        
+        PlanDeleteBool = true//false
         if planAllLocation == false {
             planAllLocation = true//true to show the all plans
-            
+            changePlanImage.image = UIImage (named: "PlanActive")
             storiesCollectionView.reloadData()
             
         }
@@ -1513,8 +1534,8 @@ class mainHomeViewController: UIViewController, SDWebImageManagerDelegate, apiCl
         {
             
             planAllLocation = false//false to show the plans of that place
-            
             storiesCollectionView.reloadData()
+            changePlanImage.image = UIImage (named: "Plan")
         }
         
 
@@ -1768,17 +1789,184 @@ class mainHomeViewController: UIViewController, SDWebImageManagerDelegate, apiCl
         
         imageId = arrId[collectionIndex] as! String as NSString
        
+       // print(self.arrayOfimages1[tableIndex])
+        
+        let countIdArr = (self.arrayOfimages1[tableIndex] as AnyObject).value(forKey: "countId") as! NSArray
+        let CountryId = countIdArr[collectionIndex] as! String as NSString
+
+        
+        let countNameArr = (self.arrayOfimages1[tableIndex] as AnyObject).value(forKey: "country") as! NSArray
+        let cname = countNameArr[collectionIndex] as! String as NSString
+        
+        
         var countst = NSNumber()
         countst = 0
        
-        
+        let placeIds = (countArray.value(forKey: "countryId")) as! NSArray
         
        
-        if  addToPlanBtn.titleLabel?.text=="Add To Plan" {
+         //addToPlanBtn .setTitle("Add To Plan", for: .normal)
+         var dat = NSDictionary()
+        if countsDictionary.object(forKey: "bookings") != nil
+        {
+            let countst = countsDictionary.value(forKey: "bookings") as! NSArray
+            if countst.count>0
+            {
+                if countst.contains(imageId) {
+                    //remove plan api
+                   // addToPlanBtn .setTitle("Remove From Plan", for: .normal)
+                    let indx = placeIds .index(of: CountryId)
+                    let bookingid = ((countArray.object(at: indx)) as AnyObject).value(forKey: "_id") as? String ?? ""
+                    let pId = ((countArray.object(at: indx)) as AnyObject).value(forKey: "_id") as? String ?? ""
+                    apiClass.sharedInstance().deleteLocationFromPlan(placeId: imageId, bookingIdFinal: bookingid as NSString)
+                }
+                else
+                {
+                //add plan 
+                    if placeIds.contains(CountryId)
+                    {
+                        print("Contains story")
+                        let indx = placeIds .index(of: CountryId)
+                        print(indx)
+                        
+                        let bookingid = ((countArray.object(at: indx)) as AnyObject).value(forKey: "_id") as? String ?? ""
+                        
+                        dat = ["userId": "\(uId)", "imageId": imageId, "countryId": CountryId, "countryName": cname, "imageOwn": ownersId, "bookingId": bookingid ]
+                        
+                    }
+                    else
+                    {
+                        dat = ["userId": "\(uId)", "imageId": imageId, "countryId": CountryId, "countryName": cname, "imageOwn": ownersId ]
+                    }
+                    
+                    
+                    
+                    
+                    
+                    //type=self,globaltype
+                    var postDict = NSDictionary()
+                    
+                    postDict = dat
+                    
+                    
+                    
+                    print("Post parameters to select the images for story--- \(postDict)")
+                    
+                    //add image to story
+                    
+                    
+                    DispatchQueue.global(qos: DispatchQoS.QoSClass.background).async(execute: {
+                        apiClass.sharedInstance().postRequestWithMultipleImage(parameterString: "", parameters: postDict, viewController: self)
+                    })
+                    
+                    self.proceedBtnAction(tableIndex, collectionViewIndex: collectionIndex)
+                    
+                    self.detailSelectBtnAction(true)
+                }
+                
+            }
+                
+            else
+            {
+                
+                if placeIds.contains(CountryId)
+                {
+                    print("Contains story")
+                    let indx = placeIds .index(of: CountryId)
+                    print(indx)
+                    
+                    let bookingid = ((countArray.object(at: indx)) as AnyObject).value(forKey: "_id") as? String ?? ""
+                    
+                    dat = ["userId": "\(uId)", "imageId": imageId, "countryId": CountryId, "countryName": cname, "imageOwn": ownersId, "bookingId": bookingid ]
+                    
+                }
+                else
+                {
+                    dat = ["userId": "\(uId)", "imageId": imageId, "countryId": CountryId, "countryName": cname, "imageOwn": ownersId ]
+                }
+                
+                
+                
+                
+                
+                //type=self,globaltype
+                var postDict = NSDictionary()
+                
+                postDict = dat
+                
+                
+                
+                print("Post parameters to select the images for story--- \(postDict)")
+                
+                //add image to story
+                
+                
+                DispatchQueue.global(qos: DispatchQoS.QoSClass.background).async(execute: {
+                    apiClass.sharedInstance().postRequestWithMultipleImage(parameterString: "", parameters: postDict, viewController: self)
+                })
+                
+                self.proceedBtnAction(tableIndex, collectionViewIndex: collectionIndex)
+                
+                self.detailSelectBtnAction(true)
+            }
+        
+        }
+        else
+        {
+            //if there is no booking yet
+             dat = ["userId": "\(uId)", "imageId": imageId, "countryId": CountryId, "countryName": cname, "imageOwn": ownersId ]
+            //type=self,globaltype
+            var postDict = NSDictionary()
+            
+            postDict = dat
+            
+            
+            
+            print("Post parameters to select the images for story--- \(postDict)")
+            
+            //add image to story
+            
+            
+            DispatchQueue.global(qos: DispatchQoS.QoSClass.background).async(execute: {
+                apiClass.sharedInstance().postRequestWithMultipleImage(parameterString: "", parameters: postDict, viewController: self)
+            })
+            
+            self.proceedBtnAction(tableIndex, collectionViewIndex: collectionIndex)
+            
+            self.detailSelectBtnAction(true)
+            
+        }
+        
+        
+        
+        
+        /*
+        if  addToPlanBtn.titleLabel?.text=="Add To Plan"
+        {
             
         //let dat: NSDictionary = ["userId": "\(uId)", "imageId": imageId, "placeId": globalPlaceid, "placeType": self.globalType, "ownerId": ownersId ]
+            var dat = NSDictionary()
             
-            let dat: NSDictionary = ["userId": "\(uId)", "imageId": imageId, "countryId": globalPlaceid, "countryName": self.globalLocation, "imageOwn": ownersId ]
+            
+            if placeIds.contains(CountryId)
+            {
+                print("Contains story")
+                let indx = placeIds .index(of: CountryId)
+                print(indx)
+                
+                let bookingid = ((countArray.object(at: indx)) as AnyObject).value(forKey: "_id") as? String ?? ""
+                
+                dat = ["userId": "\(uId)", "imageId": imageId, "countryId": CountryId, "countryName": cname, "imageOwn": ownersId, "bookingId": bookingid ]
+                
+            }
+            else
+            {
+                dat = ["userId": "\(uId)", "imageId": imageId, "countryId": CountryId, "countryName": cname, "imageOwn": ownersId ]
+            }
+            
+            
+            
+            
             
             //type=self,globaltype
             var postDict = NSDictionary()
@@ -1807,18 +1995,16 @@ class mainHomeViewController: UIViewController, SDWebImageManagerDelegate, apiCl
         else
         {
             
-            let dataStr: NSDictionary = ["userId": uId, "imageId": imageId]
-            print(dataStr)
-            
-           //print(dataStr) delete story
-            DispatchQueue.global(qos: DispatchQoS.QoSClass.background).async(execute: {
-            //apiClassStory.sharedInstance().postRequestDeleteStory(dataStr, viewController: self)
-                
-                })
-           // storyListCount.text=String(self.subtractTheLikes(countst))
+           // let dataStr: NSDictionary = ["userId": uId, "imageId": imageId]
+            //print(dataStr)
+         
+            let indx = placeIds .index(of: CountryId)
+            let bookingid = ((countArray.object(at: indx)) as AnyObject).value(forKey: "_id") as? String ?? ""
+            let pId = ((countArray.object(at: indx)) as AnyObject).value(forKey: "_id") as? String ?? ""
+            apiClass.sharedInstance().deleteLocationFromPlan(placeId: imageId, bookingIdFinal: bookingid as NSString)
             
         }
-        
+        */
        
         
         self.tempFunc()
@@ -1994,7 +2180,6 @@ class mainHomeViewController: UIViewController, SDWebImageManagerDelegate, apiCl
         
         
         
-        //
         //        SweetAlert().showAlert("PYT", subTitle: "Are you sure to delete this image?", style: AlertStyle.Warning, buttonTitle:"Cancel", buttonColor: UIColor .redColor() , otherButtonTitle:  "Ok", otherButtonColor: UIColor .greenColor()) { (isOtherButton) -> Void in
         //            if isOtherButton == true {
         //
@@ -2098,9 +2283,6 @@ class mainHomeViewController: UIViewController, SDWebImageManagerDelegate, apiCl
         //            alertController.addAction(cancelAction)
         //        
         //        self.presentViewController(alertController, animated: true, completion: nil)
-        
-        
-        
         
         
         
@@ -2402,7 +2584,6 @@ class mainHomeViewController: UIViewController, SDWebImageManagerDelegate, apiCl
             
             
             
-          //  self.tabBarController?.view.bringSubview(toFront: detailView)
             
             
             let tapGestureRecognizer = UITapGestureRecognizer()
@@ -2590,7 +2771,7 @@ class mainHomeViewController: UIViewController, SDWebImageManagerDelegate, apiCl
             
             if success != 1
             {
-               CommonFunctionsClass.sharedInstance().showAlert(title: "Opps!", text: "Sorry image is not added to story, Please try again", imageName: "") // CommonFunctionsClass.sharedInstance().alertViewOpen("Sorry image is not added to story, Please try again", viewController: self)
+               CommonFunctionsClass.sharedInstance().showAlert(title: "Opps!", text: "Sorry image is not added to story, Please try again", imageName: "exclamationAlert") // CommonFunctionsClass.sharedInstance().alertViewOpen("Sorry image is not added to story, Please try again", viewController: self)
             }
             
             
@@ -2862,8 +3043,12 @@ class mainHomeViewController: UIViewController, SDWebImageManagerDelegate, apiCl
             var idLikedUsers = NSArray()
             idLikedUsers = (self.photos[0] as AnyObject).value(forKey: "userLiked")! as! NSArray
             
+            var countrId = (self.photos[0] as AnyObject).value(forKey: "countryId")! as! NSArray
             
-            let mutableDict: NSMutableDictionary = ["location":locationArray, "id":idArray, "category":categoryArray, "albums": albumArray, "description": descriptionArray, "country": countryArray, "largeImage": imagesLargeArray, "geoTag":geoTagArray, "latitude":latArray, "longitude": longArray, "source": sourceArray, "likeCount":likeCountArray, "likedUserId":idLikedUsers,"thumbnails":imagesArray, "sourceType":sourcetype, "showMore": showMorePhotos ]
+            var placeId = (self.photos[0] as AnyObject).value(forKey: "countryId")! as! NSArray
+            
+            
+            let mutableDict: NSMutableDictionary = ["location":locationArray, "id":idArray, "category":categoryArray, "albums": albumArray, "description": descriptionArray, "country": countryArray, "largeImage": imagesLargeArray, "geoTag":geoTagArray, "latitude":latArray, "longitude": longArray, "source": sourceArray, "likeCount":likeCountArray, "likedUserId":idLikedUsers,"thumbnails":imagesArray, "sourceType":sourcetype, "showMore": showMorePhotos, "countId": countrId ]
             
             [self.arrayOfimages1 .add(mutableDict)]
             
@@ -2937,8 +3122,8 @@ class mainHomeViewController: UIViewController, SDWebImageManagerDelegate, apiCl
           //  })
         
         
-        if countsDictionary.object(forKey: "storyCount") != nil {
-            if let stCount = countsDictionary.value(forKey: "storyCount"){
+        if countsDictionary.object(forKey: "bookings") != nil {
+            if let stCount = countsDictionary.value(forKey: "bookings"){
                 
               //  self.storyListCount.text=String(describing: stCount)
             }
@@ -3148,6 +3333,10 @@ class mainHomeViewController: UIViewController, SDWebImageManagerDelegate, apiCl
                                         
                                         var longArray = (self.arrayOfimages1.object(at: indx) as AnyObject).value(forKey: "longitude") as! NSArray
                                         longArray = self.changeArray(longArray, index: 0, parm: "longitude")
+                                
+                                        var countryIdArray = (self.arrayOfimages1[indx] as AnyObject).value(forKey: "countId") as! NSArray
+                                        countryIdArray = self.changeArray(countryIdArray, index: 0, parm: "countryId")
+                                        
                                         
                                         var imagesLargeArray = NSArray()
                                         imagesLargeArray = (self.arrayOfimages1.object(at: indx) as AnyObject).value(forKey: "largeImage") as! NSArray
@@ -3207,7 +3396,7 @@ class mainHomeViewController: UIViewController, SDWebImageManagerDelegate, apiCl
                                         idLikedUsers = self.changeArray(idLikedUsers, index: 0, parm: "userLiked")
                                         
                                         
-                                        let mutableDict: NSMutableDictionary = ["location":locationArray, "id":idArray, "category":categoryArray, "albums": albumArray, "description": descriptionArray, "country": countryArray, "largeImage": imagesLargeArray, "geoTag":geoTagArray, "latitude":latArray, "longitude": longArray, "source": sourceArray, "likeCount":likeCountArray, "likedUserId":idLikedUsers,"thumbnails":imagesArray, "sourceType":sourcetype, "showMore": showMorePhotos ]
+                                        let mutableDict: NSMutableDictionary = ["location":locationArray, "id":idArray, "category":categoryArray, "albums": albumArray, "description": descriptionArray, "country": countryArray, "largeImage": imagesLargeArray, "geoTag":geoTagArray, "latitude":latArray, "longitude": longArray, "source": sourceArray, "likeCount":likeCountArray, "likedUserId":idLikedUsers,"thumbnails":imagesArray, "sourceType":sourcetype, "showMore": showMorePhotos, "countId": countryIdArray ]
                                         
                                         
                                         
@@ -3381,11 +3570,14 @@ extension mainHomeViewController: UICollectionViewDelegate, UICollectionViewData
             if planAllLocation == false//false to show the plans of that place
             {
                 
-                if countArray.count>0 {
+                if countArray.count>0
+                {
                     
-                
+//                    let countIdArr = (self.arrayOfimages1[tableIndex] as AnyObject).value(forKey: "countId") as! NSArray
+//                    let CountryId = countIdArr[collectionIndex] as! String as NSString
                 let placeIds = (countArray.value(forKey: "countryId")) as! NSArray
-                
+                print(placeIds)
+                    print(globalPlaceid)
                     if placeIds.contains(globalPlaceid){//("58c3c09336f8b6180feea0c6"){//(globalPlaceid) {
                     print("Contains story")
                     let indx = placeIds .index(of: self.globalPlaceid)
@@ -3398,7 +3590,6 @@ extension mainHomeViewController: UICollectionViewDelegate, UICollectionViewData
                         return imageUrlArray.count
                         
                     }
-                    
                     
                     }
                     planCountLbl.text = "0"
@@ -3422,12 +3613,15 @@ extension mainHomeViewController: UICollectionViewDelegate, UICollectionViewData
                 return 0
             }
             let show = (arrayOfimages1[collectionView.tag] as AnyObject).value(forKey: "showMore") as! Int
+            let countData = (arrayOfimages1[collectionView.tag] as AnyObject).value(forKey: "id")! as! NSArray
             
-            if show == 0 {
-                return ((arrayOfimages1.object(at: collectionView.tag) as AnyObject).value(forKey: "id") as! NSArray).count //(arrayOfimages1[collectionView.tag] as AnyObject).value(forKey: "id")! .count
+            if show == 0
+            {
+                return countData.count
             }
-            else{
-                return ((arrayOfimages1[collectionView.tag] as AnyObject).value(forKey: "id")! as AnyObject) .count + 1
+            else
+            {
+                return countData.count + 1
             }
         }
     
@@ -3463,7 +3657,7 @@ extension mainHomeViewController: UICollectionViewDelegate, UICollectionViewData
                             if imageUrlArray.count > 0
                             {
                                 print(imageUrlArray.count - 1 - (indexPath.row))
-                                let imgUrl = (((imageUrlArray.object(at: imageUrlArray.count-1 - (indexPath.row ))) as! NSDictionary).value(forKey: "place")as! NSDictionary) .value(forKey: "imageThumb") as? String ?? ""
+                                let imgUrl = (((imageUrlArray.object(at: imageUrlArray.count-1 - (indexPath.row ))) as! AnyObject).value(forKey: "place")as! AnyObject) .value(forKey: "imageThumb") as? String ?? ""
                                 
                                 print(imgUrl)
                                
@@ -3485,28 +3679,38 @@ extension mainHomeViewController: UICollectionViewDelegate, UICollectionViewData
                                 }
 
                                 
-                                let placetag = (((imageUrlArray.object(at:  imageUrlArray.count-1 - (indexPath.row))) as! NSDictionary).value(forKey: "place")as! NSDictionary) .value(forKey: "placeTag") as? String ?? ""
+                                let placetag = (((imageUrlArray.object(at:  imageUrlArray.count-1 - (indexPath.row))) as! AnyObject).value(forKey: "place")as! AnyObject) .value(forKey: "placeTag") as? String ?? ""
                                 cell.planName.text = placetag
                                 
                             }
                             
-                        }
-                        cell.deletplanButton.isHidden = true
-                        if PlanDeleteBool == true
-                        {
                             cell.deletplanButton.isHidden = false
+                          //  if PlanDeleteBool == true
+                          //  {
+                                cell.deletplanButton.isHidden = false
+                           // }
+                          //  else
+                          //  {
+                               // cell.deletplanButton.isHidden = true
+                                let longTapGest = LongPressGesture(target: self, action: #selector(mainHomeViewController.longTap(_:)))
+                                
+                               // cell.addGestureRecognizer(longTapGest)
+                                cell.deletplanButton.tag = 1000+imageUrlArray.count-1 - (indexPath.row)//indexPath.row
+                                cell.deletplanButton.addTarget(self, action: #selector(self.deletePlanApiHit(_:)), for: .touchUpInside)
+                                
+                                
+                           // }
+                            
+                            
+                            
+                            
+                            
+                            
                         }
-                        else
-                        {
-                            cell.deletplanButton.isHidden = true
-                            let longTapGest = LongPressGesture(target: self, action: #selector(mainHomeViewController.longTap(_:)))
-                            
-                            cell.addGestureRecognizer(longTapGest)
-                            cell.deletplanButton.tag = 1000+indexPath.row
-                            cell.deletplanButton.addTarget(self, action: #selector(self.deletePlanApiHit(_:)), for: .touchUpInside)
-                            
-                            
-                        }
+                        
+                        cell.planImage.contentMode = .scaleAspectFill
+                        
+                       
                         
                     }
                     
@@ -3529,7 +3733,7 @@ extension mainHomeViewController: UICollectionViewDelegate, UICollectionViewData
                         countryname = countriesName//.object(at: 0) as! String
                    // }
                     
-                    let imgUrl = (((((countArray.object(at: indexPath.row )) as AnyObject).value(forKey: "places") as! NSArray).object(at: 0) as AnyObject).value(forKey: "place")as! NSDictionary).value(forKey: "imageThumb") as? String ?? ""
+                    let imgUrl = (((((countArray.object(at: indexPath.row )) as AnyObject).value(forKey: "places") as AnyObject).object(at: 0) as AnyObject).value(forKey: "place")as AnyObject).value(forKey: "imageThumb") as? String ?? ""
 
                     UIView.animate(withDuration: 0.75, animations: {
                         cell.planImage.transform = CGAffineTransform(scaleX: 0.02, y: 0.02)
@@ -3548,23 +3752,24 @@ extension mainHomeViewController: UICollectionViewDelegate, UICollectionViewData
                     
                     cell.planName.text = countryname
                     
-                    cell.deletplanButton.isHidden = true
-                    if PlanDeleteBool == true
-                    {
+                   // cell.deletplanButton.isHidden = true
+                    cell.deletplanButton.tag = 5000+indexPath.row //5000 for whole plan delete
+                    cell.deletplanButton.addTarget(self, action: #selector(self.deletePlanApiHit(_:)), for: .touchUpInside)
+                    //if PlanDeleteBool == true
+                    //{
+                   //     cell.deletplanButton.isHidden = false
+                   // }
+                   // else
+                   /// {
                         cell.deletplanButton.isHidden = false
-                    }
-                    else
-                    {
-                        cell.deletplanButton.isHidden = true
                         let longTapGest = LongPressGesture(target: self, action: #selector(mainHomeViewController.longTap(_:)))
                         
                         cell.addGestureRecognizer(longTapGest)
                         
-                        cell.deletplanButton.tag = 5000+indexPath.row //5000 for whole plan delete
-                        cell.deletplanButton.addTarget(self, action: #selector(self.deletePlanApiHit(_:)), for: .touchUpInside)
+                       
                         
                         
-                    }
+                   // }
                     return cell
                 }
 
@@ -3585,196 +3790,193 @@ extension mainHomeViewController: UICollectionViewDelegate, UICollectionViewData
         }
         else
         {
-        if indexPath.row < ((arrayOfimages1[collectionView.tag] as AnyObject).value(forKey: "id")! as AnyObject) .count  {
+            print("Index path i \(indexPath.row) \n Array count \(((arrayOfimages1[collectionView.tag] as AnyObject).value(forKey: "id")! as AnyObject).count)")
+            let countData = (arrayOfimages1[collectionView.tag] as AnyObject).value(forKey: "id")! as! NSArray
             
-            
-          
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cellCollectionView",for: indexPath) as! collectionViewCellClassFeed
-           
-            cell.layer.shouldRasterize = true
-            cell.layer.rasterizationScale = UIScreen.main.scale
-            
-            
-            if self.arrayOfimages1.count<1
-            {
+        if indexPath.row < countData.count
+        {
+                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cellCollectionView",for: indexPath) as! collectionViewCellClassFeed
                 
-            }
-            else
-            {
+                cell.layer.shouldRasterize = true
+                cell.layer.rasterizationScale = UIScreen.main.scale
                 
                 
-                var imageName = NSString()
-                var imageName2 = NSString()
-                var imageId2 = NSString()
-                var imgDesc = NSString()
-                
-                
-                var arrId2 = NSArray()
-                arrId2 = (self.arrayOfimages1[collectionView.tag] as AnyObject).value(forKey: "id") as! NSArray
-                
-                var arrDesc = NSArray()
-                arrDesc = (self.arrayOfimages1[collectionView.tag] as AnyObject).value(forKey: "description") as! NSArray
-                
-                
-                imageId2 = arrId2[indexPath.row] as? String as NSString? ?? " "//get id of images
-                
-                imgDesc = arrDesc[indexPath.row] as? String as NSString? ?? " "//get description of image
-                
-                let likeView = cell.viewWithTag(7455)! as UIView
-                likeView.alpha = 0
-                
-                
-                
-                var countryArr = NSArray()
-                countryArr = (self.arrayOfimages1[collectionView.tag] as AnyObject).value(forKey: "country") as! NSArray
-                
-                let countryTxt = countryArr[indexPath.row] as? String ?? ""
-                
-                
-                let geoTag = (self.arrayOfimages1[collectionView.tag] as AnyObject).value(forKey: "geoTag") as! NSArray
-                
-                
-                var location = "\(geoTag[indexPath.row] as? String ?? "")"
-                if location == "Not found"{
-                    location = ""
-                }
-                
-                if location == "" {
-                    
-                    location=countryTxt
-                    
-                }
-                
-                
-                //let geoTagLbl = cell.viewWithTag(7456)! as! UILabel
-                cell.geoTagLbl.text=(location as String).capitalized
-                cell.geoTagLbl.lineBreakMode = .byTruncatingTail
-                cell.geoTagLbl.minimumScaleFactor=0.6
-                //geoTagLbl.adjustsFontSizeToFitWidth=true
-                
-                
-                
-                
-                
-                
-//                var arrCategory = NSArray()
-//                arrCategory = (self.arrayOfimages1[collectionView.tag] as AnyObject).value(forKey: "category") as! NSArray
-//                let newCatRr: NSMutableArray = arrCategory[indexPath.row] as! NSMutableArray
-//                
-//                let  newcat2 = NSMutableArray()
-//                
-//                for ll in 0..<newCatRr.count {
-//                    
-//                    var stCat = (newCatRr.object(at: ll) as AnyObject).value(forKey: "displayName") as? String ?? ""
-//                    
-//                    
-//                    if stCat == "Random" || stCat == "random"
-//                    {
-//                        stCat = "Others"
-//                    }
-//                    newcat2 .add(stCat)
-//                    
-//                    
-//                }
-                
-                //let categ = arrCategory[indexPath.row] .componentsJoinedByString(",")
-                //let categ = newcat2 .componentsJoined(by: ",")
-                
-                
-                var cityArr = NSArray()
-                cityArr = (self.arrayOfimages1[collectionView.tag] as AnyObject).value(forKey: "location") as! NSArray
-                
-                var cityName = cityArr[indexPath.row] as? String ?? " "
-                
-                
-                if cityName == "" || cityName == " "{
-                    cityName=countryTxt
-                    
-                }
-                
-
-                               
-                
-//                let activityIndicatorView = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.gray)
-//                cell.backgroundView = activityIndicatorView
-//                //self.view.bringSubviewToFront(cell.backgroundView!)
-//                activityIndicatorView.startAnimating()
-                
-                
-                
-                
-                
-                
-                
-                //MARK:- MANAGE LIKE AND ITS COUNT
-                
-                // dispatch_async(dispatch_get_main_queue(), {
-                
-                var countLik = NSNumber()
-                //MANAGE from the crash
-                ////print(self.arrayOfimages1[collectionView.tag])
-                let likeCountValue = (self.arrayOfimages1[collectionView.tag] as AnyObject).value(forKey: "likeCount") as! NSArray
-                if likeCountValue[indexPath.row] as? NSNull != NSNull()  {
-                    
-                    countLik = likeCountValue[indexPath.row] as! NSNumber  //as? String ?? "0.0"
+                if self.arrayOfimages1.count<1
+                {
                     
                 }
                 else
                 {
-                    countLik=0
-                }
-                
-                
-                
-                
-                let likedByMe = (self.arrayOfimages1[collectionView.tag] as AnyObject).value(forKey: "likedUserId") as! NSArray
-                let likedByMe2 = likedByMe .object(at: indexPath.row) as! NSArray
-                
-                //SHOW THE COUNT OF LIKED
-                cell.likecountlbl.text=String(describing: countLik)
-                cell.likeimg.image=UIImage (named: "Like")
-                
-                
-                ///////-  Show liked by me-/////
-                if likedByMe2.count>0
-                {
-                    if likedByMe2.contains(self.uId)
-                    {
-                        //contains photo liked by me
-                        let arrLk = self.likeCount.value(forKey: "imageId") as! NSArray
+                    
+                    
+                    var imageName = NSString()
+                    var imageName2 = NSString()
+                    var imageId2 = NSString()
+                    var imgDesc = NSString()
+                    
+                    
+                    var arrId2 = NSArray()
+                    arrId2 = (self.arrayOfimages1[collectionView.tag] as AnyObject).value(forKey: "id") as! NSArray
+                    
+                    var arrDesc = NSArray()
+                    arrDesc = (self.arrayOfimages1[collectionView.tag] as AnyObject).value(forKey: "description") as! NSArray
+                    
+                    
+                    imageId2 = arrId2[indexPath.row] as? String as NSString? ?? " "//get id of images
+                    
+                    imgDesc = arrDesc[indexPath.row] as? String as NSString? ?? " "//get description of image
+                    
+                    let likeView = cell.viewWithTag(7455)! as UIView
+                    likeView.alpha = 0
+                    
+                    
+                    
+                    var countryArr = NSArray()
+                    countryArr = (self.arrayOfimages1[collectionView.tag] as AnyObject).value(forKey: "country") as! NSArray
+                    
+                    let countryTxt = countryArr[indexPath.row] as? String ?? ""
+                    
+                    
+                    let geoTag = (self.arrayOfimages1[collectionView.tag] as AnyObject).value(forKey: "geoTag") as! NSArray
+                    
+                    
+                    var location = "\(geoTag[indexPath.row] as? String ?? "")"
+                    if location == "Not found"{
+                        location = ""
+                    }
+                    
+                    if location == "" {
                         
-                        if arrLk.contains(imageId2)
+                        location=countryTxt
+                        
+                    }
+                    
+                    
+                    //let geoTagLbl = cell.viewWithTag(7456)! as! UILabel
+                    cell.geoTagLbl.text=(location as String).capitalized
+                    cell.geoTagLbl.lineBreakMode = .byTruncatingTail
+                    cell.geoTagLbl.minimumScaleFactor=0.6
+                    //geoTagLbl.adjustsFontSizeToFitWidth=true
+                    
+                    
+                    
+                    
+                 
+                    
+                    
+                    var cityArr = NSArray()
+                    cityArr = (self.arrayOfimages1[collectionView.tag] as AnyObject).value(forKey: "location") as! NSArray
+                    
+                    var cityName = cityArr[indexPath.row] as? String ?? " "
+                    
+                    
+                    if cityName == "" || cityName == " "{
+                        cityName=countryTxt
+                        
+                    }
+                    
+                    
+                    
+                    
+                    
+                    //MARK:- MANAGE LIKE AND ITS COUNT
+                    
+                    // dispatch_async(dispatch_get_main_queue(), {
+                    
+                    var countLik = NSNumber()
+                    //MANAGE from the crash
+                    ////print(self.arrayOfimages1[collectionView.tag])
+                    let likeCountValue = (self.arrayOfimages1[collectionView.tag] as AnyObject).value(forKey: "likeCount") as! NSArray
+                    if likeCountValue[indexPath.row] as? NSNull != NSNull()  {
+                        
+                        countLik = likeCountValue[indexPath.row] as! NSNumber  //as? String ?? "0.0"
+                        
+                    }
+                    else
+                    {
+                        countLik=0
+                    }
+                    
+                    
+                    
+                    
+                    let likedByMe = (self.arrayOfimages1[collectionView.tag] as AnyObject).value(forKey: "likedUserId") as! NSArray
+                    let likedByMe2 = likedByMe .object(at: indexPath.row) as! NSArray
+                    
+                    //SHOW THE COUNT OF LIKED
+                    cell.likecountlbl.text=String(describing: countLik)
+                    cell.likeimg.image=UIImage (named: "Like")
+                    
+                    
+                    ///////-  Show liked by me-/////
+                    if likedByMe2.count>0
+                    {
+                        if likedByMe2.contains(self.uId)
                         {
-                            let indexOfImageId = (self.likeCount.value(forKey: "imageId") as AnyObject).index(of: imageId2)
+                            //contains photo liked by me
+                            let arrLk = self.likeCount.value(forKey: "imageId") as! NSArray
                             
-                            if (self.likeCount.object(at: indexOfImageId) as AnyObject).value(forKey: "like") as! Bool == true {
+                            if arrLk.contains(imageId2)
+                            {
+                                let indexOfImageId = (self.likeCount.value(forKey: "imageId") as AnyObject).index(of: imageId2)
+                                
+                                if (self.likeCount.object(at: indexOfImageId) as AnyObject).value(forKey: "like") as! Bool == true {
+                                    cell.likeimg.image=UIImage (named: "likefill")
+                                    let staticCount = (self.likeCount.object(at: indexOfImageId) as AnyObject).value(forKey: "count") as? NSNumber
+                                    cell.likecountlbl.text=String(describing: staticCount!)// String(self.addTheLikes(staticCount!))
+                                    
+                                    
+                                    
+                                }
+                                else{
+                                    cell.likeimg.image=UIImage (named: "Like")
+                                    let staticCount = (self.likeCount.object(at: indexOfImageId) as AnyObject).value(forKey: "count") as? NSNumber
+                                    cell.likecountlbl.text=String(describing: staticCount!) //(self.addTheLikes(staticCount!))
+                                }
+                            }
+                                
+                                //if not contains the imageId
+                            else
+                            {
+                                self.likeCount .add(["imageId":imageId2,"userId":self.uId, "like": true, "count": countLik])
+                                //print(self.likeCount)
+                                cell.likecountlbl.text=String(describing: countLik)
                                 cell.likeimg.image=UIImage (named: "likefill")
-                                let staticCount = (self.likeCount.object(at: indexOfImageId) as AnyObject).value(forKey: "count") as? NSNumber
-                                cell.likecountlbl.text=String(describing: staticCount!)// String(self.addTheLikes(staticCount!))
-                                
-                                
-                                
                             }
-                            else{
-                                cell.likeimg.image=UIImage (named: "Like")
-                                let staticCount = (self.likeCount.object(at: indexOfImageId) as AnyObject).value(forKey: "count") as? NSNumber
-                                cell.likecountlbl.text=String(describing: staticCount!) //(self.addTheLikes(staticCount!))
-                            }
+                            
+                            
+                            
                         }
                             
-                            //if not contains the imageId
                         else
                         {
-                            self.likeCount .add(["imageId":imageId2,"userId":self.uId, "like": true, "count": countLik])
-                            //print(self.likeCount)
-                            cell.likecountlbl.text=String(describing: countLik)
-                            cell.likeimg.image=UIImage (named: "likefill")
+                            let arrLk = self.likeCount.value(forKey: "imageId") as! NSArray
+                            if arrLk.contains(imageId2)
+                            {
+                                let indexOfImageId = (self.likeCount.value(forKey: "imageId") as AnyObject).index(of: imageId2)
+                                
+                                if (self.likeCount.object(at: indexOfImageId) as AnyObject).value(forKey: "like") as! Bool == true {
+                                    cell.likeimg.image=UIImage (named: "likefill")
+                                    let staticCount = (self.likeCount.object(at: indexOfImageId) as AnyObject).value(forKey: "count") as? NSNumber
+                                    cell.likecountlbl.text=String(describing: staticCount!)
+                                    
+                                }
+                                else
+                                {
+                                    let staticCount = (self.likeCount.object(at: indexOfImageId) as AnyObject).value(forKey: "count") as? NSNumber
+                                    cell.likecountlbl.text=String(describing: staticCount!)
+                                    cell.likeimg.image=UIImage (named: "Like")
+                                }
+                            }
+                            
+                            
+                            
                         }
                         
                         
                         
                     }
-                        
+                        //not liked by me
                     else
                     {
                         let arrLk = self.likeCount.value(forKey: "imageId") as! NSArray
@@ -3788,8 +3990,7 @@ extension mainHomeViewController: UICollectionViewDelegate, UICollectionViewData
                                 cell.likecountlbl.text=String(describing: staticCount!)
                                 
                             }
-                            else
-                            {
+                            else{
                                 let staticCount = (self.likeCount.object(at: indexOfImageId) as AnyObject).value(forKey: "count") as? NSNumber
                                 cell.likecountlbl.text=String(describing: staticCount!)
                                 cell.likeimg.image=UIImage (named: "Like")
@@ -3802,27 +4003,77 @@ extension mainHomeViewController: UICollectionViewDelegate, UICollectionViewData
                     
                     
                     
-                }
-                    //not liked by me
-                else
-                {
-                    let arrLk = self.likeCount.value(forKey: "imageId") as! NSArray
-                    if arrLk.contains(imageId2)
-                    {
-                        let indexOfImageId = (self.likeCount.value(forKey: "imageId") as AnyObject).index(of: imageId2)
+                    ////Add gesture in collection view
+                    
+                    var text = String()
+                    text = "\(collectionView.tag) \(indexPath.row)"
+                    
+                    /////////Single Tap
+                    let singleTapGesture = GestureViewClass(target: self, action: #selector(mainHomeViewController.SingleTap(_:)))
+                    singleTapGesture.numberOfTapsRequired = 1 // Optional for single tap
+                    singleTapGesture.gestureData=text
+                    cell.addGestureRecognizer(singleTapGesture)
+                    
+                    
+                    
+                    //////Double tap gesture
+                    let gestureDoubleTap = GestureViewClass(target: self, action: #selector(mainHomeViewController.doubleTap(_:)))
+                    gestureDoubleTap.numberOfTapsRequired=2
+                    gestureDoubleTap.gestureData=text
+                    cell.addGestureRecognizer(gestureDoubleTap)
+                    
+                    singleTapGesture.require(toFail: gestureDoubleTap)
+                    
+                    
+                    
+                    /////Long Tap Gesture
+                    cell.tag=1000*collectionView.tag+indexPath.row
+                    
+                    ////print(cell.tag)
+                    
+                    let longView = UIView()
+                    longView.frame=cell.frame
+                    longView.tag=1000*collectionView.tag+indexPath.row
+                    //cell .addSubview(longView)
+                    
+                    
+                    cell.likeButton.tag = 1000*collectionView.tag+indexPath.row
+                    cell.likeButton.addTarget(self, action: #selector(self.imageTapped(_:)), for: UIControlEvents .touchUpInside)
+                     cell.planButton.tag = 2000*collectionView.tag+indexPath.row
+                    cell.menuButton.tag = 1000*collectionView.tag+indexPath.row
+                    cell.menuButton.addTarget(self, action: #selector(self.openLongTap(_:event:)), for: UIControlEvents .touchUpInside)
+                    cell.menuButton.setImage(UIImage (named: "More"), for: .normal)
+                    
+                   
+                    
+                    cell.planButton .addTarget(self, action: #selector(self.planBtnTapCollectionView(_:)), for: .touchUpInside)
+                    
+                    addToPlanBtn .setTitle("Add To Plan", for: .normal)
+                    
+                    if countsDictionary.object(forKey: "bookings") != nil  {
                         
-                        if (self.likeCount.object(at: indexOfImageId) as AnyObject).value(forKey: "like") as! Bool == true {
-                            cell.likeimg.image=UIImage (named: "likefill")
-                            let staticCount = (self.likeCount.object(at: indexOfImageId) as AnyObject).value(forKey: "count") as? NSNumber
-                            cell.likecountlbl.text=String(describing: staticCount!)
+                        //let countst = countArray.valueForKey("storyCount") as! NSNumber
+                        let countst = countsDictionary.value(forKey: "bookings") as! NSArray
+                        cell.planButton.setImage(UIImage (named: "travelplanbutton"), for: .normal)
+                        
+                        
+                        
+                        if countst.count>0
+                        {
+                            
+                            //print(countst)
+                            if countst.contains(imageId2) {
+                                cell.planButton.setImage(UIImage (named: "travelplanbuttonactive"), for: .normal)
+                               addToPlanBtn .setTitle("Remove From Plan", for: .normal)
+                                // cell.planButton.removeTarget(nil, action: nil, for: .allEvents)
+                            }
+                            
                             
                         }
-                        else{
-                            let staticCount = (self.likeCount.object(at: indexOfImageId) as AnyObject).value(forKey: "count") as? NSNumber
-                            cell.likecountlbl.text=String(describing: staticCount!)
-                            cell.likeimg.image=UIImage (named: "Like")
-                        }
+                        
+                        
                     }
+                    
                     
                     
                     
@@ -3830,98 +4081,12 @@ extension mainHomeViewController: UICollectionViewDelegate, UICollectionViewData
                 
                 
                 
+                return cell
                 
-                
-                
-                
-                
-                
-                
-                
-                ////Add gesture in collection view
-                
-                var text = String()
-                text = "\(collectionView.tag) \(indexPath.row)"
-                
-                /////////Single Tap
-                let singleTapGesture = GestureViewClass(target: self, action: #selector(mainHomeViewController.SingleTap(_:)))
-                singleTapGesture.numberOfTapsRequired = 1 // Optional for single tap
-                singleTapGesture.gestureData=text
-                cell.addGestureRecognizer(singleTapGesture)
-                
-                
-                
-                //////Double tap gesture
-                let gestureDoubleTap = GestureViewClass(target: self, action: #selector(mainHomeViewController.doubleTap(_:)))
-                gestureDoubleTap.numberOfTapsRequired=2
-                gestureDoubleTap.gestureData=text
-                cell.addGestureRecognizer(gestureDoubleTap)
-                
-                singleTapGesture.require(toFail: gestureDoubleTap)
-                
-                
-                
-                /////Long Tap Gesture
-                cell.tag=1000*collectionView.tag+indexPath.row
-                
-                ////print(cell.tag)
-                
-                let longView = UIView()
-                longView.frame=cell.frame
-                longView.tag=1000*collectionView.tag+indexPath.row
-                //cell .addSubview(longView)
             
-            
-                cell.likeButton.tag = 1000*collectionView.tag+indexPath.row
-                cell.likeButton.addTarget(self, action: #selector(self.imageTapped(_:)), for: UIControlEvents .touchUpInside)
-                
-                cell.menuButton.tag = 1000*collectionView.tag+indexPath.row
-                cell.menuButton.addTarget(self, action: #selector(self.openLongTap(_:event:)), for: UIControlEvents .touchUpInside)
-                cell.menuButton.setImage(UIImage (named: "More"), for: .normal)
-                
-                cell.planButton.tag = 2000*collectionView.tag+indexPath.row
-                
-                cell.planButton .addTarget(self, action: #selector(self.planBtnTapCollectionView(_:)), for: .touchUpInside)
-                
-                
-                if countsDictionary.object(forKey: "storyImages") != nil  {
-                    
-                    //let countst = countArray.valueForKey("storyCount") as! NSNumber
-                    let countst = countsDictionary.value(forKey: "storyImages") as! NSArray
-                    cell.planButton.setImage(UIImage (named: "travelplanbutton"), for: .normal)
-                    
-                    
-                    
-                    if countst.count>0
-                    {
-                        
-                        //print(countst)
-                        if countst.contains(imageId2) {
-                            cell.planButton.setImage(UIImage (named: "travelplanbuttonactive"), for: .normal)
-                            cell.planButton.removeTarget(nil, action: nil, for: .allEvents)
-                        }
-                        
-                        
-                    }
-                    
-                    
-                    
-                }
-                
-                
-                
-                
             }
+        else{
             
-                        
-            
-            return cell
-            
-        }
-            
-        else
-        {
-        
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "showMoreCell",for: indexPath)
             // cell.frame = CGRectMake(0, 0, self.view.frame.size.width - 9, 50)
             
@@ -3958,8 +4123,8 @@ extension mainHomeViewController: UICollectionViewDelegate, UICollectionViewData
             ///////////////////////-------------
             
             
-                return cell
-        }
+            return cell
+            }
             
         }
         }
@@ -3990,8 +4155,9 @@ extension mainHomeViewController: UICollectionViewDelegate, UICollectionViewData
                     
                     let storyArr = ((countArray.object(at: indx)) as AnyObject).value(forKey: "places") as! NSMutableArray //contains all story locations
                     
-                    let userPicture = ((storyArr.object(at: storyArr.count-1 - (indexPath.row)) as AnyObject).value(forKey: "user") as AnyObject).value(forKey: "picture") as? String ?? "" //userProfilePicture
-                    let userName = ((storyArr.object(at: storyArr.count-1 - (indexPath.row)) as AnyObject).value(forKey: "user") as AnyObject).value(forKey: "name") as? String ?? "" //userName
+                    let userPicture = "" //((storyArr.object(at: storyArr.count-1 - (indexPath.row)) as AnyObject).value(forKey: "imageOwn") as AnyObject).value(forKey: "picture") as? String ?? "" //userProfilePicture
+                    
+                    let userName = ((storyArr.object(at: storyArr.count-1 - (indexPath.row)) as AnyObject).value(forKey: "imageOwn") as AnyObject).value(forKey: "name") as? String ?? "" //userName
                     
                     let desc = ((storyArr.object(at: storyArr.count-1 - (indexPath.row)) as AnyObject).value(forKey: "place") as AnyObject).value(forKey: "description") as? String ?? "" //description
                     
@@ -4022,15 +4188,15 @@ extension mainHomeViewController: UICollectionViewDelegate, UICollectionViewData
                     //Split the place tag to get the results in foursquare
                     
                     
-                     let imageId = ((storyArr.object(at: storyArr.count-1 - (indexPath.row)) as AnyObject).value(forKey: "place") as AnyObject).value(forKey: "_id") as? String ?? "" //Image Id
+                     let imageId = ((storyArr.object(at: storyArr.count-1 - (indexPath.row)) as AnyObject).value(forKey: "place") as AnyObject).value(forKey: "_id") as? String ?? "" //Image Id and place id
                     
                     
                     var lat = NSNumber()
                     var long = NSNumber()
-                    if ((storyArr.object(at: storyArr.count-1 - (indexPath.row)) as AnyObject).value(forKey: "place") as AnyObject).value(forKey: "latitude") as? NSNull != NSNull()
+                    if let vlu = ((storyArr.object(at: storyArr.count-1 - (indexPath.row)) as AnyObject).value(forKey: "place") as AnyObject).value(forKey: "latitude") //as? NSNull != NSNull()
                     {
                         lat = ((storyArr.object(at: storyArr.count-1 - (indexPath.row)) as AnyObject).value(forKey: "place") as AnyObject).value(forKey: "latitude") as! NSNumber  //as? String ?? "0.0"
-                        long = ((storyArr.object(at: indexPath.row) as AnyObject).value(forKey: "place") as AnyObject).value(forKey: "longitude") as! NSNumber //as? String ?? "0.0"
+                        long = ((storyArr.object(at: storyArr.count-1 - (indexPath.row)) as AnyObject).value(forKey: "place") as AnyObject).value(forKey: "longitude") as! NSNumber //as? String ?? "0.0"
                     }
                     else
                     {
@@ -4044,15 +4210,84 @@ extension mainHomeViewController: UICollectionViewDelegate, UICollectionViewData
                     let catArrSt = ((storyArr.object(at: storyArr.count-1 - (indexPath.row)) as AnyObject).value(forKey: "place") as AnyObject).value(forKey: "category") as! NSMutableArray
                     let strcat = (catArrSt.value(forKey: "displayName") as AnyObject).componentsJoined(by: ",")
                     
+                   
+                    var countLik = NSNumber()
+                    let likeCountValue = ((storyArr.object(at: storyArr.count-1 - (indexPath.row)) as AnyObject).value(forKey: "place") as AnyObject).value(forKey: "userLiked") as! NSMutableArray
+
+                    countLik = NSNumber(value:likeCountValue.count)
                     
-                    let mutableDic:NSMutableDictionary = ["Description":desc, "profileImage": userPicture, "location": location, "locationImage": largeImage, "Venue": vanu, "cityName":cityName , "CountryName": countryname, "geoTag": sendgeoTag,"imageId":"","latitude":lat, "longitude":long, "userName":userName, "Type": "Other", "multipleImagesLarge": multipleImgs, "Category": strcat, "likeBool":false, "standardImage":largeImage, "multipleImagesStandard": multipleImgs ,"categoryMainArray": catArrSt]
+//                    if likeCountValue[b!] as? NSNull != NSNull()
+//                    {
+//                        countLik = likeCountValue[b!] as! NSNumber  //as? String ?? "0.0"
+//                        
+//                    }else
+//                    {
+//                        countLik=0
+//                        
+//                    }
+                    
+                    
+                    
+                    
+               
+                    
+                    var mutableDic = NSMutableDictionary()
+                        
+//                      mutableDic = ["Description":desc, "profileImage": userPicture, "location": location, "locationImage": largeImage, "Venue": vanu, "cityName":cityName , "CountryName": countryname, "geoTag": sendgeoTag,"imageId":imageId,"latitude":lat, "longitude":long, "userName":userName, "Type": "Other", "multipleImagesLarge": multipleImgs, "Category": strcat, "likeBool":false, "standardImage":largeImage, "multipleImagesStandard": multipleImgs ,"categoryMainArray": catArrSt, "likeBool":true]
+                    
+                    
+                    
+                    if self.likeCount.count>0 {
+                        let arrLk = self.likeCount.value(forKey: "imageId") as! NSArray
+                        if arrLk.contains(imageId)
+                        {
+                            let index = (self.likeCount.value(forKey: "imageId") as AnyObject).index(of: imageId)
+                            
+                            if (self.likeCount.object(at: index) as AnyObject).value(forKey: "like") as! Bool == true {
+                                
+                                 mutableDic = ["Description":desc, "profileImage": userPicture, "location": location, "locationImage": largeImage, "Venue": vanu, "cityName":cityName , "CountryName": countryname, "geoTag": sendgeoTag,"imageId":imageId,"latitude":lat, "longitude":long, "userName":userName, "Type": "Other", "multipleImagesLarge": multipleImgs, "Category": strcat, "likeBool":true, "standardImage":largeImage, "multipleImagesStandard": multipleImgs ,"categoryMainArray": catArrSt, "likeCount": countLik]
+                                
+                            }
+                                
+                            else
+                            {
+                                mutableDic = ["Description":desc, "profileImage": userPicture, "location": location, "locationImage": largeImage, "Venue": vanu, "cityName":cityName , "CountryName": countryname, "geoTag": sendgeoTag,"imageId":imageId,"latitude":lat, "longitude":long, "userName":userName, "Type": "Other", "multipleImagesLarge": multipleImgs, "Category": strcat, "likeBool":false, "standardImage":largeImage, "multipleImagesStandard": multipleImgs ,"categoryMainArray": catArrSt, "likeCount": countLik]
+                                
+                              
+                                
+                            }
+                            
+                        }
+                        else
+                        {
+                        mutableDic = ["Description":desc, "profileImage": userPicture, "location": location, "locationImage": largeImage, "Venue": vanu, "cityName":cityName , "CountryName": countryname, "geoTag": sendgeoTag,"imageId":imageId,"latitude":lat, "longitude":long, "userName":userName, "Type": "Other", "multipleImagesLarge": multipleImgs, "Category": strcat, "likeBool":false, "standardImage":largeImage, "multipleImagesStandard": multipleImgs ,"categoryMainArray": catArrSt, "likeCount": countLik]
+                            
+                        }
+                        
+                    }
+                    else
+                    {
+                        
+                        mutableDic = ["Description":desc, "profileImage": userPicture, "location": location, "locationImage": largeImage, "Venue": vanu, "cityName":cityName , "CountryName": countryname, "geoTag": sendgeoTag,"imageId":imageId,"latitude":lat, "longitude":long, "userName":userName, "Type": "Other", "multipleImagesLarge": multipleImgs, "Category": strcat, "likeBool":false, "standardImage":largeImage, "multipleImagesStandard": multipleImgs ,"categoryMainArray": catArrSt, "likeCount": countLik]
+                        
+                    }
+                    
+                    /////
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
                     
                     let arrData = NSMutableArray()
                     arrData .add(mutableDic)
                     print(mutableDic)
                     let nxtObj2 = self.storyboard?.instantiateViewController(withIdentifier: "detailViewController") as! detailViewController
                     nxtObj2.arrayWithData=arrData
-                    nxtObj2.fromStory=true
+                    nxtObj2.fromStory=false//true
                     self.navigationController! .pushViewController(nxtObj2, animated: true)
                     
                 }
@@ -4062,6 +4297,7 @@ extension mainHomeViewController: UICollectionViewDelegate, UICollectionViewData
             //go to plans page
             else
             { //use _id for get booking id instead of countryId
+                planAllLocation = false
                 let countriesId = ((countArray.object(at: indexPath.row )) as AnyObject).value(forKey: "countryId") as? String ?? ""
                 
                
@@ -4327,23 +4563,10 @@ extension mainHomeViewController: UICollectionViewDelegate, UICollectionViewData
        
         if sender.state == .began
         {
-            PlanDeleteBool = true
-            storiesCollectionView.reloadData()
+            //PlanDeleteBool = true
+            //storiesCollectionView.reloadData() future use
         }
         
-//      // dispatch_async(dispatch_get_main_queue(), {
-//        storyBool=true
-//        toolTimer.invalidate()
-//        if sender.state == .began
-//        {
-//            let a:Int? = (sender.view?.tag)! / 1000
-//            let b:Int? = (sender.view?.tag)! % 1000
-//            collectionIndex = b!
-//            tableIndex = a!
-//            longTapedView=sender.view!
-//            self.manageViewLongTap()
-//        }
-//        Udefaults.set(true, forKey: "refreshStory")
         
 
         
@@ -4352,7 +4575,6 @@ extension mainHomeViewController: UICollectionViewDelegate, UICollectionViewData
     //MARK: delet the plan from the list 
     func deletePlanApiHit(_ sender: UIButton) {
         let stTag = String(sender.tag)
-        print(stTag.startIndex)
         let cH = stTag[stTag.startIndex]
         print(cH)
         if cH == "5" {
@@ -4364,7 +4586,25 @@ extension mainHomeViewController: UICollectionViewDelegate, UICollectionViewData
                     
                     //Retry function
                     print("delete image tapped")
+                    let placeIds = (countArray.value(forKey: "countryId")) as! NSArray
                     
+                  //  if placeIds.contains(self.globalPlaceid) {
+                        print("Contains story")
+                      //  let indx = placeIds .index(of: self.globalPlaceid )
+                      //  print(indx)
+                       // print(sender.tag)
+                        let indexPath2 = sender.tag%5000
+                        let imageUrlArray = ((countArray.object(at: indexPath2)) as AnyObject).value(forKey: "places") as! NSMutableArray
+                        if imageUrlArray.count > 0
+                        {
+                            //   print(imageUrlArray)
+                          
+                            
+                            let bookingid = ((countArray.object(at: indexPath2)) as AnyObject).value(forKey: "_id") as? String ?? ""
+                            
+                            apiClass.sharedInstance().deleteWholePlan(bookingIdFinal: bookingid as NSString)//deleteLocationFromPlan(placeId: imageId as NSString, bookingIdFinal: bookingid as NSString)
+                        }
+                   // }
                     
                 }
                 else
@@ -4376,6 +4616,7 @@ extension mainHomeViewController: UICollectionViewDelegate, UICollectionViewData
             
             
         }
+           
             //delete images from plan
         else
         {
@@ -4383,7 +4624,39 @@ extension mainHomeViewController: UICollectionViewDelegate, UICollectionViewData
                 if isOtherButton == true
                 {
                     
-                    //Retry function
+                    
+                    let placeIds = (countArray.value(forKey: "countryId")) as! NSArray
+                    
+                    if placeIds.contains(self.globalPlaceid) {
+                        print("Contains story")
+                        let indx = placeIds .index(of: self.globalPlaceid )//"58c3c09336f8b6180feea0c6")
+                        print(indx)
+                        
+                        
+                        let imageUrlArray = ((countArray.object(at: indx)) as AnyObject).value(forKey: "places") as! NSMutableArray
+                        if imageUrlArray.count > 0
+                        {
+                         //   print(imageUrlArray)
+                            let indexPath = sender.tag%1000
+                          
+                           // print(imageUrlArray.count - 1 - (indexPath))
+                             // print(imageUrlArray.object(at: indexPath))
+                            
+                            let imageId = (((imageUrlArray.object(at: imageUrlArray.count-1 - (indexPath))) as! AnyObject).value(forKey: "place")as AnyObject) .value(forKey: "_id") as? String ?? ""
+
+                         
+                            
+                            
+                            let bookingid = ((countArray.object(at: indx)) as AnyObject).value(forKey: "_id") as? String ?? ""
+                           // let pId = ((countArray.object(at: indx)) as AnyObject).value(forKey: "_id") as? String ?? ""
+                            apiClass.sharedInstance().deleteLocationFromPlan(placeId: imageId as NSString, bookingIdFinal: bookingid as NSString)
+                        }
+                    
+                    
+                    
+                    
+                    
+                  
                     print("delete image tapped")
                     
                     
@@ -4398,11 +4671,11 @@ extension mainHomeViewController: UICollectionViewDelegate, UICollectionViewData
             print("Delete image from plan")
         }
         print("comes here")
-        PlanDeleteBool = false
-        storiesCollectionView.reloadData()
+        PlanDeleteBool = true //false
+      //  storiesCollectionView.reloadData()
         
     }
-    
+    }
     
     
     
@@ -4623,13 +4896,7 @@ extension mainHomeViewController: UICollectionViewDelegate, UICollectionViewData
         let b:Int? = Int(indexPath)
         
         
-       //print(a)//CollectionView Tag
-       //print(b)//IndexPath of CollectionView
-        
-           
-           ////print(self.arrayOfimages1[a!])
             
-        
             /////  Manage the single tap data
         var arrImg = NSArray()//Large image
         var imageName = NSString()//large image string
@@ -4654,6 +4921,8 @@ extension mainHomeViewController: UICollectionViewDelegate, UICollectionViewData
             
         arrayLocation = (self.arrayOfimages1[a!] as AnyObject).value(forKey: "location") as! NSArray
         arrayCountry = (self.arrayOfimages1[a!] as AnyObject).value(forKey: "country") as! NSArray
+          var arrayCountryId = (self.arrayOfimages1[a!] as AnyObject).value(forKey: "countId") as? NSArray
+           
          arrayImageId = (self.arrayOfimages1[a!] as AnyObject).value(forKey: "id") as! NSArray
             
             cityName = arrayLocation[b!] as? String as NSString? ?? ""
@@ -4668,34 +4937,26 @@ extension mainHomeViewController: UICollectionViewDelegate, UICollectionViewData
             
             
         let countryName = arrayCountry[b!] as? String ?? "\(self.globalLocation)"
-            
+         let countryId = arrayCountryId?[b!] as? String ?? "\(self.globalPlaceid)"
             
         let geoTag = (self.arrayOfimages1[a!] as AnyObject).value(forKey: "geoTag") as! NSArray
-            
-            
-            
-            
-            
+
             
             var sendgeoTag = geoTag[b!] as? String ?? ""
          
             let fullName22 = sendgeoTag
             let fullNameArr22 = fullName22.characters.split{$0 == ","}.map(String.init)
            
-            if fullNameArr22.count>0{
+            if fullNameArr22.count>0
+            {
                 sendgeoTag = fullNameArr22[0]
             }
             
-            
-            
-           
            
             // remove the another part of string
             let changeStr:NSString = sendgeoTag as NSString
             let ddd = changeStr.replacingOccurrences(of: "&", with: " and ") //replace & with and
             sendgeoTag = ddd
-            
-            
             
             
             
@@ -4795,7 +5056,9 @@ extension mainHomeViewController: UICollectionViewDelegate, UICollectionViewData
                 
                 let longArr = (self.arrayOfimages1[a!] as AnyObject).value(forKey: "longitude") as! NSArray
                 long = longArr[b!] as! NSNumber //as? String ?? "0.0"
-            }else{
+            }
+            else
+            {
                 lat=0
                 long=0
             }
@@ -4851,21 +5114,21 @@ extension mainHomeViewController: UICollectionViewDelegate, UICollectionViewData
                     
                     if (self.likeCount.object(at: index) as AnyObject).value(forKey: "like") as! Bool == true {
                         
-                        mutableDic = ["Description":str, "profileImage": profileImage, "location": location, "locationImage": imageName,"CountryName": countryName, "Venue": cityName, "geoTag": sendgeoTag, "userName":name, "Type": catType,"imageId":imageId,"latitude": lat, "longitude":long, "multipleImagesLarge": multipleImgs, "Category": strcat, "likeBool":true, "otherUserId":otherUserId, "cityName":cityName, "likeCount": countLik, "standardImage":imageStandard, "multipleImagesStandard": multipleImgStandard, "categoryMainArray": catArrSt, "placeType": self.globalType, "placeId": self.globalPlaceid  ]
+                        mutableDic = ["Description":str, "profileImage": profileImage, "location": location, "locationImage": imageName,"CountryName": countryName, "Venue": cityName, "geoTag": sendgeoTag, "userName":name, "Type": catType,"imageId":imageId,"latitude": lat, "longitude":long, "multipleImagesLarge": multipleImgs, "Category": strcat, "likeBool":true, "otherUserId":otherUserId, "cityName":cityName, "likeCount": countLik, "standardImage":imageStandard, "multipleImagesStandard": multipleImgStandard, "categoryMainArray": catArrSt, "placeType": self.globalType, "placeId": self.globalPlaceid, "countryId": countryId  ]
                         
                         arrayData .add(mutableDic)
                     }
                         
                     else
                     {
-                        mutableDic = ["Description":str, "profileImage": profileImage, "location": location, "locationImage": imageName,"CountryName": countryName, "Venue": cityName, "geoTag": sendgeoTag, "userName":name, "Type": catType,"imageId":imageId,"latitude": lat, "longitude":long, "multipleImagesLarge": multipleImgs, "Category": strcat, "likeBool":false, "otherUserId":otherUserId, "cityName":cityName, "likeCount": countLik, "standardImage":imageStandard, "multipleImagesStandard": multipleImgStandard ,"categoryMainArray": catArrSt, "placeType": self.globalType, "placeId": self.globalPlaceid]
+                        mutableDic = ["Description":str, "profileImage": profileImage, "location": location, "locationImage": imageName,"CountryName": countryName, "Venue": cityName, "geoTag": sendgeoTag, "userName":name, "Type": catType,"imageId":imageId,"latitude": lat, "longitude":long, "multipleImagesLarge": multipleImgs, "Category": strcat, "likeBool":false, "otherUserId":otherUserId, "cityName":cityName, "likeCount": countLik, "standardImage":imageStandard, "multipleImagesStandard": multipleImgStandard ,"categoryMainArray": catArrSt, "placeType": self.globalType, "placeId": self.globalPlaceid, "countryId": countryId]
                         
                         arrayData .add(mutableDic)
                     }
                     
                 }
                 else{
-                    mutableDic = ["Description":str, "profileImage": profileImage, "location": location, "locationImage": imageName,"CountryName": countryName, "Venue": cityName, "geoTag": sendgeoTag, "userName":name, "Type": catType,"imageId":imageId,"latitude": lat, "longitude":long, "multipleImagesLarge": multipleImgs, "Category": strcat, "likeBool":false, "otherUserId":otherUserId, "cityName":cityName, "likeCount": countLik, "standardImage":imageStandard, "multipleImagesStandard": multipleImgStandard, "categoryMainArray": catArrSt, "placeType": self.globalType, "placeId": self.globalPlaceid]
+                    mutableDic = ["Description":str, "profileImage": profileImage, "location": location, "locationImage": imageName,"CountryName": countryName, "Venue": cityName, "geoTag": sendgeoTag, "userName":name, "Type": catType,"imageId":imageId,"latitude": lat, "longitude":long, "multipleImagesLarge": multipleImgs, "Category": strcat, "likeBool":false, "otherUserId":otherUserId, "cityName":cityName, "likeCount": countLik, "standardImage":imageStandard, "multipleImagesStandard": multipleImgStandard, "categoryMainArray": catArrSt, "placeType": self.globalType, "placeId": self.globalPlaceid, "countryId": countryId]
                     
                     arrayData .add(mutableDic)
                 }
@@ -4873,7 +5136,7 @@ extension mainHomeViewController: UICollectionViewDelegate, UICollectionViewData
             }
             else
             {
-                mutableDic = ["Description":str, "profileImage": profileImage, "location": location, "locationImage": imageName,"CountryName": countryName, "Venue": cityName, "geoTag": sendgeoTag, "userName":name, "Type": catType,"imageId":imageId,"latitude": lat, "longitude":long, "multipleImagesLarge": multipleImgs, "Category": strcat, "likeBool":false, "otherUserId":otherUserId, "cityName":cityName, "likeCount": countLik, "standardImage":imageStandard, "multipleImagesStandard": multipleImgStandard, "categoryMainArray": catArrSt, "placeType": self.globalType, "placeId": self.globalPlaceid]
+                mutableDic = ["Description":str, "profileImage": profileImage, "location": location, "locationImage": imageName,"CountryName": countryName, "Venue": cityName, "geoTag": sendgeoTag, "userName":name, "Type": catType,"imageId":imageId,"latitude": lat, "longitude":long, "multipleImagesLarge": multipleImgs, "Category": strcat, "likeBool":false, "otherUserId":otherUserId, "cityName":cityName, "likeCount": countLik, "standardImage":imageStandard, "multipleImagesStandard": multipleImgStandard, "categoryMainArray": catArrSt, "placeType": self.globalType, "placeId": self.globalPlaceid, "countryId": countryId]
                 
                 arrayData .add(mutableDic)
             }
@@ -5106,7 +5369,7 @@ extension mainHomeViewController: UICollectionViewDelegate, UICollectionViewData
         
         collectionIndex = b!
         tableIndex = a!
-        longTapedView = sender //.superview!
+        longTapedView = sender.viewWithTag(2000*tableIndex+collectionIndex)! //.superview!
         
         self.storyButtonTapped(self)
     }
@@ -5176,7 +5439,7 @@ extension mainHomeViewController: UICollectionViewDelegate, UICollectionViewData
     //MARK: Manage view of long Tap
     func manageViewLongTap() {
         
-        
+        planTap = false
         let b: Int = collectionIndex
         let a: Int = tableIndex
         
@@ -5187,11 +5450,11 @@ extension mainHomeViewController: UICollectionViewDelegate, UICollectionViewData
         let imageId = arrId[b] as! String
         
         
-        
-        if countsDictionary.object(forKey: "storyImages") != nil  {
+        //print(countsDictionary)
+        if countsDictionary.object(forKey: "bookings") != nil  {
             
             //let countst = countArray.valueForKey("storyCount") as! NSNumber
-            let countst = countsDictionary.value(forKey: "storyImages") as! NSArray
+            let countst = countsDictionary.value(forKey: "bookings") as! NSArray
             addToPlanBtn .setTitle("Add To Plan", for: .normal)
             
            

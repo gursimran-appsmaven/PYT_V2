@@ -7,11 +7,11 @@
 //
 
 import UIKit
-
+var againTapPost = Bool()
 class MainTabBarViewController: UITabBarController {
 
        var againTap = Bool()
-    var againTapPost = Bool()
+    
     
     override func viewWillAppear(_ animated: Bool) {
 
@@ -136,6 +136,14 @@ extension UITabBarController {
         
         // bail if the current state matches the desired state
         if (tabBarIsVisible() == visible) { return }
+        
+        if visible == true {
+        self.tabBar.isHidden = false
+        }
+        else
+        {
+        self.tabBar.isHidden = true
+        }
         
         // get a frame calculation ready
         let frame = self.tabBar.frame

@@ -59,7 +59,6 @@ class commentViewController: UIViewController, UITextViewDelegate, UITableViewDe
     }
     
     
-    
     //MARK: TextView delegate
 
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
@@ -77,8 +76,8 @@ class commentViewController: UIViewController, UITextViewDelegate, UITableViewDe
         return numberOfChars < 200;
     }
     
-    func textViewDidChange(_ textView: UITextView) {
-       
+    func textViewDidChange(_ textView: UITextView)
+    {
         revStr = textView.text as NSString
         print(revStr)
     }
@@ -571,18 +570,18 @@ class commentViewController: UIViewController, UITextViewDelegate, UITableViewDe
                     return
                 }
                 
-                if let httpStatus = response as? HTTPURLResponse, httpStatus.statusCode != 200 {           // check for http errors
+                if let httpStatus = response as? HTTPURLResponse, httpStatus.statusCode != 200
+                {           // check for http errors
                     //print("statusCode should be 200, but is \(httpStatus.statusCode)")
                     //print("response = \(response)")
                 }
                 
                 
                 
-                DispatchQueue.main.async(execute: {
-                    
-                    do {
-                        
-                        
+                DispatchQueue.main.async(execute:
+                    {
+                    do
+                    {
                       let anyObj: Any = try JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.mutableContainers)
                         
                         basicInfo = NSMutableDictionary()
@@ -647,7 +646,8 @@ class commentViewController: UIViewController, UITextViewDelegate, UITableViewDe
     
     
     ////MARK: Add Comment Api
-    func deleteCommentAction(_ sender: UIButton) {
+    func deleteCommentAction(_ sender: UIButton)
+    {
         
         print(sender.tag)
         
@@ -669,102 +669,18 @@ class commentViewController: UIViewController, UITextViewDelegate, UITableViewDe
             let parmDic: NSDictionary = ["userId": self.uId, "reviewId": (self.reviewsArray.object(at: sender.tag) as AnyObject).value(forKey: "reviewId")!, "imageId": self.imageIdComment ]
             
             
-            
-            print("Parameter=\(parmDic)")
-            
-            let isConnectedInternet = CommonFunctionsClass.sharedInstance().isConnectedToNetwork()
-            
-            if isConnectedInternet
-            {
-                let request = NSMutableURLRequest(url: URL(string: "\(appUrl)delete_review_v2")!)
-                request.httpMethod = "POST"
-                do {
-                    let jsonData = try!  JSONSerialization.data(withJSONObject: parmDic, options: [])
-                    request.httpBody = jsonData
-                    // here "jsonData" is the dictionary encoded in JSON data
-                } catch let error as NSError {
-                    print(error)
+            SweetAlert().showAlert("Are you Sure", subTitle: "Are you sure, you want to delete your review?", style: AlertStyle.customImag(imageFile: "exclamationAlert"), buttonTitle:"Yes I'm Sure", buttonColor: UIColor.clear , otherButtonTitle:  "Cancel", otherButtonColor: UIColor.clear) { (isOtherButton) -> Void in
+                if isOtherButton == true
+                {
+                    print("delete Review tapped")
+                    self.deletActionApi(parameter: parmDic, tag: sender.tag)
                 }
-                request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-                request.addValue("application/json", forHTTPHeaderField: "Accept")
-                
-               let task = URLSession.shared.dataTask(with: request as URLRequest) { data, response, error in
-                    guard error == nil && data != nil else {                                                          // check for fundamental networking error
-                        //print("error=\(error)")
-                        return
-                    }
+                else
+                {
                     
-                    if let httpStatus = response as? HTTPURLResponse, httpStatus.statusCode != 200 {           // check for http errors
-                        //print("statusCode should be 200, but is \(httpStatus.statusCode)")
-                        //print("response = \(response)")
-                    }
-                    
-                    //  let responseString = String(data: data!, encoding: NSUTF8StringEncoding)
-                    ////print("responseString = \(responseString)")
-                    
-                    
-                    DispatchQueue.main.async(execute: {
-                        
-                        do {
-                            
-                            let result = NSString(data: data!, encoding:String.Encoding.ascii.rawValue)!
-                            print("Body: \(result)")
-                            
-                        let anyObj: Any = try JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.mutableContainers)
-                            
-                            basicInfo = NSMutableDictionary()
-                            basicInfo = anyObj as! NSMutableDictionary
-                            
-                            let status = basicInfo .value(forKey: "status") as! NSNumber
-                            
-                            if status == 1
-                            {
-                              
-                                
-                                self.reviewsArray.removeObject(at: sender.tag)
-                               
-                                self.commentsTableView.reloadData()
-                                
-                                
-                                
-                            }
-                            else
-                            {
-                                
-                                
-                                
-                            }
-                            
-                            
-                            
-                            
-                            
-                            
-                        } catch {
-                            //print("json error: \(error)")
-                            CommonFunctionsClass.sharedInstance().showAlert(title: "Server Alert", text: "Something doesn't seem right, Please try again!", imageName: "alertServer")
-                            
+                    print("Cancel Pressed")
 
-                            
-                        }
-                        
-                        
-                        MBProgressHUD .hide(for: self.view, animated: true)
-                        
-                        
-                        
-                    })
-                    
-                    
-                }
-                task.resume()
-                
             }
-            else
-            {
-                CommonFunctionsClass.sharedInstance().showAlert(title: "No Internet Connection", text: "You are currently offline.", imageName: "alertInternet")
-                
-                
             }
             
         }
@@ -791,6 +707,110 @@ class commentViewController: UIViewController, UITextViewDelegate, UITableViewDe
         
         
     }
+    
+    
+    func deletActionApi(parameter: NSDictionary, tag: Int) {
+        
+        
+        print("Parameter=\(parameter)")
+        
+        let isConnectedInternet = CommonFunctionsClass.sharedInstance().isConnectedToNetwork()
+        
+        if isConnectedInternet
+        {
+            let request = NSMutableURLRequest(url: URL(string: "\(appUrl)delete_review_v2")!)
+            request.httpMethod = "POST"
+            do {
+                let jsonData = try!  JSONSerialization.data(withJSONObject: parameter, options: [])
+                request.httpBody = jsonData
+                // here "jsonData" is the dictionary encoded in JSON data
+            } catch let error as NSError {
+                print(error)
+            }
+            request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+            request.addValue("application/json", forHTTPHeaderField: "Accept")
+            
+            let task = URLSession.shared.dataTask(with: request as URLRequest) { data, response, error in
+                guard error == nil && data != nil else {                                                          // check for fundamental networking error
+                    //print("error=\(error)")
+                    return
+                }
+                
+                if let httpStatus = response as? HTTPURLResponse, httpStatus.statusCode != 200 {           // check for http errors
+                    //print("statusCode should be 200, but is \(httpStatus.statusCode)")
+                    //print("response = \(response)")
+                }
+                
+                //  let responseString = String(data: data!, encoding: NSUTF8StringEncoding)
+                ////print("responseString = \(responseString)")
+                
+                
+                DispatchQueue.main.async(execute: {
+                    
+                    do {
+                        
+                        let result = NSString(data: data!, encoding:String.Encoding.ascii.rawValue)!
+                        print("Body: \(result)")
+                        
+                        let anyObj: Any = try JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.mutableContainers)
+                        
+                        basicInfo = NSMutableDictionary()
+                        basicInfo = anyObj as! NSMutableDictionary
+                        
+                        let status = basicInfo .value(forKey: "status") as! NSNumber
+                        
+                        if status == 1
+                        {
+                            
+                            
+                            self.reviewsArray.removeObject(at: tag)
+                            
+                            self.commentsTableView.reloadData()
+                            
+                            
+                            
+                        }
+                        else
+                        {
+                            
+                            
+                            
+                        }
+                        
+                        
+                        
+                        
+                        
+                        
+                    } catch {
+                        //print("json error: \(error)")
+                        CommonFunctionsClass.sharedInstance().showAlert(title: "Server Alert", text: "Something doesn't seem right, Please try again!", imageName: "alertServer")
+                        
+                        
+                        
+                    }
+                    
+                    
+                    MBProgressHUD .hide(for: self.view, animated: true)
+                    
+                    
+                    
+                })
+                
+                
+            }
+            task.resume()
+            
+        }
+        else
+        {
+            CommonFunctionsClass.sharedInstance().showAlert(title: "No Internet Connection", text: "You are currently offline.", imageName: "alertInternet")
+            
+            
+        }
+        
+    }
+    
     
     
     

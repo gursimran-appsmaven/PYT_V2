@@ -861,7 +861,7 @@ class ProfileVC: UIViewController,UITableViewDelegate,UITableViewDataSource,UICo
             {
                 print(jsonResult)
                 
-                CommonFunctionsClass.sharedInstance().showAlert(title: "PYT", text: "\(jsonResult.value(forKey: "msg")!)" as NSString, imageName: "")
+                CommonFunctionsClass.sharedInstance().showAlert(title: "Update Done", text: "\(jsonResult.value(forKey: "msg")!)" as NSString, imageName: "doneAlert")
                 
                 
                 SettingApiClass.sharedInstance().delegate=self
@@ -878,7 +878,7 @@ class ProfileVC: UIViewController,UITableViewDelegate,UITableViewDataSource,UICo
                 
                 defaults.set("", forKey: "userLoginId")
                 
-                CommonFunctionsClass.sharedInstance().showAlert(title: "PYT", text: "\(jsonResult.value(forKey: "msg")!)" as NSString, imageName: "")
+                CommonFunctionsClass.sharedInstance().showAlert(title: "Opps!", text: "\(jsonResult.value(forKey: "msg")!)" as NSString, imageName: "exclamationAlert")
                 
         
                

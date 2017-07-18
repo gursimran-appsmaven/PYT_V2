@@ -30,56 +30,21 @@ class SocketIOManager: NSObject {
     ///define two methods now that will make use of the above socket property. The first one connects the app to the server, and the second makes the disconnection.
     //MARK: create and disconnect connection
     
-    func establishConnection() {
+    func establishConnection()
+    {
         socket.connect()
-        
     }
     
     
-    func reconnect() {
-       // socket.reconnect()
+    func reconnect()
+    {
 
-//        
-//        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, Int64(4.0 * Double(NSEC_PER_SEC))), dispatch_get_main_queue()) { () -> Void in
-//            
-//            //dispatch_async(dispatch_get_global_queue(QOS_CLASS_BACKGROUND, 0), {
-//            let defaults = NSUserDefaults.standardUserDefaults()
-//            let uId = defaults .stringForKey("userLoginId")
-//            
-//            if uId == nil || uId == ""{
-//                
-//            }
-//            else
-//            {
-//                SocketIOManager.sharedInstance.connectToServerWithNickname(uId!, completionHandler: { (userList) -> Void in
-//                    dispatch_async(dispatch_get_main_queue(), { () -> Void in
-//                        if userList != nil {
-//                            
-//                            print(userList)
-//                            
-//                        }
-//                    })
-//                })
-//            }
-//            
-//            
-//            
-//            //})
-//            
-//        }
-
-        
-        
     }
     
     
     
     func closeConnection() {
         socket.disconnect()
-        
-        
-        
-        
     }
     
     
@@ -117,10 +82,7 @@ class SocketIOManager: NSObject {
         
         
         
-        socket.emit("do_chat",["msg": message, "userId": nickname, "between": receiverId,   "userName": senderName, "userDp": senderDp, "msgType":msgType, "thumbUrl": thumbUrls, "largeUrl": largeUrls, "converId": convId, "placeId": placeId ])
-        
-        
-        
+        socket.emit("do_chat",["msg": message, "userId": nickname, "between": receiverId,   "userName": senderName, "userDp": senderDp, "msgType":msgType, "thumbUrl": thumbUrls, "largeUrl": largeUrls, "converId": convId, "placeId": placeId, "placeName":locName, "placeType":locType ])
         
     }
     
@@ -128,7 +90,7 @@ class SocketIOManager: NSObject {
     
     
     
-    //TEMP Image Functiom
+    //TEMP Image Function
     
     
 //    func sendMessageImage(message: String, withNickname nickname: String, receiverId: String, locType: String, msgType: String, locName: String, receiverName: String, receiverProfile: String, senderName: String, senderDp: String) {

@@ -18,7 +18,8 @@ class signupProfilePictureViewController: UIViewController, apiClassDelegate,UII
     var loginFromFb = Bool()
     var email = NSString()
     var password = NSString()
-
+    var boolProfile = Bool()
+    
     @IBOutlet weak var profileIndicator: UIActivityIndicatorView!
     @IBOutlet weak var profileBtn: UIButton!
     //Image picker
@@ -34,8 +35,8 @@ class signupProfilePictureViewController: UIViewController, apiClassDelegate,UII
         IQKeyboardManager.shared().isEnableAutoToolbar=true
         
          apiClass.sharedInstance().delegate=self //delegate of api class
-        
-        profileBtn.layer.cornerRadius = profileBtn.frame.size.width/2
+        profileIndicator.isHidden = true
+        profileBtn.layer.cornerRadius = 20 //profileBtn.frame.size.width/2
         profileBtn.clipsToBounds = true
         // Do any additional setup after loading the view.
     }
@@ -43,8 +44,19 @@ class signupProfilePictureViewController: UIViewController, apiClassDelegate,UII
     
     @IBAction func finishAction(_ sender: Any) {
     
-          self.startUploadingImage( (self.profileBtn.imageView?.image)!)
-       
+      
+            if profileBtn.imageView?.image == nil
+            {
+                self.loginFromFb = false
+                let parameterString: NSDictionary = ["name":self.nameTf.text!, "email": self.email, "password": self.password, "deviceToken":["token": "", "device": "iphone"], "picture": ""]
+                print(parameterString)
+                apiClass.sharedInstance().postRequestSearch(parameterString: parameterString, viewController: self)
+            }
+            else
+            {
+            self.startUploadingImage((profileBtn.imageView?.image)!)
+            }
+        
         
     }
     
@@ -115,13 +127,12 @@ class signupProfilePictureViewController: UIViewController, apiClassDelegate,UII
         testImgView.image=self.scaleImage(chosenImage!, toSize: CGSize(width: 200, height: 200))// imagePostViewController().scaleImage(chosenImage, toSize: CGSize(width:200, height: 200))
         
         
-        profileIndicator.isHidden=false
-        profileIndicator.startAnimating()
+       
         
       
         
-        profileBtn.imageView?.image = testImgView.image
-        
+        profileBtn.setImage(testImgView.image, for: .normal)
+        boolProfile = true
         dismiss(animated: true, completion: nil)
         
         
@@ -148,6 +159,8 @@ class signupProfilePictureViewController: UIViewController, apiClassDelegate,UII
     func startUploadingImage(_ profileImage:UIImage)
     {
         
+        profileIndicator.isHidden=false
+        profileIndicator.startAnimating()
         
         let amazoneUrl = "https://s3-us-west-2.amazonaws.com/"
         
@@ -393,7 +406,7 @@ class signupProfilePictureViewController: UIViewController, apiClassDelegate,UII
         
         
         
-        // apiClass.sharedInstance().postRequestCategories("", viewController: self)//hit the api to get the categories from the web
+         //apiClass.sharedInstance().postRequestCategories(parameterString: "")//hit the api to get the categories from the web
         
         let fbLoginManager : FBSDKLoginManager = FBSDKLoginManager()
         
@@ -405,7 +418,7 @@ class signupProfilePictureViewController: UIViewController, apiClassDelegate,UII
                 if(fbloginresult.isCancelled)
                 {
                     
-                    CommonFunctionsClass.sharedInstance().showAlert(title: "Anything wrong?", text: "You just cancelled the sign-in process.", imageName: "alertDelete")
+                    CommonFunctionsClass.sharedInstance().showAlert(title: "Anything wrong?", text: "You just cancelled the sign-in process.", imageName: "exclamationAlert")
                     
                     MBProgressHUD.hide(for: self.view, animated: true)
                 }
@@ -475,11 +488,9 @@ class signupProfilePictureViewController: UIViewController, apiClassDelegate,UII
     }
     
     
-    
-    
-    
-    
-    
+    @IBAction func backAction(_ sender: Any) {
+        self.navigationController?.popViewController(animated: true)
+    }
     
     
     
@@ -507,7 +518,7 @@ class signupProfilePictureViewController: UIViewController, apiClassDelegate,UII
                 Udefaults.set(pytUserProfilePic, forKey: "userProfilePic")
                 
                 
-                
+                apiClass.sharedInstance().postRequestCategories(parameterString: pytUserId)
                 
                 
                 let runtimeLocations = jsonResult.value(forKey: "runtimeLocation") as! NSMutableArray
@@ -572,7 +583,7 @@ class signupProfilePictureViewController: UIViewController, apiClassDelegate,UII
                 
                 Udefaults.set("", forKey: "userLoginId")
                 
-                CommonFunctionsClass.sharedInstance().showAlert(title: "Session Expire", text: "Your session is expired, Please login again", imageName: "alertDelete")
+                CommonFunctionsClass.sharedInstance().showAlert(title: "Session Expire", text: "Your session is expired, Please login again", imageName: "exclamationAlert")
                 
                 
                 
@@ -682,7 +693,7 @@ class signupProfilePictureViewController: UIViewController, apiClassDelegate,UII
             print(jsonResult)
             
             
-            CommonFunctionsClass.sharedInstance().showAlert(title: "User already exists!", text: "Email id already registered.", imageName: "alertWrong")
+            CommonFunctionsClass.sharedInstance().showAlert(title: "User already exists!", text: "Email id already registered.", imageName: "exclamationAlert")
             
             
             

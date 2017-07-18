@@ -102,9 +102,11 @@ class PostScreenViewController: UIViewController, UIImagePickerControllerDelegat
         self.setEmptyImageInbuttons()
          placesClient =  GMSPlacesClient.shared()
          Udefaults .setValue(nil, forKey: "PostInterest")
+        interestLabel.text = "Add"
+        geoTagLabel.text = "Add"
+        
         
          NotificationCenter.default.addObserver(self, selector: #selector(PostScreenViewController.Start_Upload_Here(_:)),name:NSNotification.Name(rawValue: "uploadingStart"), object: nil)
-        
         
         
         
@@ -272,7 +274,7 @@ class PostScreenViewController: UIViewController, UIImagePickerControllerDelegat
         else
         {
             dismiss(animated: true, completion: nil)
-            CommonFunctionsClass.sharedInstance().showAlert(title: "Too much to handle!", text: "You can't add more than eight pictures at once.", imageName: "alertLimit")
+            CommonFunctionsClass.sharedInstance().showAlert(title: "Too much to handle!", text: "You can't add more than seven pictures at once.", imageName: "exclamationAlert")
             
             
             
@@ -1141,11 +1143,20 @@ class PostScreenViewController: UIViewController, UIImagePickerControllerDelegat
     
     func uploadStart() {
         
+        let postArray = Udefaults.mutableArrayValue(forKey: "PostInterest")
+        if postArray.count < 1 {
+            interestLabel.text = "Add"
+        }
+        else
+        {
+            let str = postArray.value(forKey: "_id") as! NSArray
+            catSelectedId = NSMutableArray(array: str)
+            
+        }
+        
+        
         if((imageData as NSData).bytes != nil && interestLabel.text != "Add" && geoTagLabel.text != "Add")
         {
-            
-            
-            
             
             let isConnectedInternet = CommonFunctionsClass.sharedInstance().isConnectedToNetwork()
             
@@ -1179,19 +1190,16 @@ class PostScreenViewController: UIViewController, UIImagePickerControllerDelegat
         }
         else
         {
-            if geoTagLabel.text == "Add" {
-                
-                CommonFunctionsClass.sharedInstance().showAlert(title: "Oops!", text: "Please enter geo tag.", imageName: "alertGeoTag")
-                
-            }
-            else if interestLabel.text == "Add"{
-                CommonFunctionsClass.sharedInstance().showAlert(title: "Oops!", text: "Please select categories.", imageName: "alertFill")
-            }
-                
-            else
-            {
-                CommonFunctionsClass.sharedInstance().showAlert(title: "Oops!", text: "Please fill all the required fields for post.", imageName: "alertFill")
-            }
+//            
+//            let myString = "Swift Attributed String"
+//            let myAttribute = [ NSForegroundColorAttributeName: UIColor.blue ]
+//            let myAttrString = NSAttributedString(string: myString, attributes: myAttribute)
+            
+            
+            
+            
+                CommonFunctionsClass.sharedInstance().showAlert(title: "Fill required fields", text: "Please fill all the required fields to continue \n Icon with * are mandatory to fill.", imageName: "oopsAlert")
+
             
             
             
@@ -1621,7 +1629,7 @@ class PostScreenViewController: UIViewController, UIImagePickerControllerDelegat
     func manageRetryOriginal()
     {
         
-        SweetAlert().showAlert("PYT", subTitle: "Sorry, there is some issue to upload image", style: AlertStyle.warning, buttonTitle:"Cancel", buttonColor: UIColor.red , otherButtonTitle:  "Retry", otherButtonColor: UIColor.green) { (isOtherButton) -> Void in
+        SweetAlert().showAlert("Opps!", subTitle: "Sorry, there is some issue to upload image", style: AlertStyle.customImag(imageFile: "alertServer"), buttonTitle:"Cancel", buttonColor: UIColor.red , otherButtonTitle:  "Retry", otherButtonColor: UIColor.green) { (isOtherButton) -> Void in
             if isOtherButton == true {
                 
                 MBProgressHUD.hideAllHUDs(for: self.view, animated: true)
@@ -1646,7 +1654,7 @@ class PostScreenViewController: UIViewController, UIImagePickerControllerDelegat
     
     func manageRetryThumbnail() {
         
-        SweetAlert().showAlert("PYT", subTitle: "Sorry, there is some issue to upload image", style: AlertStyle.warning, buttonTitle:"Cancel", buttonColor: UIColor.red , otherButtonTitle:  "Retry", otherButtonColor: UIColor.green) { (isOtherButton) -> Void in
+        SweetAlert().showAlert("Opps!", subTitle: "Sorry, there is some issue to upload image", style: AlertStyle.customImag(imageFile: "alertServer"), buttonTitle:"Cancel", buttonColor: UIColor.red , otherButtonTitle:  "Retry", otherButtonColor: UIColor.green) { (isOtherButton) -> Void in
             if isOtherButton == true {
                 
                 MBProgressHUD.hideAllHUDs(for: self.view, animated: true)
@@ -1815,7 +1823,7 @@ class PostScreenViewController: UIViewController, UIImagePickerControllerDelegat
                 
                 DispatchQueue.main.async {
                    // if(json["status"].int! == 1)
-                    let stat = json["status"] as! Int
+                    let stat = status //json["status"] as! Int
                     if (stat == 1)
                     {
                         
@@ -1826,6 +1834,7 @@ class PostScreenViewController: UIViewController, UIImagePickerControllerDelegat
                         
                         
                         // MBProgressHUD.hideHUDForView(self.view, animated: true)
+                        
                         self.loadingNotification2 = MBProgressHUD.showAdded(to: self.view, animated: true)
                         self.loadingNotification2.mode = MBProgressHUDMode.indeterminate
                         self.loadingNotification2.label.numberOfLines=2
@@ -1838,29 +1847,27 @@ class PostScreenViewController: UIViewController, UIImagePickerControllerDelegat
                         
                         if self.multipleImagesArray.count < 1{
                             
-                            
-                            MBProgressHUD.hideAllHUDs(for: self.view, animated: true)
+                           MBProgressHUD.hideAllHUDs(for: self.view, animated: true)
                             
                             
                
-                            
-//                            SweetAlert().showAlert("PYT", subTitle: json["msg"].string! , style: AlertStyle.success, buttonTitle:"Okay") { (isOtherButton) -> Void in
-//                                if isOtherButton == true {
-//                                    
-//                                    Location.locationInstance.locationManager.stopUpdatingLocation()
-//                                    
-//                                    self.tabBarController?.selectedIndex = 0
-//                                    
-//                                }
-//                            }
-                            
+                            SweetAlert().showAlert("Sucecessfully Posted", subTitle: "Picture posted successfully.", style: AlertStyle.customImag(imageFile: "doneAlert"), buttonTitle:"Ok") { (isOtherButton) -> Void in
+                                if isOtherButton == true
+                                {
+                                    self.viewDidLoad()
+                                    self.loadingNotification2.removeFromSuperview()
+                                    MBProgressHUD.hideAllHUDs(for: self.view, animated: true)
+                                    
+                                   
+                                     againTapPost=false
+                                    Location.locationInstance.locationManager.stopUpdatingLocation()
+                                    
+                                   self.tabBarController?.selectedIndex = 0
+                                    
+                                }
+                            }
                             
                           
-                            
-                            
-                            
-                            
-                            
                             
                         }
                         else

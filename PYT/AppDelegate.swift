@@ -9,10 +9,13 @@
 var bucketListTotalCount = "0"
 var logOut: Bool = true
 var profileUserData = NSMutableDictionary()
-var appUrl = "http://pictureyourtravel.com/"  //Test
-//var appUrl = "http://52.25.207.151/"// Live New server working
+//var appUrl = "http://pictureyourtravel.com/"  //Test
+var appUrl = "http://52.25.207.151/"// Live New server working
 var Udefaults = UserDefaults.standard
-
+var notificationBool = Bool()
+var notificationSenderId = NSString()
+var notificationPlaceId = NSString()
+var notificationPlaceName = NSString()
 
 import UIKit
 //import Lock
@@ -25,8 +28,10 @@ import GooglePlaces
 import AWSS3
 import UserNotifications
 
+
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate
+{
     
     var window: UIWindow?
     var window2: UIWindow?
@@ -46,8 +51,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     
     
-    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-        
+    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool
+    {
+
         
         //registerForPushNotifications(application)
         
@@ -75,9 +81,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                         }
                         
                         if granted {
-                            //Do stuff here..
                             
-                            //Register for RemoteNotifications. Your Remote Notifications can display alerts now :)
                             application.registerForRemoteNotifications()
                         }
                         else {
@@ -425,14 +429,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         {
             
             let info = launchOptions![UIApplicationLaunchOptionsKey.remoteNotification]
-            if (info != nil) {
+            
+            
+            if (info != nil)
+            {
+                
                   let tabledata2 = Udefaults.array(forKey: "arrayOfIntrest")
                 if (tabledata2?.count)! > 0 {
                     let initialViewController = storyboard.instantiateViewController(withIdentifier: "MainTabBarViewController") as! MainTabBarViewController
                     
                     self.window?.rootViewController = initialViewController
                     self.window?.makeKeyAndVisible()
-                    
+                    notificationBool = true
                     initialViewController.selectedIndex = 3
                 }
                 
@@ -514,7 +522,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     //MARK:
     
     
-    func application(application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: NSError)
+    func application(_ application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: Error)
     {
         print(error)
         
@@ -527,16 +535,22 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     
     
-    func application(application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: NSData) {
+    func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
         
         
         print(deviceToken.description)
         
-        var myToken=deviceToken.description
-        myToken=myToken.replacingOccurrences(of: "<", with: "")
-        myToken=myToken.replacingOccurrences(of: ">", with: "")
-        myToken=myToken.replacingOccurrences(of: " ", with: "")
-        print("DEVICE TOKEN = \(myToken)")
+//        var myToken=deviceToken.description
+//        myToken=myToken.replacingOccurrences(of: "<", with: "")
+//        myToken=myToken.replacingOccurrences(of: ">", with: "")
+//        myToken=myToken.replacingOccurrences(of: " ", with: "")
+//        print("DEVICE TOKEN = \(myToken)")
+
+        var myToken = ""
+        for i in 0..<deviceToken.count {
+            myToken = myToken + String(format: "%02.2hhx", arguments: [deviceToken[i]])
+        }
+        print(myToken)
         
         Udefaults.set(myToken, forKey: "deviceToken")
         Udefaults.synchronize()
@@ -573,9 +587,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 
                 let parameterDict: NSDictionary = ["userId": uId!, "deviceToken": ["token": tokendevice, "device": "iphone"]]
                 
-                //  let sendTokenController = firstMainScreenViewController()
+                  let sendTokenController = searchScreenViewController()
                 
-                // sendTokenController.postApiFordeviceToken(parameterDict)
+                 sendTokenController.postApiFordeviceToken(param: parameterDict)
                 
             }
             else
@@ -599,7 +613,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     
     
-    func registerForPushNotifications(application: UIApplication) {
+    func registerForPushNotifications(_ application: UIApplication) {
         
         
         //let notificationSettings = UIUserNotificationSettings(
@@ -611,7 +625,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
     }
     
-    func application(application: UIApplication, didRegisterUserNotificationSettings notificationSettings: UIUserNotificationSettings) {
+    func application(_ application: UIApplication, didRegister notificationSettings: UIUserNotificationSettings) {
         
         if notificationSettings.types != UIUserNotificationType() {
             // application.registerUserNotificationSettings(notificationSettings)
@@ -620,39 +634,55 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
     }
     
-    /*
-     func application(application: UIApplication, didReceiveRemoteNotification userInfo: [NSObject : AnyObject]) {
+    
+      func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [NSObject : AnyObject]) {
      print(userInfo)
      
+       // CommonFunctionsClass.sharedInstance().showAlert(title: "Notification", text: userInfo.description as NSString, imageName: "nil")
+        
+        let uInfo = userInfo as AnyObject
+        let msg2 = (uInfo.value(forKey: "data") as AnyObject).value(forKey: "displayMsg") as? String ?? ""
+         let senderName = (uInfo.value(forKey: "data") as AnyObject).value(forKey: "senderName") as? String ?? ""
+        let placeId = (uInfo.value(forKey: "data") as AnyObject).value(forKey: "placeId") as? String ?? ""
+        let senderId = (uInfo.value(forKey: "data") as AnyObject).value(forKey: "senderId") as? String ?? ""
+      let placeName = (uInfo.value(forKey: "data") as AnyObject).value(forKey: "placeName") as? String ?? ""
+        notificationSenderId = senderId as NSString
+        notificationPlaceId = placeId as NSString
+        notificationPlaceName = placeName as NSString
+        
+        //CommonFunctionsClass.sharedInstance().showAlert(title: "Notification", text: "\(userInfo.description)" as NSString, imageName: "nil")
+        
+            //let typeNoti = userInfo["data"]!["type"]!
+        
+        
+        
      
-     let msg2 = userInfo["data"]!["displayMsg"]!
-     let senderName = userInfo["data"]!["senderName"]!
-     let typeNoti = userInfo["data"]!["type"]!
-     
-     
-     if application.applicationState == .Active {
+     if application.applicationState == .active
+     {
      
      
      let cont = window?.currentViewController
-     print(cont)
-     if cont!.isKindOfClass(MainTabBarViewController) {
+    
+        if cont! is MainTabBarViewController {
+            
+        //cont!.isKindOfClass(MainTabBarViewController) {
      
-     let cont2 = window?.currentViewController as! MainTabBarViewController
+     let cont2 = self.window?.currentViewController as! MainTabBarViewController
      
      if cont2.selectedIndex == 3
      {
      print("Chat View Controller or chating list view controller")
      application.applicationIconBadgeNumber = 0
      
-     NSNotificationCenter.defaultCenter().postNotificationName("pushReload", object: nil)
+     NotificationCenter.default.post(name: NSNotification.Name(rawValue: "pushReload"), object: nil)
      
      }
      else
      {
-     // HDNotificationView.showNotificationViewWithImage(UIImage(named: "logo")!, title: senderName, message: msg2, isAutoHide: true, onTouch: {() -> Void in
+//      HDNotificationView.showNotificationViewWithImage(UIImage(named: "logo")!, title: senderName, message: msg2, isAutoHide: true, onTouch: {() -> Void in
      
      application.applicationIconBadgeNumber = 0
-     })
+   //  })
      
      }
      
@@ -661,15 +691,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
      
      
      
-     //            else if cont! .isKindOfClass(ChatingListViewController)
-     //            {
-     //
-     //                print("Chat View Controller or chating list view controller")
-     //                application.applicationIconBadgeNumber = 0
-     //
-     //                NotificationCenter.defaultCenter().postNotificationName("pushReload", object: nil)
-     //
-     //            }
+        else if cont! is ChatingListViewController // .isKindOfClass(ChatingListViewController)
+                 {
+     
+                     print("Chat View Controller or chating list view controller")
+                     application.applicationIconBadgeNumber = 0
+     
+                     //NotificationCenter.defaultCenter.postNotificationName(NSNotification.Name(rawValue: "pushReload"), object: nil)
+     
+                 }
      else
      {
      // HDNotificationView.showNotificationViewWithImage(UIImage(named: "logo")!, title: senderName, message: msg2, isAutoHide: true, onTouch: {() -> Void in
@@ -681,64 +711,36 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
      
      
      }
-     
-     
-     
-     
      }
      
      else
      {
+       notificationBool = true
+       let initialViewController = self.storyboard.instantiateViewController(withIdentifier: "MainTabBarViewController") as! MainTabBarViewController
      
-     //  let initialViewController = storyboard.instantiateViewControllerWithIdentifier("MainTabBarViewController") as! MainTabBarViewController
-     
-     //  self.window?.rootViewController = initialViewController
-     // self.window?.makeKeyAndVisible()
-     
-     
-     
-     
-     if typeNoti == "chat"
-     {
-     
-     initialViewController.selectedIndex = 3
-     
-     //navController.pushViewController(myViewController, animated: true)
-     
-     
-     application.applicationIconBadgeNumber = 0
-     
-     }
-     
-     else
-     {
+       self.window?.rootViewController = initialViewController
+      self.window?.makeKeyAndVisible()
+      
+        initialViewController.selectedIndex = 3
      
      }
      
      
      
-     
-     
-     
-     
-     }
-     
-     
-     
-     
-     
-     }
-     
-     
-     */
+    
+    }
+
     
     
     
-    private func application(application: UIApplication, didReceiveRemoteNotificationuserInfo: [NSObject : AnyObject])
+    private func application(_ application: UIApplication, didReceiveRemoteNotificationuserInfo: [NSObject : AnyObject])
     {
         print(didReceiveRemoteNotificationuserInfo)
         
     }
+    
+    
+    
     
     
     

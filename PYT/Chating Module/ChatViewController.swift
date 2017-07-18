@@ -225,7 +225,7 @@ class ChatViewController: JSQMessagesViewController {
         
     
         self.messagesViewBottomSpace.constant = 0//200
-        //self.openImages(sender: self)
+        self.openImages(sender: self)
         
         
        
@@ -584,7 +584,6 @@ class ChatViewController: JSQMessagesViewController {
                 
                 
                 
-                
             }
             task.resume()
             
@@ -717,6 +716,9 @@ class ChatViewController: JSQMessagesViewController {
         self .jsq_setToolbarBottomLayoutGuideConstant(0)
         
         self.view.layoutIfNeeded()
+        
+        self.inputToolbar?.contentView.leftBarButtonItem?.setImage(UIImage(named: "Sendimageactive"), for: .normal)
+        
         
     }
     
@@ -1095,8 +1097,6 @@ extension ChatViewController
             }
             else
             {
-               
-                
                 
                 SocketIOManager.sharedInstance.sendMessagewithConvId(text, withNickname: self.senderId, receiverId: useridsArray, locType: locationType as String, msgType: 1, locName: locationName as String, receiverName: receiverName as String, receiverProfile: receiverProfile as String, senderName: myName as String, senderDp: myProfilePic as String, displayMsg: first20, placeId: locationId,largeUrls: "", thumbUrls: "", convId: convertationId)
                 
@@ -1226,6 +1226,7 @@ extension ChatViewController
     
     override func textViewDidBeginEditing(_ textView: UITextView) {
         
+        self.inputToolbar?.contentView.leftBarButtonItem?.setImage(UIImage(named: "Sendimage"), for: .normal)
     
     //override func textViewDidBeginEditing(textView: UITextView) {
        
@@ -1244,7 +1245,8 @@ extension ChatViewController
             
         }
             
-        else{
+        else
+        {
             
             
             
@@ -1302,12 +1304,13 @@ extension ChatViewController
             zoomImageScrollView.isHidden=true
             inputToolbar.contentView.rightBarButtonItem.isEnabled = false
             inputToolbar.contentView.textView.text = nil
+            self.inputToolbar?.contentView.leftBarButtonItem?.setImage(UIImage(named: "Sendimage"), for: .normal)
         }
         
         
         else
         {
-            
+            self.inputToolbar?.contentView.leftBarButtonItem?.setImage(UIImage(named: "Sendimageactive"), for: .normal)
         self.openImages(sender: self)
             self.scrollToBottom(animated: true)
             zoomImageScrollView.isHidden = true

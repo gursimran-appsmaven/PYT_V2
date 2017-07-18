@@ -85,7 +85,7 @@ class storyCountClass: NSObject
                                 let anyObj: Any = try JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.mutableContainers)
                                 
                                 let result = NSString(data: data!, encoding:String.Encoding.ascii.rawValue)!
-                                print("Body: Result from story count \(result)")
+                              //  print("Body: Result from plans  \(result)")
                                 
                                 basicInfo = NSMutableDictionary()
                                 basicInfo = anyObj as! NSMutableDictionary
@@ -177,8 +177,8 @@ class storyCountClass: NSObject
             //CommonFunctionsClass.sharedInstance().startIndicator(viewController.view)
             
             // var urlString = NSString(string:"\(appUrl)getStorydetails") //Live Url
-            var urlString = NSString(string:"\(appUrl)get_story_count")
-            // var urlString = NSString(string:"http://35.163.56.71/getStorydetails") //Test Url
+            var urlString = NSString(string:"\(appUrl)get_booking_ids")//get_story_count")
+           
             
             
             print("WS URL----->>" + (urlString as String))
@@ -227,7 +227,7 @@ class storyCountClass: NSObject
                             do {
                                 
                                 let result = NSString(data: data!, encoding:String.Encoding.ascii.rawValue)!
-                                print("Body:   ENTERS HERE for story and bucket count  \(result)")
+                               // print("Body:   ENTERS HERE for story and bucket count  \(result)")
                                 
                                 let anyObj: Any = try JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.mutableContainers)
                                 
@@ -241,22 +241,22 @@ class storyCountClass: NSObject
                                     // if jsonArray.count>0{
                                     countsDictionary=basicInfo
                                     
-                                    print(countArray.value(forKey: "storyCount"))
-                                    print(countArray.value(forKey: "storyImages"))
+                                    //print(countArray.value(forKey: "storyCount"))
+                                  //  print(countArray.value(forKey: "bookings"))
                                     
-                                    bucketListTotalCount = "0"
-                                    if countsDictionary.object(forKey: "bucketCount") != nil {
-                                        if let bktCount = countsDictionary.value(forKey: "bucketCount"){
-                                            
-                                            bucketListTotalCount = "\(bktCount)"
-                                        }
-                                        
+//                                    bucketListTotalCount = "0"
+//                                    if countsDictionary.object(forKey: "bucketCount") != nil {
+//                                        if let bktCount = countsDictionary.value(forKey: "bucketCount"){
+//                                            
+//                                            bucketListTotalCount = "\(bktCount)"
+//                                        }
+                                    
                                         //NotificationCenter.default.post(name: Notification.Name(rawValue: "loadCount"), object: nil)
                                         
                                         
                                         
                                         // }
-                                    }
+                                   // }
                                 }
                                 else if(status == 5){
                                     

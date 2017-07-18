@@ -30,7 +30,6 @@ class chatingUserListViewController: UIViewController {
         chatingIndicator.isHidden = false
         chatingIndicator.startAnimating()
         self.postRequestGetMessages(parameterString: prmDict, viewController: self)
-        
     }
     override func viewDidLoad()
     {
@@ -152,9 +151,18 @@ class chatingUserListViewController: UIViewController {
             
             
             
-            SweetAlert().showAlert("Confirm Delete?", subTitle: "All your messages with \(LocName) will be deleted. This action cannot be undone.", style: AlertStyle.customImag(imageFile: "alertDelete"), buttonTitle:"Okay", buttonColor: UIColor .clear , otherButtonTitle:  "Cancel", otherButtonColor: UIColor .clear) { (isOtherButton) -> Void in
-                if isOtherButton == true {
+            SweetAlert().showAlert("Confirm Delete?", subTitle: "All your messages with \(LocName) will be deleted. This action cannot be undone.", style: AlertStyle.customImag(imageFile: "exclamationAlert"), buttonTitle:"Yes I'm Sure", buttonColor: UIColor .clear , otherButtonTitle:  "Cancel", otherButtonColor: UIColor .clear) { (isOtherButton) -> Void in
+                if isOtherButton == true
+                {
+                    let convId = (self.chatingArray.object(at: indexPath.row) as AnyObject).value(forKey: "converId") as? String ?? ""
                     
+                   
+                    let uId = Udefaults .string(forKey: "userLoginId")
+                    
+                    
+                    let parmDict: NSDictionary = ["userId": uId!, "converId": convId ]
+                    
+                    self.postRequestDeleteMessages(parmDict, viewController: self)
                     
                     //hit api her to delete the whole chat
                     
@@ -279,7 +287,7 @@ class chatingUserListViewController: UIViewController {
                     do {
                         
                         let result = NSString(data: data!, encoding:String.Encoding.ascii.rawValue)!
-                       // print("Body: \(result)")
+                      //  print("Body: \(result)")
                         
                         let anyObj: Any = try JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.mutableContainers)
                         
@@ -292,7 +300,7 @@ class chatingUserListViewController: UIViewController {
                         
                         if status == 1
                         {
-                            
+                            self.chatingListTableview.isUserInteractionEnabled = true
                             let arr: NSMutableArray = basicInfo .value(forKey: "chat") as! NSMutableArray
                             
                             var chattingListArray = NSMutableArray()
@@ -311,14 +319,96 @@ class chatingUserListViewController: UIViewController {
                                 let activeCounts = (chattingListArray.object(at: self.indexOfRow) as AnyObject).value(forKey: "conver") as! NSMutableArray
                                 self.chatingArray = activeCounts
                             }
+                            
+                            
+                            if notificationBool == true
+                            {
+                                notificationBool = false
+                                var arrList = NSArray()
+                                arrList = chattingListArray.value(forKey: "_id") as! NSArray
+                                if arrList .contains(notificationPlaceId){
+                                    
+                                    let indx = arrList.index(of: notificationPlaceId)
+                                    
+                                     let activeCounts = (chattingListArray.object(at: indx) as AnyObject).value(forKey: "conver") as! NSMutableArray
+                                    self.chatingArray = activeCounts
+                                    
+                                    let listMessagesArray = ((self.chatingArray.value(forKey: "with") as! NSArray).object(at: 0)as AnyObject ).value(forKey: "_id") as! NSArray
+                                        
+                                    
+                                    
+                                    print(listMessagesArray)
+                if listMessagesArray .contains(notificationSenderId)//notificationSenderId
+                                    {
+                                       
+                                        let indexList = listMessagesArray .index(of: notificationSenderId)
+                                        
+                                        let user2Id = ((((self.chatingArray.object(at: indexList) as AnyObject).value(forKey: "with") as! NSArray).object(at: 0)) as AnyObject).value(forKey: "_id") as? String ?? ""
+                                        
+                                        let usname = ((((self.chatingArray.object(at: indexList) as AnyObject).value(forKey: "with") as! NSArray).object(at: 0)) as AnyObject).value(forKey: "name") as? String ?? ""
+                                        
+                                        
+                                        
+                                        let myName = Udefaults .string(forKey: "userLoginName")!
+                                        
+                                        
+                                        
+                                        var receiverProfileImage = ""
+                                        
+                                        if ((((self.chatingArray.object(at: indexList) as AnyObject).value(forKey: "with") as! NSArray).object(at: 0)) as AnyObject).value(forKey: "picture") != nil
+                                        {
+                                            receiverProfileImage = ((((self.chatingArray.object(at: indexList) as AnyObject).value(forKey: "with") as! NSArray).object(at: 0)) as AnyObject).value(forKey: "pucture") as? String ?? ""
+                                        }
+                                        
+                                        let convId = (self.chatingArray.object(at: indexList) as AnyObject).value(forKey: "converId") as? String ?? "" //usersChat.objectAtIndex(indexPath.row).valueForKey("converId") as? String ?? ""
+                                        
+                                        let locName = (self.chatingArray.object(at: indexList) as AnyObject).value(forKey: "placeName") as? String ?? ""
+                                        let chatLocation = (self.chatingArray.object(at: indexList) as AnyObject).value(forKey: "placeId") as? String ?? ""
+                                        let chatLocationType = (self.chatingArray.object(at: indexList) as AnyObject).value(forKey: "placeType") as? String ?? ""
+                                        
+                                        
+                                        
+                                        let nxtObj = self.storyboard?.instantiateViewController(withIdentifier: "ChatViewController") as! ChatViewController
+                                        
+                                        nxtObj.receiver_Id = user2Id as NSString
+                                        nxtObj.locationName = locName as NSString
+                                        nxtObj.locationType = chatLocationType as NSString
+                                        nxtObj.receiverName = usname as NSString
+                                        nxtObj.locationId = chatLocation as NSString
+                                        nxtObj.convertationId = convId as NSString
+                                        nxtObj.receiverProfile = receiverProfileImage as NSString
+                                        self.navigationController! .pushViewController(nxtObj, animated: true)
+                                        //nxtObj.hidesBottomBarWhenPushed = true
+
+                                        
+                                        notificationBool = false
+                                       
+                                        
+                                        
+                                        
+                                        
+                                    }
+                                    
+                                    
+                                    
+                                    
+                                }
+                                
+                                
+                                
+                                
+                                //Move to next screen
+                            }else
+                            {
                             self.chatingListTableview.reloadData()
+                            }
                             
                         }
                         else
                         {
                             
                             
-                            CommonFunctionsClass.sharedInstance().showAlert(title: "Err ...", text: "No chats found.", imageName: "alertChat")
+                           // CommonFunctionsClass.sharedInstance().showAlert(title: "Err ...", text: "No chats found.", imageName: "alertChat")
                             
                             
                             self.backBtnAction(self)
@@ -364,6 +454,133 @@ class chatingUserListViewController: UIViewController {
     }
     
     
+    
+    
+    
+    
+    //MARK:- Delete the chat of a location
+    
+    
+    func postRequestDeleteMessages(_ parameterString : NSDictionary , viewController : UIViewController)
+    {
+        chatingIndicator.isHidden=false
+        chatingIndicator.startAnimating()
+        chatingListTableview.isUserInteractionEnabled=false
+        
+        
+        print(parameterString)
+        
+        let isConnectedInternet = CommonFunctionsClass.sharedInstance().isConnectedToNetwork()
+        
+        if isConnectedInternet
+        {
+            let request = NSMutableURLRequest(url: URL(string: "\(appUrl)delete_conversation")!)
+            
+            
+            request.httpMethod = "POST"
+            let postString = parameterString
+            
+            do {
+                let jsonData = try!  JSONSerialization.data(withJSONObject: postString, options: [])
+                request.httpBody = jsonData
+                
+                
+                // here "jsonData" is the dictionary encoded in JSON data
+            } catch let error as NSError {
+                print(error)
+            }
+            
+            request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+            request.addValue("application/json", forHTTPHeaderField: "Accept")
+            
+            
+            let task = URLSession.shared.dataTask(with: request as URLRequest) { data, response, error in
+               
+                guard error == nil && data != nil else {
+                    // check for fundamental networking error
+                    print("error=\(error)")
+                    return
+                }
+                
+                if let httpStatus = response as? HTTPURLResponse, httpStatus.statusCode != 200 {           // check for http errors
+                    print("statusCode should be 200, but is \(httpStatus.statusCode)")
+                    print("response = \(response)")
+                }
+                
+                
+                
+               DispatchQueue.main.async {
+                    
+                    do {
+                        
+                        let result = NSString(data: data!, encoding:String.Encoding.ascii.rawValue)!
+                        // print("Body: \(result)")
+                        
+                        let anyObj: Any = try JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.mutableContainers)
+                        
+                        basicInfo = NSMutableDictionary()
+                        basicInfo = anyObj as! NSMutableDictionary
+                        
+                        let status = basicInfo .value(forKey: "status") as! NSNumber
+                        
+                        
+                        if status == 1{
+                            
+                           
+                            let uId = Udefaults .string(forKey: "userLoginId")
+                            
+                             let prmDict: NSDictionary = ["userId": uId!]
+                            self.postRequestGetMessages(parameterString: prmDict, viewController: self)
+                           
+                            
+                            
+                        }
+                            
+                            
+                        else
+                        {
+                            
+                           CommonFunctionsClass.sharedInstance().showAlert(title: "Server Alert", text: "Something doesn't seem right, Please try again!", imageName: "alertServer")
+                            self.chatingIndicator.isHidden=true
+                            self.chatingIndicator.stopAnimating()
+                            
+                        }
+                        
+                       self.chatingListTableview.reloadData()
+                        
+                        
+                        
+                        
+                    } catch {
+                        print("json error: \(error)")
+                        CommonFunctionsClass.sharedInstance().showAlert(title: "Server Alert", text: "Something doesn't seem right, Please try again!", imageName: "alertServer")
+                        
+                        
+                        
+                        
+                    }
+                    
+                    
+                    
+                    
+                    
+                }
+                
+                
+                
+                
+                
+                
+                
+            }
+            task.resume()
+            
+        }
+        else
+        {
+           CommonFunctionsClass.sharedInstance().showAlert(title: "No Internet Connection", text: "You are currently offline.", imageName: "alertInternet")
+        }
+    }
     
     
     

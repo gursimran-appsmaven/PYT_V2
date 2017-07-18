@@ -283,7 +283,7 @@ class UploadedImagesVC: UIViewController,UICollectionViewDataSource,UICollection
     
     func changeZoomImage(_ indx:Int) {
         
-        let pImage : UIImage = UIImage(named:"backgroundImage")!
+        let pImage : UIImage = UIImage(named:"dummyBackground1")!
         zoomimageView.image = pImage
         let imageThumb = (((self.photosArray.object(at: indexSelectSection) as AnyObject).value(forKey: "photos")! as AnyObject).object(at: indexselectRow) as AnyObject).value(forKey: "imageThumb") as? String ?? ""
         

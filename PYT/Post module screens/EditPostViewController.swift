@@ -652,10 +652,6 @@ class EditPostViewController: UIViewController, UISearchBarDelegate, UITableView
         privateBtnOutlet.setImage(UIImage (named: "Seclected"), for: .normal)
         
     }
-
-    
-    
-    
     
     
     //MARK: Actions
@@ -968,7 +964,7 @@ class EditPostViewController: UIViewController, UISearchBarDelegate, UITableView
             }
             else
             {
-                CommonFunctionsClass.sharedInstance().showAlert(title: "Oops!", text: "Please fill all the required fields for post.", imageName: "alertFill")
+                 CommonFunctionsClass.sharedInstance().showAlert(title: "Fill required fields", text: "Please fill all the required fields to continue \n Icon with * are mandatory to fill.", imageName: "oopsAlert")
             }
         }
     
@@ -987,10 +983,16 @@ class EditPostViewController: UIViewController, UISearchBarDelegate, UITableView
         
         
         
-        SweetAlert().showAlert("Confirm Delete?", subTitle: "Once deleted, you will no longer be able to see this image.", style: AlertStyle.customImag(imageFile: "alertDelete"), buttonTitle:"Okay", buttonColor: UIColor.clear , otherButtonTitle:  "Cancel", otherButtonColor: UIColor.clear) { (isOtherButton) -> Void in
+        SweetAlert().showAlert("Confirm Delete?", subTitle: "Once deleted, you will no longer be able to see this image.", style: AlertStyle.customImag(imageFile: "exclamationAlert"), buttonTitle:"Cancel", buttonColor: UIColor.clear , otherButtonTitle:  "Yes I'm Sure", otherButtonColor: UIColor.clear) { (isOtherButton) -> Void in
             if isOtherButton == true
             {
                 
+               
+                print("Cancel Pressed")
+                
+                
+            }
+            else {
                 //Retry function
                 print("delete image tapped")
                 
@@ -1007,12 +1009,6 @@ class EditPostViewController: UIViewController, UISearchBarDelegate, UITableView
                 
                 self.postRequestDeleteImagePyt(parameterString as NSString, viewController: self)
                 
-                
-                
-            }
-            else {
-                
-                print("Cancel Pressed")
             }
         }
         
@@ -1026,6 +1022,11 @@ class EditPostViewController: UIViewController, UISearchBarDelegate, UITableView
     //MARK: Back Button Action
       @IBAction func backBtnAction(_ sender: AnyObject)
       {
+        if(self.screenName == "Interest"){
+        
+        }
+        
+        
         self.navigationController?.popViewController(animated: true)
       }
     
@@ -1102,7 +1103,7 @@ class EditPostViewController: UIViewController, UISearchBarDelegate, UITableView
                         
                         if data == nil
                         {
-                            SweetAlert().showAlert("PYT", subTitle: "Server is not responding!", style: AlertStyle.error)
+                          //  SweetAlert().showAlert("PYT", subTitle: "Server is not responding!", style: AlertStyle.error)
                             
                         }
                         else
@@ -1141,11 +1142,14 @@ class EditPostViewController: UIViewController, UISearchBarDelegate, UITableView
                                         
                                         
                                         
-                                        
-                                        
                                     else
                                     {
-                                        NotificationCenter.default.post(name: Notification.Name(rawValue: "refreshFromEditInterst"), object: nil)
+                                        Udefaults.set(true, forKey: "refreshInterest")
+                                        Udefaults.synchronize()
+                                        
+                                        NotificationCenter.default.post(name: Notification.Name(rawValue: "refreshFromEdit"), object: nil)
+                                        
+                                       // NotificationCenter.default.post(name: Notification.Name(rawValue: "refreshFromEditInterst"), object: nil)
                                     }
                                     
                                     
@@ -1171,7 +1175,7 @@ class EditPostViewController: UIViewController, UISearchBarDelegate, UITableView
                                 {
                                     
                                     
-                                    SweetAlert().showAlert("PYT", subTitle: "Something went wrong!", style: AlertStyle.warning)
+                                    CommonFunctionsClass.sharedInstance().showAlert(title: "Server Alert", text: "Something doesn't seem right, Please try again!", imageName: "alertServer")
                                     
                                     MBProgressHUD.hide(for: self.view, animated: true)
                                     
@@ -1265,7 +1269,7 @@ class EditPostViewController: UIViewController, UISearchBarDelegate, UITableView
                         
                         if data == nil
                         {
-                            SweetAlert().showAlert("PYT", subTitle: "Server is not responding!", style: AlertStyle.error)
+                            CommonFunctionsClass.sharedInstance().showAlert(title: "Server Alert", text: "Something doesn't seem right, Please try again!", imageName: "alertServer")
                             
                         }
                         else
@@ -1288,7 +1292,7 @@ class EditPostViewController: UIViewController, UISearchBarDelegate, UITableView
                                 if status == 1{
                                     let text = jsonResult.value(forKey: "msg") as? String ?? ""
                                     
-                                    SweetAlert().showAlert("PYT", subTitle: text, style: AlertStyle.error)
+                                    SweetAlert().showAlert("Successfully Deleted", subTitle: "Picture deleted successfully.", style: AlertStyle.customImag(imageFile: "doneAlert"))
                                     
                                     
                                     
@@ -1304,7 +1308,15 @@ class EditPostViewController: UIViewController, UISearchBarDelegate, UITableView
                                     }
                                         
                                     else if(self.screenName == "Interest"){
-                                        NotificationCenter.default.post(name: Notification.Name(rawValue: "loadDeleteInterest"), object: nil)
+//                                        NotificationCenter.default.post(name: Notification.Name(rawValue: "loadDeleteInterest"), object: nil)
+//                                        NotificationCenter.default.post(name: Notification.Name(rawValue: "loadDeleteinHome"), object: nil)
+                                        
+                                        Udefaults.set(true, forKey: "refreshInterest")
+                                        Udefaults.synchronize()
+                                        
+                                        NotificationCenter.default.post(name: Notification.Name(rawValue: "refreshFromEdit"), object: nil)
+                                        
+                                        
                                     }
                                     // else
                                     //{
@@ -1325,16 +1337,14 @@ class EditPostViewController: UIViewController, UISearchBarDelegate, UITableView
                                 {
                                     let text = jsonResult.value(forKey: "msg") as? String ?? ""
                                     
-                                    SweetAlert().showAlert("PYT", subTitle: text, style: AlertStyle.error)
+                                    CommonFunctionsClass.sharedInstance().showAlert(title: "Server Alert", text: "text", imageName: "alertServer")
                                 }
                                 
                                 
                                 
                                 
                                 
-                                
-                                
-                                
+                    
                                 
                                 
                                 

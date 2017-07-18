@@ -338,7 +338,7 @@ class FinalTravelPlanVC: UIViewController {
                                         }
                                         else
                                         {
-                                            CommonFunctionsClass.sharedInstance().showAlert(title: "No plans yet", text: "You haven't plan a travel yet.", imageName: "alertWrong")
+                                            CommonFunctionsClass.sharedInstance().showAlert(title: "No plans yet", text: "You haven't plan a travel yet.", imageName: "exclamationAlert")
                                         }
                                         
                                         
@@ -348,7 +348,7 @@ class FinalTravelPlanVC: UIViewController {
                                     else
                                     {
                                         
-                                        CommonFunctionsClass.sharedInstance().showAlert(title: "No plans yet", text: "You haven't plan a travel yet.", imageName: "alertWrong")
+                                        CommonFunctionsClass.sharedInstance().showAlert(title: "No plans yet", text: "You haven't plan a travel yet.", imageName: "exclamationAlert")
                                         
                                     }
                                     

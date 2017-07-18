@@ -19,7 +19,7 @@ class TravelPlansListVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        self.tabBarController?.setTabBarVisible(visible: false, animated: true)
 //        travelPlansTableView.rowHeight = 100
         
         
@@ -261,7 +261,7 @@ class TravelPlansListVC: UIViewController {
                                         }
                                         else
                                         {
-                                          CommonFunctionsClass.sharedInstance().showAlert(title: "No plans yet", text: "You haven't plan a travel yet.", imageName: "alertWrong")
+                                          CommonFunctionsClass.sharedInstance().showAlert(title: "No plans yet", text: "You haven't plan a travel yet.", imageName: "exclamationAlert")
                                         }
                                         
                                         
@@ -271,7 +271,7 @@ class TravelPlansListVC: UIViewController {
                                     else
                                     {
                                     
-                                         CommonFunctionsClass.sharedInstance().showAlert(title: "No plans yet", text: "You haven't plan a travel yet.", imageName: "alertWrong")
+                                         CommonFunctionsClass.sharedInstance().showAlert(title: "No plans yet", text: "You haven't plan a travel yet.", imageName: "exclamationAlert")
                                         
                                     }
                                     
@@ -282,7 +282,7 @@ class TravelPlansListVC: UIViewController {
                                 } catch
                                 {
                                     print("json error: \(error)")
-                                    CommonFunctionsClass.sharedInstance().showAlert(title: "Server Alert", text: "Something doesn't seem right, Please try again!", imageName: "alertServer")
+                                    CommonFunctionsClass.sharedInstance().showAlert(title: "Server Alert", text: "Something doesn't seem right, Please try again!", imageName: "exclamationAlert")
                                     
                                     
                                     
@@ -401,6 +401,18 @@ class TravelPlansListVC: UIViewController {
                                     if success == 1{
                                         
    ////////////////////////////
+                                        DispatchQueue.global(qos: .background).async {
+                                            
+                                            let uId = Udefaults .string(forKey: "userLoginId")
+                                            let objt = storyCountClass()
+                                            
+                                            let dic:NSDictionary = ["userId": uId!]
+                                            objt.postRequestForcountStory(parameterString: dic)
+                                            objt.postRequestForcountStoryandBucket(dic)
+                                            
+                                        }
+
+                                        
                                         self.plansArray.removeObject(at: indexPath.row)
                                         self.travelPlansTableView.deleteRows(at: [indexPath as IndexPath], with: UITableViewRowAnimation.automatic)
                                         
@@ -409,7 +421,7 @@ class TravelPlansListVC: UIViewController {
                                     else
                                     {
                                         
-                                        CommonFunctionsClass.sharedInstance().showAlert(title: "No plans yet", text: "You haven't plan a travel yet.", imageName: "alertWrong")
+                                        CommonFunctionsClass.sharedInstance().showAlert(title: "No plans yet", text: "You haven't plan a travel yet.", imageName: "exclamationAlert")
                                         
                                     }
                                     
@@ -420,7 +432,7 @@ class TravelPlansListVC: UIViewController {
                                 } catch
                                 {
                                     print("json error: \(error)")
-                                    CommonFunctionsClass.sharedInstance().showAlert(title: "Server Alert", text: "Something doesn't seem right, Please try again!", imageName: "alertServer")
+                                    CommonFunctionsClass.sharedInstance().showAlert(title: "Server Alert", text: "Something doesn't seem right, Please try again!", imageName: "exclamationAlert")
                                     
                                     
                                     

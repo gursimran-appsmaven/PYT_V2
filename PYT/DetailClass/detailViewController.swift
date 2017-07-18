@@ -56,9 +56,6 @@ class detailViewController: UIViewController, apiClassDelegate {
     
     @IBOutlet var locationHeight: NSLayoutConstraint!
     
-    
-    
-    
     //zoomView
     
     @IBOutlet var zoomView: UIView!
@@ -66,8 +63,6 @@ class detailViewController: UIViewController, apiClassDelegate {
     @IBOutlet weak var zoomIndicator: UIActivityIndicatorView!
     
     @IBOutlet weak var zoomScrollView: UIScrollView!
-    
-    
     
     
     
@@ -248,7 +243,6 @@ class detailViewController: UIViewController, apiClassDelegate {
            locHeader = "\((self.arrayWithData[0] as AnyObject).value(forKey: "CountryName")as? String ?? "\(NearLoc)")"
         }
         
-       
         
         
         var tagGeo = (self.arrayWithData[0] as AnyObject).value(forKey: "geoTag") as! String
@@ -321,22 +315,22 @@ class detailViewController: UIViewController, apiClassDelegate {
             
             var countst = NSArray()
             
-            if countsDictionary.object(forKey: "storyCount") != nil {
-                if let stCount = countsDictionary.value(forKey: "storyCount"){
-                    countst = countsDictionary.value(forKey: "storyImages") as! NSArray
-                }
+            if countsDictionary.object(forKey: "bookings") != nil {
+//                if let stCount = countsDictionary.value(forKey: "bookings"){
+                    countst = countsDictionary.value(forKey: "bookings") as! NSArray
+                //}
             }
             
             self.stImg.image=UIImage.init(named: "locationRemoveplan")
             self.stImg2.image=UIImage.init(named: "locationRemoveplan")
-            if countst.count>0 {
-                
+            if countst.count>0
+            {
                 // print(countst)
-                if countst.contains(imageId) {
+                if countst.contains(imageId)
+                {
                     self.stImg.image=UIImage.init(named: "locationPlan")
                     self.stImg2.image=UIImage.init(named: "locationPlan")
                 }
-                
             }
             
             
@@ -1426,26 +1420,28 @@ class detailViewController: UIViewController, apiClassDelegate {
         let globalPlaceid = (self.arrayWithData[0] as AnyObject).value(forKey: "placeId") as? String ?? ""
         let globalName = (self.arrayWithData[0] as AnyObject).value(forKey: "CountryName") as! String
         let ownersId = (self.arrayWithData[0] as AnyObject).value(forKey: "otherUserId") as? String ?? ""
+        let countryId = (self.arrayWithData[0] as AnyObject).value(forKey: "countryId") as? String ?? ""
+        let cname = (self.arrayWithData[0] as AnyObject).value(forKey: "CountryName") as? String ?? ""
         
-        
+         let placeIds = (countArray.value(forKey: "countryId")) as! NSArray
         
         if stImg.image==UIImage (named: "locationPlan") {
             stImg.image=UIImage.init(named: "locationRemoveplan")
             stImg2.image=UIImage.init(named: "locationRemoveplan")
             
+          
             
-            //let dataStr = "userId=\(uId!)&imageId=\(imageId)&place=\(countryName)&cityName=\(cityName)"
-            
+           // let dataStr: NSDictionary = ["userId": uId!, "imageId": imageId]
            // print(dataStr)
             
-            let dataStr: NSDictionary = ["userId": uId!, "imageId": imageId]
-            print(dataStr)
+            let indx = placeIds .index(of: countryId)
             
+            let bookingid = ((countArray.object(at: indx)) as AnyObject).value(forKey: "_id") as? String ?? ""
             //print(dataStr)
            
+            apiClass.sharedInstance().deleteLocationFromPlan(placeId: imageId as NSString, bookingIdFinal: bookingid as NSString)
               //  apiClassStory.sharedInstance().postRequestDeleteStory(dataStr, viewController: self)
                 
-        
             
         }
             
@@ -1455,22 +1451,38 @@ class detailViewController: UIViewController, apiClassDelegate {
             stImg2.image=UIImage.init(named: "locationPlan")
            
             
-            let dat: NSDictionary = ["userId": "\(uId!)", "imageId": imageId, "countryId": globalPlaceid, "countryName": globalName ] //["userId": "\(uId!)", "imageId": imageId, "placeId": globalPlaceid, "placeType": globalType]
+            var dat = NSDictionary()
+            
+            if placeIds.contains(countryId)
+            {
+                print("Contains story")
+                let indx = placeIds .index(of: countryId)
+                print(indx)
+                
+                let bookingid = ((countArray.object(at: indx)) as AnyObject).value(forKey: "_id") as? String ?? ""
+                
+                dat = ["userId": "\(uId!)", "imageId": imageId, "countryId": countryId, "countryName": cname, "imageOwn": ownersId, "bookingId": bookingid ]
+                
+            }
+            else
+            {
+                dat = ["userId": "\(uId!)", "imageId": imageId, "countryId": countryId, "countryName": cname, "imageOwn": ownersId ]
+            }
             
             
+           // let dat: NSDictionary = ["userId": "\(uId!)", "imageId": imageId, "countryId": globalPlaceid, "countryName": globalName, "imageOwn": ownersId ] //["userId": "\(uId!)", "imageId": imageId, "placeId": globalPlaceid, "placeType": globalType]
             
             
             print("Post parameters to select the images for story--- \(dat)")
-            
             //add image to story
-            
-            
-           
                 apiClass.sharedInstance().postRequestWithMultipleImage(parameterString: "", parameters: dat, viewController: self)
-           
-           // apiClass.sharedInstance().postRequestWithMultipleImage("", parameters: postDict, viewController: self)
+            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + Double(Int64(1.5 * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC)) { () -> Void in
+                
+                //  self.addToolTip()
+                
             
-          
+            NotificationCenter.default.post(name: Notification.Name(rawValue: "load"), object: nil)
+            }
         }
         
       

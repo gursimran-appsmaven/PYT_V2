@@ -24,6 +24,7 @@ class ChatingListViewController: UIViewController {
     var olderArr = NSMutableArray()
     
     override func viewWillAppear(_ animated: Bool) {
+        SocketIOManager.sharedInstance.establishConnection()
         chatingIndicator.isHidden = false
         chatingIndicator.startAnimating()
         chatingListTable.isUserInteractionEnabled=false
@@ -32,8 +33,20 @@ class ChatingListViewController: UIViewController {
         
         let prmDict: NSDictionary = ["userId": uId!]
         
-        self.postRequestGetMessages(parameterString: prmDict, viewController: self)
         
+        if notificationBool == true
+        {
+            let nxtObj = self.storyboard?.instantiateViewController(withIdentifier: "chatingUserListViewController") as! chatingUserListViewController
+            nxtObj.locationName = notificationPlaceName
+            
+            self.navigationController! .pushViewController(nxtObj, animated: true)
+            //Move to next screen
+        }
+        else
+        {
+        
+        self.postRequestGetMessages(parameterString: prmDict, viewController: self)
+        }
         
         
         
@@ -58,8 +71,8 @@ class ChatingListViewController: UIViewController {
             {
                 let parameterDict: NSDictionary = ["userId": uId!, "deviceToken": ["token": tokendevice, "device": "iphone"]]
                 
-                let objforDeviceToken = mainHomeViewController()// self.postApiFordeviceToken(parameterDict)
-                //objforDeviceToken.postApiFordeviceToken(parameterDict)
+                let objforDeviceToken = searchScreenViewController()// self.postApiFordeviceToken(parameterDict)
+                objforDeviceToken.postApiFordeviceToken(param: parameterDict)
                 
             }
             
@@ -250,47 +263,47 @@ class ChatingListViewController: UIViewController {
     
     
     
+//    
+//    func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+//        
+//            return false//true
+//        
+//        
+//    }
     
-    func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-        
-            return false//true
-        
-        
-    }
-    
-    
-    func tableView(_ tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) -> [AnyObject]? {
-        
-        let deleteAction = UITableViewRowAction(style: .default, title: "Delete") {action in
-            
-           let LocName = ""
-
-            
-            
-            SweetAlert().showAlert("Confirm Delete?", subTitle: "All your messages with \(LocName) will be deleted. This action cannot be undone.", style: AlertStyle.customImag(imageFile: "alertDelete"), buttonTitle:"Okay", buttonColor: UIColor .clear , otherButtonTitle:  "Cancel", otherButtonColor: UIColor .clear) { (isOtherButton) -> Void in
-                if isOtherButton == true {
-                    
-                    
-                    //hit api her to delete the whole chat
-                        
-                    
-                    
-                }
-                else {
-                    
-                    print("Cancel Pressed")
-                }
-            }
-
-            
-            
-            
-            
-        }
-        
-        
-        return [deleteAction]
-    }
+//    
+//    func tableView(_ tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) -> [AnyObject]? {
+//        
+//        let deleteAction = UITableViewRowAction(style: .default, title: "Delete") {action in
+//            
+//           let LocName = ""
+//
+//            
+//            
+//            SweetAlert().showAlert("Confirm Delete?", subTitle: "All your messages with \(LocName) will be deleted. This action cannot be undone.", style: AlertStyle.customImag(imageFile: "alertDelete"), buttonTitle:"Okay", buttonColor: UIColor .clear , otherButtonTitle:  "Cancel", otherButtonColor: UIColor .clear) { (isOtherButton) -> Void in
+//                if isOtherButton == true {
+//                    
+//                    
+//                    //hit api her to delete the whole chat
+//                        
+//                    
+//                    
+//                }
+//                else {
+//                    
+//                    print("Cancel Pressed")
+//                }
+//            }
+//
+//            
+//            
+//            
+//            
+//        }
+//        
+//        
+//        return [deleteAction]
+//    }
     
     
     
@@ -408,7 +421,11 @@ class ChatingListViewController: UIViewController {
                             {
                                 self.chatingListTable.isHidden=false
                                 self.chatingListTable.isUserInteractionEnabled=true
-                                self.chatingListTable.reloadData()
+                               
+                                    self.chatingListTable.reloadData()
+                               // }
+                                
+                                
                            
                             }
                            

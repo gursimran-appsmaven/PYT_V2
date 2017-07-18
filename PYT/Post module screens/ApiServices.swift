@@ -38,7 +38,7 @@ class ApiServices: NSObject
             //onCompletion(nil, nil, 405)
             let jsn:JSON = ["status": 0]
             let er:NSError? = nil
-            onCompletion(jsn, er, 405)
+            onCompletion(jsn, er, 0)
         }
     }
     
@@ -102,6 +102,23 @@ class ApiServices: NSObject
                     let resstr = NSString(data: data!, encoding: String.Encoding.utf8.rawValue)
                     print(resstr)
 
+                    
+                    do
+                    {
+                        let anyObj: Any = try JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.mutableContainers)
+                        let rslt = anyObj as! NSMutableDictionary
+                        let status = rslt.value(forKey: "status") as! Int
+                        self.status = status
+                        
+                    } catch
+                    {
+                        print("json error: \(error)")
+                        
+                        
+                    }
+                    
+                    
+                    
                     
                     onCompletion(json, error as NSError?, self.status)
                 }

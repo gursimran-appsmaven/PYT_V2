@@ -9,29 +9,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "PYT/MainHomeViewController/mainHomeViewController.swift"
-            timestampString = "521126841.820475"
+            filePath = "PYT/Chating Module/SocketIOManager.swift"
+            timestampString = "521726901.341866"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "3387"
-            endingLineNumber = "3387"
-            landmarkName = "collectionView(_:numberOfItemsInSection:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "PYT/MainHomeViewController/mainHomeViewController.swift"
-            timestampString = "521126841.820475"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "3454"
-            endingLineNumber = "3454"
-            landmarkName = "collectionView(_:cellForItemAt:)"
+            startingLineNumber = "85"
+            endingLineNumber = "85"
+            landmarkName = "sendMessagewithConvId(_:withNickname:receiverId:locType:msgType:locName:receiverName:receiverProfile:senderName:senderDp:displayMsg:placeId:largeUrls:thumbUrls:convId:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -41,13 +25,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "PYT/MainHomeViewController/mainHomeViewController.swift"
-            timestampString = "521127224.87436"
+            filePath = "PYT/Chating Module/SocketIOManager.swift"
+            timestampString = "521726901.341866"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "4044"
-            endingLineNumber = "4044"
-            landmarkName = "collectionView(_:didSelectItemAt:)"
+            startingLineNumber = "69"
+            endingLineNumber = "69"
+            landmarkName = "sendMessage(_:withNickname:receiverId:locType:msgType:locName:receiverName:receiverProfile:senderName:senderDp:displayMsg:placeId:largeUrls:thumbUrls:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -57,13 +41,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "PYT/Story Class/storyCountClass.swift"
-            timestampString = "521125396.04792"
+            filePath = "PYT/Travel Plan/TravelPlanVC.swift"
+            timestampString = "521974750.869261"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "180"
-            endingLineNumber = "180"
-            landmarkName = "postRequestForcountStoryandBucket(_:)"
+            startingLineNumber = "1036"
+            endingLineNumber = "1036"
+            landmarkName = "getPlanDetails()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -73,141 +57,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "PYT/Story Class/storyCountClass.swift"
-            timestampString = "521125396.04792"
+            filePath = "PYT/Travel Plan/TravelPlanVC.swift"
+            timestampString = "521975282.264049"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "230"
-            endingLineNumber = "230"
-            landmarkName = "postRequestForcountStoryandBucket(_:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "PYT/MainHomeViewController/mainHomeViewController.swift"
-            timestampString = "521127224.87436"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "3900"
-            endingLineNumber = "3900"
-            landmarkName = "collectionView(_:cellForItemAt:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "PYT/MainHomeViewController/mainHomeViewController.swift"
-            timestampString = "521127224.87436"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "3899"
-            endingLineNumber = "3899"
-            landmarkName = "collectionView(_:cellForItemAt:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "PYT/Story Class/storyCountClass.swift"
-            timestampString = "521125396.04792"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "88"
-            endingLineNumber = "88"
-            landmarkName = "postRequestForcountStory(parameterString:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "PYT/SingltonClass/apiClass.swift"
-            timestampString = "521126117.428838"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "832"
-            endingLineNumber = "832"
-            landmarkName = "postRequestWithMultipleImage(parameterString:parameters:viewController:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "PYT/SingltonClass/apiClass.swift"
-            timestampString = "521126121.780734"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "881"
-            endingLineNumber = "881"
-            landmarkName = "postRequestWithMultipleImage(parameterString:parameters:viewController:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "PYT/MainHomeViewController/mainHomeViewController.swift"
-            timestampString = "521126841.820475"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "945"
-            endingLineNumber = "945"
-            landmarkName = "loadCount(_:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "PYT/MainHomeViewController/mainHomeViewController.swift"
-            timestampString = "521126774.006556"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "941"
-            endingLineNumber = "941"
-            landmarkName = "loadCount(_:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "PYT/Story Class/storyCountClass.swift"
-            timestampString = "521127432.199862"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "38"
-            endingLineNumber = "38"
-            landmarkName = "postRequestForcountStory(parameterString:)"
+            startingLineNumber = "610"
+            endingLineNumber = "610"
+            landmarkName = "setUpCalendarStartAndEndDate()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

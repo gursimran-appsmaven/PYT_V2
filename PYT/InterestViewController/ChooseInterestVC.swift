@@ -132,7 +132,10 @@ class ChooseInterestVC: UIViewController , UICollectionViewDelegate,UICollection
         {
         if checked.count<1
         {
-            CommonFunctionsClass.sharedInstance().showAlert(title: "Opps!", text: "Please select minimum one interest.", imageName: "alertFill")
+            
+            
+            
+            CommonFunctionsClass.sharedInstance().showAlert(title: "Fill required fields", text: "Please select minimum one interest.", imageName: "oopsAlert")
             
         }
         else
@@ -166,7 +169,7 @@ class ChooseInterestVC: UIViewController , UICollectionViewDelegate,UICollection
         
     if checked.count<1
     {
-        CommonFunctionsClass.sharedInstance().showAlert(title: "Opps!", text: "Please select minimum one interest.", imageName: "alertFill")
+        CommonFunctionsClass.sharedInstance().showAlert(title: "Opps!", text: "Please select minimum one interest.", imageName: "exclamationAlert")
         
         }
     else{
@@ -282,7 +285,7 @@ class ChooseInterestVC: UIViewController , UICollectionViewDelegate,UICollection
             else
             {
                 if postArray.count == 3 {
-                     CommonFunctionsClass.sharedInstance().showAlert(title: "Interests limit exceeded!", text: "You can select only up to 3 interests at once.", imageName: "alertLimit")
+                     CommonFunctionsClass.sharedInstance().showAlert(title: "Interests limit exceeded!", text: "You can select only up to 3 interests at once.", imageName: "exclamationAlert")
                 }
                 else
                 {

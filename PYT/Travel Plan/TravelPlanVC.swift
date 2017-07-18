@@ -56,6 +56,7 @@ class TravelPlanVC: UIViewController ,UITableViewDataSource,UITableViewDelegate,
     fileprivate let gregorian = Calendar(identifier: .gregorian)
 
     override func viewDidLoad() {
+        self.tabBarController?.setTabBarVisible(visible: false, animated: true)
         super.viewDidLoad()
         calendarMonthDate = NSDate() as Date
         
@@ -291,7 +292,7 @@ class TravelPlanVC: UIViewController ,UITableViewDataSource,UITableViewDelegate,
         
         cell.nameLbl.text = "\(locDetails?.value(forKey: "placeTag") as? String ?? "") ,\(locDetails?.value(forKey: "city") as? String ?? "")"
         
-        cell.locationLbl.text = "\(locDetails?.value(forKey: "placeTag") as! String)"
+        cell.locationLbl.text = "\(locDetails?.value(forKey: "placeTag") as?  String ?? "")"
         
         let imageToShow = locDetails?.value(forKey: "imageLarge")  as? String ?? ""
 
@@ -305,6 +306,9 @@ class TravelPlanVC: UIViewController ,UITableViewDataSource,UITableViewDelegate,
         cell.calendarBtn.addTarget(self, action: #selector(OpenCalendarView), for: .touchUpInside)
         cell.bucketBtn.addTarget(self, action: #selector(AddToBucket), for: .touchUpInside)
 
+        
+        
+        
         let gradient = cell.viewWithTag(7499) as! GradientView
         
         gradient.gradientLayer.colors = [UIColor.black.withAlphaComponent(0.75).cgColor, UIColor.clear.cgColor]
@@ -826,6 +830,11 @@ class TravelPlanVC: UIViewController ,UITableViewDataSource,UITableViewDelegate,
     }
     @IBAction func LeftBtnAction(_ sender: Any) {
         let visibleItems: NSArray = self.locationsCollectionView.indexPathsForVisibleItems as NSArray
+      
+        if visibleItems.count<1{
+            
+        }else
+        {
         let currentItem: IndexPath = visibleItems.object(at: 0) as! IndexPath
         let nextItem: IndexPath = IndexPath(item: currentItem.item - 1, section: 0)
         // This is where I'm trying to detect the value
@@ -833,16 +842,24 @@ class TravelPlanVC: UIViewController ,UITableViewDataSource,UITableViewDelegate,
             return
         }
         self.locationsCollectionView.scrollToItem(at: nextItem, at: .right, animated: true)
+        }
     }
     @IBAction func RightBtnAction(_ sender: Any) {
         let visibleItems: NSArray = self.locationsCollectionView.indexPathsForVisibleItems as NSArray
-        let currentItem: IndexPath = visibleItems.object(at: 0) as! IndexPath
-        let nextItem: IndexPath = IndexPath(item: currentItem.item + 1, section: 0)
-        // This is where I'm trying to detect the value
-        if nextItem.row == planAllLocations.count {
-            return
+       
+        if visibleItems.count<1{
+            
+        }else
+        {
+            let currentItem: IndexPath = visibleItems.object(at: 0) as! IndexPath
+            let nextItem: IndexPath = IndexPath(item: currentItem.item + 1, section: 0)
+            // This is where I'm trying to detect the value
+            if nextItem.row == planAllLocations.count {
+                return
+            }
+            self.locationsCollectionView.scrollToItem(at: nextItem, at: .left, animated: true)
         }
-        self.locationsCollectionView.scrollToItem(at: nextItem, at: .left, animated: true)
+       
     }
     @IBAction func DoneBtnAction(_ sender: Any) {
         if(boolEdit)
@@ -864,6 +881,13 @@ class TravelPlanVC: UIViewController ,UITableViewDataSource,UITableViewDelegate,
 
     }
     @IBAction func MapViewBtnACtion(_ sender: Any) {
+        
+        let nxtObj = self.storyboard?.instantiateViewController(withIdentifier: "PlanMapVC") as! PlanMapVC
+        
+        nxtObj.locationsArray = planAllLocations
+        
+        self.navigationController?.pushViewController(nxtObj, animated: true)
+        
     }
     @IBAction func BackBtnAction(_ sender: Any) {
         _=self.navigationController?.popViewController(animated: true)
@@ -907,8 +931,9 @@ class TravelPlanVC: UIViewController ,UITableViewDataSource,UITableViewDelegate,
         
         let defaults = UserDefaults.standard
         let uId = defaults .string(forKey: "userLoginId")
-        
+      //  bookingIdFinal = "59636d668e966401841ac192" //temporary booking ig of germany
         let parameter: NSDictionary = ["userId": uId! ,"bookingId":bookingIdFinal]
+        print("plans parameters\(parameter)")
         
         let isConnectedInternet = CommonFunctionsClass.sharedInstance().isConnectedToNetwork()
         
@@ -1073,7 +1098,7 @@ class TravelPlanVC: UIViewController ,UITableViewDataSource,UITableViewDelegate,
                                         }
                                         else
                                         {
-                                            CommonFunctionsClass.sharedInstance().showAlert(title: "No plans yet", text: "You haven't plan a travel yet.", imageName: "alertWrong")
+                                            CommonFunctionsClass.sharedInstance().showAlert(title: "No plans yet", text: "You haven't plan a travel yet.", imageName: "exclamationAlert")
                                         }
                                         
                                         
@@ -1083,7 +1108,7 @@ class TravelPlanVC: UIViewController ,UITableViewDataSource,UITableViewDelegate,
                                     else
                                     {
                                         
-                                        CommonFunctionsClass.sharedInstance().showAlert(title: "No plans yet", text: "You haven't plan a travel yet.", imageName: "alertWrong")
+                                        CommonFunctionsClass.sharedInstance().showAlert(title: "No plans yet", text: "You haven't plan a travel yet.", imageName: "exclamationAlert")
                                         
                                     }
                                     
@@ -1408,10 +1433,8 @@ class TravelPlanVC: UIViewController ,UITableViewDataSource,UITableViewDelegate,
                         }
                         else
                         {
-                            
-                            
-                            do {
-                                
+                            do
+                            {
                                 let result = NSString(data: data!, encoding:String.Encoding.ascii.rawValue)!
                                 print("Body: \(result)")
                                 
@@ -1429,6 +1452,15 @@ class TravelPlanVC: UIViewController ,UITableViewDataSource,UITableViewDelegate,
                                     self.locationsCollectionView.deleteItems(at: [currentItem]) 
                                     self.reloadTableOnly = true
                                     self.getPlanDetails()
+                                    
+                                    DispatchQueue.global(qos: .background).async {
+                                        
+                                        let uId = Udefaults .string(forKey: "userLoginId")
+                                        let objt = storyCountClass()
+                                        let dic:NSDictionary = ["userId": uId!]
+                                        objt.postRequestForcountStory(parameterString: dic)
+                                        objt.postRequestForcountStoryandBucket(dic)
+                                    }
                                 }
                                 else{
                                     print("status = 0")
@@ -1455,6 +1487,10 @@ class TravelPlanVC: UIViewController ,UITableViewDataSource,UITableViewDelegate,
         }
 
     }
+    
+    
+    
+    
     
 }
 
