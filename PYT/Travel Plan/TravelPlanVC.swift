@@ -23,6 +23,7 @@ class TravelPlanVC: UIViewController ,UITableViewDataSource,UITableViewDelegate,
     
     @IBOutlet weak var startDateBtn: UIButton!
     @IBOutlet weak var endDateBtn: UIButton!
+    @IBOutlet weak var viewYourPlanBtn: UIButton!
     
     @IBOutlet weak var noOfLocations: UILabel!
     
@@ -92,7 +93,7 @@ class TravelPlanVC: UIViewController ,UITableViewDataSource,UITableViewDelegate,
 //            
 //            // change to a readable time format and change to local time zone
 //            dateFormatter.dateFormat = "MMM dd, YYYY"
-//            dateFormatter.timeZone = NSTimeZone.localTimeZone()
+//            dateFormatter.timeZone = NSTimeZone(name: "UTC") as TimeZone!TimeZone()
 //            let timeStamp1 = dateFormatter.stringFromDate(date1!)
 //            let timeStamp2 = dateFormatter.stringFromDate(date2!)
 //            
@@ -115,7 +116,7 @@ class TravelPlanVC: UIViewController ,UITableViewDataSource,UITableViewDelegate,
 //            
 //            // change to a readable time format and change to local time zone
 //            dateFormatter.dateFormat = "MMM dd, YYYY"
-//            dateFormatter.timeZone = NSTimeZone.localTimeZone()
+//            dateFormatter.timeZone = NSTimeZone(name: "UTC") as TimeZone!TimeZone()
 //            let timeStamp1 = dateFormatter.stringFromDate(date1!)
 //            let timeStamp2 = dateFormatter.stringFromDate(date2!)
 //            
@@ -149,6 +150,7 @@ class TravelPlanVC: UIViewController ,UITableViewDataSource,UITableViewDelegate,
        
         //        calendarView.isHidden = true
 //        doneBtn.isHidden = true
+        doneBtn.setTitle("Close", for: .normal)
     }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -165,10 +167,14 @@ class TravelPlanVC: UIViewController ,UITableViewDataSource,UITableViewDelegate,
         if(self.planSelctedLocations.count==0)
         {
             tablePlaceholderView.isHidden = false
+            viewYourPlanBtn.alpha = 0.25
+            viewYourPlanBtn.isEnabled = false
         }
         else
         {
             tablePlaceholderView.isHidden = true
+            viewYourPlanBtn.alpha = 1.0
+            viewYourPlanBtn.isEnabled = true
         }
         return self.planSelctedLocations.count
         
@@ -198,7 +204,7 @@ class TravelPlanVC: UIViewController ,UITableViewDataSource,UITableViewDelegate,
         
         // change to a readable time format and change to local time zone
         dateFormatter.dateFormat = "dd MMM, yyyy"
-        dateFormatter.timeZone = NSTimeZone.local
+        dateFormatter.timeZone = NSTimeZone(name: "UTC") as TimeZone!
         let timeStamp1 = dateFormatter.string(from: dat!)
         
         cell.dateLbl.text = timeStamp1
@@ -253,11 +259,13 @@ class TravelPlanVC: UIViewController ,UITableViewDataSource,UITableViewDelegate,
     }
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+
         
             if (editingStyle == UITableViewCellEditingStyle.delete) {
-                // handle delete (by removing the data from your array and updating the tableview)
-                //            let bookingId = (plansArray.object(at: indexPath.row) as AnyObject).value(forKey:"_id") as! String
-                //            deleteBooking(bookingId: bookingId,indexPath: indexPath)
+                let place = ((self.planSelctedLocations[indexPath.section] as AnyObject).value(forKey: "places") as AnyObject) as! NSArray
+                
+                placeBookingId = ((place[indexPath.row] as AnyObject).value(forKey: "_id")) as? String ?? ""
+                setLocationFinalDate(setDate:false)
             }
     }
    
@@ -335,7 +343,8 @@ class TravelPlanVC: UIViewController ,UITableViewDataSource,UITableViewDelegate,
      func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition) {
         
         if boolEdit == true {
-            locationFinalDate = date as NSDate
+            locationFinalDate = date.addDays(daysToAdd: 1) as NSDate
+            doneBtn.setTitle("Done", for: .normal)
             calendar.reloadData()
             return
         }
@@ -348,12 +357,14 @@ class TravelPlanVC: UIViewController ,UITableViewDataSource,UITableViewDelegate,
             if(startDate.equalToDate(dateToCompare: endDate))
             {
                 startDate=date
+                endDate=endDate.addDays(daysToAdd: -1)
                 let dateFormatter = DateFormatter()
                 dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss +0000"
                 dateFormatter.timeZone = NSTimeZone(name: "UTC") as TimeZone!
-                let date1 = dateFormatter.date(from: String(describing: startDate))// create   date from string
+                var date1 = dateFormatter.date(from: String(describing: startDate))
+                date1 = date1?.addDays(daysToAdd: 1)// create   date from string
                 dateFormatter.dateFormat = "MMM dd"
-                dateFormatter.timeZone = NSTimeZone.local
+                dateFormatter.timeZone = NSTimeZone(name: "UTC") as TimeZone!
                 let timeStamp1 = dateFormatter.string(from: date1!)
                 startDateLbl.text = timeStamp1
                 
@@ -438,9 +449,9 @@ class TravelPlanVC: UIViewController ,UITableViewDataSource,UITableViewDelegate,
             
             // change to a readable time format and change to local time zone
             dateFormatter.dateFormat = "MMM dd"
-            dateFormatter.timeZone = NSTimeZone.local
-            let timeStamp1 = dateFormatter.string(from: date1!)
-            let timeStamp2 = dateFormatter.string(from: date2!)
+            dateFormatter.timeZone = NSTimeZone(name: "UTC") as TimeZone!
+            let timeStamp1 = dateFormatter.string(from: (date1?.addDays(daysToAdd: 1))!)
+            let timeStamp2 = dateFormatter.string(from: (date2?.addDays(daysToAdd: 1))!)
         
             startDateLbl.text = timeStamp1
             endDateLbl.text = timeStamp2
@@ -456,6 +467,8 @@ class TravelPlanVC: UIViewController ,UITableViewDataSource,UITableViewDelegate,
             }
 
             print("Start Date-\(startDate)\n End Date-\(endDate)")
+            doneBtn.setTitle("Done", for: .normal)
+
             
         }
     
@@ -524,9 +537,9 @@ class TravelPlanVC: UIViewController ,UITableViewDataSource,UITableViewDelegate,
         
         // change to a readable time format and change to local time zone
         dateFormatter.dateFormat = "MMM dd"
-        dateFormatter.timeZone = NSTimeZone.local
-        let timeStamp1 = dateFormatter.string(from: date1!)
-        let timeStamp2 = dateFormatter.string(from: date2!)
+        dateFormatter.timeZone = NSTimeZone(name: "UTC") as TimeZone!
+        let timeStamp1 = dateFormatter.string(from: (date1?.addDays(daysToAdd: 1))!)
+        let timeStamp2 = dateFormatter.string(from: (date2?.addDays(daysToAdd: 1))!)
         
         startDateLbl.text = timeStamp1
         endDateLbl.text = timeStamp2
@@ -539,7 +552,8 @@ class TravelPlanVC: UIViewController ,UITableViewDataSource,UITableViewDelegate,
             configureVisibleCells()
         }
         
-        
+        doneBtn.setTitle("Done", for: .normal)
+
     }
 
     
@@ -557,7 +571,12 @@ class TravelPlanVC: UIViewController ,UITableViewDataSource,UITableViewDelegate,
     }
     
     func minimumDate(for calendar: FSCalendar) -> Date {
-        if boolEdit == true {
+        print(startDate)
+        if boolEdit == true{
+            return startDate as Date
+        }
+        else if(startDate.isLessThanDate(dateToCompare: Date()))
+        {
             return startDate as Date
         }
         else
@@ -592,7 +611,7 @@ class TravelPlanVC: UIViewController ,UITableViewDataSource,UITableViewDelegate,
 //        
 //        // change to a readable time format and change to local time zone
 //        dateFormatter.dateFormat = "MMM dd"
-//        dateFormatter.timeZone = NSTimeZone.local
+//        dateFormatter.timeZone = NSTimeZone(name: "UTC") as TimeZone!
 //        let timeStamp1 = dateFormatter.string(from: date1!)
 //        let timeStamp2 = dateFormatter.string(from: date2!)
 //        
@@ -607,6 +626,8 @@ class TravelPlanVC: UIViewController ,UITableViewDataSource,UITableViewDelegate,
     }
     func setUpCalendarStartAndEndDate()
     {
+        calendarView.reloadData()
+
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
         dateFormatter.timeZone = NSTimeZone(name: "UTC") as TimeZone!
@@ -616,18 +637,23 @@ class TravelPlanVC: UIViewController ,UITableViewDataSource,UITableViewDelegate,
             
         endDate = (dateFormatter.date(from: String(describing: ((self.planDetails.object(at: 0) ) as AnyObject).value(forKey: "endDate") as! String)))!
         
-        var nextDate = startDate
+        print("Start Date-\(startDate)\n End Date-\(endDate)")
 
-        let lastdate =  self.gregorian.date(byAdding: .day, value: 1, to: endDate as Date)
-        while nextDate .compare(lastdate!) == .orderedAscending  {
-            calendarView.select(nextDate)
-            nextDate = self.gregorian.date(byAdding: .day, value: 1, to: nextDate)!
-            
+        var nextDate = startDate.addDays(daysToAdd: -1)
+
+        let lastdate =  self.gregorian.date(byAdding: .day, value: 1, to: endDate.addDays(daysToAdd: -1) as Date)
+        if(!boolEdit)
+        {
+            while nextDate .compare(lastdate!) == .orderedAscending  {
+                calendarView.select(nextDate)
+                nextDate = self.gregorian.date(byAdding: .day, value: 1, to: nextDate)!
+                
+            }
         }
         
         // change to a readable time format and change to local time zone
         dateFormatter.dateFormat = "MMM dd"
-        dateFormatter.timeZone = NSTimeZone.local
+        dateFormatter.timeZone = NSTimeZone(name: "UTC") as TimeZone!
         let timeStamp1 = dateFormatter.string(from: startDate)
         let timeStamp2 = dateFormatter.string(from: endDate)
         
@@ -638,6 +664,8 @@ class TravelPlanVC: UIViewController ,UITableViewDataSource,UITableViewDelegate,
         noOfDaysLbl.text = "\(components.day! + 1) Days"
 
     
+        startDate = startDate.addDays(daysToAdd: -1)
+        endDate = endDate.addDays(daysToAdd: -1)
         if(fromFinalScreen)
         {
             if(change == "locationDate")
@@ -652,7 +680,7 @@ class TravelPlanVC: UIViewController ,UITableViewDataSource,UITableViewDelegate,
                 
                 let dat = dateFormatter.date(from: String(describing: previousDateForLocation))!
 
-                calendarView.select(dat)
+                calendarView.select(dat.addDays(daysToAdd: -1))
                 self.calendarView.allowsMultipleSelection=false
             }
             calendarView.reloadData()
@@ -684,6 +712,8 @@ class TravelPlanVC: UIViewController ,UITableViewDataSource,UITableViewDelegate,
         self.calendarView.appearance.weekdayTextColor = UIColor(red: 255/255.0, green: 80/255.0, blue: 80/255.0, alpha: 1.0)
         
         calendarView.today = nil // Hide the today circle
+        
+        calendarView.locale = .current
         //        calendar.clipsToBounds = true // Remove top/bottom line
         
 //        calendarView.swipeToChooseGesture.isEnabled = true // Swipe-To-Choose
@@ -813,6 +843,7 @@ class TravelPlanVC: UIViewController ,UITableViewDataSource,UITableViewDelegate,
         if(calendarBackView.isHidden)
         {
             boolEdit = false
+            doneBtn.setTitle("Close", for: .normal)
             calendarBackView.isHidden = false
             self.calendarView.allowsMultipleSelection=true
             setUpCalendarProperties()
@@ -862,17 +893,29 @@ class TravelPlanVC: UIViewController ,UITableViewDataSource,UITableViewDelegate,
        
     }
     @IBAction func DoneBtnAction(_ sender: Any) {
+        if(doneBtn.titleLabel?.text=="Close")
+        {
+            calendarBackView.isHidden = true
+            if(self.fromFinalScreen)
+            {
+                _=self.navigationController?.popViewController(animated: true)
+            }
+
+            return
+        }
         if(boolEdit)
         {
             self.calendarBackView.isHidden = true
             MBProgressHUD .showAdded(to: self.view, animated: true)
             reloadTableOnly = true
-            setLocationFinalDate()
+            setLocationFinalDate(setDate:true)
             return
         }
         else  {
             
             MBProgressHUD .showAdded(to: self.view, animated: true)
+            startDate = startDate.addDays(daysToAdd: 1)
+            endDate = endDate.addDays(daysToAdd: 1)
             SetPlanDatesWindow()
         }
         startDateBtn.setBackgroundImage(nil, for: .normal)
@@ -894,6 +937,8 @@ class TravelPlanVC: UIViewController ,UITableViewDataSource,UITableViewDelegate,
     }
     func OpenCalendarView(sender: UIButton)
     {
+        doneBtn.setTitle("Close", for: .normal)
+        
         let selectedLocation = planAllLocations[sender.tag]
         print(selectedLocation)
         placeBookingId = ((selectedLocation as AnyObject).value(forKey:"place")! as AnyObject).value(forKey:"_id")as! String
@@ -901,14 +946,28 @@ class TravelPlanVC: UIViewController ,UITableViewDataSource,UITableViewDelegate,
         boolEdit = true
         self.calendarView.allowsMultipleSelection=false
         setUpCalendarProperties()
-        var nextDate = Date()
+        var nextDate = startDate
         
-        let lastdate =  self.gregorian.date(byAdding: .day, value: 1, to: endDate as Date)
+        let lastdate =  self.gregorian.date(byAdding: .day, value: 2, to: endDate as Date)
         while nextDate .compare(lastdate!) == .orderedAscending  {
             calendarView.deselect(nextDate)
             nextDate = self.gregorian.date(byAdding: .day, value: 1, to: nextDate as Date)!
         }
 
+
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
+        dateFormatter.timeZone = NSTimeZone(name: "UTC") as TimeZone!
+        
+        
+        if let DateToSelect = (selectedLocation as AnyObject).value(forKey:"time")
+        {
+            var dts = dateFormatter.date(from: String(describing: (DateToSelect as! String)))
+            dts = dts?.addDays(daysToAdd: -1)
+            calendarView.select(dts)
+        }
+
+        
         calendarView.reloadData()
         configureVisibleCells()
     }
@@ -1258,7 +1317,7 @@ class TravelPlanVC: UIViewController ,UITableViewDataSource,UITableViewDelegate,
         
     }
 
-    func setLocationFinalDate()
+    func setLocationFinalDate(setDate: Bool)
     {
         let isConnectedInternet = CommonFunctionsClass.sharedInstance().isConnectedToNetwork()
         
@@ -1271,7 +1330,15 @@ class TravelPlanVC: UIViewController ,UITableViewDataSource,UITableViewDelegate,
             var urlString = NSString(string:"\(appUrl)edit_booking_dates")
             print("WS URL----->>" + (urlString as String))
             
-            let parameters: NSDictionary = ["userId": UserDefaults.standard.string(forKey: "userLoginId")!,"bookingId":bookingIdFinal,"placeId":placeBookingId,"time":String(describing: locationFinalDate)]
+            var parameters =  NSMutableDictionary()
+            if(setDate)
+            {
+                parameters = ["userId": UserDefaults.standard.string(forKey: "userLoginId")!,"bookingId":bookingIdFinal,"placeId":placeBookingId,"time":String(describing: locationFinalDate)]
+            }
+            else
+            {
+                parameters = ["userId": UserDefaults.standard.string(forKey: "userLoginId")!,"bookingId":bookingIdFinal,"placeId":placeBookingId]
+            }
             
             urlString = urlString .replacingOccurrences(of: " ", with: "%20") as NSString
             

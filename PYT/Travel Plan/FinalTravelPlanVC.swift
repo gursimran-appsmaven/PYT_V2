@@ -180,7 +180,7 @@ class FinalTravelPlanVC: UIViewController {
             
             // change to a readable time format and change to local time zone
             dateFormatter.dateFormat = "E, d MMM yyyy"
-            dateFormatter.timeZone = NSTimeZone.local
+            dateFormatter.timeZone = NSTimeZone(name: "UTC") as TimeZone!
             let timeStamp = dateFormatter.string(from: date2!)
             
             cell.locDateLbl.text = "\(timeStamp)"
@@ -322,7 +322,7 @@ class FinalTravelPlanVC: UIViewController {
                                                 
                                                 // change to a readable time format and change to local time zone
                                                 dateFormatter.dateFormat = "E, d MMM yyyy"
-                                                dateFormatter.timeZone = NSTimeZone.local
+                                                dateFormatter.timeZone = NSTimeZone(name: "UTC") as TimeZone!
                                                 let timeStamp1 = dateFormatter.string(from: startDate)
                                                 let timeStamp2 = dateFormatter.string(from: endDate)
                                                 

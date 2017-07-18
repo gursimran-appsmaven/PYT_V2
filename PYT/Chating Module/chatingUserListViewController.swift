@@ -22,6 +22,7 @@ class chatingUserListViewController: UIViewController {
  @IBOutlet weak var chatingIndicator: UIActivityIndicatorView!
     
     override func viewWillAppear(_ animated: Bool) {
+        //self.tabBarController?.setTabBarVisible(visible: false, animated: true)
         
         let uId = Udefaults .string(forKey: "userLoginId")
         let prmDict: NSDictionary = ["userId": uId!]
@@ -31,7 +32,7 @@ class chatingUserListViewController: UIViewController {
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        //self.tabBarController?.setTabBarVisible(visible: false, animated: true)
+        self.tabBarController?.setTabBarVisible(visible: false, animated: true)
     }
     
     override func viewDidLoad()
