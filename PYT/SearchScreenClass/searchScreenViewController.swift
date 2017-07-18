@@ -263,8 +263,8 @@ class searchScreenViewController: UIViewController, UINavigationControllerDelega
         
         self.navigationController?.isNavigationBarHidden = true
         
-        self.tabBarController?.setTabBarVisible(visible: false, animated: true)
-        
+        //self.tabBarController?.setTabBarVisible(visible: false, animated: true)
+        self.tabBarController?.tabBar.isHidden = true
         
         
         
@@ -1229,7 +1229,8 @@ class searchScreenViewController: UIViewController, UINavigationControllerDelega
         
         let LocationNameString = ((arrayOfIntrest.object(at: btnTag)) as AnyObject).value(forKey: "location") as? String ?? ""// arrayOfIntrest.objectAtIndex(.row).valueForKey("location") as? String ?? ""
         
-        let locImage = ""//arrayOfIntrest.objectAtIndex(indexPath.row).valueForKey("imgLink") as? String ?? "NA"
+        let locImage = ((arrayOfIntrest.object(at: btnTag)) as AnyObject).value(forKey: "imgLink") as? String ?? ""
+       
         let urlImg = NSURL (string: locImage)
         
         
@@ -1237,6 +1238,7 @@ class searchScreenViewController: UIViewController, UINavigationControllerDelega
         case 0:
             
             button1 .setImage(nil, for: .normal) //imageView?.image = nil
+            button1.sd_setImage(with: urlImg as URL!, for: .normal)
             button1.backgroundColor = UIColor .red
             locLabel1.text = LocationNameString
             //button1 .setTitle(LocationNameString, for: .normal)
@@ -1247,6 +1249,7 @@ class searchScreenViewController: UIViewController, UINavigationControllerDelega
             break
         case 1:
             button2.setImage(nil, for: .normal)
+            button2.sd_setImage(with: urlImg as URL!, for: .normal)
             button2.backgroundColor = UIColor .red
             locLabel2.text = LocationNameString
             //button2 .setTitle(LocationNameString, for: .normal)
@@ -1256,6 +1259,7 @@ class searchScreenViewController: UIViewController, UINavigationControllerDelega
             break
         case 2:
             button3.setImage(nil, for: .normal)
+            button3.sd_setImage(with: urlImg as URL!, for: .normal)
             button3.backgroundColor = UIColor .red
             locLabel3.text = LocationNameString
             //button3 .setTitle(LocationNameString, for: .normal)
@@ -1265,6 +1269,7 @@ class searchScreenViewController: UIViewController, UINavigationControllerDelega
             break
         case 3:
             button4.setImage(nil, for: .normal)
+            button4.sd_setImage(with: urlImg as URL!, for: .normal)
             button4.backgroundColor = UIColor .red
             locLabel4.text = LocationNameString
             //button4 .setTitle(LocationNameString, for: .normal)
@@ -1275,6 +1280,7 @@ class searchScreenViewController: UIViewController, UINavigationControllerDelega
        
         default:
             button5.setImage(nil, for: .normal)
+            button5.sd_setImage(with: urlImg as URL!, for: .normal)
             button5.backgroundColor = UIColor .red
             locLabel5.text = LocationNameString
             //button5 .setTitle(LocationNameString, for: .normal)
@@ -1410,7 +1416,7 @@ class searchScreenViewController: UIViewController, UINavigationControllerDelega
                                     self.locationAutoPrompt="Empty"
                                     self.promptArray = jsonResult .value(forKey: "result") as! NSMutableArray
                                     print(self.promptArray.count)
-                                    // print("prompt array\n \n \(self.promptArray)")
+                                     print("prompt array\n \n \(self.promptArray)")
                                     
                                     self.autoPromptTable .reloadData()
                                    // self.emptyView.isHidden=true
@@ -1566,8 +1572,6 @@ class searchScreenViewController: UIViewController, UINavigationControllerDelega
             self.navigationController! .pushViewController(nxtObj, animated: true)
             //self.dismiss(animated: true, completion: {})
             URLCache.shared.removeAllCachedResponses()
-            
-            
             
             
         }
@@ -1794,6 +1798,7 @@ class searchScreenViewController: UIViewController, UINavigationControllerDelega
             print(promptArray)
             let selectedString = ((promptArray.object(at: indexPath.row)) as AnyObject).value(forKey: "fullName") as? String ?? ""//promptArray.objectAtIndex(indexPath.row).valueForKey("fullName") as? String ?? ""
             print(selectedString)
+        let selectedImage = ((promptArray.object(at: indexPath.row)) as AnyObject).value(forKey: "imageUrl") as? String ?? ""
             
             locationAutoPrompt = selectedString as NSString
             
@@ -1877,7 +1882,7 @@ class searchScreenViewController: UIViewController, UINavigationControllerDelega
                 
                 
                 
-                dict = ["location":locationAutoPrompt, "type": locationType, "placeId":"\(locationId)",  "delete":false, "fullName": fullName as String , "imgLink": "" ]
+                dict = ["location":locationAutoPrompt, "type": locationType, "placeId":"\(locationId)",  "delete":false, "fullName": fullName as String , "imgLink": selectedImage ]
                 
                 
                 

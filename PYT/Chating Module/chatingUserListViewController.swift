@@ -25,7 +25,6 @@ class chatingUserListViewController: UIViewController {
         //self.tabBarController?.setTabBarVisible(visible: false, animated: true)
         
         let uId = Udefaults .string(forKey: "userLoginId")
-        
         let prmDict: NSDictionary = ["userId": uId!]
         chatingIndicator.isHidden = false
         chatingIndicator.startAnimating()

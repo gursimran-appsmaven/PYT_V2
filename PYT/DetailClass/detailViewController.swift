@@ -600,8 +600,8 @@ class detailViewController: UIViewController, apiClassDelegate {
         self.zoomView.addGestureRecognizer(swipeLeft)
     
         self.view .bringSubview(toFront: BackBtn)
-        self.tabBarController?.setTabBarVisible(visible: false, animated: true)
-        //self.tabBarController?.tabBar.isHidden = true
+        //self.tabBarController?.setTabBarVisible(visible: false, animated: true)
+        self.tabBarController?.tabBar.isHidden = true
         showMoreDescription.isUserInteractionEnabled=false
      
         
