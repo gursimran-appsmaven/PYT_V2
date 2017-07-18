@@ -83,7 +83,7 @@ class TravelPlansListVC: UIViewController {
             
             // change to a readable time format and change to local time zone
             dateFormatter.dateFormat = "E, d MMM yyyy"
-            dateFormatter.timeZone = NSTimeZone.local
+            dateFormatter.timeZone = NSTimeZone(name: "UTC") as TimeZone!
             let timeStamp = dateFormatter.string(from: date2!)
             let timeStamp2 = dateFormatter.string(from: date3!)
             

@@ -93,8 +93,9 @@ class ProfileVC: UIViewController,UITableViewDelegate,UITableViewDataSource,UICo
         else if (countCategory == 1 || countCategory == 2){
             view2Height.constant = view.frame.width * 13/25
         }
-        else{
-            view2Height.constant = view.frame.width * 13/25 + catCollectionView.frame.width/2
+        else
+        {
+         view2Height.constant = view.frame.width * 13/25 + catCollectionView.frame.width/2
         }
         
 //        view2Height.constant = view.frame.width * 13/25 //+ catCollectionView.frame.width/2
@@ -136,10 +137,9 @@ class ProfileVC: UIViewController,UITableViewDelegate,UITableViewDataSource,UICo
 
     }
     
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-       
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat
+    {
         return 55
-        
     }
     
     func tableView( _ tableView: UITableView, viewForFooterInSection section: Int) -> UIView?

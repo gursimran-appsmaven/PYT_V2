@@ -412,16 +412,12 @@ class searchScreenViewController: UIViewController, UINavigationControllerDelega
      func hideTheView() {
      
      UIView.animate(withDuration: 0.4, animations: {() -> Void in
-     
+     self.topSpaceOfAutoPrompt.constant = 200
      self.autoPromptView.isHidden=true
      self.search_Bar.showsCancelButton = false
      self.cancelWidth.constant = 0
      self.view.layoutIfNeeded()
      })
-     
-     
-     
-     
      }
      
      
@@ -438,9 +434,7 @@ class searchScreenViewController: UIViewController, UINavigationControllerDelega
         self.promptArray = self.popularArray
         self.autoPromptTable .reloadData()
         
-     //self.heightofPromptTableview.constant = self.autoPromptTable.rowHeight * CGFloat(self.promptArray.count) //+ 50
-    // print(self.heightofPromptTableview.constant)
-     self.view.layoutIfNeeded()
+        self.view.layoutIfNeeded()
      })
      
      

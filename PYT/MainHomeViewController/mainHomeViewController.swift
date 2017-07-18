@@ -216,7 +216,7 @@ class mainHomeViewController: UIViewController, SDWebImageManagerDelegate, apiCl
         self.manageToolsTipsShow()
         }
         
-        
+        storiesCollectionView.reloadData()
     }
     
     

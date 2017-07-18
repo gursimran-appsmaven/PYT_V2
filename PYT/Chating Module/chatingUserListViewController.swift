@@ -22,7 +22,7 @@ class chatingUserListViewController: UIViewController {
  @IBOutlet weak var chatingIndicator: UIActivityIndicatorView!
     
     override func viewWillAppear(_ animated: Bool) {
-        self.tabBarController?.setTabBarVisible(visible: false, animated: true)
+        //self.tabBarController?.setTabBarVisible(visible: false, animated: true)
         
         let uId = Udefaults .string(forKey: "userLoginId")
         
@@ -31,6 +31,11 @@ class chatingUserListViewController: UIViewController {
         chatingIndicator.startAnimating()
         self.postRequestGetMessages(parameterString: prmDict, viewController: self)
     }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        self.tabBarController?.setTabBarVisible(visible: false, animated: true)
+    }
+    
     override func viewDidLoad()
     {
         
@@ -430,7 +435,7 @@ class chatingUserListViewController: UIViewController {
                     
                     self.chatingIndicator.isHidden=true
                     self.chatingIndicator.stopAnimating()
-                    self.tabBarController?.tabBar.items?[3].badgeValue = nil
+                    //self.tabBarController?.tabBar.items?[3].badgeValue = nil
                     let uId = Udefaults .string(forKey: "userLoginId")
                     SocketIOManager.sharedInstance.sendCounter(uId!)
                     
