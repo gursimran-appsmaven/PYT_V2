@@ -107,6 +107,12 @@ class FinalTravelPlanVC: UIViewController {
     }
     
     @IBAction func MapBtnAction(_ sender: Any) {
+       
+        let nxtObj = self.storyboard?.instantiateViewController(withIdentifier: "PlanMapVC") as! PlanMapVC
+        nxtObj.locationsArray = locationsArray
+        self.navigationController?.pushViewController(nxtObj, animated: true)
+       // locationsArray
+    
     }
     
     @IBAction func EditFinalPlanBtnACtion(_ sender: Any) {
