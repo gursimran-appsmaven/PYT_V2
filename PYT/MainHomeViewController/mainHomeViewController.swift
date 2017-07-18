@@ -178,7 +178,8 @@ class mainHomeViewController: UIViewController, SDWebImageManagerDelegate, apiCl
     {
         
         self.automaticallyAdjustsScrollViewInsets = false;
-        self.tabBarController?.setTabBarVisible(visible: true, animated: true)
+        self.tabBarController?.tabBar.isHidden = false
+        //self.tabBarController?.setTabBarVisible(visible: true, animated: true)
         //hide the navigationBar
         self.detailView.isHidden = true
             //Ensures that views are not underneath the tab bar
@@ -216,7 +217,7 @@ class mainHomeViewController: UIViewController, SDWebImageManagerDelegate, apiCl
         self.manageToolsTipsShow()
         }
         
-        
+        storiesCollectionView.reloadData()
     }
     
     
@@ -1506,13 +1507,15 @@ class mainHomeViewController: UIViewController, SDWebImageManagerDelegate, apiCl
        
         tipsView .removeFromSuperview()
         tipsView = UIView()
-        
+        self.tabBarController?.tabBar.isHidden = true
         let nxtObj = self.storyboard?.instantiateViewController(withIdentifier: "searchScreenViewController") as! searchScreenViewController
        
          //DispatchQueue.main.async(execute: {
             self.navigationController! .pushViewController(nxtObj, animated: true)
-        self.tabBarController?.setTabBarVisible(visible: false, animated: true)
+       // self.tabBarController?.setTabBarVisible(visible: false, animated: true)
 
+        
+        
        // })
         
     }

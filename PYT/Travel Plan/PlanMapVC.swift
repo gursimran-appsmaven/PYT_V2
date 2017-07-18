@@ -109,6 +109,10 @@ class PlanMapVC: UIViewController,GMSMapViewDelegate {
         
     }
     
+    
+    
+    
+    
     func scaleImage(_ image: UIImage, toSize newSize: CGSize) -> UIImage {
         var scaledSize:CGSize = newSize
         var scaleFactor: Float = 1

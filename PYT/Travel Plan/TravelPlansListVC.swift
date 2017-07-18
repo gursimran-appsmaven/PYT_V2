@@ -428,7 +428,6 @@ class TravelPlansListVC: UIViewController {
                                     
                                     
                                     
-                                    
                                 } catch
                                 {
                                     print("json error: \(error)")

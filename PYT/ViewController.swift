@@ -805,16 +805,12 @@ class ViewController: UIViewController, apiClassDelegate , UIScrollViewDelegate,
                     if runtimeLocations.count > 0 {
                         
                        
-                        for l in 0..<runtimeLocations.count {
-                            
+                        for l in 0..<runtimeLocations.count
+                        {
                             let fullName1 = runtimeLocations.object(at: l) as? NSDictionary
-                            
                             let fullName = fullName1?["fullName"] as? String ?? ""
                             let placeId = fullName1?["placeId"] as? String ?? ""
                             let placeType = fullName1?["type"] as? String ?? ""
-                            
-                            
-                            
                             
                             var loc = ""
                             

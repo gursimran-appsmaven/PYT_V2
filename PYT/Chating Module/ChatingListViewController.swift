@@ -23,7 +23,10 @@ class ChatingListViewController: UIViewController {
     var chattingListArray = NSMutableArray()
     var olderArr = NSMutableArray()
     
-    override func viewWillAppear(_ animated: Bool) {
+    override func viewWillAppear(_ animated: Bool)
+    {
+    
+        self.tabBarController?.tabBar.isHidden = false
         SocketIOManager.sharedInstance.establishConnection()
         chatingIndicator.isHidden = false
         chatingIndicator.startAnimating()
@@ -78,7 +81,7 @@ class ChatingListViewController: UIViewController {
             
         }
         
-        self.tabBarController?.setTabBarVisible(visible: true, animated: true)
+       // self.tabBarController?.setTabBarVisible(visible: true, animated: true)
         
     }
     
@@ -313,7 +316,7 @@ class ChatingListViewController: UIViewController {
     func tableView(_ tableView: UITableView, didSelectRowAtIndexPath indexPath: IndexPath)
     {
         
-        
+        self.tabBarController?.tabBar.isHidden = true
         let locnameArr = (self.chattingListArray.object(at: indexPath.row) as AnyObject).value(forKey: "placeName") as! NSArray
         var locationName2 = ""
         if locnameArr.count>0{

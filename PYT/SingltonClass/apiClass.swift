@@ -942,6 +942,7 @@ class apiClass: NSObject {
             print("WS URL----->>" + (urlString as String))
             
             let parameters: NSDictionary = ["userId": UserDefaults.standard.string(forKey: "userLoginId")!,"bookingId":bookingIdFinal,"placeId":placeId]
+            
             print("parameters to delete plan: \(parameters)")
             urlString = urlString .replacingOccurrences(of: " ", with: "%20") as NSString
             
