@@ -92,6 +92,7 @@
 		10CD188B1EF7FE440031093F /* LongPressGesture.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10CD18891EF7FE440031093F /* LongPressGesture.swift */; };
 		10CE3C641F0F4DCE00594855 /* EditPostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10CE3C631F0F4DCE00594855 /* EditPostViewController.swift */; };
 		10D005801EF78B81002BED25 /* mainHomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10D0057F1EF78B81002BED25 /* mainHomeViewController.swift */; };
+		10DA03931F1F76FB00AC79DF /* HDNotificationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 10DA03921F1F76FB00AC79DF /* HDNotificationView.m */; };
 		10EFBE2E1F0E029A001507C6 /* contentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10EFBE2D1F0E029A001507C6 /* contentViewController.swift */; };
 		10F445DA1F0B56A600C2780C /* DIYCalendarCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10F445D91F0B56A600C2780C /* DIYCalendarCell.swift */; };
 		3560C2CC3CCBA85BAE977F76 /* Pods_PYT.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1513D63A44D48DD66BDE374E /* Pods_PYT.framework */; };
@@ -210,6 +211,8 @@
 		10CD18891EF7FE440031093F /* LongPressGesture.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LongPressGesture.swift; sourceTree = "<group>"; };
 		10CE3C631F0F4DCE00594855 /* EditPostViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditPostViewController.swift; sourceTree = "<group>"; };
 		10D0057F1EF78B81002BED25 /* mainHomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = mainHomeViewController.swift; sourceTree = "<group>"; };
+		10DA03911F1F76FB00AC79DF /* HDNotificationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HDNotificationView.h; sourceTree = "<group>"; };
+		10DA03921F1F76FB00AC79DF /* HDNotificationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HDNotificationView.m; sourceTree = "<group>"; };
 		10E936871F0E6D0D0048D001 /* PYT.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = PYT.entitlements; sourceTree = "<group>"; };
 		10EFBE2D1F0E029A001507C6 /* contentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = contentViewController.swift; sourceTree = "<group>"; };
 		10F445D91F0B56A600C2780C /* DIYCalendarCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DIYCalendarCell.swift; path = SF_Font/DIYCalendarCell.swift; sourceTree = "<group>"; };
@@ -384,6 +387,8 @@
 				104182781EF26AEC00078527 /* FBSDKLoginKit.framework */,
 				104182791EF26AEC00078527 /* FBSDKShareKit.framework */,
 				104182921EF26AEC00078527 /* SweetAlert.swift */,
+				10DA03911F1F76FB00AC79DF /* HDNotificationView.h */,
+				10DA03921F1F76FB00AC79DF /* HDNotificationView.m */,
 				104182931EF26AEC00078527 /* UIColor+CreateMethods.h */,
 				104182941EF26AEC00078527 /* UIColor+CreateMethods.m */,
 			);
@@ -645,7 +650,7 @@
 								enabled = 0;
 							};
 							com.apple.Push = {
-								enabled = 0;
+								enabled = 1;
 							};
 						};
 					};
@@ -910,6 +915,7 @@
 				106DDC361F06202100ABD16D /* ApiServices.swift in Sources */,
 				106DDC111F061EBB00ABD16D /* SocketEventHandler.swift in Sources */,
 				10B3A3371EF3E5980053989C /* extensions.swift in Sources */,
+				10DA03931F1F76FB00AC79DF /* HDNotificationView.m in Sources */,
 				106DDC141F061EBB00ABD16D /* SocketIOClientConfiguration.swift in Sources */,
 				102C37511F0374A300D026B5 /* Location.swift in Sources */,
 				106DDC161F061EBB00ABD16D /* SocketIOClientSpec.swift in Sources */,
@@ -1097,6 +1103,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = PYT/PYT.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Nitin Trehan (9YDH3T82UC)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Nitin Trehan (9YDH3T82UC)";
 				DEVELOPMENT_TEAM = 9YDH3T82UC;
@@ -1126,6 +1133,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = PYT/PYT.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Nitin Trehan (9YDH3T82UC)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Nitin Trehan (9YDH3T82UC)";
 				DEVELOPMENT_TEAM = 9YDH3T82UC;

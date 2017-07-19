@@ -67,6 +67,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate
         DispatchQueue.main.async
             {
                 
+//                UIApplication.shared.registerUserNotificationSettings(UIUserNotificationSettings(types: [.alert, .badge, .sound], categories: nil))
+//                
+//                UIApplication.shared.registerForRemoteNotifications()
+                
+                
+                
+                
                 if #available(iOS 10, *)
                 {
                     
@@ -679,10 +686,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate
      }
      else
      {
-//      HDNotificationView.showNotificationViewWithImage(UIImage(named: "logo")!, title: senderName, message: msg2, isAutoHide: true, onTouch: {() -> Void in
+        
+    HDNotificationView.show(with: UIImage(named: "Logo")!, title: senderName, message: msg2, isAutoHide: true, onTouch: {() -> Void in
      
      application.applicationIconBadgeNumber = 0
-   //  })
+     })
      
      }
      
@@ -702,11 +710,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate
                  }
      else
      {
-     // HDNotificationView.showNotificationViewWithImage(UIImage(named: "logo")!, title: senderName, message: msg2, isAutoHide: true, onTouch: {() -> Void in
+      HDNotificationView.show(with: UIImage(named: "Logo")!, title: senderName, message: msg2, isAutoHide: true, onTouch: {() -> Void in
      
      application.applicationIconBadgeNumber = 0
      
-     // })
+      })
      
      
      

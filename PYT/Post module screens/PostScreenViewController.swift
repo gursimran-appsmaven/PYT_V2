@@ -104,7 +104,7 @@ class PostScreenViewController: UIViewController, UIImagePickerControllerDelegat
          Udefaults .setValue(nil, forKey: "PostInterest")
         interestLabel.text = "Add"
         geoTagLabel.text = "Add"
-        
+        descriptionTxtV.text = "Add"
         
          NotificationCenter.default.addObserver(self, selector: #selector(PostScreenViewController.Start_Upload_Here(_:)),name:NSNotification.Name(rawValue: "uploadingStart"), object: nil)
         
@@ -1752,7 +1752,8 @@ class PostScreenViewController: UIViewController, UIImagePickerControllerDelegat
             var descStr = ""
             if descriptionTxtV.text  == "Add" {
                 descStr = ""
-            }else{
+            }else
+            {
                 descStr = descriptionTxtV.text
             }
             

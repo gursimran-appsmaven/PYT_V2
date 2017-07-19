@@ -310,6 +310,8 @@ class TravelPlanVC: UIViewController ,UITableViewDataSource,UITableViewDelegate,
         
         cell.calendarBtn.tag = indexPath.row
         cell.bucketBtn.tag = indexPath.row
+        cell.crossButton.tag = indexPath.row
+        
         
         cell.calendarBtn.addTarget(self, action: #selector(OpenCalendarView), for: .touchUpInside)
         cell.bucketBtn.addTarget(self, action: #selector(AddToBucket), for: .touchUpInside)
@@ -1567,6 +1569,124 @@ class TravelPlanVC: UIViewController ,UITableViewDataSource,UITableViewDelegate,
 
     }
     
+    /*
+    func deleteLocationFromPlanOnButtonPress(sender: UIButton)
+    {
+        let isConnectedInternet = CommonFunctionsClass.sharedInstance().isConnectedToNetwork()
+        
+       
+        
+        let placeId = ((planAllLocations[sender.tag] as AnyObject).value(forKey:"place")! as AnyObject).value(forKey:"_id")as! String
+        
+        if isConnectedInternet
+        {
+            //    api to delete a place from booking:- delete_booking_place 3 parameters bookingId, userId, placeId
+            
+            var urlString = NSString(string:"\(appUrl)delete_booking_place")
+            print("WS URL----->>" + (urlString as String))
+            
+            let parameters: NSDictionary = ["userId": UserDefaults.standard.string(forKey: "userLoginId")!,"bookingId":bookingIdFinal,"placeId":placeId]
+            
+            urlString = urlString .replacingOccurrences(of: " ", with: "%20") as NSString
+            
+            let url:NSURL = NSURL(string: urlString as String)!
+            let session = URLSession.shared
+            
+            session.configuration.timeoutIntervalForRequest=30
+            // session.configuration.timeoutIntervalForResource=50
+            
+            let request = NSMutableURLRequest(url: url as URL)
+            request.httpMethod = "POST"
+            request.cachePolicy = NSURLRequest.CachePolicy.reloadIgnoringCacheData
+            
+            
+            do {
+                let jsonData = try!  JSONSerialization.data(withJSONObject: parameters, options: [])
+                request.httpBody = jsonData
+                
+                
+                // here "jsonData" is the dictionary encoded in JSON data
+            } catch let error as NSError {
+                print(error)
+            }
+            
+            
+            
+            // request.HTTPBody = try! NSJSONSerialization.dataWithJSONObject(prmt, options: [])
+            request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+            request.addValue("application/json", forHTTPHeaderField: "Accept")
+            
+            
+            
+            let task = session.dataTask(with: request as URLRequest, completionHandler: {data, response, error -> Void in
+                
+                OperationQueue.main.addOperation
+                    {
+                        
+                        if data == nil
+                        {
+                            CommonFunctionsClass.sharedInstance().showAlert(title: "Server Alert", text: "Something doesn't seem right, Please try again!", imageName: "alertServer")
+                            
+                        }
+                        else
+                        {
+                            do
+                            {
+                                let result = NSString(data: data!, encoding:String.Encoding.ascii.rawValue)!
+                                print("Body: \(result)")
+                                
+                                let anyObj: Any = try JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.mutableContainers)
+                                
+                                
+                                jsonResult = NSDictionary()
+                                jsonResult = anyObj as! NSDictionary
+                                
+                                let status = jsonResult.value(forKey: "status") as! NSNumber
+                                
+                                if status == 1{
+                                    
+                                    self.planAllLocations.removeObject(at: sender.tag)
+                                    self.locationsCollectionView.deleteItems(at: [currentItem])
+                                    self.reloadTableOnly = true
+                                    self.getPlanDetails()
+                                    
+                                    DispatchQueue.global(qos: .background).async {
+                                        
+                                        let uId = Udefaults .string(forKey: "userLoginId")
+                                        let objt = storyCountClass()
+                                        let dic:NSDictionary = ["userId": uId!]
+                                        objt.postRequestForcountStory(parameterString: dic)
+                                        objt.postRequestForcountStoryandBucket(dic)
+                                    }
+                                }
+                                else{
+                                    print("status = 0")
+                                    CommonFunctionsClass.sharedInstance().showAlert(title: "Server Alert", text: jsonResult.value(forKey: "msg") as! String as NSString, imageName: "alertServer")
+                                }
+                                MBProgressHUD.hideAllHUDs(for: self.view, animated: true)
+                            }
+                            catch
+                            {
+                                print("json error: \(error)")
+                                CommonFunctionsClass.sharedInstance().showAlert(title: "Server Alert", text: jsonResult.value(forKey: "msg") as! String as NSString, imageName: "alertServer")
+                                MBProgressHUD.hideAllHUDs(for: self.view, animated: true)
+                            }
+                        }
+                }
+            })
+            
+            task.resume()
+        }
+        else
+        {
+            CommonFunctionsClass.sharedInstance().showAlert(title: "No Internet Connection", text: "You are currently offline.", imageName: "alertInternet")
+            MBProgressHUD.hideAllHUDs(for: self.view, animated: true)
+        }
+        
+    }
+    
+    */
+    
     
     
     
@@ -1642,6 +1762,8 @@ class PlanLocationImagesCC: UICollectionViewCell
     @IBOutlet weak var locationImage: UIImageView!
     @IBOutlet weak var calendarBtn: UIButton!
     @IBOutlet weak var bucketBtn: UIButton!
+    @IBOutlet weak var crossButton: UIButton!
+    
     
 }
 class DateWiseListTCell: UITableViewCell
