@@ -309,6 +309,15 @@ class FinalTravelPlanVC: UIViewController {
                                             
                                             self.locationsArray = ((self.planDetails.object(at: 0) as AnyObject).value(forKey: "places") as? NSMutableArray)!
                                             
+                                            let sortedArray = self.locationsArray.sorted{ (($0 as! Dictionary<String, AnyObject>)["time"] as? String)! < (($1 as! Dictionary<String, AnyObject>)["time"] as? String)! }
+                                            
+                                            self.locationsArray.removeAllObjects()
+                                            
+                                            for item in sortedArray
+                                            {
+                                                self.locationsArray.add(item)
+                                            }
+
                                             if (self.planDetails.object(at: 0) as AnyObject).value(forKey: "startDate") as? String != nil
                                             {
                                                 let dateFormatter = DateFormatter()
