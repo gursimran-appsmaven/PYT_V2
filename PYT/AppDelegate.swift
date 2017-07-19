@@ -532,7 +532,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate
     func application(_ application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: Error)
     {
         print(error)
-        CommonFunctionsClass.sharedInstance().showAlert(title: "err", text: "\(error.localizedDescription)" as NSString, imageName: "")
+        //CommonFunctionsClass.sharedInstance().showAlert(title: "err", text: "\(error.localizedDescription)" as NSString, imageName: "")
         ////custome alert
         
         

@@ -343,7 +343,7 @@ class TravelPlanVC: UIViewController ,UITableViewDataSource,UITableViewDelegate,
         
         cell.calendarBtn.addTarget(self, action: #selector(OpenCalendarView), for: .touchUpInside)
         cell.bucketBtn.addTarget(self, action: #selector(AddToBucket), for: .touchUpInside)
-
+        cell.crossButton .addTarget(self, action: #selector(deleteLocationFromPlanOnButtonPress(sender:)), for: .touchUpInside)
         
         
         
@@ -1209,7 +1209,18 @@ class TravelPlanVC: UIViewController ,UITableViewDataSource,UITableViewDelegate,
                                         }
                                         else
                                         {
-                                            CommonFunctionsClass.sharedInstance().showAlert(title: "No plans yet", text: "You haven't plan a travel yet.", imageName: "exclamationAlert")
+                                            
+                                            SweetAlert().showAlert("No plans yet", subTitle: "You haven't plan a travel yet.", style: AlertStyle.customImag(imageFile: "exclamationAlert"), buttonTitle:"Okay") { (isOtherButton) -> Void in
+                                                if isOtherButton == true
+                                                {
+                                                   
+                                                   self.BackBtnAction(self)
+                                                    
+                                                }
+                                            }
+                                            
+                                            
+//                                            CommonFunctionsClass.sharedInstance().showAlert(title: "No plans yet", text: "You haven't plan a travel yet.", imageName: "exclamationAlert")
                                         }
                                         
                                         
@@ -1219,7 +1230,16 @@ class TravelPlanVC: UIViewController ,UITableViewDataSource,UITableViewDelegate,
                                     else
                                     {
                                         
-                                        CommonFunctionsClass.sharedInstance().showAlert(title: "No plans yet", text: "You haven't plan a travel yet.", imageName: "exclamationAlert")
+                                        SweetAlert().showAlert("No plans yet", subTitle: "You haven't plan a travel yet.", style: AlertStyle.customImag(imageFile: "exclamationAlert"), buttonTitle:"Okay") { (isOtherButton) -> Void in
+                                            if isOtherButton == true
+                                            {
+                                                
+                                                self.BackBtnAction(self)
+                                                
+                                            }
+                                        }
+
+                                        //CommonFunctionsClass.sharedInstance().showAlert(title: "No plans yet", text: "You haven't plan a travel yet.", imageName: "exclamationAlert")
                                         
                                     }
                                     
@@ -1569,7 +1589,11 @@ class TravelPlanVC: UIViewController ,UITableViewDataSource,UITableViewDelegate,
                                 if status == 1{
                                     
                                     self.planAllLocations.removeObject(at: currentItem.row)
-                                    self.locationsCollectionView.deleteItems(at: [currentItem]) 
+                                    self.locationsCollectionView?.performBatchUpdates({() -> Void in
+                                        self.locationsCollectionView.deleteItems(at: [currentItem])
+                                        
+                                    }) { _ in }
+                                    
                                     self.reloadTableOnly = true
                                     self.getPlanDetails()
                                     
@@ -1608,7 +1632,7 @@ class TravelPlanVC: UIViewController ,UITableViewDataSource,UITableViewDelegate,
 
     }
     
-    /*
+    
     func deleteLocationFromPlanOnButtonPress(sender: UIButton)
     {
         let isConnectedInternet = CommonFunctionsClass.sharedInstance().isConnectedToNetwork()
@@ -1616,6 +1640,11 @@ class TravelPlanVC: UIViewController ,UITableViewDataSource,UITableViewDelegate,
        
         
         let placeId = ((planAllLocations[sender.tag] as AnyObject).value(forKey:"place")! as AnyObject).value(forKey:"_id")as! String
+       
+       
+        let currentItem = IndexPath(row: sender.tag, section: 0)
+        
+        
         
         if isConnectedInternet
         {
@@ -1685,7 +1714,12 @@ class TravelPlanVC: UIViewController ,UITableViewDataSource,UITableViewDelegate,
                                 if status == 1{
                                     
                                     self.planAllLocations.removeObject(at: sender.tag)
-                                    self.locationsCollectionView.deleteItems(at: [currentItem])
+                                    
+                                    self.locationsCollectionView?.performBatchUpdates({() -> Void in
+                                        self.locationsCollectionView.deleteItems(at: [currentItem])
+                                    }) { _ in }
+                                    
+                                    
                                     self.reloadTableOnly = true
                                     self.getPlanDetails()
                                     
@@ -1724,7 +1758,7 @@ class TravelPlanVC: UIViewController ,UITableViewDataSource,UITableViewDelegate,
         
     }
     
-    */
+    
     
     
     
