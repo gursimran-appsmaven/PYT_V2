@@ -50,8 +50,8 @@ class PlanMapVC: UIViewController,GMSMapViewDelegate {
 //            print((locationsArray.object(at: i) as AnyObject).value(forKey:"image"))
             var latTemp:Double = 0
             var longTemp: Double = 0
-            
-            if ((locationsArray.object(at: i) as AnyObject).value(forKey: "place") as AnyObject ).value(forKey: "imageThumb") as? NSNull != NSNull() {
+           // print(locationsArray.object(at: i))
+            if ((locationsArray.object(at: i) as AnyObject).value(forKey: "place") as AnyObject ).value(forKey: "latitude")  != nil {
                
                 latTemp = Double(((locationsArray.object(at: i) as AnyObject).value(forKey:"place")! as AnyObject).value(forKey:"latitude") as! NSNumber)
                 
