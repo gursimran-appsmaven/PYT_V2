@@ -28,7 +28,8 @@ class signupProfilePictureViewController: UIViewController, apiClassDelegate,UII
     override func viewDidLoad()
     {
         super.viewDidLoad()
-        self.tabBarController?.setTabBarVisible(visible: false, animated: true)
+        self.tabBarController?.tabBar.isHidden = true
+        //self.tabBarController?.setTabBarVisible(visible: false, animated: true)
 
         print("email:\(email), Password:\(password)")
         IQKeyboardManager.shared().shouldResignOnTouchOutside=true
@@ -499,7 +500,7 @@ class signupProfilePictureViewController: UIViewController, apiClassDelegate,UII
     //MARK:- Server response arrived here
     //MARK:-
     func serverResponseArrived(Response:AnyObject){
-        
+        Udefaults.set(false, forKey: "savedDeviceToken")
         if loginFromFb == true {
             jsonResult = NSDictionary()
             jsonResult = Response as! NSDictionary
@@ -516,7 +517,7 @@ class signupProfilePictureViewController: UIViewController, apiClassDelegate,UII
                 Udefaults.set(pytUserId, forKey: "userLoginId")
                 Udefaults.set(pytUserName, forKey: "userLoginName")
                 Udefaults.set(pytUserProfilePic, forKey: "userProfilePic")
-                
+                Udefaults .synchronize()
                 
                 apiClass.sharedInstance().postRequestCategories(parameterString: pytUserId)
                 
@@ -605,7 +606,7 @@ class signupProfilePictureViewController: UIViewController, apiClassDelegate,UII
         if success == 1
         {
             
-          
+           print(jsonResult)
             let uname = nameTf.text!
             Udefaults.set(uname, forKey: "userLoginName")
             Udefaults.set(email, forKey: "userLoginEmail")
@@ -617,13 +618,13 @@ class signupProfilePictureViewController: UIViewController, apiClassDelegate,UII
             
             //save The credentail and login to the app
             
-            let pytUserId = ""//(jsonResult.value(forKey: "data")! as AnyObject) .value("userId") as? String ?? ""
+            let pytUserId = (jsonResult.value(forKey: "data")! as AnyObject) .value(forKey: "user") as? String ?? ""
             
             
             
             Udefaults.set(pytUserId, forKey: "userLoginId")
             Udefaults.set(false, forKey: "social")
-            
+            Udefaults .synchronize()
             let nxtObj3 = self.storyboard?.instantiateViewController(withIdentifier: "ViewController") as! ViewController
    ////crashing
             if (nxtObj3.tabledata?.count)!<1 {

@@ -31,8 +31,8 @@ class commentViewController: UIViewController, UITextViewDelegate, UITableViewDe
     override func viewDidLoad()
     {
         super.viewDidLoad()
-        self.tabBarController?.setTabBarVisible(visible: false, animated: true)
-
+       // self.tabBarController?.setTabBarVisible(visible: false, animated: true)
+        self.tabBarController?.tabBar.isHidden = true
         // Do any additional setup after loading the view.
         
         commentsTableView.estimatedRowHeight = 120.0

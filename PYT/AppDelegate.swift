@@ -132,11 +132,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate
                 
                 
                 
-                //fabric management
-                // Fabric.with([Crashlytics.self])
-                // Crashlytics.sharedInstance().debugMode = true
-                
-                
+               /// fabric management
+               
+                Fabric.with([Crashlytics.self])
+                Crashlytics.sharedInstance().debugMode = true
+
                 
         }
         
@@ -525,7 +525,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate
     func application(_ application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: Error)
     {
         print(error)
-        
+        CommonFunctionsClass.sharedInstance().showAlert(title: "err", text: "\(error.localizedDescription)" as NSString, imageName: "")
         ////custome alert
         
         

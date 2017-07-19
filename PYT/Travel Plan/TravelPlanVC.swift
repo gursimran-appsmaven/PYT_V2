@@ -58,7 +58,6 @@ class TravelPlanVC: UIViewController ,UITableViewDataSource,UITableViewDelegate,
 
     override func viewDidLoad() {
         self.tabBarController?.tabBar.isHidden = true
-       // self.tabBarController?.setTabBarVisible(visible: false, animated: true)
         super.viewDidLoad()
         calendarMonthDate = NSDate() as Date
         

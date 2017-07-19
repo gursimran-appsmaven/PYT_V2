@@ -618,7 +618,8 @@ class detailViewController: UIViewController, apiClassDelegate {
     
     override func viewWillDisappear(_ animated: Bool) {
         //self.tabBarController?.tabBar.isHidden = false
-        self.tabBarController?.setTabBarVisible(visible: true, animated: true)
+       self.tabBarController?.tabBar.isHidden = false
+        //self.tabBarController?.setTabBarVisible(visible: true, animated: true)
         self.view .bringSubview(toFront: BackBtn)
         
     }

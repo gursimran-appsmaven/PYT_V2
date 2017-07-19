@@ -33,8 +33,8 @@ class ChooseInterestVC: UIViewController , UICollectionViewDelegate,UICollection
     }
     
     override func viewWillAppear(_ animated: Bool) {
-       self.tabBarController?.setTabBarVisible(visible: false, animated: true)
-        
+       //self.tabBarController?.setTabBarVisible(visible: false, animated: true)
+        self.tabBarController?.tabBar.isHidden = true
         
         let defaults=UserDefaults.standard
         

@@ -119,7 +119,8 @@ class EditPostViewController: UIViewController, UISearchBarDelegate, UITableView
     override func viewWillAppear(_ animated: Bool)
     {
         
-        self.tabBarController?.setTabBarVisible(visible: false, animated: true)
+        self.tabBarController?.tabBar.isHidden = true
+        //self.tabBarController?.setTabBarVisible(visible: false, animated: true)
         
         let blurEffect = UIBlurEffect(style: UIBlurEffectStyle.light)
         let blurEffectView = UIVisualEffectView(effect: blurEffect)
@@ -179,7 +180,6 @@ class EditPostViewController: UIViewController, UISearchBarDelegate, UITableView
         
         search_bar .resignFirstResponder()
         
-        //self.tabBarController?.setTabBarVisible(visible: true, animated: true)
     }
     
     
@@ -200,7 +200,8 @@ class EditPostViewController: UIViewController, UISearchBarDelegate, UITableView
         
         let currntLocString = Location.locationInstance.locationString
         self.placeAutocomplete(currntLocString as String)
-        self.tabBarController?.setTabBarVisible(visible: false, animated: true)
+        self.tabBarController?.tabBar.isHidden = true
+        //self.tabBarController?.setTabBarVisible(visible: false, animated: true)
     }
     
     
@@ -312,7 +313,6 @@ class EditPostViewController: UIViewController, UISearchBarDelegate, UITableView
         Location.locationInstance.locationManager.stopUpdatingLocation()
         self.view.endEditing(true)
         geoTagview.isHidden = true
-        //self.tabBarController?.setTabBarVisible(visible: true, animated: true)
     }
     
     

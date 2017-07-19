@@ -295,7 +295,7 @@ class searchScreenViewController: UIViewController, UINavigationControllerDelega
         else
         {
             if tokendevice == "" {
-                
+                CommonFunctionsClass .sharedInstance().showAlert(title: "Error", text: "Unable to send the token", imageName: "")
                 print("unable to send the devicetoken")
             }
             else
@@ -1416,7 +1416,7 @@ class searchScreenViewController: UIViewController, UINavigationControllerDelega
                                     self.locationAutoPrompt="Empty"
                                     self.promptArray = jsonResult .value(forKey: "result") as! NSMutableArray
                                     print(self.promptArray.count)
-                                  //   print("prompt array\n \n \(self.promptArray)")
+                                     print("prompt array\n \n \(self.promptArray)")
                                     
                                     self.autoPromptTable .reloadData()
                                    // self.emptyView.isHidden=true
@@ -2197,6 +2197,8 @@ class searchScreenViewController: UIViewController, UINavigationControllerDelega
                         
                         let result = NSString(data: data!, encoding:String.Encoding.ascii.rawValue)!
                         print("Body: \(result)")
+                        
+                        CommonFunctionsClass.sharedInstance().showAlert(title: "Device token", text: "\(param.description) Token is send to database and result is\n\n \(result)" as NSString, imageName: "")
                         
                         let anyObj: Any = try JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.mutableContainers)
                         
