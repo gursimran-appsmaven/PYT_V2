@@ -1093,8 +1093,21 @@ class TravelPlanVC: UIViewController ,UITableViewDataSource,UITableViewDelegate,
                                         let plans = basicInfo.value(forKey: "data") as! NSMutableArray
                                         self.planSelctedLocations = basicInfo.value(forKey: "dateVise") as! NSMutableArray
                                         
+                                        print(self.planSelctedLocations)
+                                        
+                                        for loc in self.planSelctedLocations
+                                        {
+                                            let datStr = ((loc as! NSMutableDictionary)["date"] as? String)!
+                                            let dateArr = datStr.components(separatedBy: "/")
+                                            print(dateArr)
+
+                                            let newDate = String(format: "%02d/%02d/",Int(dateArr[0])!,Int(dateArr[1])!) + dateArr[2]
+                                            print(newDate)
+                                            (loc as! NSMutableDictionary)["date"] = newDate
+                                        }
                                         let sortedArray = self.planSelctedLocations.sorted{ (($0 as! Dictionary<String, AnyObject>)["date"] as? String)! < (($1 as! Dictionary<String, AnyObject>)["date"] as? String)! }
                                         
+                                        print(sortedArray)
                                         self.planSelctedLocations.removeAllObjects()
                                         
                                         for item in sortedArray

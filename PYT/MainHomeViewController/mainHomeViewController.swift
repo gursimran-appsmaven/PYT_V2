@@ -3114,7 +3114,7 @@ class mainHomeViewController: UIViewController, SDWebImageManagerDelegate, apiCl
         
         intrestArray .add(["userDetail":self.userDetailArray, "images": self.arrayOfimages1])
         
-        
+        print(self.arrayOfimages1)
         
       //  DispatchQueue.main.async(execute: {
         self.imagesTableView .reloadData()
