@@ -638,20 +638,6 @@ class TravelPlanVC: UIViewController ,UITableViewDataSource,UITableViewDelegate,
             
         endDate = (dateFormatter.date(from: String(describing: ((self.planDetails.object(at: 0) ) as AnyObject).value(forKey: "endDate") as! String)))!
         
-        print("Start Date-\(startDate)\n End Date-\(endDate)")
-
-        var nextDate = startDate.addDays(daysToAdd: -1)
-
-        let lastdate =  self.gregorian.date(byAdding: .day, value: 1, to: endDate.addDays(daysToAdd: -1) as Date)
-        if(!boolEdit)
-        {
-            while nextDate .compare(lastdate!) == .orderedAscending  {
-                calendarView.select(nextDate)
-                nextDate = self.gregorian.date(byAdding: .day, value: 1, to: nextDate)!
-                
-            }
-        }
-        
         // change to a readable time format and change to local time zone
         dateFormatter.dateFormat = "MMM dd"
         dateFormatter.timeZone = NSTimeZone(name: "UTC") as TimeZone!
@@ -664,9 +650,31 @@ class TravelPlanVC: UIViewController ,UITableViewDataSource,UITableViewDelegate,
         let components = NSCalendar.current.dateComponents([.day], from: startDate, to: endDate)
         noOfDaysLbl.text = "\(components.day! + 1) Days"
 
-    
         startDate = startDate.addDays(daysToAdd: -1)
         endDate = endDate.addDays(daysToAdd: -1)
+
+        print("Start Date-\(startDate)\n End Date-\(endDate)")
+
+        var nextDate = startDate//.addDays(daysToAdd: -1)
+
+        let lastdate =  self.gregorian.date(byAdding: .day, value: 1, to: endDate as Date)
+        if(!boolEdit)
+        {
+            for date1 in calendarView.selectedDates {
+                calendarView .deselect(date1)
+            }
+
+            while nextDate .compare(lastdate!) == .orderedAscending  {
+                calendarView.select(nextDate)
+                nextDate = self.gregorian.date(byAdding: .day, value: 1, to: nextDate)!
+                
+            }
+        }
+        
+
+    
+        print("Start Date-\(startDate)\n End Date-\(endDate)")
+
         if(fromFinalScreen)
         {
             if(change == "locationDate")
@@ -692,6 +700,7 @@ class TravelPlanVC: UIViewController ,UITableViewDataSource,UITableViewDelegate,
 
     func setUpCalendarProperties()
     {
+        calendarView.formatter.timeZone = NSTimeZone(name: "UTC") as TimeZone!
         self.calendarView.appearance.headerMinimumDissolvedAlpha = 0
         self.calendarView.appearance.selectionColor=UIColor(red: 255/255.0, green: 80/255.0, blue: 80/255.0, alpha: 1.0)
         self.calendarView.appearance.todayColor=UIColor(red: 255/255.0, green: 80/255.0, blue: 80/255.0, alpha: 1.0)
@@ -749,6 +758,8 @@ class TravelPlanVC: UIViewController ,UITableViewDataSource,UITableViewDelegate,
     
 
     private func configureVisibleCells() {
+        print(calendarView.selectedDates)
+
         calendarView.visibleCells().forEach { (cell) in
             let date = calendarView.date(for: cell)
             let position = calendarView.monthPosition(for: cell)
@@ -763,10 +774,10 @@ class TravelPlanVC: UIViewController ,UITableViewDataSource,UITableViewDelegate,
 //        diyCell.circleImageView.isHidden = !self.gregorian.isDateInToday(date)
         // Configure selection layer
 
+
         if position == .current {
             var selectionType = SelectionType.none
 
-            print(calendarView.selectedDates)
             if calendarView.selectedDates.contains(date) {
                 let previousDate = self.gregorian.date(byAdding: .day, value: -1, to: date)!
                 let nextDate = self.gregorian.date(byAdding: .day, value: 1, to: date)!
@@ -850,7 +861,9 @@ class TravelPlanVC: UIViewController ,UITableViewDataSource,UITableViewDelegate,
             setUpCalendarProperties()
             var nextDate = startDate
             
-            let lastdate =  self.gregorian.date(byAdding: .day, value: 1, to: endDate as Date)             
+            print("Start Date-\(startDate)\n End Date-\(endDate)")
+
+            let lastdate =  self.gregorian.date(byAdding: .day, value: 1, to: endDate as Date)
             while nextDate .compare(lastdate!) == .orderedAscending  {
                 calendarView.select(nextDate)
                 nextDate = self.gregorian.date(byAdding: .day, value: 1, to: nextDate as Date)!
@@ -915,8 +928,6 @@ class TravelPlanVC: UIViewController ,UITableViewDataSource,UITableViewDelegate,
         else  {
             
             MBProgressHUD .showAdded(to: self.view, animated: true)
-            startDate = startDate.addDays(daysToAdd: 1)
-            endDate = endDate.addDays(daysToAdd: 1)
             SetPlanDatesWindow()
         }
         startDateBtn.setBackgroundImage(nil, for: .normal)
@@ -1221,7 +1232,7 @@ class TravelPlanVC: UIViewController ,UITableViewDataSource,UITableViewDelegate,
             var urlString = NSString(string:"\(appUrl)edit_booking")
             print("WS URL----->>" + (urlString as String))
             
-            let parameters: NSDictionary = ["userId": UserDefaults.standard.string(forKey: "userLoginId")!,"bookingId":bookingIdFinal,"startDate":String(describing: startDate),"endDate":String(describing: endDate)]
+            let parameters: NSDictionary = ["userId": UserDefaults.standard.string(forKey: "userLoginId")!,"bookingId":bookingIdFinal,"startDate":String(describing: startDate.addDays(daysToAdd: 1)),"endDate":String(describing: endDate.addDays(daysToAdd: 1))]
             
             urlString = urlString .replacingOccurrences(of: " ", with: "%20") as NSString
             
@@ -1287,6 +1298,7 @@ class TravelPlanVC: UIViewController ,UITableViewDataSource,UITableViewDelegate,
                                         MBProgressHUD.hideAllHUDs(for: self.view, animated: true)
                                         _ = self.navigationController?.popViewController(animated: true)
                                     }
+                                    self.getPlanDetails()
                                     self.endDateBtn.setBackgroundImage(nil, for: .normal)
                                     self.startDateBtn.setBackgroundImage(nil, for: .normal)
                                     self.calendarBackView.isHidden = true
