@@ -58,12 +58,12 @@
                   moduleName = "PYT"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/osx/Documents/PYT_V2/PYT/Profile/ProfileVC.swift"
-                  timestampString = "522162055.842365"
+                  timestampString = "522168316.275057"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "1084"
                   endingLineNumber = "1084"
-                  offsetFromSymbolStart = "240">
+                  offsetFromSymbolStart = "271">
                </Location>
                <Location
                   shouldBeEnabled = "Yes"
@@ -73,12 +73,12 @@
                   moduleName = "PYT"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/osx/Documents/PYT_V2/PYT/Profile/ProfileVC.swift"
-                  timestampString = "522162055.84436"
+                  timestampString = "522168316.277092"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "1084"
                   endingLineNumber = "1084"
-                  offsetFromSymbolStart = "328">
+                  offsetFromSymbolStart = "393">
                </Location>
             </Locations>
          </BreakpointContent>
@@ -138,12 +138,12 @@
                   moduleName = "PYT"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/osx/Documents/PYT_V2/PYT/Profile/ProfileVC.swift"
-                  timestampString = "522162055.855196"
+                  timestampString = "522168316.289028"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "1472"
                   endingLineNumber = "1472"
-                  offsetFromSymbolStart = "212">
+                  offsetFromSymbolStart = "205">
                </Location>
                <Location
                   shouldBeEnabled = "Yes"
@@ -153,12 +153,12 @@
                   moduleName = "PYT"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/osx/Documents/PYT_V2/PYT/Profile/ProfileVC.swift"
-                  timestampString = "522162055.857271"
+                  timestampString = "522168316.291007"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "1474"
                   endingLineNumber = "1474"
-                  offsetFromSymbolStart = "24">
+                  offsetFromSymbolStart = "19">
                </Location>
             </Locations>
          </BreakpointContent>

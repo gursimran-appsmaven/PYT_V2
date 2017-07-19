@@ -196,7 +196,7 @@ class TravelPlanVC: UIViewController ,UITableViewDataSource,UITableViewDelegate,
     {
         let cell = tableView.dequeueReusableCell(withIdentifier: "DateWiseListTHeader") as! DateWiseListTHeader
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "dd/MM/yyyy"
+        dateFormatter.dateFormat = "MM/dd/yyyy"
         dateFormatter.timeZone = NSTimeZone(name: "UTC") as TimeZone!
         
         
@@ -228,6 +228,7 @@ class TravelPlanVC: UIViewController ,UITableViewDataSource,UITableViewDelegate,
         let cell = tableView.dequeueReusableCell(withIdentifier: "DateWiseListTCell", for: indexPath) as! DateWiseListTCell
         let place = ((self.planSelctedLocations[indexPath.section] as AnyObject).value(forKey: "places") as AnyObject) as! NSArray
         
+
         cell.nameLbl.text = ((place[indexPath.row] as AnyObject).value(forKey: "placeTag")) as? String ?? "NA"
          var city = ((place[indexPath.row] as AnyObject).value(forKey: "city")) as? String ?? ""
         if(city != "")
@@ -241,12 +242,39 @@ class TravelPlanVC: UIViewController ,UITableViewDataSource,UITableViewDelegate,
         let imageUrl = ((place[indexPath.row] as AnyObject).value(forKey: "imageThumb")) as? String ?? ""
         cell.llocationImage.contentMode = .scaleAspectFill
         cell.llocationImage.focusOnFaces = true
-        cell.llocationImage.sd_setImage(with: URL (string: imageUrl), placeholderImage: UIImage (named: "dummyBackground1"))
+        DispatchQueue.main.async(execute: {
+            cell.llocationImage.sd_setImage(with: URL (string: imageUrl), placeholderImage: UIImage (named: "dummyBackground1"))
+            cell.setNeedsLayout()
+            cell.setNeedsDisplay()
+            print(imageUrl)
+        })
         
         return cell
     }
     
-    
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "DateWiseListTCell", for: indexPath) as! DateWiseListTCell
+        let place = ((self.planSelctedLocations[indexPath.section] as AnyObject).value(forKey: "places") as AnyObject) as! NSArray
+        
+        
+        cell.nameLbl.text = ((place[indexPath.row] as AnyObject).value(forKey: "placeTag")) as? String ?? "NA"
+        var city = ((place[indexPath.row] as AnyObject).value(forKey: "city")) as? String ?? ""
+        if(city != "")
+        {
+            city = city + ", "
+        }
+        let country = ((place[indexPath.row] as AnyObject).value(forKey: "country")) as? String ?? ""
+        
+        cell.locationLbl.text = city + country
+        
+        cell.llocationImage.contentMode = .scaleAspectFill
+        cell.llocationImage.focusOnFaces = true
+        DispatchQueue.main.async(execute: {
+            cell.llocationImage.image = nil
+        })
+        
+
+    }
     
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -1099,22 +1127,20 @@ class TravelPlanVC: UIViewController ,UITableViewDataSource,UITableViewDelegate,
                                         {
                                             let datStr = ((loc as! NSMutableDictionary)["date"] as? String)!
                                             let dateArr = datStr.components(separatedBy: "/")
-                                            print(dateArr)
 
-                                            let newDate = String(format: "%02d/%02d/",Int(dateArr[0])!,Int(dateArr[1])!) + dateArr[2]
-                                            print(newDate)
+                                            let newDate = String(format: "%02d/%02d/",Int(dateArr[1])!,Int(dateArr[0])!) + dateArr[2]
                                             (loc as! NSMutableDictionary)["date"] = newDate
                                         }
                                         let sortedArray = self.planSelctedLocations.sorted{ (($0 as! Dictionary<String, AnyObject>)["date"] as? String)! < (($1 as! Dictionary<String, AnyObject>)["date"] as? String)! }
                                         
-                                        print(sortedArray)
                                         self.planSelctedLocations.removeAllObjects()
                                         
+                                        self.plansTableView.reloadData()
                                         for item in sortedArray
                                         {
                                             self.planSelctedLocations.add(item)
                                         }
-                                        
+
                                         self.planDetails=plans
                                         
                                         self.bookingIdFinal = (self.planDetails.object(at: 0) as AnyObject).value(forKey: "_id") as! String

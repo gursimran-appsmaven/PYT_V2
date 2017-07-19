@@ -25,7 +25,7 @@ class FinalTravelPlanVC: UIViewController {
     
     @IBOutlet weak var topY: NSLayoutConstraint!
     var planDetails = NSMutableArray()
-    var timer = Timer()
+//    var timer = Timer()
     
     @IBOutlet weak var locationsTableView: UITableView!
     var imgCount:  Int! = 0
@@ -39,7 +39,12 @@ class FinalTravelPlanVC: UIViewController {
         topGradient.gradientLayer.colors = [UIColor.black.withAlphaComponent(0.75).cgColor, UIColor.clear.cgColor]
         topGradient.gradientLayer.gradient = GradientPoint.bottomTop.draw()
 
-        timer = Timer.scheduledTimer(timeInterval: 5.4, target: self, selector: #selector(self.changeImage), userInfo: nil, repeats: true)
+//        let imageToShow = ((locationsArray.object(at: imgCount) as AnyObject).value(forKey:"place") as AnyObject).value(forKey: "imageLarge") as? String ?? ""
+//        
+//        topScrollingImg.sd_setImage(with: URL(string: imageToShow), placeholderImage: UIImage (named: "dummyBackground1"), options: SDWebImageOptions(rawValue: 0), completed: nil)
+
+        
+//        timer = Timer.scheduledTimer(timeInterval: 5.4, target: self, selector: #selector(self.changeImage), userInfo: nil, repeats: true)
 
         // Do any additional setup after loading the view.
     }
@@ -47,7 +52,7 @@ class FinalTravelPlanVC: UIViewController {
         getPlanDetails()
     }
     override func viewDidDisappear(_ animated: Bool) {
-        timer.invalidate()
+//        timer.invalidate()
     }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -80,24 +85,24 @@ class FinalTravelPlanVC: UIViewController {
         }
     }
 
-    func changeImage()
-    {
-        if(locationsArray.count == 0)
-        {
-            return
-        }
-        if(imgCount < locationsArray.count - 1)
-        {
-            imgCount = imgCount+1
-        }
-        else
-        {
-            imgCount = 0
-        }
-        let imageToShow = ((locationsArray.object(at: imgCount) as AnyObject).value(forKey:"place") as AnyObject).value(forKey: "imageLarge") as? String ?? ""
-
-        topScrollingImg.sd_setImage(with: URL(string: imageToShow), placeholderImage: UIImage (named: "dummyBackground1"), options: SDWebImageOptions(rawValue: 0), completed: nil)
-    }
+//    func changeImage()
+//    {
+//        if(locationsArray.count == 0)
+//        {
+//            return
+//        }
+//        if(imgCount < locationsArray.count - 1)
+//        {
+//            imgCount = imgCount+1
+//        }
+//        else
+//        {
+//            imgCount = 0
+//        }
+//        let imageToShow = ((locationsArray.object(at: imgCount) as AnyObject).value(forKey:"place") as AnyObject).value(forKey: "imageLarge") as? String ?? ""
+//
+//        topScrollingImg.sd_setImage(with: URL(string: imageToShow), placeholderImage: UIImage (named: "dummyBackground1"), options: SDWebImageOptions(rawValue: 0), completed: nil)
+//    }
     //MARK: Back button Action
     
     @IBAction func backButtonAction(sender: AnyObject) {
