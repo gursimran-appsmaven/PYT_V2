@@ -1106,7 +1106,7 @@
 				CODE_SIGN_ENTITLEMENTS = PYT/PYT.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Nitin Trehan (9YDH3T82UC)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = 9YDH3T82UC;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1136,7 +1136,7 @@
 				CODE_SIGN_ENTITLEMENTS = PYT/PYT.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Nitin Trehan (9YDH3T82UC)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = 9YDH3T82UC;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
