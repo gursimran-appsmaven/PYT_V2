@@ -86,7 +86,7 @@ class PlanMapVC: UIViewController,GMSMapViewDelegate {
                 customMarkerView .addSubview(imgvi)
                 
                 let iconImage = UIImageView()
-                iconImage.frame=CGRect(x: 5.0, y: 0.0, width: 55, height: 55)
+                iconImage.frame=CGRect(x: 5.0, y: 5.0, width: customMarkerView.frame.size.width-10, height: customMarkerView.frame.size.height-10)
                 iconImage.sd_setImage(with: URL(string: imgUrl), placeholderImage: UIImage (named: "dummyBackground1"))
                 iconImage.contentMode = .scaleAspectFill
                 iconImage.clipsToBounds = true

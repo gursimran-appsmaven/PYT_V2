@@ -354,7 +354,7 @@ class signupSetPasswordViewController: UIViewController, apiClassDelegate
                     let fullName = fullName1?["fullName"] as? String ?? ""
                     let placeId = fullName1?["placeId"] as? String ?? ""
                     let placeType = fullName1?["type"] as? String ?? ""
-                    
+                    let placeImage = fullName1?["imageUrl"] as? String ?? ""
                     
                     
                     
@@ -368,7 +368,7 @@ class signupSetPasswordViewController: UIViewController, apiClassDelegate
                     
                     
                     var dic = NSMutableDictionary()
-                    dic = ["location":loc, "type": placeType, "placeId": placeId,  "delete":false, "fullName": fullName ]
+                    dic = ["location":loc, "type": placeType, "placeId": placeId,  "delete":false, "fullName": fullName, "imageUrl": placeImage ]
                     print(dic)
                     
                     arrayOfLoc .add(dic)

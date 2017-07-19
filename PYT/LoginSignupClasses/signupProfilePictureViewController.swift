@@ -537,8 +537,7 @@ class signupProfilePictureViewController: UIViewController, apiClassDelegate,UII
                         let fullName = fullName1?["fullName"] as? String ?? ""
                         let placeId = fullName1?["placeId"] as? String ?? ""
                         let placeType = fullName1?["type"] as? String ?? ""
-                        
-                        
+                        let placeImage = fullName1?["imageUrl"] as? String ?? ""
                         
                         
                         var loc = ""
@@ -551,7 +550,7 @@ class signupProfilePictureViewController: UIViewController, apiClassDelegate,UII
                         
                         
                         var dic = NSMutableDictionary()
-                        dic = ["location":loc, "type": placeType, "placeId": placeId,  "delete":false, "fullName": fullName ]
+                        dic = ["location":loc, "type": placeType, "placeId": placeId,  "delete":false, "fullName": fullName, "imageUrl": placeImage ]
                         print(dic)
                         
                         arrayOfLoc .add(dic)
