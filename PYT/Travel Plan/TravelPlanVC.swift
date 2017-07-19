@@ -57,7 +57,8 @@ class TravelPlanVC: UIViewController ,UITableViewDataSource,UITableViewDelegate,
     fileprivate let gregorian = Calendar(identifier: .gregorian)
 
     override func viewDidLoad() {
-        self.tabBarController?.setTabBarVisible(visible: false, animated: true)
+        self.tabBarController?.tabBar.isHidden = true
+       // self.tabBarController?.setTabBarVisible(visible: false, animated: true)
         super.viewDidLoad()
         calendarMonthDate = NSDate() as Date
         
