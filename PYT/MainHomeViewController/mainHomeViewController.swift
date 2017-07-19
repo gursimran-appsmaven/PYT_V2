@@ -1523,9 +1523,6 @@ class mainHomeViewController: UIViewController, SDWebImageManagerDelegate, apiCl
     
     @IBAction func ReloadStoriesCollection(_ sender: AnyObject)
     {
-        
-        
-        
         PlanDeleteBool = true//false
         if planAllLocation == false {
             planAllLocation = true//true to show the all plans

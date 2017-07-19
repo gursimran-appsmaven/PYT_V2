@@ -744,7 +744,7 @@ class searchScreenViewController: UIViewController, UINavigationControllerDelega
                     var dic = NSMutableDictionary()
                     // dic = ["location":locationSt,"lat": "0.0", "long": "0.0", "type": "country", "country": locationSt, "delete":false]
                     
-                    dic = ["location":locationSt, "type": typelo, "placeId":"\(locId)",  "delete":false, "fullName": fullName, "imgLink": imageLoc ]
+                    dic = ["location":locationSt, "type": typelo, "placeId":"\(locId)",  "delete":false, "fullName": fullName, "imageUrl": imageLoc ]
                     print(dic)
                     
                     self.arrayOfIntrest .insert(dic, at: 0)
@@ -789,7 +789,7 @@ class searchScreenViewController: UIViewController, UINavigationControllerDelega
                             var dic = NSMutableDictionary()
                             
                             
-                            dic = ["location":locationSt, "type": typelo, "placeId":"\(locId)",  "delete":false, "fullName": fullName, "imgLink": imageLoc ]
+                            dic = ["location":locationSt, "type": typelo, "placeId":"\(locId)",  "delete":false, "fullName": fullName, "imageUrl": imageLoc ]
                             print(dic)
                             
                             self.arrayOfIntrest .insert(dic, at: 0)
@@ -819,7 +819,7 @@ class searchScreenViewController: UIViewController, UINavigationControllerDelega
                                 
                                 var dic = NSMutableDictionary()
                                 
-                                dic = ["location":locationSt, "type": typelo, "placeId":"\(locId)",  "delete":false, "fullName": fullName, "imgLink": imageLoc ]
+                                dic = ["location":locationSt, "type": typelo, "placeId":"\(locId)",  "delete":false, "fullName": fullName, "imageUrl": imageLoc ]
                                 print(dic)
                                 self.arrayOfIntrest .insert(dic, at: 0)
                                 //self.nextPageAction(sender: self)
@@ -1229,7 +1229,7 @@ class searchScreenViewController: UIViewController, UINavigationControllerDelega
         
         let LocationNameString = ((arrayOfIntrest.object(at: btnTag)) as AnyObject).value(forKey: "location") as? String ?? ""// arrayOfIntrest.objectAtIndex(.row).valueForKey("location") as? String ?? ""
         
-        let locImage = ((arrayOfIntrest.object(at: btnTag)) as AnyObject).value(forKey: "imgLink") as? String ?? ""
+        let locImage = ((arrayOfIntrest.object(at: btnTag)) as AnyObject).value(forKey: "imageUrl") as? String ?? ""
        
         let urlImg = NSURL (string: locImage)
         
@@ -1416,7 +1416,7 @@ class searchScreenViewController: UIViewController, UINavigationControllerDelega
                                     self.locationAutoPrompt="Empty"
                                     self.promptArray = jsonResult .value(forKey: "result") as! NSMutableArray
                                     print(self.promptArray.count)
-                                     print("prompt array\n \n \(self.promptArray)")
+                                  //   print("prompt array\n \n \(self.promptArray)")
                                     
                                     self.autoPromptTable .reloadData()
                                    // self.emptyView.isHidden=true
@@ -1530,15 +1530,15 @@ class searchScreenViewController: UIViewController, UINavigationControllerDelega
                 
                 //    print((arrayOfIntrest.objectAtIndex(i) as AnyObject).valueForKey("location"))
                 
-                
+                print(arrayOfIntrest.object(at: i))
                 let locName = ((arrayOfIntrest.object(at: i)) as AnyObject).value(forKey: "fullName") as? String ?? ""
                 let locType = ((arrayOfIntrest.object(at: i)) as AnyObject).value(forKey: "type") as? String ?? ""
                
                 
                 let locId = ((arrayOfIntrest.object(at: i)) as AnyObject).value(forKey: "placeId") as? String ?? ""
+                let locImg = ((arrayOfIntrest.object(at: i)) as AnyObject).value(forKey: "imageUrl") as? String ?? ""
                 
-                
-                typeArr .add(["type": locType, "placeId": locId, "fullName": locName])
+                typeArr .add(["type": locType, "placeId": locId, "fullName": locName, "imageUrl": locImg])
                 
             }
             
@@ -1882,7 +1882,7 @@ class searchScreenViewController: UIViewController, UINavigationControllerDelega
                 
                 
                 
-                dict = ["location":locationAutoPrompt, "type": locationType, "placeId":"\(locationId)",  "delete":false, "fullName": fullName as String , "imgLink": selectedImage ]
+                dict = ["location":locationAutoPrompt, "type": locationType, "placeId":"\(locationId)",  "delete":false, "fullName": fullName as String , "imageUrl": selectedImage ]
                 
                 
                 
