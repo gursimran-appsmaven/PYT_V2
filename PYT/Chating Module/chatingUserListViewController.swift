@@ -32,7 +32,8 @@ class chatingUserListViewController: UIViewController {
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        self.tabBarController?.setTabBarVisible(visible: false, animated: true)
+       self.tabBarController?.tabBar.isHidden = true
+        //self.tabBarController?.setTabBarVisible(visible: false, animated: true)
     }
     
     override func viewDidLoad()

@@ -24,7 +24,8 @@ class signupSetPasswordViewController: UIViewController, apiClassDelegate
         IQKeyboardManager.shared().shouldResignOnTouchOutside=true
         IQKeyboardManager.shared().isEnableAutoToolbar=true
         apiClass.sharedInstance().delegate = self
-        self.tabBarController?.setTabBarVisible(visible: false, animated: true)
+       self.tabBarController?.tabBar.isHidden = true
+        //self.tabBarController?.setTabBarVisible(visible: false, animated: true)
 
 //&& passwordTf.text == "" && confirmPasswordTf.text == ""
         // Do any additional setup after loading the view.
@@ -320,7 +321,7 @@ class signupSetPasswordViewController: UIViewController, apiClassDelegate
     //MARK:-
     func serverResponseArrived(Response:AnyObject){
         
-        
+        Udefaults.set(false, forKey: "savedDeviceToken")
         jsonResult = NSDictionary()
         jsonResult = Response as! NSDictionary
         let success = jsonResult.object(forKey: "status") as! NSNumber

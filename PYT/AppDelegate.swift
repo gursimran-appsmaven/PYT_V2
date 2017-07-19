@@ -67,6 +67,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate
         DispatchQueue.main.async
             {
                 
+//                UIApplication.shared.registerUserNotificationSettings(UIUserNotificationSettings(types: [.alert, .badge, .sound], categories: nil))
+//                
+//                UIApplication.shared.registerForRemoteNotifications()
+                
+                
+                
+                
                 if #available(iOS 10, *)
                 {
                     
@@ -132,11 +139,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate
                 
                 
                 
-                //fabric management
-                // Fabric.with([Crashlytics.self])
-                // Crashlytics.sharedInstance().debugMode = true
-                
-                
+               /// fabric management
+               
+                Fabric.with([Crashlytics.self])
+                Crashlytics.sharedInstance().debugMode = true
+
                 
         }
         
@@ -525,7 +532,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate
     func application(_ application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: Error)
     {
         print(error)
-        
+        CommonFunctionsClass.sharedInstance().showAlert(title: "err", text: "\(error.localizedDescription)" as NSString, imageName: "")
         ////custome alert
         
         
@@ -679,10 +686,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate
      }
      else
      {
-//      HDNotificationView.showNotificationViewWithImage(UIImage(named: "logo")!, title: senderName, message: msg2, isAutoHide: true, onTouch: {() -> Void in
+        
+    HDNotificationView.show(with: UIImage(named: "Logo")!, title: senderName, message: msg2, isAutoHide: true, onTouch: {() -> Void in
      
      application.applicationIconBadgeNumber = 0
-   //  })
+     })
      
      }
      
@@ -702,11 +710,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate
                  }
      else
      {
-     // HDNotificationView.showNotificationViewWithImage(UIImage(named: "logo")!, title: senderName, message: msg2, isAutoHide: true, onTouch: {() -> Void in
+      HDNotificationView.show(with: UIImage(named: "Logo")!, title: senderName, message: msg2, isAutoHide: true, onTouch: {() -> Void in
      
      application.applicationIconBadgeNumber = 0
      
-     // })
+      })
      
      
      

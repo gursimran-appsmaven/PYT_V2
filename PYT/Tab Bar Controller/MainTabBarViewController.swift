@@ -23,7 +23,7 @@ class MainTabBarViewController: UITabBarController {
         self.tabBar.frame.size = self.tabBar.sizeThatFits(self.tabBar.frame.size)
         
         self.tabBar.setValue(true, forKey: "_hidesShadow") //hide the line in tabbar
-       // self.tabBarController?.setTabBarVisible(visible: true, animated: true)
+       
                // Do any additional setup after loading the view.
     }
     

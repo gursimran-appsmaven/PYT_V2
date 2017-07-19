@@ -22,7 +22,8 @@ class contentViewController: UIViewController, UIScrollViewDelegate {
     var doneToturials = UIButton()
     
     override func viewWillAppear(_ animated: Bool) {
-        self.tabBarController?.setTabBarVisible(visible: false, animated: true)
+       self.tabBarController?.tabBar.isHidden = true
+        //self.tabBarController?.setTabBarVisible(visible: false, animated: true)
 
         
     }

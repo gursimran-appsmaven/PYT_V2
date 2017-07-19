@@ -437,10 +437,7 @@ class apiClass: NSObject {
                 
                             do {
                 
-                               
-                
-                               
-                                
+            
                                 
                                 let anyObj: Any = try JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.mutableContainers)
                 

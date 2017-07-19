@@ -37,7 +37,8 @@ class ProfileVC: UIViewController,UITableViewDelegate,UITableViewDataSource,UICo
     
     override func viewWillAppear(_ animated: Bool) {
         
-         self.tabBarController?.setTabBarVisible(visible: true, animated: true)
+        self.tabBarController?.tabBar.isHidden = false
+        // self.tabBarController?.setTabBarVisible(visible: true, animated: true)
         SettingApiClass.sharedInstance().delegate=self //delegate of api class
         if let userName = Udefaults .string(forKey: "userLoginName"){
             nameTF.text =  userName.capitalized
@@ -302,7 +303,6 @@ class ProfileVC: UIViewController,UITableViewDelegate,UITableViewDataSource,UICo
                 let nxtObj = self.storyboard?.instantiateViewController(withIdentifier: "ChooseInterestVC") as! ChooseInterestVC
                 nxtObj.comingFrom = "Profile"
                 self.navigationController! .pushViewController(nxtObj, animated: true)
-               // self.tabBarController?.setTabBarVisible(visible: false, animated: true)
                 
             case 4:
                 print("Change Password")
@@ -310,7 +310,8 @@ class ProfileVC: UIViewController,UITableViewDelegate,UITableViewDataSource,UICo
                 let nxtObj = self.storyboard?.instantiateViewController(withIdentifier: "changePasswordViewController") as! changePasswordViewController
               
                 self.navigationController! .pushViewController(nxtObj, animated: true)
-                self.tabBarController?.setTabBarVisible(visible: false, animated: true)
+                self.tabBarController?.tabBar.isHidden = true
+                //self.tabBarController?.setTabBarVisible(visible: false, animated: true)
                 
             default:
                 print(" ")
@@ -1243,7 +1244,8 @@ class ProfileVC: UIViewController,UITableViewDelegate,UITableViewDataSource,UICo
     
     func ActionLogout() {
         
-        self.tabBarController?.setTabBarVisible(visible: false, animated: true)
+        self.tabBarController?.tabBar.isHidden = true
+        //self.tabBarController?.setTabBarVisible(visible: false, animated: true)
         
         let nxtObj = self.storyboard?.instantiateViewController(withIdentifier: "ViewController") as! ViewController
         

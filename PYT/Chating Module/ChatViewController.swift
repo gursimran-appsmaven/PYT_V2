@@ -58,8 +58,8 @@ class ChatViewController: JSQMessagesViewController {
         
         self.backBtn .addTarget(self, action: #selector(ChatViewController.backButtonAction) , for: UIControlEvents .touchUpInside)
         self.deleteButton .addTarget(self, action: #selector(ChatViewController.backButtonAction), for: .touchUpInside)
-        
-         self.tabBarController?.setTabBarVisible(visible: false, animated: true)
+        self.tabBarController?.tabBar.isHidden = true
+        // self.tabBarController?.setTabBarVisible(visible: false, animated: true)
         
     }
     

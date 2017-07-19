@@ -104,7 +104,7 @@ class PostScreenViewController: UIViewController, UIImagePickerControllerDelegat
          Udefaults .setValue(nil, forKey: "PostInterest")
         interestLabel.text = "Add"
         geoTagLabel.text = "Add"
-        
+        descriptionTxtV.text = "Add"
         
          NotificationCenter.default.addObserver(self, selector: #selector(PostScreenViewController.Start_Upload_Here(_:)),name:NSNotification.Name(rawValue: "uploadingStart"), object: nil)
         
@@ -117,7 +117,8 @@ class PostScreenViewController: UIViewController, UIImagePickerControllerDelegat
     
     override func viewWillAppear(_ animated: Bool)
     {
-        self.tabBarController?.setTabBarVisible(visible: true, animated: true)
+       self.tabBarController?.tabBar.isHidden = false
+        //self.tabBarController?.setTabBarVisible(visible: true, animated: true)
 
         let blurEffect = UIBlurEffect(style: UIBlurEffectStyle.light)
         let blurEffectView = UIVisualEffectView(effect: blurEffect)
@@ -649,7 +650,8 @@ class PostScreenViewController: UIViewController, UIImagePickerControllerDelegat
         
         search_bar .resignFirstResponder()
         
-        self.tabBarController?.setTabBarVisible(visible: true, animated: true)
+        self.tabBarController?.tabBar.isHidden = false
+        //self.tabBarController?.setTabBarVisible(visible: true, animated: true)
     }
     
    
@@ -671,7 +673,8 @@ class PostScreenViewController: UIViewController, UIImagePickerControllerDelegat
     
       let currntLocString = Location.locationInstance.locationString
         self.placeAutocomplete(currntLocString as String)
-         self.tabBarController?.setTabBarVisible(visible: false, animated: true)
+         self.tabBarController?.tabBar.isHidden = true
+        //self.tabBarController?.setTabBarVisible(visible: false, animated: true)
     }
     
    
@@ -782,7 +785,8 @@ class PostScreenViewController: UIViewController, UIImagePickerControllerDelegat
     Location.locationInstance.locationManager.stopUpdatingLocation()
     self.view.endEditing(true)
     geoTagview.isHidden = true
-        self.tabBarController?.setTabBarVisible(visible: true, animated: true)
+        self.tabBarController?.tabBar.isHidden = false
+            //self.tabBarController?.setTabBarVisible(visible: true, animated: true)
     }
     
     
@@ -1748,7 +1752,8 @@ class PostScreenViewController: UIViewController, UIImagePickerControllerDelegat
             var descStr = ""
             if descriptionTxtV.text  == "Add" {
                 descStr = ""
-            }else{
+            }else
+            {
                 descStr = descriptionTxtV.text
             }
             

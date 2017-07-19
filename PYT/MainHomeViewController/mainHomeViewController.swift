@@ -65,7 +65,7 @@ class mainHomeViewController: UIViewController, SDWebImageManagerDelegate, apiCl
 //    }
     
     
-   // @IBOutlet weak var emptyView: UIView!
+    @IBOutlet weak var emptyView: UIImageView!
     @IBOutlet var firstView: UIView!
     
     //View open on More options
@@ -217,6 +217,7 @@ class mainHomeViewController: UIViewController, SDWebImageManagerDelegate, apiCl
         self.manageToolsTipsShow()
         }
         
+         planAllLocation = false
         storiesCollectionView.reloadData()
     }
     
@@ -2696,7 +2697,7 @@ class mainHomeViewController: UIViewController, SDWebImageManagerDelegate, apiCl
             
         OperationQueue.main.cancelAllOperations() //clear all the queues
             DispatchQueue.main.async(execute: {
-                //self.emptyView.isHidden=true
+                self.emptyView.isHidden=true
                 self.imagesTableView.backgroundColor = UIColor (colorLiteralRed: 240/255, green: 240/255, blue: 240/255, alpha: 1)
                 self.shortData()
             })
@@ -2838,7 +2839,7 @@ class mainHomeViewController: UIViewController, SDWebImageManagerDelegate, apiCl
                 if dataArray.count<1
                 {
                     
-                   // self.emptyView.isHidden=false
+                    self.emptyView.isHidden=false
                     self.imagesTableView.backgroundColor = UIColor.clear
                     self.view .bringSubview(toFront: self.imagesTableView)
                     MBProgressHUD.hide(for: self.view, animated: true)
@@ -2856,7 +2857,7 @@ class mainHomeViewController: UIViewController, SDWebImageManagerDelegate, apiCl
                     
                     
                     
-                   // self.emptyView.isHidden=true
+                    self.emptyView.isHidden=true
                     self.imagesTableView.backgroundColor = UIColor (colorLiteralRed: 240/255, green: 240/255, blue: 240/255, alpha: 1)
                  
                     //self.viewWillAppear(true)
@@ -2933,7 +2934,7 @@ class mainHomeViewController: UIViewController, SDWebImageManagerDelegate, apiCl
             {
                 MBProgressHUD.hide(for: self.view, animated: true)
                 
-               // self.emptyView.isHidden=false
+                self.emptyView.isHidden=false
                 self.imagesTableView.backgroundColor = UIColor.clear
                 self.view .bringSubview(toFront: self.imagesTableView)
                 MBProgressHUD.hide(for: self.view, animated: true)
@@ -3147,13 +3148,13 @@ class mainHomeViewController: UIViewController, SDWebImageManagerDelegate, apiCl
         if self.dataArray.count<1
         {
             
-           // self.emptyView.isHidden=false
+            self.emptyView.isHidden=false
             self.imagesTableView.backgroundColor = UIColor.clear
             self.view .bringSubview(toFront: self.imagesTableView)
         }
         else
         {
-           // self.emptyView.isHidden=true
+            self.emptyView.isHidden=true
             self.imagesTableView.backgroundColor = UIColor (colorLiteralRed: 240/255, green: 240/255, blue: 240/255, alpha: 1)
         }
         

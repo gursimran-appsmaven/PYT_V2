@@ -72,7 +72,8 @@ class nearByPlacesViewController: UIViewController {
     {
         super.viewDidLoad()
         
-        self.tabBarController?.setTabBarVisible(visible: false, animated: true)
+       self.tabBarController?.tabBar.isHidden = true
+        //self.tabBarController?.setTabBarVisible(visible: false, animated: true)
 
         self.showMoreComments.isHidden = true
         self.showMoreDescription.isHidden=true

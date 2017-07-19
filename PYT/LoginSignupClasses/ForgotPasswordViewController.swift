@@ -18,9 +18,11 @@ class ForgotPasswordViewController: UIViewController {
     
     @IBOutlet weak var desLblWidth: NSLayoutConstraint!
     
-    override func viewDidLoad() {
+    override func viewDidLoad()
+    {
         super.viewDidLoad()
-        self.tabBarController?.setTabBarVisible(visible: false, animated: true)
+       self.tabBarController?.tabBar.isHidden = true
+        //self.tabBarController?.setTabBarVisible(visible: false, animated: true)
 
         if(self.view.frame.width==320)
         {

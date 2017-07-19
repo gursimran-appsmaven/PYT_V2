@@ -32,7 +32,8 @@ class intrestViewController: UIViewController, apiClassInterestDelegate ,UITable
     @IBOutlet weak var addToPlanPopup: UIButton!
     @IBOutlet weak var addToBucketPopup: UIButton!
     @IBOutlet weak var editBtnPopup: UIButton!
-    @IBOutlet weak var emptyView: UIView!
+    //@IBOutlet weak var emptyView: UIView!
+    @IBOutlet weak var emptyView: UIImageView!
     @IBOutlet weak var editBtnBottomSpace: NSLayoutConstraint!
     
     
@@ -90,8 +91,8 @@ class intrestViewController: UIViewController, apiClassInterestDelegate ,UITable
     override func viewWillAppear(_ animated: Bool)
     {
         
-        //self.tabBarController?.tabBar.isHidden = false
-         self.tabBarController?.setTabBarVisible(visible: true, animated: true)
+        self.tabBarController?.tabBar.isHidden = false
+         //self.tabBarController?.setTabBarVisible(visible: true, animated: true)
         
         //self.emptyView.hidden=false
         self.popUpView.isHidden = true
@@ -468,7 +469,7 @@ class intrestViewController: UIViewController, apiClassInterestDelegate ,UITable
                     
                     
                     likeCount .removeAllObjects()
-                  //  emptyView.isHidden = true
+                    emptyView.isHidden = true
                     self .shortData(newTempArr)
                     
                     
@@ -534,7 +535,7 @@ class intrestViewController: UIViewController, apiClassInterestDelegate ,UITable
             }
             else{
                 
-               // emptyView.isHidden = false
+                emptyView.isHidden = false
                 
             }
             

@@ -35,7 +35,8 @@ class UploadedImagesVC: UIViewController,UICollectionViewDataSource,UICollection
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.tabBarController?.setTabBarVisible(visible: false, animated: true)
+        self.tabBarController?.tabBar.isHidden = true
+        //self.tabBarController?.setTabBarVisible(visible: false, animated: true)
 
         // Do any additional setup after loading the view.
         
@@ -303,15 +304,19 @@ class UploadedImagesVC: UIViewController,UICollectionViewDataSource,UICollection
         zoomIndicator.startAnimating()
         self.zoomIndicator.isHidden=false
         
-        zoomimageView.sd_setImage(with: url) { (image, error, cache, urls) in
-            self.zoomIndicator.stopAnimating()
-            self.zoomIndicator.isHidden=true
-            if (error != nil) {
-                self.zoomimageView.image = self.zoomimageView.image
-            } else {
-                self.zoomimageView.image = image
-            }
-        }
+//        zoomimageView.sd_setImage(with: url) { (image, error, cache, urls) in
+//            self.zoomIndicator.stopAnimating()
+//            self.zoomIndicator.isHidden=true
+//            if (error != nil) {
+//                self.zoomimageView.image = self.zoomimageView.image
+//            } else {
+//                self.zoomimageView.image = image
+//            }
+//        }
+    
+        zoomimageView.sd_setImage(with: url, placeholderImage: zoomimageView.image)
+        self.zoomIndicator.stopAnimating()
+        self.zoomIndicator.isHidden=true
         
         
 //        let block: SDWebImageCompletionBlock! = {(image: UIImage!, error: NSError!, cacheType: SDImageCacheType!, imageURL: URL!) -> Void in

@@ -79,7 +79,8 @@ class ViewController: UIViewController, apiClassDelegate , UIScrollViewDelegate,
     
     override func viewDidLoad() {
         super.viewDidLoad()
-         self.tabBarController?.setTabBarVisible(visible: false, animated: true)
+        self.tabBarController?.tabBar.isHidden = true
+        //self.tabBarController?.setTabBarVisible(visible: false, animated: true)
         //MARK: if First time
         //MARK:
         
@@ -621,6 +622,8 @@ class ViewController: UIViewController, apiClassDelegate , UIScrollViewDelegate,
      */
     
     func serverResponseArrived(Response:AnyObject){
+        
+        Udefaults.set(false, forKey: "savedDeviceToken")
         
         ///// if not login from facebook or instagram
         

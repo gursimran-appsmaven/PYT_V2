@@ -33,7 +33,19 @@
 	<dict>
 		<key>APIKey</key>
 		<string>63267469df0c97165b811e73d17974c004b89047</string>
-	</dict>
+	
+        <key>Kits</key>
+        <array>
+            <dict>
+                <key>KitInfo</key>
+                <dict/>
+                <key>KitName</key>
+                <string>Crashlytics</string>
+            </dict>
+        </array>
+    </dict>
+    
+    
 	<key>FacebookAppID</key>
 	<string>1726736034214210</string>
 	<key>FacebookDisplayName</key>

@@ -7,4 +7,4 @@
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
 #import <FBSDKLoginKit/FBSDKLoginKit.h>
 //#import "KASlideShow.h"
-//#import "HDNotificationView.h"
+#import "HDNotificationView.h"
