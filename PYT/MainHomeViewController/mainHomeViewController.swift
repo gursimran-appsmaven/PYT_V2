@@ -406,8 +406,7 @@ class mainHomeViewController: UIViewController, SDWebImageManagerDelegate, apiCl
     override func viewDidLoad()
     {
         super.viewDidLoad()
-        
-        
+        Udefaults.set(false, forKey: "comesfrominterest")
         PlanDeleteBool = true
         self.navigationController?.isNavigationBarHidden=true
         
@@ -988,6 +987,10 @@ class mainHomeViewController: UIViewController, SDWebImageManagerDelegate, apiCl
             }
             
             
+        }
+        else
+        {
+            storiesCollectionView.reloadData()
         }
         
        
@@ -3058,7 +3061,7 @@ class mainHomeViewController: UIViewController, SDWebImageManagerDelegate, apiCl
             
             let mutableDict: NSMutableDictionary = ["location":locationArray, "id":idArray, "category":categoryArray, "albums": albumArray, "description": descriptionArray, "country": countryArray, "largeImage": imagesLargeArray, "geoTag":geoTagArray, "latitude":latArray, "longitude": longArray, "source": sourceArray, "likeCount":likeCountArray, "likedUserId":idLikedUsers,"thumbnails":imagesArray, "sourceType":sourcetype, "showMore": showMorePhotos, "countId": countrId ]
             
-            [self.arrayOfimages1 .add(mutableDict)]
+            self.arrayOfimages1 .add(mutableDict)
             
             
             
@@ -3123,11 +3126,11 @@ class mainHomeViewController: UIViewController, SDWebImageManagerDelegate, apiCl
         
         print(self.arrayOfimages1)
         
-      //  DispatchQueue.main.async(execute: {
+        DispatchQueue.main.async(execute: {
         self.imagesTableView .reloadData()
             
             
-          //  })
+            })
         
         
         if countsDictionary.object(forKey: "bookings") != nil {
@@ -3703,7 +3706,7 @@ extension mainHomeViewController: UICollectionViewDelegate, UICollectionViewData
                                 let longTapGest = LongPressGesture(target: self, action: #selector(mainHomeViewController.longTap(_:)))
                                 
                                // cell.addGestureRecognizer(longTapGest)
-                                cell.deletplanButton.tag = 1000+imageUrlArray.count-1 - (indexPath.row)//indexPath.row
+                                cell.deletplanButton.tag = indexPath.row// 1000+imageUrlArray.count-1 - (indexPath.row)//indexPath.row
                                 cell.deletplanButton.addTarget(self, action: #selector(self.deletePlanApiHit(_:)), for: .touchUpInside)
                                 
                                 
@@ -4803,9 +4806,9 @@ extension mainHomeViewController: UICollectionViewDelegate, UICollectionViewData
                         let imageUrlArray = ((countArray.object(at: indx)) as AnyObject).value(forKey: "places") as! NSMutableArray
                         if imageUrlArray.count > 0
                         {
-                         //   print(imageUrlArray)
+                           // print(imageUrlArray)
                             let indexPath = sender.tag%1000
-                          
+                            print(indexPath)
                            // print(imageUrlArray.count - 1 - (indexPath))
                              // print(imageUrlArray.object(at: indexPath))
                             

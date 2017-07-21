@@ -582,7 +582,7 @@ class detailViewController: UIViewController, apiClassDelegate {
             if stCat == "Random" || stCat == "random" {
                 stCat = "Others"
             }
-            newcat2 .add(stCat)
+            newcat2 .add(" \(stCat)")
         }
         
         
@@ -1149,7 +1149,8 @@ class detailViewController: UIViewController, apiClassDelegate {
     ///////////////----- open the zoom image view
     
     
-    func openZoomView() -> Void {
+    func openZoomView() -> Void
+    {
         
         self.zoomScrollView.minimumZoomScale = 1.0
         self.zoomScrollView.maximumZoomScale = 5.0
@@ -1793,11 +1794,11 @@ class detailViewController: UIViewController, apiClassDelegate {
         
         
         
-      //  let nxtObj2 = self.storyboard?.instantiateViewController(withIdentifier: "imageEditViewController") as! imageEditViewController
+    let nxtObj2 = self.storyboard?.instantiateViewController(withIdentifier: "EditPostViewController") as! EditPostViewController
         
-        //nxtObj2.screenName = "Detail/Feed"
+    nxtObj2.screenName = "Detail/Feed"
         
-       // print(self.arrayOfimages1[self.tableIndex])
+        //print(self.arrayOfimages1[self.tableIndex])
         
         
         
@@ -1829,7 +1830,7 @@ class detailViewController: UIViewController, apiClassDelegate {
         
         
         print(dictionaryToEditdata)
-       // nxtObj2.dataDictionary = dictionaryToEditdata
+        nxtObj2.dataDictionary = dictionaryToEditdata
         
 
         
@@ -1837,7 +1838,7 @@ class detailViewController: UIViewController, apiClassDelegate {
         
         
         
-        // self.navigationController! .pushViewController(nxtObj2, animated: true)
+         self.navigationController! .pushViewController(nxtObj2, animated: true)
         
         
               

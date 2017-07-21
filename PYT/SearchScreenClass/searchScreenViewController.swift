@@ -970,7 +970,7 @@ class searchScreenViewController: UIViewController, UINavigationControllerDelega
         
         print("Search bar did begin editing method called")
         
-        if  arrayOfIntrest.count == 5 {
+      /*  if  arrayOfIntrest.count == 5 {
             
             
             // search_Bar.resignFirstResponder()
@@ -990,9 +990,9 @@ class searchScreenViewController: UIViewController, UINavigationControllerDelega
             // IQKeyboardManager.sharedManager().enable=false
             
             
-        }
-        else
-        {
+        } */
+      //  else
+      //  {
             
             
             locationAutoPrompt="Empty"
@@ -1043,7 +1043,7 @@ class searchScreenViewController: UIViewController, UINavigationControllerDelega
             
             
             
-        }
+       // }
         
         
         
@@ -1403,13 +1403,15 @@ class searchScreenViewController: UIViewController, UINavigationControllerDelega
                                 
                                 let anyObj: Any = try JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.mutableContainers)
                                 
+                              //  let result = NSString(data: data!, encoding:String.Encoding.ascii.rawValue)!
+                                //print("Body: \(result)")
                                 
                                 jsonResult = NSDictionary()
                                 jsonResult = anyObj as! NSDictionary
                                 let status = jsonResult .value(forKey: "status") as! NSNumber
                                 
-                                if status == 1{
-                                    
+                                if status == 1
+                                {
                                     
                                     self.promptArray.removeAllObjects()
                                     self.autoPromptTable .reloadData()
@@ -1914,6 +1916,23 @@ class searchScreenViewController: UIViewController, UINavigationControllerDelega
                     
                     
                 }
+                else
+                {
+                  
+                    if buttonPressedTag <= self.arrayOfIntrest.count-1 {
+                        self.arrayOfIntrest.removeObject(at: buttonPressedTag)
+                        self.arrayOfIntrest.insert(dict, at: buttonPressedTag)
+                    }
+                    UserDefaults.standard.set(arrayOfIntrest, forKey: "arrayOfIntrest")
+                    selectedindxSearch=0
+                    
+                    for i in 0..<self.arrayOfIntrest.count
+                    {
+                        self.setLocationInButtons(btnTag: i)
+                    }
+                    
+                    
+                }
                 
                 
                 //hide if there are 5 locations in the array
@@ -2236,25 +2255,12 @@ class searchScreenViewController: UIViewController, UINavigationControllerDelega
                         
                         
                         
-                        
                     } catch {
                         print("json error: \(error)")
                         
-                        
-                        
-                        
-                        
                     }
                     
-                    
-                    
-                    
                 }
-                
-                
-                
-                
-                
                 
                 
             }
