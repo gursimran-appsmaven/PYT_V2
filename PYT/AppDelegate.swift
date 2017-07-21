@@ -158,19 +158,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate
         //MARK: Auto loging into app
         
         
-        /*
-         let tabledata = defaults.arrayForKey("arrayOfIntrest")
-         if let name = defaults.stringForKey("userLoginId") // check user login id
+        
+         let tabledata = Udefaults.array(forKey: "arrayOfIntrest")
+         if let name = Udefaults.string(forKey: "userLoginId") // check user login id
          {
          print(name)
          
          
-         
-         
-         
-         
-         
-         
+            
          if name == ""  //if fbaccesstoken is empty check instagram token
          {
          
@@ -188,28 +183,26 @@ class AppDelegate: UIResponder, UIApplicationDelegate
          else
          {
          
-         SocketIOManager.sharedInstance.establishConnection()
+//         SocketIOManager.sharedInstance.establishConnection()
          
-         if tabledata?.count<1 {
+         if (tabledata?.count)!<1
+         {
          
-         
-         
-         
-         
+                 
          // if not select any intrest show intrest screen
          
-         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, Int64(0 * NSEC_PER_SEC)), dispatch_get_main_queue(), {() -> Void in
+       //  dispatch_after(dispatch_time(DISPATCH_TIME_NOW, Int64(0 * NSEC_PER_SEC)), dispatch_get_main_queue(), {() -> Void in
          
          
-         let storyboard=UIStoryboard(name: "Main", bundle: NSBundle.mainBundle())
-         let joinObj=storyboard.instantiateViewControllerWithIdentifier("firstMainScreenViewController") as! firstMainScreenViewController
+         let storyboard=UIStoryboard(name: "Main", bundle: Bundle.main)
+         let joinObj=storyboard.instantiateViewController(withIdentifier: "searchScreenViewController") as! searchScreenViewController
          let navigationController=self.window?.rootViewController as! UINavigationController
-         navigationController.navigationBar.hidden=true
+         navigationController.navigationBar.isHidden=true
          navigationController.setViewControllers([joinObj], animated: true)
          
          
          
-         })
+        // })
          
          
          
@@ -217,117 +210,23 @@ class AppDelegate: UIResponder, UIApplicationDelegate
          else
          {
          
-         
-         
-         if  let uId = defaults .stringForKey("userLoginId"){
-         print(uId)
-         if uId != "" {
-         
-         let userName = defaults .stringForKey("userLoginName")!
-         
-         
-         Crashlytics.sharedInstance().setUserIdentifier(uId)
-         Crashlytics.sharedInstance().setUserName(userName as String)
-         
-         
-         let tagsArr: NSMutableArray = defaults.mutableArrayValueForKey("categoriesFromWeb")
-         
-         if tagsArr.count<1 {
-         apiClass.sharedInstance().postRequestCategories(uId)
-         }
+            let initialViewController = storyboard.instantiateViewController(withIdentifier: "MainTabBarViewController")
+            
+            
+            self.window?.rootViewController = initialViewController
+            self.window?.makeKeyAndVisible()
          
          
          
-         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, Int64(5 * NSEC_PER_SEC)), dispatch_get_main_queue(), {() -> Void in
-         
-         apiClass.sharedInstance().postRequestCategories(uId)
-         
-         })
-         
-         
-         
-         
-         
-         
-         
-         
-         
-         
-         let objt = storyCountClass()
-         let objt2 = UserProfileDetailClass()
-         ///story count
-         // dispatch_async(dispatch_get_global_queue(QOS_CLASS_BACKGROUND, 0), {
-         //dispatch_async(dispatch_get_main_queue(), {
-         print("This is run on the background queue")
-         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, Int64(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), {() -> Void in
-         let dic:NSDictionary = ["userId": uId]
-         objt.postRequestForcountStory(dic)
-         
-         // dispatch_async(dispatch_get_main_queue(), {
-         
-         // })
-         
-         
-         
-         ///User profile
-         //dispatch_async(dispatch_get_global_queue(QOS_CLASS_BACKGROUND, 0), {
-         objt2.postRequestForGetTheUserProfileData(uId)
-         // })
-         })
-         
-         
-         
-         
+//         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, Int64(5 * NSEC_PER_SEC)), dispatch_get_main_queue(), {() -> Void in
+//         
+//         apiClass.sharedInstance().postRequestCategories(uId)
+//         
+//         })
          
          }
          
-         else
-         {
-         
          }
-         
-         
-         
-         
-         }
-         
-         
-         
-         
-         
-         
-         //MARK: Notification Section
-         
-         
-         if let option = launchOptions {
-         
-         
-         
-         
-         let info = launchOptions![UIApplicationLaunchOptionsRemoteNotificationKey]
-         if (info != nil) {
-         
-         
-         let initialViewController = storyboard.instantiateViewControllerWithIdentifier("MainTabBarViewController") as! MainTabBarViewController
-         
-         self.window?.rootViewController = initialViewController
-         self.window?.makeKeyAndVisible()
-         
-         initialViewController.selectedIndex = 3
-         
-         //navController.pushViewController(myViewController, animated: true)
-         
-         
-         application.applicationIconBadgeNumber = 0
-         
-         
-         
-         }
-         //}
-         
-         
-         
-         
          
          
          }
@@ -341,26 +240,26 @@ class AppDelegate: UIResponder, UIApplicationDelegate
          //                        navigationController.setViewControllers([joinObj], animated: true)
          //
          
-         let initialViewController = storyboard.instantiateViewControllerWithIdentifier("MainTabBarViewController")
+//         let initialViewController = storyboard.instantiateViewController(withIdentifier: "MainTabBarViewController")
+//         
+//         
+//         self.window?.rootViewController = initialViewController
+//         self.window?.makeKeyAndVisible()
          
          
-         self.window?.rootViewController = initialViewController
-         self.window?.makeKeyAndVisible()
-         
-         
-         
-         
-         
-         }
          
          
          
          }
          
-         }
-         }
          
-         */
+         
+        
+         
+    
+
+         
+ 
         
         
         
@@ -391,16 +290,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate
                     apiClass.sharedInstance().postRequestCategories(parameterString: uId)
                     
                 }
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
+                                
                                 let objt = storyCountClass()
                                // let objt2 = UserProfileDetailClass()
                                 ///story count
@@ -421,7 +311,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate
                 
                 
                 
-            }}
+            }
+        
+        }
+        else{
+            
+        }
         
         
         

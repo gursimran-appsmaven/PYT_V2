@@ -134,6 +134,7 @@ class TravelPlansListVC: UIViewController {
      
         let obj = self.storyboard?.instantiateViewController(withIdentifier: "FinalTravelPlanVC") as! FinalTravelPlanVC
         obj.countryId = (plansArray.object(at: indexPath.row) as AnyObject).value(forKey:"countryId") as! String
+        obj.backBool = true
         obj.bookingIdFinal = (plansArray.object(at: indexPath.row) as AnyObject).value(forKey:"_id") as! String
 
         self.navigationController! .pushViewController(obj, animated: true)

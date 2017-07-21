@@ -146,7 +146,14 @@ class PostScreenViewController: UIViewController, UIImagePickerControllerDelegat
         }
         else
         {
-        let str = (postArray.value(forKey: "displayName") as! NSArray).componentsJoined(by: ",")
+//        let str = (postArray.value(forKey: "displayName") as! NSArray).componentsJoined(by: ",")
+            let catAr = NSMutableArray()
+            let arrInter = postArray.value(forKey: "displayName") as! NSArray
+            for j in 0..<arrInter.count {
+                let catName = arrInter.object(at: j) as? String ?? ""
+                catAr .add(" \(catName)")
+            }
+            let str = catAr.componentsJoined(by: ",")
             interestLabel.text = str
             
         }

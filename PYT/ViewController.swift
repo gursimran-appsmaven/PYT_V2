@@ -85,13 +85,13 @@ class ViewController: UIViewController, apiClassDelegate , UIScrollViewDelegate,
         //MARK:
         
        
-        Udefaults.set(true, forKey: "tutorialLaunch")
         
         
-        let n: Int! = self.navigationController?.viewControllers.count //check the count of controllers for show the tutorials
-        if n == 1 {
-            Udefaults.set(false, forKey: "tutorialLaunch")
-        }
+        
+        //let n: Int! = self.navigationController?.viewControllers.count //check the count of controllers for show the tutorials
+//        if n == 1 {
+//            Udefaults.set(true, forKey: "tutorialLaunch")
+//        }
         
         let firstLaunch = Udefaults.bool(forKey: "tutorialLaunch")
         whiteView.isHidden = true
@@ -207,6 +207,7 @@ class ViewController: UIViewController, apiClassDelegate , UIScrollViewDelegate,
             
         else
         {
+            
             IQKeyboardManager.shared().isEnableAutoToolbar=true
             apiClass.sharedInstance().delegate=self
             
@@ -217,18 +218,44 @@ class ViewController: UIViewController, apiClassDelegate , UIScrollViewDelegate,
                 
                 if name == ""  //if fbaccesstoken is empty check instagram token
                 {
-                    if let name2 = Udefaults.string(forKey: "instagramAccessToken")
-                    {
-                        self.accessToken = name2
-                    }
                 }
-                else
+                /*else
                 {
                     self.accessToken = name
-                }
+                    
+                        //move inside the app
+                        /////////////////---------- Start function -------////////
+                        
+                        let tabledata = Udefaults.array(forKey: "arrayOfIntrest")
+                        
+                        SocketIOManager.sharedInstance.establishConnection()
+                        
+                        if (tabledata?.count)! < 1
+                        {
+                            let nxtObj = self.storyboard?.instantiateViewController(withIdentifier: "searchScreenViewController") as! searchScreenViewController
+                            
+                            self.navigationController?.pushViewController(nxtObj, animated: true)
+                        }
+                        else
+                        {
+                            let nxtObj = self.storyboard?.instantiateViewController(withIdentifier: "MainTabBarViewController") as! MainTabBarViewController
+                            
+                            self.navigationController?.pushViewController(nxtObj, animated: true)
+                        }
+                        
+                    
+                    
+                    ///////////////////-------------- End funct---------////////
+                    
+                } */
+            }
+           
+                
+                
             }
             
-        }
+            
+        
         
 //        emailTextField.text = "test@gmail.com"
 //        passwordTextField.text = "1234"
@@ -312,7 +339,7 @@ class ViewController: UIViewController, apiClassDelegate , UIScrollViewDelegate,
         }, completion: {(finished: Bool) -> Void in
             self.whiteView.removeFromSuperview()
             
-             Udefaults.set(true, forKey: "tutorialLaunch")//uncomment this
+             Udefaults.set(true, forKey: "tutorialLaunch")
             
             // self.viewDidLoad() //uncomment this
         })

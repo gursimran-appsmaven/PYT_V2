@@ -83,14 +83,13 @@ class intrestViewController: UIViewController, apiClassInterestDelegate ,UITable
         
         //DispatchQueue.main.async(execute: {
             self.navigationController! .pushViewController(nxtObj, animated: true)
-           // self.dismiss(animated: true, completion: {})
+            self.dismiss(animated: true, completion: {})
         //})
         
     }
     
     override func viewWillAppear(_ animated: Bool)
     {
-        
         self.tabBarController?.tabBar.isHidden = false
          //self.tabBarController?.setTabBarVisible(visible: true, animated: true)
         
@@ -179,8 +178,21 @@ class intrestViewController: UIViewController, apiClassInterestDelegate ,UITable
                         
                         
                     }
-                    else{
+                    else
+                    {
+//                      let boolFirstTime = Udefaults.bool(forKey: "comesfrominterest")
+//                        if boolFirstTime {
+//                            Udefaults.set(true, forKey: "refreshInterest")
+//                            Udefaults .synchronize()
+//                            Udefaults.set(false, forKey: "comesfrominterest")
+//                            self.dismiss(animated: true, completion: { _ in })
+//                            self.tabBarController?.selectedIndex = 0
+//                        }
+//                        else
+//                        {
+                       // Udefaults.set(false, forKey: "comesfrominterest")
                         self.chooseInterestAction(self)
+                        //}
                     }
                 }
 
@@ -1203,13 +1215,8 @@ class intrestViewController: UIViewController, apiClassInterestDelegate ,UITable
                 arrayData .add(mutableDic)
                 
             }
-            
-            
-            
-          //  print(arrayData)
-            
-           
-            
+            //  print(arrayData)
+        
             let nxtObj2 = self.storyboard?.instantiateViewController(withIdentifier: "detailViewController") as! detailViewController
             nxtObj2.arrayWithData=arrayData
             nxtObj2.fromStory=false
@@ -1221,10 +1228,6 @@ class intrestViewController: UIViewController, apiClassInterestDelegate ,UITable
                 self.navigationController! .pushViewController(nxtObj2, animated: true)
                 self.appearBool=true
             })
-            
-            
-        
-        
         
         
     }

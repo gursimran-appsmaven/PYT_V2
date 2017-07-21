@@ -116,7 +116,7 @@ class UploadedImagesVC: UIViewController,UICollectionViewDataSource,UICollection
             let month = components.month
             let day = components.day
             
-            print(year)
+            print(year!)
             print(month)
             print(day)
             
@@ -124,7 +124,7 @@ class UploadedImagesVC: UIViewController,UICollectionViewDataSource,UICollection
             let yearCheck = (calendar as NSCalendar).component(.year, from: todayDate)
             
             if year != yearCheck {
-                goodDate = String(describing: year)
+                goodDate = String(describing: year!)
             }
             
             

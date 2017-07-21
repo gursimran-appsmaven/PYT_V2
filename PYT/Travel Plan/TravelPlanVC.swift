@@ -848,6 +848,7 @@ class TravelPlanVC: UIViewController ,UITableViewDataSource,UITableViewDelegate,
         let obj = self.storyboard?.instantiateViewController(withIdentifier: "FinalTravelPlanVC") as! FinalTravelPlanVC
         obj.countryId = countryId
         obj.bookingIdFinal = self.bookingIdFinal
+        obj.backBool = false
         self.navigationController! .pushViewController(obj, animated: true)
 
     }

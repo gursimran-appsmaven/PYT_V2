@@ -14,7 +14,7 @@ class FinalTravelPlanVC: UIViewController {
 
     var countryId = String()
     var bookingIdFinal = String()
-
+    var backBool = Bool()
     var locationsArray = NSMutableArray()
     @IBOutlet weak var topGradient: GradientView!
     
@@ -50,6 +50,16 @@ class FinalTravelPlanVC: UIViewController {
     }
     override func viewWillAppear(_ animated: Bool) {
         getPlanDetails()
+        
+        //Manage back button action from feed and profile screen
+        if backBool == true {
+            //back button will move to travel plan of profile
+        }
+        else{
+            //home button will go to feed screen
+        }
+        
+        
     }
     override func viewDidDisappear(_ animated: Bool) {
 //        timer.invalidate()
@@ -107,7 +117,17 @@ class FinalTravelPlanVC: UIViewController {
     
     @IBAction func backButtonAction(sender: AnyObject) {
         
-        self.navigationController! .popViewController(animated: true)
+        //Manage back button action from feed and profile screen
+        if backBool == true {
+            //back button will move to travel plan of profile
+             self.navigationController! .popViewController(animated: true)
+        }
+        else{
+            //home button will go to feed screen
+            let viewControllers: [UIViewController] = self.navigationController!.viewControllers as [UIViewController]
+            self.navigationController!.popToViewController(viewControllers[viewControllers.count - 3], animated: true)
+        }
+       
         
     }
     

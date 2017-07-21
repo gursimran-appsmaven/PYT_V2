@@ -18,6 +18,11 @@ class ChooseInterestVC: UIViewController , UICollectionViewDelegate,UICollection
     var categId = NSMutableArray()
     var tagsArr:NSMutableArray = [] //
     var checked = NSMutableArray()
+    
+    var tempChecked = NSMutableArray()
+    var tempCategId = NSMutableArray()
+     var boolFirstTime = Udefaults.bool(forKey: "InterestFirstTime")
+    
     @IBOutlet weak var categoryCollectionView: UICollectionView!
     
     override func viewDidLoad() {
@@ -69,6 +74,17 @@ class ChooseInterestVC: UIViewController , UICollectionViewDelegate,UICollection
         }
             
         else{
+            
+            
+           
+            
+           // if boolFirstTime
+           // {
+                tempCategId = categId.mutableCopy() as! NSMutableArray
+                tempChecked = checked.mutableCopy() as! NSMutableArray
+          //  }
+           
+            
             
 //                DispatchQueue.main.async(execute: {
 //                    
@@ -143,7 +159,7 @@ class ChooseInterestVC: UIViewController , UICollectionViewDelegate,UICollection
         Udefaults .setValue(checked, forKey: "Interests")
         Udefaults .setValue(categId, forKey: "IntrestsId")
           Udefaults.set(true, forKey: "refreshInterest")
-
+            Udefaults.set(true, forKey: "InterestFirstTime")
          self.navigationController?.popViewController(animated: true)
     }
             
@@ -166,15 +182,42 @@ class ChooseInterestVC: UIViewController , UICollectionViewDelegate,UICollection
         }
         else
         {
-        
-    if checked.count<1
-    {
-        CommonFunctionsClass.sharedInstance().showAlert(title: "Opps!", text: "Please select minimum one interest.", imageName: "exclamationAlert")
-        
-        }
-    else{
-        self.navigationController?.popViewController(animated: true)
-        }
+     
+          //  if boolFirstTime
+           // {
+                categId = tempCategId
+                checked = tempChecked
+                
+                if checked.count<1
+                {
+                    CommonFunctionsClass.sharedInstance().showAlert(title: "Opps!", text: "Please select minimum one interest.", imageName: "exclamationAlert")
+                    
+                }
+                    
+                else
+                {
+                    Udefaults.set(false, forKey: "InterestFirstTime")
+                    
+                    self.navigationController?.popViewController(animated: true)
+                }
+
+          //  }
+                
+//            else
+//            {
+//              //  Udefaults.set(true, forKey: "refreshInterest")
+//                //Udefaults.set(true, forKey: "comesfrominterest")
+//               // self.tabBarController?.tabBar.isHidden = false
+//                 DispatchQueue.main.async(execute: {
+//                self.navigationController?.popViewController(animated: true)//?.viewWillAppear(true)
+//                    self.dismiss(animated: true, completion: { _ in })
+//                 })
+//               
+//                
+//                
+//            }
+            
+    
         }
         
     }
@@ -303,7 +346,8 @@ class ChooseInterestVC: UIViewController , UICollectionViewDelegate,UICollection
         //interest screen
         else
         {
-        
+            
+            
         if categId .contains((tagsArr .object(at: indexPath.row) as AnyObject).value(forKey: "_id") as! String)
         {
             

@@ -148,7 +148,16 @@ class EditPostViewController: UIViewController, UISearchBarDelegate, UITableView
         }
         else
         {
-            let str = (postArray.value(forKey: "displayName") as! NSArray).componentsJoined(by: ",")
+            //let str = (postArray.value(forKey: "displayName") as! NSArray).componentsJoined(by: ",")
+            let catAr = NSMutableArray()
+            let arrInter = postArray.value(forKey: "displayName") as! NSArray
+            for j in 0..<arrInter.count {
+                let catName = arrInter.object(at: j) as? String ?? ""
+                catAr .add(" \(catName)")
+            }
+            let str = catAr.componentsJoined(by: ",")
+            
+            
             interestLabel.text = str
         }
         
@@ -1022,12 +1031,34 @@ class EditPostViewController: UIViewController, UISearchBarDelegate, UITableView
     //MARK: Back Button Action
       @IBAction func backBtnAction(_ sender: AnyObject)
       {
-        if(self.screenName == "Interest"){
+        let allViewController: [UIViewController] = self.navigationController!.viewControllers as [UIViewController]
         
+        if(self.screenName == "Interest")
+        {
+        self.navigationController?.popViewController(animated: true)
+        }
+            
+        else if(self.screenName == "Feed")
+        {
+              self.navigationController?.popViewController(animated: true)
+        }
+            
+        else if(self.screenName == "Detail/Feed")
+        {
+            for aviewcontroller : UIViewController in allViewController
+            {
+                if aviewcontroller .isKind(of: mainHomeViewController.self)
+                {
+                    self.navigationController?.popToViewController(aviewcontroller, animated: true)
+                }
+            }
         }
         
+        else
+            {
+                self.navigationController?.popViewController(animated: true)
+            }
         
-        self.navigationController?.popViewController(animated: true)
       }
     
     
