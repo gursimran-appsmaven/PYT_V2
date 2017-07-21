@@ -243,7 +243,7 @@ class TravelPlanVC: UIViewController ,UITableViewDataSource,UITableViewDelegate,
         cell.llocationImage.contentMode = .scaleAspectFill
         cell.llocationImage.focusOnFaces = true
         DispatchQueue.main.async(execute: {
-            cell.llocationImage.sd_setImage(with: URL (string: imageUrl), placeholderImage: UIImage (named: "dummyBackground1"))
+            cell.llocationImage.sd_setImage(with: URL (string: imageUrl), placeholderImage: UIImage (named: "dummyBackground1"),options: .refreshCached)
             cell.setNeedsLayout()
             cell.setNeedsDisplay()
             print(imageUrl)
@@ -270,7 +270,8 @@ class TravelPlanVC: UIViewController ,UITableViewDataSource,UITableViewDelegate,
         cell.llocationImage.contentMode = .scaleAspectFill
         cell.llocationImage.focusOnFaces = true
         DispatchQueue.main.async(execute: {
-            cell.llocationImage.image = nil
+            cell.llocationImage.sd_cancelCurrentImageLoad()
+//            cell.llocationImage.image = nil
         })
         
 

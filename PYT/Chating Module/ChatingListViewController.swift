@@ -268,7 +268,7 @@ class ChatingListViewController: UIViewController {
     
 //    
 //    func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool 
-    {
+//    {
 //        
 //            return false//true
 //        
