@@ -59,7 +59,7 @@ class ProfileVC: UIViewController,UITableViewDelegate,UITableViewDataSource,UICo
         
         
         
-        self.postApiToGetPYTUserPhotosDetail(prm, urlToSend: "get_images_for_profile")
+        self.postApiToGetPYTUserPhotosDetail(prm, urlToSend: "get_images_for_profile_V3")
         
         
         
@@ -408,15 +408,15 @@ class ProfileVC: UIViewController,UITableViewDelegate,UITableViewDataSource,UICo
         
             if source == "FACEBOOK"
             {
-                prmtr = "userId=\(uId)&status=2" // Facebook
+                prmtr = "2"//"userId=\(uId)&status=2&skip=0" // Facebook
             }
             else if(source == "PYT" )
             {
-                prmtr = "userId=\(uId)&status=4" // Pyt
+                prmtr = "4"//"userId=\(uId)&status=4&skip=0" // Pyt
             }
             else
             {
-                prmtr = "userId=\(uId)&status=3" //Instagram
+                prmtr = "3"//"userId=\(uId)&status=3&skip=0" //Instagram
             }
         
         let obj = self.storyboard?.instantiateViewController(withIdentifier: "UploadedImagesVC") as! UploadedImagesVC
@@ -427,7 +427,7 @@ class ProfileVC: UIViewController,UITableViewDelegate,UITableViewDataSource,UICo
 //            obj.urlload="get_images_of_friend"
 //        }
 //        else{
-            obj.urlload="get_images_for_profile"
+            obj.urlload="get_images_for_profile_V3"//"get_images_for_profile"
         //}
         
         obj.username = nameTF.text!

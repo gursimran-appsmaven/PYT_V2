@@ -399,7 +399,7 @@ class mainHomeViewController: UIViewController, SDWebImageManagerDelegate, apiCl
     override func viewDidLoad()
     {
         super.viewDidLoad()
-        Udefaults.set(false, forKey: "comesfrominterest")
+       // Udefaults.set(false, forKey: "comesfrominterest")
         PlanDeleteBool = true
         self.navigationController?.isNavigationBarHidden=true
         

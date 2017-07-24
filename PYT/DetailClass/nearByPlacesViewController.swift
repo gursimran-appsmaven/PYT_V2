@@ -95,7 +95,7 @@ class nearByPlacesViewController: UIViewController {
         
         let quary = newDetail .value(forKey: "name") as! String
         let location = newDetail .value(forKey: "placeName") as! String //"chandigarh"
-       
+       headerLabel.text = location
         // let imageId = newDetail.valueForKey("imageId") as! String
         
         let parameter = "https://api.foursquare.com/v2/venues/search?intent=browse&limit=1&client_id=DAKFO3TURLDTUL33JNPRTIGX03NMZM2ACCDWC2HHHZTV2YMT&client_secret=ILF0G3U4DRSC0WDW2EH12SFGTOKIWSKFUIOXV4FFEQOIB34B&v=20140203&near=\(location)&query=\(quary)"

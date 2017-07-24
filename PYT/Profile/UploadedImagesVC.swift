@@ -19,7 +19,9 @@ class UploadedImagesVC: UIViewController,UICollectionViewDataSource,UICollection
     var username = String()
     var indexselectRow = Int()
     var indexSelectSection = Int()
-    
+    var MoreCount = Int()
+    var moreShow=Bool()
+    var agianHit = Bool()
     
     @IBOutlet weak var countLabel: CustomLabel!
     @IBOutlet weak var totalPhotosCollectionView: UICollectionView!
@@ -31,21 +33,29 @@ class UploadedImagesVC: UIViewController,UICollectionViewDataSource,UICollection
     @IBOutlet var zoomView: UIView!
     @IBOutlet var zoomimageView: UIImageView!
     @IBOutlet weak var zoomIndicator: UIActivityIndicatorView!
-    
+     let uId = Udefaults .string(forKey: "userLoginId")!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        MoreCount = 0
         self.tabBarController?.tabBar.isHidden = true
         //self.tabBarController?.setTabBarVisible(visible: false, animated: true)
 
         // Do any additional setup after loading the view.
         
         print(parameters)
+        
+      //  let newPrm = "userId=\(uId)&\(parameters)&skip=0"
+        
         imagesIndicator.isHidden=false
         imagesIndicator.startAnimating()
         self.countLabel.text = countStrText as String
         headerName.text = username
-        self.getAllPhotos(parameters, urlToLoad: urlload)
+        
+        let ParamDict: NSDictionary=["userId":uId, "status": parameters, "skip":0]
+        print(ParamDict)
+        self.getAllPhotos(ParamDict, urlToLoad: urlload)
+        //self.getAllPhotos(newPrm as NSString, urlToLoad: urlload)
         
         
         
@@ -65,6 +75,9 @@ class UploadedImagesVC: UIViewController,UICollectionViewDataSource,UICollection
     // MARK: - UICollectionViewDataSource
     
     func numberOfSections(in collectionView: UICollectionView) -> Int{
+        if moreShow == true {
+            return photosArray.count + 1
+        }
         return photosArray.count
     }
     
@@ -72,8 +85,12 @@ class UploadedImagesVC: UIViewController,UICollectionViewDataSource,UICollection
     func collectionView(_ collectionView: UICollectionView,
                         numberOfItemsInSection section: Int) -> Int {
         
-        let countAr = (photosArray.object(at: section) as AnyObject).value(forKey: "photos") as! NSMutableArray
         
+        if section == photosArray.count  {
+            return 1
+        }
+        let countAr = (photosArray.object(at: section) as AnyObject).value(forKey: "photos") as! NSMutableArray
+       
         return countAr.count //(photosArray.object(at: section) as AnyObject).value(forKey: "photos")!.count
     }
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
@@ -82,7 +99,13 @@ class UploadedImagesVC: UIViewController,UICollectionViewDataSource,UICollection
             let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionElementKindSectionHeader, withReuseIdentifier: "ImagesHeader", for: indexPath) as! ImagesHeader
             //var title = "Recipe Group #\(indexPath.section + 1)"
             
-            let date = (photosArray.object(at: indexPath.section) as AnyObject).value(forKey: "_id") as? String ?? "NA"
+            if indexPath.section == photosArray.count {
+               reusableview = headerView
+            }
+            else{
+                
+            
+            let date = ((photosArray.object(at: indexPath.section) as AnyObject).value(forKey: "_id") as AnyObject).value(forKey: "date") as? String ?? "NA"
             
             
             // change to your date format
@@ -106,10 +129,7 @@ class UploadedImagesVC: UIViewController,UICollectionViewDataSource,UICollection
                 goodDate = "Today"
             }
             
-            
-            
-            
-            
+                
             let components = (calendar as NSCalendar).components([.day , .month , .year], from: date2!)
             
             let year =  components.year
@@ -117,8 +137,8 @@ class UploadedImagesVC: UIViewController,UICollectionViewDataSource,UICollection
             let day = components.day
             
             print(year!)
-            print(month)
-            print(day)
+          //  print(month)
+           // print(day)
             
             let todayDate = Date()
             let yearCheck = (calendar as NSCalendar).component(.year, from: todayDate)
@@ -127,28 +147,94 @@ class UploadedImagesVC: UIViewController,UICollectionViewDataSource,UICollection
                 goodDate = String(describing: year!)
             }
             
-            
-            
-            
-            
+                var location = NSString()
+                var stateArr = NSArray()
+                var countryArr = NSArray()
+            var cityArr = (photosArray.object(at: indexPath.section) as AnyObject).value(forKey: "city") as! NSArray
+                if cityArr.count<1 {
+                    stateArr = (photosArray.object(at: indexPath.section) as AnyObject).value(forKey: "state") as! NSArray
+                    if stateArr.count<1 {
+                        countryArr = (photosArray.object(at: indexPath.section) as AnyObject).value(forKey: "country") as! NSArray
+                        if countryArr.count<1 {
+                            //set nil in the location
+                            location = "NA"
+                        }
+                        else{
+                            //set the country in the location
+                           let location2 = (countryArr.object(at: 0) as AnyObject) .value(forKey: "fullName") as? String ?? ""
+                            location = location2 as NSString
+                        }
+                        
+                    }
+                    else{
+                        //set the state in the location
+                        let location2 = (stateArr.object(at: 0) as AnyObject) .value(forKey: "fullName") as? String ?? ""
+                        location = location2 as NSString
+                    }
+                }
+                else{
+                    //set the city in the location
+                    let location2 = (cityArr.object(at: 0) as AnyObject) .value(forKey: "fullName") as? String ?? ""
+                    location = location2 as NSString
+                }
+                
+                
+                
+                headerView.locationLabel.text = location as String
             
             headerView.dateLbl.text = goodDate
+                
+                
+                
+                
             //  var headerImage = UIImage(named: "header_banner.png")!
             // headerView.backgroundImage!.image = headerImage
             reusableview = headerView
+                
+            
+        }
+        
         }
         
         return reusableview!
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize
     {
-        
+        if indexPath.section == photosArray.count {
+            let width1 = collectionView.frame.size.width   //1.8
+            return CGSize(width: width1,height: 60 )
+        }
         
         let width1 = collectionView.frame.size.width/3.03   //1.8
         
         return CGSize(width: width1,height: width1 )
     }
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        
+        if indexPath.section == photosArray.count {
+            
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "MoreImages", for: indexPath) as! showMoreImg
+            
+            cell.loadMoreIndicator.startAnimating()
+            cell.loadMoreIndicator.isHidden = false
+            
+            let ParamDict: NSDictionary=["userId":uId, "status": parameters, "skip":photosArray.count]
+            print(ParamDict)
+            if agianHit == false
+            {
+                agianHit = true
+                 self.getAllPhotos(ParamDict, urlToLoad: urlload)
+            }
+           
+            
+            return cell
+            
+            
+        }
+        
+        
+        // normal cell will load
+        
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Images", for: indexPath) as! Images
         
         //cell.imageView.backgroundColor = UIColor.redColor()
@@ -386,7 +472,7 @@ class UploadedImagesVC: UIViewController,UICollectionViewDataSource,UICollection
     
     //MARK: Get the photos of selected category// facebook, instagram, pyt
     
-    func getAllPhotos(_ parmString: NSString, urlToLoad: NSString) {
+    func getAllPhotos(_ parmString: NSDictionary, urlToLoad: NSString) {
         
         let isConnectedInternet = CommonFunctionsClass.sharedInstance().isConnectedToNetwork()
         
@@ -396,8 +482,19 @@ class UploadedImagesVC: UIViewController,UICollectionViewDataSource,UICollection
             
             
             request.httpMethod = "POST"
-            let postString = parmString
-            request.httpBody = postString.data(using: String.Encoding.utf8.rawValue)
+            request.cachePolicy = NSURLRequest.CachePolicy.reloadIgnoringCacheData
+            do {
+                let jsonData = try!  JSONSerialization.data(withJSONObject: parmString, options: [])
+                request.httpBody = jsonData
+                
+                
+                // here "jsonData" is the dictionary encoded in JSON data
+            } catch let error as NSError {
+                print(error)
+            }
+            request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+            request.addValue("application/json", forHTTPHeaderField: "Accept")
+            
            let task = URLSession.shared.dataTask(with: request as URLRequest) { data, response, error in
                 guard error == nil && data != nil else {                                                          // check for fundamental networking error
                     //print("error=\(error)")
@@ -428,10 +525,21 @@ class UploadedImagesVC: UIViewController,UICollectionViewDataSource,UICollection
                         
                         if status == 1{
                             
+                            self.agianHit = false
+                            //self.photosArray = basicInfo.value(forKey: "data") as! NSMutableArray
+                            let newArr = basicInfo.value(forKey: "data") as! NSArray
                             
-                            self.photosArray = basicInfo.value(forKey: "data") as! NSMutableArray
+                            self.photosArray .addObjects(from: newArr as! [Any])
+                            print(self.photosArray.count)
                             
-                            
+                            let moreValue = basicInfo.value(forKey: "more") as! NSNumber
+                            if moreValue == 1{
+                            self.moreShow = true
+                            }
+                            else
+                            {
+                                self.moreShow = false
+                            }
                         }
                         
                         
@@ -508,6 +616,14 @@ class Images: UICollectionViewCell {
     
     
 }
+class showMoreImg : UICollectionViewCell{
+    
+    @IBOutlet weak var loadMoreIndicator: UIActivityIndicatorView!
+    
+}
+
+
+
 class ImagesHeader: UICollectionReusableView {
     @IBOutlet var dateLbl: UILabel!
     @IBOutlet var shareBtn: UIButton!

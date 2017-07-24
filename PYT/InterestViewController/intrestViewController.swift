@@ -782,7 +782,7 @@ class intrestViewController: UIViewController, apiClassInterestDelegate ,UITable
                 gradient.gradientLayer.colors = [UIColor.black.withAlphaComponent(0.75).cgColor, UIColor.clear.cgColor]
                 gradient.gradientLayer.gradient = GradientPoint.bottomTop.draw()
 
-                
+                cell.planButton.tag = 1000*self.segmentControl.selectedSegmentIndex+indexPath.row
              cell.likeBtn.tag=1000*self.segmentControl.selectedSegmentIndex+indexPath.row
              cell.likeBtn.addTarget(self, action: #selector(intrestViewController.LikeTapped(_:)), for: .touchUpInside)
                 
@@ -1292,13 +1292,14 @@ class intrestViewController: UIViewController, apiClassInterestDelegate ,UITable
     
     func loadCount(_ notification: Notification){
         //load data here
-        
+        print(index2)
         let indexPathTable = IndexPath(row: index2, section: 0)
         tableOfIntrests.reloadRows(at: [indexPathTable], with: .none)
+        self.tableOfIntrests .layoutIfNeeded()
         
         if countsDictionary.object(forKey: "bookings") != nil {
             if let stCount = countsDictionary.value(forKey: "bookings"){
-                
+               
                 //self.storyCountLabel.text=String(describing: stCount)
             }
             
@@ -1314,7 +1315,7 @@ class intrestViewController: UIViewController, apiClassInterestDelegate ,UITable
             
         }
         
-        
+        MBProgressHUD .hide(for: self.view, animated: true)
         
         //self.bucketCount.text=bucketListTotalCount
     }
@@ -2522,6 +2523,7 @@ class intrestViewController: UIViewController, apiClassInterestDelegate ,UITable
     
     func addToPlanAction(_ sender: UIButton)
     {
+         MBProgressHUD.showAdded(to: self.view, animated: true)
     
         let a:Int? = (sender.tag) / 1000
         let b:Int? = (sender.tag) % 1000
@@ -2535,32 +2537,170 @@ class intrestViewController: UIViewController, apiClassInterestDelegate ,UITable
         let imageId = (((self.photosArray.object(at: index2) as AnyObject).value(forKey: "photos")! as AnyObject).object(at: 0) as AnyObject).value(forKey: "photoId") as? String ?? ""
       
         
-        if countsDictionary.object(forKey: "bookings") != nil  {
-            
-            let countst = countsDictionary.value(forKey: "bookings") as! NSArray
-            addToPlanPopup.setTitle("Add To Plan", for: .normal)
-            if countst.count>0
-            {
-               // print(countst)
-                if countst.contains(imageId)
-                {
-                    addToPlanPopup.setTitle("Remove From Plan", for: .normal)
-                }
-                
-                
-            }
-        }
+//        if countsDictionary.object(forKey: "bookings") != nil  {
+//            
+//            let countst = countsDictionary.value(forKey: "bookings") as! NSArray
+//            addToPlanPopup.setTitle("Add To Plan", for: .normal)
+//            if countst.count>0
+//            {
+//               // print(countst)
+//                if countst.contains(imageId)
+//                {
+//                    addToPlanPopup.setTitle("Remove From Plan", for: .normal)
+//                }
+//                
+//                
+//            }
+//        }
         
-        self.storyImageTapped()
+      
+        
+        let ownerId = ((((self.photosArray.object(at: index2) as AnyObject).value(forKey: "photos")! as AnyObject).object(at: 0) as AnyObject).value(forKey: "user")as AnyObject).value(forKey: "_id") as? String ?? " "
+        
+        let countryId = (((self.photosArray.object(at: index2) as AnyObject).value(forKey: "photos")! as AnyObject).object(at: 0) as AnyObject).value(forKey: "countryId") as? String ?? " "
+        let countryName = (((self.photosArray.object(at: index2) as AnyObject).value(forKey: "photos")! as AnyObject).object(at: 0) as AnyObject).value(forKey: "country") as? String ?? " "
+        
+        
+        self.detailSelectBtnAction(true)
+        
+        
+        
+        
+        let headerType = UserDefaults.standard.value(forKey: "selectedLocationType") as? String ?? ""
+        
+        let uId = Udefaults .string(forKey: "userLoginId")
+        
+        
+        let placeIds = (countArray.value(forKey: "countryId")) as! NSArray
+        
+        
+        
+        let headerId = UserDefaults.standard.value(forKey: "selectedLocationId") as? String ?? ""
+        let headerText = UserDefaults.standard.value(forKey: "selectedLocation") as? String ?? ""
+        // let nxtObjMain = self.storyboard?.instantiateViewController(withIdentifier: "mainHomeViewController") as! mainHomeViewController
+        
+        
+                if countsDictionary.object(forKey: "bookings") != nil  {
+        
+                    let countst = countsDictionary.value(forKey: "bookings") as! NSArray
+                    
+                    if countst.count>0
+                    {
+                      
+                        if countst.contains(imageId)
+                        {
+                            //Remove plan
+                            let indx = placeIds .index(of: countryId)
+                            let bookingid = ((countArray.object(at: indx)) as AnyObject).value(forKey: "_id") as? String ?? ""
+                            
+                            apiClass.sharedInstance().deleteLocationFromPlan(placeId: imageId as NSString, bookingIdFinal: bookingid as NSString)
+                        }
+                        //add plan
+                        else
+                        {
+                            var dat = NSDictionary()
+                            
+                            
+                            if placeIds.contains(countryId)
+                            {
+                                print("Contains story")
+                                let indx = placeIds .index(of: countryId)
+                                print(indx)
+                                
+                                let bookingid = ((countArray.object(at: indx)) as AnyObject).value(forKey: "_id") as? String ?? ""
+                                
+                                dat = ["userId": "\(uId!)", "imageId": imageId, "countryId": countryId, "countryName": countryName, "imageOwn": ownerId, "bookingId": bookingid ]
+                                
+                            }
+                            else
+                            {
+                                dat = ["userId": "\(uId!)", "imageId": imageId, "countryId": countryId, "countryName": countryName, "imageOwn": ownerId ]
+                            }
+                            
+                            
+                            
+                            // let dat: NSDictionary = ["userId": "\(uId!)", "imageId": imageId, "countryId": headerId, "countryName": headerText, "imageOwn": ownerId ]
+                            
+                            
+                            print("Post parameters to select the images for story--- \(dat)")
+                            self.proceedBtnAction(self)
+                            //add image to story
+                            apiClass.sharedInstance().postRequestWithMultipleImage(parameterString: "", parameters: dat, viewController: self)
+                        }
+                        
+                    }
+                        
+                    else
+                    {
+                        var dat = NSDictionary()
+                        
+                        
+                        if placeIds.contains(countryId)
+                        {
+                            print("Contains story")
+                            let indx = placeIds .index(of: countryId)
+                            print(indx)
+                            
+                            let bookingid = ((countArray.object(at: indx)) as AnyObject).value(forKey: "_id") as? String ?? ""
+                            
+                            dat = ["userId": "\(uId!)", "imageId": imageId, "countryId": countryId, "countryName": countryName, "imageOwn": ownerId, "bookingId": bookingid ]
+                            
+                        }
+                        else
+                        {
+                            dat = ["userId": "\(uId!)", "imageId": imageId, "countryId": countryId, "countryName": countryName, "imageOwn": ownerId ]
+                        }
+                        
+                        
+                        
+                        // let dat: NSDictionary = ["userId": "\(uId!)", "imageId": imageId, "countryId": headerId, "countryName": headerText, "imageOwn": ownerId ]
+                        
+                        
+                        print("Post parameters to select the images for story--- \(dat)")
+                        self.proceedBtnAction(self)
+                        //add image to story
+                        apiClass.sharedInstance().postRequestWithMultipleImage(parameterString: "", parameters: dat, viewController: self)
+                    }
+        
+                }
+                     //if there is no booking yet
+                else
+                {
+                    var dat = NSDictionary()
+                    
+                  
+                        dat = ["userId": "\(uId!)", "imageId": imageId, "countryId": countryId, "countryName": countryName, "imageOwn": ownerId ]
+                    
+                    
+                    print("Post parameters to select the images for story--- \(dat)")
+                    self.proceedBtnAction(self)
+                    //add image to story
+                    apiClass.sharedInstance().postRequestWithMultipleImage(parameterString: "", parameters: dat, viewController: self)
+                }
+        
+        
+     
+        
+            
+        
+        
+        
+        self.tempFunc()
+        
+        
+       // self.storyImageTapped()
         
     }
+    
+    
+    
     
     
     ///story image tapped
     func storyImageTapped()
     {
         // Your action
-        
+        MBProgressHUD.showAdded(to: self.view, animated: true)
         storyBucketBool=true
         
         print("Story image tapped")

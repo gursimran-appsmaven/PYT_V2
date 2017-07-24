@@ -52,10 +52,13 @@ class PlanMapVC: UIViewController,GMSMapViewDelegate {
             var longTemp: Double = 0
            // print(locationsArray.object(at: i))
             if ((locationsArray.object(at: i) as AnyObject).value(forKey: "place") as AnyObject ).value(forKey: "latitude")  != nil {
+                
+                if ((locationsArray.object(at: i) as AnyObject).value(forKey: "place") as AnyObject ).value(forKey: "latitude") as? NSNull != NSNull() {
                
                 latTemp = Double(((locationsArray.object(at: i) as AnyObject).value(forKey:"place")! as AnyObject).value(forKey:"latitude") as! NSNumber)
                 
                 longTemp = Double(((locationsArray.object(at: i) as AnyObject).value(forKey:"place")! as AnyObject).value(forKey:"longitude") as! NSNumber)
+                }
             }
             
             let imgUrl = ((locationsArray.object(at: i) as AnyObject).value(forKey: "place") as AnyObject ).value(forKey: "imageThumb") as? String ?? ""

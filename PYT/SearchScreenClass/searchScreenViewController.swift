@@ -1403,8 +1403,8 @@ class searchScreenViewController: UIViewController, UINavigationControllerDelega
                                 
                                 let anyObj: Any = try JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.mutableContainers)
                                 
-                              //  let result = NSString(data: data!, encoding:String.Encoding.ascii.rawValue)!
-                                //print("Body: \(result)")
+                                let result = NSString(data: data!, encoding:String.Encoding.ascii.rawValue)!
+                                print("Body: \(result)")
                                 
                                 jsonResult = NSDictionary()
                                 jsonResult = anyObj as! NSDictionary

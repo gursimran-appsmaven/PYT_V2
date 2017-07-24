@@ -208,7 +208,7 @@ class detailViewController: UIViewController, apiClassDelegate {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         
-        
+        self.showMoreComments.isHidden = true
       //  print(arrayWithData)
         
         let profileImage = (self.arrayWithData[0] as AnyObject).value(forKey: "profileImage") as? NSString ?? ""
@@ -477,7 +477,7 @@ class detailViewController: UIViewController, apiClassDelegate {
     
     override func viewWillAppear(_ animated: Bool)
     {
-        self.showMoreComments.isHidden = true
+        //self.showMoreComments.isHidden = true
         self.showMoreDescription.isHidden=true
         
         self.detailTable.estimatedRowHeight = 90.0
@@ -1895,7 +1895,6 @@ class detailViewController: UIViewController, apiClassDelegate {
         let nxtObj2 = self.storyboard?.instantiateViewController(withIdentifier: "commentViewController") as? commentViewController
         
         nxtObj2!.reviewsArray=self.reviewsArray
-      
         
         let imageId = (self.arrayWithData[0] as AnyObject).value(forKey: "imageId") as? String ?? ""
         
@@ -1909,6 +1908,14 @@ class detailViewController: UIViewController, apiClassDelegate {
         let commentParameter = "imageId=\(imageId)&userId=\(uId!)&page=all"//newer version
         
         
+        let otherUserName = (self.arrayWithData[0] as AnyObject).value(forKey: "userName") as? String ?? ""
+        let imageThumbnail = (self.arrayWithData[0] as AnyObject).value(forKey: "standardImage") as? String ?? ""
+        let locationImageStr = (self.arrayWithData[0] as AnyObject).value(forKey: "locationImage") as? String ?? ""
+        
+        
+        var dictData = NSDictionary()
+        dictData = ["imageId": imageId, "largeImage": locationImageStr, "thumbnailImage": imageThumbnail, "otherUserId": otherUserId, "otherUserName": otherUserName ]
+        nxtObj2?.dictionaryData = dictData
       nxtObj2!.parameter = commentParameter as NSString
         nxtObj2!.imageIdComment = imageId as NSString
         nxtObj2!.ownerId = otherUserId as NSString
@@ -3344,12 +3351,19 @@ class detailViewController: UIViewController, apiClassDelegate {
                                 let reviewTxt = (review[0] as AnyObject).value(forKey: "review") as? String ?? " "
                                 let reviewername = ((review[0] as AnyObject).value(forKey: "userId")! as AnyObject).value(forKey: "name") as? String ?? " "
                                 
+                                if self.reviewsArray.count>0{
+                                   self.reviewsArray.mutableCopy() as! NSMutableArray
+                                    
+                                    self.tempReviewArray.insert(["userPhoto": userPhotoDp, "userName": reviewername, "comment": reviewTxt], at: 0)
+                                }
                                 
                                 
-                                self.tempReviewArray.insert(["userPhoto": userPhotoDp, "userName": reviewername, "comment": reviewTxt], at: 0)
+                               // self.tempReviewArray.insert(["userPhoto": userPhotoDp, "userName": reviewername, "comment": reviewTxt], at: 0)
                                 
                                 
                                
+                                
+                                
                                 
                     }
                             else
@@ -3381,7 +3395,24 @@ class detailViewController: UIViewController, apiClassDelegate {
                             else
                             {
                             
-                            self.tempReviewArray.insert(["userPhoto": userPhotoDp, "userName": reviewername, "comment": reviewTxt], at: 0)
+                                if self.reviewsArray.count>0{
+                                    self.tempReviewArray = self.reviewsArray.mutableCopy() as! NSMutableArray
+//                                    for k in 0..<self.reviewsArray.count{
+//                                        print(self.reviewsArray.object(at: k))
+//                                        let MutableDict = self.reviewsArray.object(at: k) as AnyObject as! NSDictionary
+//                                        print(MutableDict)
+//                                         self.tempReviewArray.insert(MutableDict, at: 0)
+//                                    }
+                                    
+                                    
+                                    
+                                   self.tempReviewArray.insert(["userPhoto": userPhotoDp, "userName": reviewername, "comment": reviewTxt], at: 0)
+                                }
+                                else{
+                                    self.tempReviewArray.insert(["userPhoto": userPhotoDp, "userName": reviewername, "comment": reviewTxt], at: 0)
+                                }
+                                
+                           // self.tempReviewArray.insert(["userPhoto": userPhotoDp, "userName": reviewername, "comment": reviewTxt], at: 0)
                                
                                 print(self.reviewsArray)
                                 
@@ -3457,7 +3488,6 @@ class detailViewController: UIViewController, apiClassDelegate {
     
     @IBAction func AddCommentAction(_ sender: AnyObject) {
     
-        
         
         let otherUserName = (self.arrayWithData[0] as AnyObject).value(forKey: "userName") as? String ?? ""
         let imageId = (self.arrayWithData[0] as AnyObject).value(forKey: "imageId") as? String ?? ""

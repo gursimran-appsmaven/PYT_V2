@@ -1363,6 +1363,19 @@ class EditPostViewController: UIViewController, UISearchBarDelegate, UITableView
                                     self.backBtnAction(self)
                                     
                                     
+                                    DispatchQueue.global(qos: .background).async {
+                                        
+                                        let uId = Udefaults .string(forKey: "userLoginId")
+                                        let objt = storyCountClass()
+                                        
+                                        let dic:NSDictionary = ["userId": uId!]
+                                        objt.postRequestForcountStory(parameterString: dic)
+                                        objt.postRequestForcountStoryandBucket(dic)
+                                        
+                                    }
+
+                                    
+                                    
                                 }
                                 else
                                 {

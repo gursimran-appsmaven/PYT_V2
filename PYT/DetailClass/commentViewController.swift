@@ -35,7 +35,7 @@ class commentViewController: UIViewController, UITextViewDelegate, UITableViewDe
         self.tabBarController?.tabBar.isHidden = true
         // Do any additional setup after loading the view.
         
-        commentsTableView.estimatedRowHeight = 120.0
+              commentsTableView.estimatedRowHeight = 120.0
         commentsTableView.rowHeight = UITableViewAutomaticDimension
         
         self.postApiToGetPYTReview(parameter)
@@ -142,6 +142,17 @@ class commentViewController: UIViewController, UITextViewDelegate, UITableViewDe
     {
         let cell:headerCell = tableView.dequeueReusableCell(withIdentifier: "headerCell") as! headerCell
        
+        let standardImageUrl = dictionaryData.value(forKey: "thumbnailImage")as? String ?? ""
+        
+        let largeImageUrl = dictionaryData.value(forKey:"largeImage")as? String ?? ""
+        
+        
+        cell.commentImage.sd_setImage(with: URL (string: standardImageUrl), placeholderImage: UIImage (named: "dummyBackground1"))//standardImage
+        cell.commentImage.sd_setImage(with: URL (string: largeImageUrl), placeholderImage: cell.commentImage.image)//largeImage
+        
+
+        
+        
         
         return cell//.contentView
     }
