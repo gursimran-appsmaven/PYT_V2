@@ -229,7 +229,7 @@ class signupSetPasswordViewController: UIViewController, apiClassDelegate
         let fbLoginManager : FBSDKLoginManager = FBSDKLoginManager()
         
         //-- set permissions to facebook----/////
-        fbLoginManager.logIn(withReadPermissions: ["email","user_photos"," user_about_me", "public_profile", "user_location", "user_birthday", "user_tagged_places", "user_friends"], from: self) { (result, error) -> Void in
+        fbLoginManager.logIn(withReadPermissions: ["email","user_photos"," user_about_me", "public_profile", "user_location", "user_birthday", "user_tagged_places", "user_friends", "user_videos"], from: self) { (result, error) -> Void in
             
             if (error == nil){
                 let fbloginresult : FBSDKLoginManagerLoginResult = result!
