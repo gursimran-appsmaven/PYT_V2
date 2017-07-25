@@ -11,6 +11,7 @@ import FSCalendar
 import SDWebImage
 import MBProgressHUD
 
+
 class TravelPlanVC: UIViewController ,UITableViewDataSource,UITableViewDelegate,UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout,FSCalendarDelegate,FSCalendarDataSource{
 
     @IBOutlet weak var startDateLbl: UILabel!
@@ -243,10 +244,16 @@ class TravelPlanVC: UIViewController ,UITableViewDataSource,UITableViewDelegate,
         cell.llocationImage.contentMode = .scaleAspectFill
         cell.llocationImage.focusOnFaces = true
         DispatchQueue.main.async(execute: {
-            cell.llocationImage.sd_setImage(with: URL (string: imageUrl), placeholderImage: UIImage (named: "dummyBackground1"),options: .refreshCached)
-            cell.setNeedsLayout()
-            cell.setNeedsDisplay()
-            print(imageUrl)
+            cell.llocationImage.sd_setImage(with: URL (string: imageUrl), placeholderImage: UIImage(named: "dummyBackground1"),options: .refreshCached, completed: { (image, error, cacheType, imageURL) in
+                // Perform operation.
+                cell.setNeedsLayout()
+                cell.layoutIfNeeded()
+                print(imageUrl)
+
+            })
+//            cell.llocationImage.sd_setImage(with: URL (string: imageUrl), placeholderImage: UIImage (named: "dummyBackground1"),options: .refreshCached ,completed: SDWebImageCompletionWithFinishedBlock^{
+//                
+//                })
         })
         
         return cell
@@ -271,7 +278,7 @@ class TravelPlanVC: UIViewController ,UITableViewDataSource,UITableViewDelegate,
         cell.llocationImage.focusOnFaces = true
         DispatchQueue.main.async(execute: {
             cell.llocationImage.sd_cancelCurrentImageLoad()
-//            cell.llocationImage.image = nil
+            cell.llocationImage.image = nil
         })
         
 

@@ -6,16 +6,16 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "PYT/MainHomeViewController/mainHomeViewController.swift"
-            timestampString = "522249793.005476"
+            filePath = "PYT/MainHomeViewController/cellClassTableViewCell.swift"
+            timestampString = "522571477.730527"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "4569"
-            endingLineNumber = "4569"
-            landmarkName = "checkVisibilityOfCollectioView(_:cellTable:for:indexPathTable:)"
+            startingLineNumber = "185"
+            endingLineNumber = "185"
+            landmarkName = "setupMoviePlayer()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

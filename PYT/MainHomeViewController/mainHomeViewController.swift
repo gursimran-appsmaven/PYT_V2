@@ -14,13 +14,19 @@ import HMSegmentedControl
 import QuartzCore
 import AVFoundation
 
-
+let screenBounds = UIScreen.main.bounds
 //class mainHomeViewController: UIViewController  {
 
 class mainHomeViewController: UIViewController, SDWebImageManagerDelegate, apiClassDelegate, UITabBarControllerDelegate {
 
    // @IBOutlet var mainViewWithGradient: UIView!
     
+    var avPlayer: AVPlayer!
+    var visibleIP : IndexPath?
+    var aboutToBecomeInvisibleCell = -1
+    var avPlayerLayer: AVPlayerLayer!
+    var paused: Bool = false
+    var firstLoad = true
     
     
     var storedOffsets = [Int: CGFloat]()
@@ -2986,6 +2992,7 @@ class mainHomeViewController: UIViewController, SDWebImageManagerDelegate, apiCl
         self.arrayOfimages1 .removeAllObjects()
         self.userDetailArray .removeAllObjects()
         
+        print(self.dataArray)
         for i in 0 ..< self.dataArray.count
         {
           
@@ -3000,7 +3007,8 @@ class mainHomeViewController: UIViewController, SDWebImageManagerDelegate, apiCl
             var imagesArray = NSArray()
             imagesArray = (self.photos[0] as AnyObject).value(forKey: "imageThumb")! as! NSArray//total small images array
             
-            
+            var videosArray = NSArray()
+            videosArray = (self.photos[0] as AnyObject).value(forKey: "video")! as! NSArray
             
             let latArray = (self.photos[0] as AnyObject).value(forKey: "latitude")! as! NSArray//total latitude array
             let longArray = (self.photos[0] as AnyObject).value(forKey: "longitude")! as! NSArray//total longitude array
@@ -3059,7 +3067,7 @@ class mainHomeViewController: UIViewController, SDWebImageManagerDelegate, apiCl
             var placeId = (self.photos[0] as AnyObject).value(forKey: "countryId")! as! NSArray
             
             
-            let mutableDict: NSMutableDictionary = ["location":locationArray, "id":idArray, "category":categoryArray, "albums": albumArray, "description": descriptionArray, "country": countryArray, "largeImage": imagesLargeArray, "geoTag":geoTagArray, "latitude":latArray, "longitude": longArray, "source": sourceArray, "likeCount":likeCountArray, "likedUserId":idLikedUsers,"thumbnails":imagesArray, "sourceType":sourcetype, "showMore": showMorePhotos, "countId": countrId ]
+            let mutableDict: NSMutableDictionary = ["location":locationArray, "id":idArray, "category":categoryArray, "albums": albumArray, "description": descriptionArray, "country": countryArray, "largeImage": imagesLargeArray, "geoTag":geoTagArray, "latitude":latArray, "longitude": longArray, "source": sourceArray, "likeCount":likeCountArray, "likedUserId":idLikedUsers,"thumbnails":imagesArray, "sourceType":sourcetype, "showMore": showMorePhotos, "countId": countrId ,"videosArray": videosArray]
             
             self.arrayOfimages1 .add(mutableDict)
             
@@ -3801,13 +3809,60 @@ extension mainHomeViewController: UICollectionViewDelegate, UICollectionViewData
         }
         else
         {
+            
+            
             print("Index path i \(indexPath.row) \n Array count \(((arrayOfimages1[collectionView.tag] as AnyObject).value(forKey: "id")! as AnyObject).count)")
             let countData = (arrayOfimages1[collectionView.tag] as AnyObject).value(forKey: "id")! as! NSArray
             
         if indexPath.row < countData.count
         {
-                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cellCollectionView",for: indexPath) as! collectionViewCellClassFeed
+            let sourceTpye = (self.arrayOfimages1[collectionView.tag] as AnyObject).value(forKey: "sourceType") as! NSArray
+           
+            if(sourceTpye[indexPath.row] as! NSNumber == 4)
+            {
+                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "VideoCellFeedClass",for: indexPath) as! VideoCellFeedClass
+                let arrImg2 = (self.arrayOfimages1[collectionView.tag] as AnyObject).value(forKey: "videosArray") as! NSArray
                 
+                
+                let urlVideo = arrImg2[indexPath.row] as? String ?? ""
+                let myURL = URL(string: urlVideo)
+                if(urlVideo != "")
+                {
+                    print(myURL!)
+                    cell.videoPlayerItem = AVPlayerItem.init(url: myURL!)
+//                    var videoFrame = cell.frame
+//                    videoFrame.origin.y -= 5
+//                    cell.avPlayerLayer?.frame = videoFrame
+//                    cell.videoPlayerSuperView.layer.insertSublayer(cell.avPlayerLayer!, at: 0)
+
+
+                }
+                
+                let gradient = cell.viewWithTag(7499) as! GradientView
+                
+                gradient.gradientLayer.colors = [UIColor.black.withAlphaComponent(0.75).cgColor, UIColor.clear.cgColor]
+                gradient.gradientLayer.gradient = GradientPoint.bottomTop.draw()
+                
+                
+                
+                if indexPath.row > 0 && indexPath.row < arrImg2.count - 1
+                {
+                    
+                    
+                    let imageNameBack = arrImg2[indexPath.row - 1] as? String ?? ""
+                    let urlBack = URL(string: imageNameBack as String)
+                    let tempImgView = UIImageView()
+                    tempImgView.isHidden=true
+                    
+                    tempImgView .sd_setImage(with: urlBack)
+                    
+                    
+                    let imageNameNext = arrImg2[indexPath.row + 1] as? String ?? ""
+                    let urlNext = URL(string: imageNameNext as String)
+                    tempImgView .sd_setImage(with: urlNext)
+                    
+                }
+
                 cell.layer.shouldRasterize = true
                 cell.layer.rasterizationScale = UIScreen.main.scale
                 
@@ -3872,7 +3927,7 @@ extension mainHomeViewController: UICollectionViewDelegate, UICollectionViewData
                     
                     
                     
-                 
+                    
                     
                     
                     var cityArr = NSArray()
@@ -4050,12 +4105,12 @@ extension mainHomeViewController: UICollectionViewDelegate, UICollectionViewData
                     
                     cell.likeButton.tag = 1000*collectionView.tag+indexPath.row
                     cell.likeButton.addTarget(self, action: #selector(self.imageTapped(_:)), for: UIControlEvents .touchUpInside)
-                     cell.planButton.tag = 2000*collectionView.tag+indexPath.row
+                    cell.planButton.tag = 2000*collectionView.tag+indexPath.row
                     cell.menuButton.tag = 1000*collectionView.tag+indexPath.row
                     cell.menuButton.addTarget(self, action: #selector(self.openLongTap(_:event:)), for: UIControlEvents .touchUpInside)
                     cell.menuButton.setImage(UIImage (named: "More"), for: .normal)
                     
-                   
+                    
                     
                     cell.planButton .addTarget(self, action: #selector(self.planBtnTapCollectionView(_:)), for: .touchUpInside)
                     
@@ -4075,7 +4130,7 @@ extension mainHomeViewController: UICollectionViewDelegate, UICollectionViewData
                             //print(countst)
                             if countst.contains(imageId2) {
                                 cell.planButton.setImage(UIImage (named: "travelplanbuttonactive"), for: .normal)
-                               addToPlanBtn .setTitle("Remove From Plan", for: .normal)
+                                addToPlanBtn .setTitle("Remove From Plan", for: .normal)
                                 // cell.planButton.removeTarget(nil, action: nil, for: .allEvents)
                             }
                             
@@ -4093,9 +4148,376 @@ extension mainHomeViewController: UICollectionViewDelegate, UICollectionViewData
                 
                 
                 return cell
-                
-            
+
             }
+            else
+            {
+              
+               let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cellCollectionView",for: indexPath) as! collectionViewCellClassFeed
+                
+                if indexPath.row < ((arrayOfimages1[collectionView.tag] as AnyObject).value(forKey: "id")! as AnyObject) .count
+                {
+                    var arrImg2 = NSArray()
+                    
+                    let locationimage = cell.viewWithTag(7459) as! UIImageView
+                    locationimage.layer.cornerRadius = 0
+                    locationimage.clipsToBounds = true
+                    locationimage.contentMode = .scaleAspectFill
+                    
+                    locationimage.layer.sublayers = nil
+                    
+                    arrImg2 = (self.arrayOfimages1[collectionView.tag] as AnyObject).value(forKey: "thumbnails") as! NSArray
+                    
+                    
+                    let imageName2 = arrImg2[indexPath.row] as? String ?? ""
+                    
+                    ///image of that place
+                    
+                    
+                    let url2 = URL(string: imageName2 as String)
+                    
+                    if(url2 != nil)
+                    {
+                        let block: SDWebImageCompletionBlock = {(image, error, cacheType, imageURL) -> Void in
+                            
+                        }
+                        locationimage.sd_setImage(with: url2!, placeholderImage: UIImage (named: "dummyBackground1"), options: SDWebImageOptions(rawValue: 0), completed: block)
+                    }
+                    
+                    locationimage.focusOnFaces = true
+
+                    
+                    let gradient = cell.viewWithTag(7499) as! GradientView
+                    
+                    gradient.gradientLayer.colors = [UIColor.black.withAlphaComponent(0.75).cgColor, UIColor.clear.cgColor]
+                    gradient.gradientLayer.gradient = GradientPoint.bottomTop.draw()
+                    
+                    
+                    
+                    if indexPath.row > 0 && indexPath.row < arrImg2.count - 1
+                    {
+                        
+                        
+                        let imageNameBack = arrImg2[indexPath.row - 1] as? String ?? ""
+                        let urlBack = URL(string: imageNameBack as String)
+                        let tempImgView = UIImageView()
+                        tempImgView.isHidden=true
+                        
+                        tempImgView .sd_setImage(with: urlBack)
+                        
+                        
+                        let imageNameNext = arrImg2[indexPath.row + 1] as? String ?? ""
+                        let urlNext = URL(string: imageNameNext as String)
+                        tempImgView .sd_setImage(with: urlNext)
+                        
+                    }
+                    
+                    
+                }
+                else
+                {
+                    
+                    
+                }
+                
+                cell.layer.shouldRasterize = true
+                cell.layer.rasterizationScale = UIScreen.main.scale
+                
+                
+                if self.arrayOfimages1.count<1
+                {
+                    
+                }
+                else
+                {
+                    
+                    
+                    var imageName = NSString()
+                    var imageName2 = NSString()
+                    var imageId2 = NSString()
+                    var imgDesc = NSString()
+                    
+                    
+                    var arrId2 = NSArray()
+                    arrId2 = (self.arrayOfimages1[collectionView.tag] as AnyObject).value(forKey: "id") as! NSArray
+                    
+                    var arrDesc = NSArray()
+                    arrDesc = (self.arrayOfimages1[collectionView.tag] as AnyObject).value(forKey: "description") as! NSArray
+                    
+                    
+                    imageId2 = arrId2[indexPath.row] as? String as NSString? ?? " "//get id of images
+                    
+                    imgDesc = arrDesc[indexPath.row] as? String as NSString? ?? " "//get description of image
+                    
+                    let likeView = cell.viewWithTag(7455)! as UIView
+                    likeView.alpha = 0
+                    
+                    
+                    
+                    var countryArr = NSArray()
+                    countryArr = (self.arrayOfimages1[collectionView.tag] as AnyObject).value(forKey: "country") as! NSArray
+                    
+                    let countryTxt = countryArr[indexPath.row] as? String ?? ""
+                    
+                    
+                    let geoTag = (self.arrayOfimages1[collectionView.tag] as AnyObject).value(forKey: "geoTag") as! NSArray
+                    
+                    
+                    var location = "\(geoTag[indexPath.row] as? String ?? "")"
+                    if location == "Not found"{
+                        location = ""
+                    }
+                    
+                    if location == "" {
+                        
+                        location=countryTxt
+                        
+                    }
+                    
+                    
+                    //let geoTagLbl = cell.viewWithTag(7456)! as! UILabel
+                    cell.geoTagLbl.text=(location as String).capitalized
+                    cell.geoTagLbl.lineBreakMode = .byTruncatingTail
+                    cell.geoTagLbl.minimumScaleFactor=0.6
+                    //geoTagLbl.adjustsFontSizeToFitWidth=true
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    var cityArr = NSArray()
+                    cityArr = (self.arrayOfimages1[collectionView.tag] as AnyObject).value(forKey: "location") as! NSArray
+                    
+                    var cityName = cityArr[indexPath.row] as? String ?? " "
+                    
+                    
+                    if cityName == "" || cityName == " "{
+                        cityName=countryTxt
+                        
+                    }
+                    
+                    
+                    
+                    
+                    
+                    //MARK:- MANAGE LIKE AND ITS COUNT
+                    
+                    // dispatch_async(dispatch_get_main_queue(), {
+                    
+                    var countLik = NSNumber()
+                    //MANAGE from the crash
+                    ////print(self.arrayOfimages1[collectionView.tag])
+                    let likeCountValue = (self.arrayOfimages1[collectionView.tag] as AnyObject).value(forKey: "likeCount") as! NSArray
+                    if likeCountValue[indexPath.row] as? NSNull != NSNull()  {
+                        
+                        countLik = likeCountValue[indexPath.row] as! NSNumber  //as? String ?? "0.0"
+                        
+                    }
+                    else
+                    {
+                        countLik=0
+                    }
+                    
+                    
+                    
+                    
+                    let likedByMe = (self.arrayOfimages1[collectionView.tag] as AnyObject).value(forKey: "likedUserId") as! NSArray
+                    let likedByMe2 = likedByMe .object(at: indexPath.row) as! NSArray
+                    
+                    //SHOW THE COUNT OF LIKED
+                    cell.likecountlbl.text=String(describing: countLik)
+                    cell.likeimg.image=UIImage (named: "Like")
+                    
+                    
+                    ///////-  Show liked by me-/////
+                    if likedByMe2.count>0
+                    {
+                        if likedByMe2.contains(self.uId)
+                        {
+                            //contains photo liked by me
+                            let arrLk = self.likeCount.value(forKey: "imageId") as! NSArray
+                            
+                            if arrLk.contains(imageId2)
+                            {
+                                let indexOfImageId = (self.likeCount.value(forKey: "imageId") as AnyObject).index(of: imageId2)
+                                
+                                if (self.likeCount.object(at: indexOfImageId) as AnyObject).value(forKey: "like") as! Bool == true {
+                                    cell.likeimg.image=UIImage (named: "likefill")
+                                    let staticCount = (self.likeCount.object(at: indexOfImageId) as AnyObject).value(forKey: "count") as? NSNumber
+                                    cell.likecountlbl.text=String(describing: staticCount!)// String(self.addTheLikes(staticCount!))
+                                    
+                                    
+                                    
+                                }
+                                else{
+                                    cell.likeimg.image=UIImage (named: "Like")
+                                    let staticCount = (self.likeCount.object(at: indexOfImageId) as AnyObject).value(forKey: "count") as? NSNumber
+                                    cell.likecountlbl.text=String(describing: staticCount!) //(self.addTheLikes(staticCount!))
+                                }
+                            }
+                                
+                                //if not contains the imageId
+                            else
+                            {
+                                self.likeCount .add(["imageId":imageId2,"userId":self.uId, "like": true, "count": countLik])
+                                //print(self.likeCount)
+                                cell.likecountlbl.text=String(describing: countLik)
+                                cell.likeimg.image=UIImage (named: "likefill")
+                            }
+                            
+                            
+                            
+                        }
+                            
+                        else
+                        {
+                            let arrLk = self.likeCount.value(forKey: "imageId") as! NSArray
+                            if arrLk.contains(imageId2)
+                            {
+                                let indexOfImageId = (self.likeCount.value(forKey: "imageId") as AnyObject).index(of: imageId2)
+                                
+                                if (self.likeCount.object(at: indexOfImageId) as AnyObject).value(forKey: "like") as! Bool == true {
+                                    cell.likeimg.image=UIImage (named: "likefill")
+                                    let staticCount = (self.likeCount.object(at: indexOfImageId) as AnyObject).value(forKey: "count") as? NSNumber
+                                    cell.likecountlbl.text=String(describing: staticCount!)
+                                    
+                                }
+                                else
+                                {
+                                    let staticCount = (self.likeCount.object(at: indexOfImageId) as AnyObject).value(forKey: "count") as? NSNumber
+                                    cell.likecountlbl.text=String(describing: staticCount!)
+                                    cell.likeimg.image=UIImage (named: "Like")
+                                }
+                            }
+                            
+                            
+                            
+                        }
+                        
+                        
+                        
+                    }
+                        //not liked by me
+                    else
+                    {
+                        let arrLk = self.likeCount.value(forKey: "imageId") as! NSArray
+                        if arrLk.contains(imageId2)
+                        {
+                            let indexOfImageId = (self.likeCount.value(forKey: "imageId") as AnyObject).index(of: imageId2)
+                            
+                            if (self.likeCount.object(at: indexOfImageId) as AnyObject).value(forKey: "like") as! Bool == true {
+                                cell.likeimg.image=UIImage (named: "likefill")
+                                let staticCount = (self.likeCount.object(at: indexOfImageId) as AnyObject).value(forKey: "count") as? NSNumber
+                                cell.likecountlbl.text=String(describing: staticCount!)
+                                
+                            }
+                            else{
+                                let staticCount = (self.likeCount.object(at: indexOfImageId) as AnyObject).value(forKey: "count") as? NSNumber
+                                cell.likecountlbl.text=String(describing: staticCount!)
+                                cell.likeimg.image=UIImage (named: "Like")
+                            }
+                        }
+                        
+                        
+                        
+                    }
+                    
+                    
+                    
+                    ////Add gesture in collection view
+                    
+                    var text = String()
+                    text = "\(collectionView.tag) \(indexPath.row)"
+                    
+                    /////////Single Tap
+                    let singleTapGesture = GestureViewClass(target: self, action: #selector(mainHomeViewController.SingleTap(_:)))
+                    singleTapGesture.numberOfTapsRequired = 1 // Optional for single tap
+                    singleTapGesture.gestureData=text
+                    cell.addGestureRecognizer(singleTapGesture)
+                    
+                    
+                    
+                    //////Double tap gesture
+                    let gestureDoubleTap = GestureViewClass(target: self, action: #selector(mainHomeViewController.doubleTap(_:)))
+                    gestureDoubleTap.numberOfTapsRequired=2
+                    gestureDoubleTap.gestureData=text
+                    cell.addGestureRecognizer(gestureDoubleTap)
+                    
+                    singleTapGesture.require(toFail: gestureDoubleTap)
+                    
+                    
+                    
+                    /////Long Tap Gesture
+                    cell.tag=1000*collectionView.tag+indexPath.row
+                    
+                    ////print(cell.tag)
+                    
+                    let longView = UIView()
+                    longView.frame=cell.frame
+                    longView.tag=1000*collectionView.tag+indexPath.row
+                    //cell .addSubview(longView)
+                    
+                    
+                    cell.likeButton.tag = 1000*collectionView.tag+indexPath.row
+                    cell.likeButton.addTarget(self, action: #selector(self.imageTapped(_:)), for: UIControlEvents .touchUpInside)
+                    cell.planButton.tag = 2000*collectionView.tag+indexPath.row
+                    cell.menuButton.tag = 1000*collectionView.tag+indexPath.row
+                    cell.menuButton.addTarget(self, action: #selector(self.openLongTap(_:event:)), for: UIControlEvents .touchUpInside)
+                    cell.menuButton.setImage(UIImage (named: "More"), for: .normal)
+                    
+                    
+                    
+                    cell.planButton .addTarget(self, action: #selector(self.planBtnTapCollectionView(_:)), for: .touchUpInside)
+                    
+                    addToPlanBtn .setTitle("Add To Plan", for: .normal)
+                    
+                    if countsDictionary.object(forKey: "bookings") != nil  {
+                        
+                        //let countst = countArray.valueForKey("storyCount") as! NSNumber
+                        let countst = countsDictionary.value(forKey: "bookings") as! NSArray
+                        cell.planButton.setImage(UIImage (named: "travelplanbutton"), for: .normal)
+                        
+                        
+                        
+                        if countst.count>0
+                        {
+                            
+                            //print(countst)
+                            if countst.contains(imageId2) {
+                                cell.planButton.setImage(UIImage (named: "travelplanbuttonactive"), for: .normal)
+                                addToPlanBtn .setTitle("Remove From Plan", for: .normal)
+                                // cell.planButton.removeTarget(nil, action: nil, for: .allEvents)
+                            }
+                            
+                            
+                        }
+                        
+                        
+                    }
+                    
+                    
+                    
+                    
+                }
+                
+                
+                
+                return cell
+
+
+            }
+
+            
+            
+            
+            
+            
+            
+            
+            
+        }
         else{
             
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "showMoreCell",for: indexPath)
@@ -4344,6 +4766,10 @@ extension mainHomeViewController: UICollectionViewDelegate, UICollectionViewData
             cell.removeGestureRecognizer(recognizer)
         }
         }
+        if let videoCell = cell as? VideoCellFeedClass {
+            videoCell.stopPlayback()
+        }
+
         
     }
     
@@ -4368,62 +4794,6 @@ extension mainHomeViewController: UICollectionViewDelegate, UICollectionViewData
             else
             {
                 
-                if indexPath.row < ((arrayOfimages1[collectionView.tag] as AnyObject).value(forKey: "id")! as AnyObject) .count
-                {
-                    var arrImg2 = NSArray()
-                    arrImg2 = (self.arrayOfimages1[collectionView.tag] as AnyObject).value(forKey: "thumbnails") as! NSArray
-                    
-                    
-                    let imageName2 = arrImg2[indexPath.row] as? String ?? ""
-                    
-                    ///image of that place
-                    
-                    let locationimage = cell.viewWithTag(7459) as! UIImageView
-                    locationimage.layer.cornerRadius = 0
-                    locationimage.clipsToBounds = true
-                    locationimage.contentMode = .scaleAspectFill
-                    
-                    let url2 = URL(string: imageName2 as String)
-                    
-                    let block: SDWebImageCompletionBlock = {(image, error, cacheType, imageURL) -> Void in
-                        
-                    }
-                    locationimage.sd_setImage(with: url2!, placeholderImage: UIImage (named: "dummyBackground1"), options: SDWebImageOptions(rawValue: 0), completed: block)
-                    
-                    locationimage.focusOnFaces = true
-                    
-                    let gradient = cell.viewWithTag(7499) as! GradientView
-                    
-                    gradient.gradientLayer.colors = [UIColor.black.withAlphaComponent(0.75).cgColor, UIColor.clear.cgColor]
-                    gradient.gradientLayer.gradient = GradientPoint.bottomTop.draw()
-                    
-                    
-                    
-                    if indexPath.row > 0 && indexPath.row < arrImg2.count - 1
-                    {
-                        
-                        
-                        let imageNameBack = arrImg2[indexPath.row - 1] as! String
-                        let urlBack = URL(string: imageNameBack as String)
-                        let tempImgView = UIImageView()
-                        tempImgView.isHidden=true
-                        
-                        tempImgView .sd_setImage(with: urlBack)
-                        
-                        
-                        let imageNameNext = arrImg2[indexPath.row + 1] as! String
-                        let urlNext = URL(string: imageNameNext as String)
-                        tempImgView .sd_setImage(with: urlNext)
-                        
-                    }
-                    
-                    
-                }
-                else
-                {
-                    
-                    
-                }
                 
             }
         }
@@ -4468,9 +4838,9 @@ extension mainHomeViewController: UICollectionViewDelegate, UICollectionViewData
                     return
                 }
                 // Check the visibility of the first cell
-                if let _ = cellsCV[0] as? collectionViewCellClassFeed
+                if let _ = cellsCV[0] as? VideoCellFeedClass
                 {
-                    checkVisibilityOfCollectioView(cellsCV[0] as! collectionViewCellClassFeed,cellTable: cells[i] as! cellClassTableViewCell, for: indexPathsCV?[0] as! IndexPath, indexPathTable: indexPaths?[i] as! IndexPath)
+                    checkVisibilityOfCollectioView(cellsCV[0] as! VideoCellFeedClass,cellTable: cells[i] as! cellClassTableViewCell, for: indexPathsCV?[0] as! IndexPath, indexPathTable: indexPaths?[i] as! IndexPath)
                     if cellCountCV == 1 {
                         return
                     }
@@ -4481,9 +4851,9 @@ extension mainHomeViewController: UICollectionViewDelegate, UICollectionViewData
                 }
 
                                // Check the visibility of the last cell
-                if let _ = cellsCV.last as? collectionViewCellClassFeed
+                if let _ = cellsCV.last as? VideoCellFeedClass
                 {
-                    checkVisibilityOfCollectioView(cellsCV.last as! collectionViewCellClassFeed,cellTable: cells[i] as! cellClassTableViewCell, for: indexPathsCV?.last as! IndexPath, indexPathTable: indexPaths?[i] as! IndexPath)
+                    checkVisibilityOfCollectioView(cellsCV.last as! VideoCellFeedClass,cellTable: cells[i] as! cellClassTableViewCell, for: indexPathsCV?.last as! IndexPath, indexPathTable: indexPaths?[i] as! IndexPath)
                     if cellCountCV == 2 {
                         return
                     }
@@ -4518,9 +4888,9 @@ extension mainHomeViewController: UICollectionViewDelegate, UICollectionViewData
                 return
             }
             // Check the visibility of the first cell
-            if let _ = cellsCV[0] as? collectionViewCellClassFeed
+            if let _ = cellsCV[0] as? VideoCellFeedClass
             {
-                checkVisibilityOfCollectioView(cellsCV[0] as! collectionViewCellClassFeed,cellTable: cell, for: indexPathsCV?[0] as! IndexPath, indexPathTable: indexPath )
+                checkVisibilityOfCollectioView(cellsCV[0] as! VideoCellFeedClass,cellTable: cell, for: indexPathsCV?[0] as! IndexPath, indexPathTable: indexPath )
                 if cellCountCV == 1 {
                     return
                 }
@@ -4531,9 +4901,9 @@ extension mainHomeViewController: UICollectionViewDelegate, UICollectionViewData
             }
 
                        // Check the visibility of the last cell
-            if let _ = cellsCV.last as? collectionViewCellClassFeed
+            if let _ = cellsCV.last as? VideoCellFeedClass
             {
-                checkVisibilityOfCollectioView(cellsCV.last as! collectionViewCellClassFeed,cellTable: cell, for: indexPathsCV?.last as! IndexPath, indexPathTable: indexPath )
+                checkVisibilityOfCollectioView(cellsCV.last as! VideoCellFeedClass,cellTable: cell, for: indexPathsCV?.last as! IndexPath, indexPathTable: indexPath )
                 if cellCountCV == 2 {
                     return
                 }
@@ -4544,57 +4914,123 @@ extension mainHomeViewController: UICollectionViewDelegate, UICollectionViewData
             }
 
             // All of the rest of the cells are visible: Loop through the 2nd through n-1 cells
-            for i in 1..<cellCountCV - 1 {
+            for _ in 1..<cellCountCV - 1 {
             }
 
         }
        // cell.notifyVisible(withIsCompletelyVisible: completelyVisible)
     }
-    func checkVisibilityOfCollectioView(_ cell: collectionViewCellClassFeed,cellTable: cellClassTableViewCell, for indexPath: IndexPath, indexPathTable: IndexPath) {
+    func checkVisibilityOfCollectioView(_ cell: VideoCellFeedClass,cellTable: cellClassTableViewCell, for indexPath: IndexPath, indexPathTable: IndexPath) {
         let theAttributes:UICollectionViewLayoutAttributes! = cellTable.imagesCollectionView.layoutAttributesForItem(at: indexPath)
         let cellRect:CGRect!  = cellTable.imagesCollectionView.convert(theAttributes.frame, to: cellTable.imagesCollectionView.superview)
         
-//        cellRect = cellTable.imagesCollectionView.convert(cellRect, to: cellTable.imagesCollectionView.superview)
-        let completelyVisible: Bool = cellTable.imagesCollectionView.frame.contains(cellRect)
+        let intersect = cellRect.intersection(cellTable.imagesCollectionView.bounds)
         
-        let playerLayer = AVPlayerLayer(player: player)
-        
-        if(completelyVisible)
+        let currentWidth = intersect.width
+        print("\n \(currentWidth)")
+        let cellWidth = (cell as AnyObject).frame.size.width
+        //                0.95 here denotes how much you want the cell to display
+        //                for it to mark itself as visible,
+        //                .95 denotes 95 percent,
+        //                you can change the values accordingly
+        if currentWidth > (cellWidth * 0.85) || (intersect.width >= 0 && intersect.width <= 50) //&& (cellRect.origin.x > cellWidth * 0.85 && cellRect.origin.x <= cellWidth)//
         {
-            print(indexPath)
-            print(indexPathTable)
-            
-            var arrImg2 = NSArray()
-            print(self.arrayOfimages1[indexPathTable.row])
-            let sourceTpye = (self.arrayOfimages1[indexPathTable.row] as AnyObject).value(forKey: "sourceType") as! NSArray
-            if(sourceTpye[indexPath.row] as! NSNumber == 4)
-            {
-                arrImg2 = (self.arrayOfimages1[indexPathTable.row] as AnyObject).value(forKey: "thumbnails") as! NSArray
+            if visibleIP != indexPath{
+                visibleIP = indexPath
+                print ("visible = \(indexPath)")
                 
-                print(arrImg2)
+                let arrImg2 = (self.arrayOfimages1[indexPathTable.row] as AnyObject).value(forKey: "videosArray") as! NSArray
+                
                 
                 let urlVideo = arrImg2[indexPath.row] as? String ?? ""
+                print(urlVideo)
                 
-                let myURL = URL(string: urlVideo)
-                
-                player = AVPlayer(url:myURL!)
-
-                
-                playerLayer.frame = cell.contentView.bounds
-                cell.contentView.layer.addSublayer(playerLayer)
-                
-                player.play()
+                if let videoCell = cell as? VideoCellFeedClass{
+                    self.playVideoOnTheCell(cell: videoCell, indexPath: (indexPath))
+                }
             }
         }
-        else
-        {
-            player.pause()
-            playerLayer.removeFromSuperlayer()
+        else{
+            if aboutToBecomeInvisibleCell != indexPath.row{
+                aboutToBecomeInvisibleCell = (indexPath.row)
+                if let videoCell = cell as? VideoCellFeedClass{
+                    self.stopPlayBack(cell: videoCell, indexPath: (indexPath))
+                }
+                
+            }
         }
+        
+        
+//        cellRect = cellTable.imagesCollectionView.convert(cellRect, to: cellTable.imagesCollectionView.superview)
+//        let completelyVisible: Bool = cellTable.imagesCollectionView.frame.contains(cellRect)
+//        
+//        if(completelyVisible)
+//        {
+//            
+//            if let videoCell = cell as? VideoCellFeedClass{
+//                self.playVideoOnTheCell(cell: videoCell, indexPath: indexPath)
+//            }
+//            print(indexPath)
+//            print(indexPathTable)
+//            var arrImg2 = NSArray()
+//            print(self.arrayOfimages1[indexPathTable.row])
+//            let sourceTpye = (self.arrayOfimages1[indexPathTable.row] as AnyObject).value(forKey: "sourceType") as! NSArray
+//            if(sourceTpye[indexPath.row] as! NSNumber == 4)
+//            {
+//                arrImg2 = (self.arrayOfimages1[indexPathTable.row] as AnyObject).value(forKey: "videosArray") as! NSArray
+//                
+//                print(arrImg2)
+//                
+//                let urlVideo = arrImg2[indexPath.row] as? String ?? ""
+//                
+//                let myURL = URL(string: urlVideo)
+//                
+//                print(myURL!)
+//                player = AVPlayer(url:myURL!)
+//
+//                playerLayer.frame = cell.contentView.bounds
+//                cell.contentView.layer.addSublayer(playerLayer)
+//                
+//                player.play()
+//            }
+            
+//            let urlVideo = "http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4"
+//            
+//            let ur = "https://video.xx.fbcdn.net/v/t43.1792-2/19641186_245503709279324_8238031776656654336_n.mp4?efg=eyJybHIiOjE1MDAsInJsYSI6MTAyNCwidmVuY29kZV90YWciOiJzdmVfaGQifQ%3D%3D&rl=1500&vabr=210&oh=f1b74cf707f36acc4453e4b7c5a759ba&oe=59735E69"
+//            let myURL = URL(string: ur)
+//            
+//            player = AVPlayer(url:myURL!)
+//            
+//            
+//            playerLayer.frame = cell.contentView.bounds
+//            cell.contentView.layer.addSublayer(playerLayer)
+//            
+//            player.play()
+
+//        }
+//        else
+//        {
+//            player.pause()
+//            player.pause()
+//            playerLayer.removeFromSuperlayer()
+//        }
         // cell.notifyVisible(withIsCompletelyVisible: completelyVisible)
     }
 
+    func playVideoOnTheCell(cell : VideoCellFeedClass, indexPath : IndexPath){
+        cell.startPlayback()
+    }
     
+    func stopPlayBack(cell : VideoCellFeedClass, indexPath : IndexPath){
+        cell.stopPlayback()
+    }
+    
+//    func tableView(_ tableView: UITableView, didEndDisplaying cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+//        print("end = \(indexPath)")
+//        if let videoCell = cell as? VideoCellTableViewCell {
+//            videoCell.stopPlayback()
+//        }
+//    }
     
     // MARK: UICollectionViewDelegateFlowLayout
     //MARK:
