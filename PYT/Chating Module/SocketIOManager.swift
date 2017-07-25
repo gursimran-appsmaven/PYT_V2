@@ -21,9 +21,8 @@ class SocketIOManager: NSObject {
     
     ////and we’ll provide the IP address of our computer and the designated port.
     
-    var socket: SocketIOClient = SocketIOClient(socketURL: NSURL (string: appUrl) as! URL) //SocketIOClient(socketURL: (URL(string: "\(appUrl)")! as NSURL) as URL)
-    
-    
+    var socket: SocketIOClient = SocketIOClient(socketURL: NSURL (string: appUrl) as! URL)
+   // var socket: SocketIOClient = SocketIOClient(socketURL: NSURL (string: appUrl) as! URL, config: [.log(true)])
     
     
     
@@ -32,7 +31,11 @@ class SocketIOManager: NSObject {
     
     func establishConnection()
     {
+        
         socket.connect()
+        socket.reconnects = true
+        socket.reconnectWait = 1000
+        
     }
     
     
@@ -47,6 +50,9 @@ class SocketIOManager: NSObject {
         socket.disconnect()
     }
     
+    func delegatesSockets() {
+
+    }
     
     
    

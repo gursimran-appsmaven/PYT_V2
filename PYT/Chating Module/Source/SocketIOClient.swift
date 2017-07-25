@@ -161,7 +161,9 @@ open class SocketIOClient : NSObject, SocketIOClientSpec, SocketEngineClient, So
 
     /// Connect to the server.
     open func connect() {
-        connect(timeoutAfter: 0, withHandler: nil)
+        connect(timeoutAfter: 2000, withHandler: nil)
+    
+        
     }
 
     /// Connect to the server. If we aren't connected after `timeoutAfter` seconds, then `withHandler` is called.
@@ -184,7 +186,8 @@ open class SocketIOClient : NSObject, SocketIOClientSpec, SocketEngineClient, So
         }
 
         engine?.connect()
-
+        
+        
         guard timeoutAfter != 0 else { return }
 
         handleQueue.asyncAfter(deadline: DispatchTime.now() + timeoutAfter) {[weak self] in
@@ -242,6 +245,11 @@ open class SocketIOClient : NSObject, SocketIOClientSpec, SocketEngineClient, So
         
     }
 
+    
+    
+    
+    
+    
     func didDisconnect(reason: String) {
         guard status != .disconnected else { return }
 

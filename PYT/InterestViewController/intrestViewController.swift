@@ -1296,6 +1296,7 @@ class intrestViewController: UIViewController, apiClassInterestDelegate ,UITable
         let indexPathTable = IndexPath(row: index2, section: 0)
         tableOfIntrests.reloadRows(at: [indexPathTable], with: .none)
         self.tableOfIntrests .layoutIfNeeded()
+        self.tableOfIntrests.setNeedsLayout()
         
         if countsDictionary.object(forKey: "bookings") != nil {
             if let stCount = countsDictionary.value(forKey: "bookings"){

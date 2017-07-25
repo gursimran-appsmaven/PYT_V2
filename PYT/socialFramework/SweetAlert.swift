@@ -290,7 +290,7 @@ open class SweetAlert: UIViewController {
                 let button: UIButton = UIButton(type: UIButtonType.custom)
                 button.setTitle(buttonTitle, for: UIControlState())
                 button.backgroundColor = UIColor .clear//buttonColor
-                button.setTitleColor(UIColor (colorLiteralRed: 255.0/255.0, green: 0.0/255.0, blue: 17.0/255.0, alpha: 1), for: .normal)
+                button.setTitleColor(UIColor .black, for: .normal)
                 button.isUserInteractionEnabled = true
                 button.tag = 0
                 button.titleLabel?.font = UIFont (name: "SFUIDisplay-Regular", size: 14)
@@ -301,7 +301,7 @@ open class SweetAlert: UIViewController {
                 let button: UIButton = UIButton(type: UIButtonType.custom)
                 button.setTitle(otherButtonTitle, for: UIControlState())
                 button.backgroundColor = UIColor .clear//otherButtonColor
-                button.setTitleColor(UIColor .black, for: .normal)
+                button.setTitleColor(UIColor (colorLiteralRed: 255.0/255.0, green: 0.0/255.0, blue: 17.0/255.0, alpha: 1), for: .normal)
                 button.addTarget(self, action: #selector(SweetAlert.pressed(_:)), for: UIControlEvents.touchUpInside)
                 button.tag = 1
                 button.titleLabel?.font = UIFont (name: "SFUIDisplay-Regular", size: 14)
@@ -309,13 +309,15 @@ open class SweetAlert: UIViewController {
             }
 
             resizeAndRelayout()
-            if SweetAlertContext.shouldNotAnimate == true {
+            if SweetAlertContext.shouldNotAnimate == true
+            {
                 //Do not animate Alert
                 if self.animatedView != nil {
                     self.animatedView!.animate()
                 }
             }
-            else {
+            else
+            {
                 animateAlert()
             }
     }

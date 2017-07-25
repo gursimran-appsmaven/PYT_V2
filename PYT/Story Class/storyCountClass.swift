@@ -252,7 +252,7 @@ class storyCountClass: NSObject
 //                                        }
                                     
                                         //NotificationCenter.default.post(name: Notification.Name(rawValue: "loadCount"), object: nil)
-                                        
+                                         NotificationCenter.default.post(name: NSNotification.Name(rawValue: "loadCount"), object: nil)
                                         
                                         
                                         // }

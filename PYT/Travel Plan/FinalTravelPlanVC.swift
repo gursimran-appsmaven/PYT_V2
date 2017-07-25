@@ -17,6 +17,7 @@ class FinalTravelPlanVC: UIViewController {
     var backBool = Bool()
     var locationsArray = NSMutableArray()
     @IBOutlet weak var topGradient: GradientView!
+    @IBOutlet weak var backButton: UIButton!
     
     @IBOutlet weak var topView: UIView!
     @IBOutlet weak var topScrollingImg: UIImageView!
@@ -54,22 +55,27 @@ class FinalTravelPlanVC: UIViewController {
         //Manage back button action from feed and profile screen
         if backBool == true {
             //back button will move to travel plan of profile
+            backButton.setImage(UIImage (named: "back"), for: .normal)
         }
         else{
             //home button will go to feed screen
+            backButton.setImage(UIImage (named: "travelHome"), for: .normal)
         }
         
         
     }
-    override func viewDidDisappear(_ animated: Bool) {
+    override func viewDidDisappear(_ animated: Bool)
+    {
 //        timer.invalidate()
     }
-    override func didReceiveMemoryWarning() {
+    override func didReceiveMemoryWarning()
+    {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.125:52
     }
     
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+    func scrollViewDidScroll(_ scrollView: UIScrollView)
+    {
         if(scrollView.contentOffset.y > 10 )
         {
             if(topVisible)

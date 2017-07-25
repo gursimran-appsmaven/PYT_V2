@@ -20,6 +20,7 @@
 		1025FBA31EFBD8000068B557 /* intrestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1025FBA01EFBD8000068B557 /* intrestViewController.swift */; };
 		10289B5E1F0A0E8400E10DF1 /* nearByPlacesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10289B5D1F0A0E8400E10DF1 /* nearByPlacesViewController.swift */; };
 		102C37511F0374A300D026B5 /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = 102C37501F0374A300D026B5 /* Location.swift */; };
+		103EA6251F2611D6007439F7 /* otherUserProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 103EA6241F2611D6007439F7 /* otherUserProfileVC.swift */; };
 		104182681EF253D400078527 /* apiClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 104182671EF253D400078527 /* apiClass.swift */; };
 		1041826B1EF25D4300078527 /* CommonFunctionsClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1041826A1EF25D4300078527 /* CommonFunctionsClass.swift */; };
 		1041826D1EF2688C00078527 /* storyCountClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1041826C1EF2688C00078527 /* storyCountClass.swift */; };
@@ -137,6 +138,7 @@
 		1025FBA01EFBD8000068B557 /* intrestViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = intrestViewController.swift; sourceTree = "<group>"; };
 		10289B5D1F0A0E8400E10DF1 /* nearByPlacesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = nearByPlacesViewController.swift; sourceTree = "<group>"; };
 		102C37501F0374A300D026B5 /* Location.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
+		103EA6241F2611D6007439F7 /* otherUserProfileVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = otherUserProfileVC.swift; sourceTree = "<group>"; };
 		104182671EF253D400078527 /* apiClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = apiClass.swift; path = SingltonClass/apiClass.swift; sourceTree = "<group>"; };
 		1041826A1EF25D4300078527 /* CommonFunctionsClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CommonFunctionsClass.swift; path = SingltonClass/CommonFunctionsClass.swift; sourceTree = "<group>"; };
 		1041826C1EF2688C00078527 /* storyCountClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = storyCountClass.swift; path = "Story Class/storyCountClass.swift"; sourceTree = "<group>"; };
@@ -428,6 +430,7 @@
 			isa = PBXGroup;
 			children = (
 				106DDC371F062D4700ABD16D /* SettingApiClass.swift */,
+				103EA6241F2611D6007439F7 /* otherUserProfileVC.swift */,
 				1066F2701F0281D5007CE7E3 /* ProfileVC.swift */,
 				104BEE741F0B902500D26939 /* UploadedImagesVC.swift */,
 				10EFBE2D1F0E029A001507C6 /* contentViewController.swift */,
@@ -901,6 +904,7 @@
 				106DDC091F061EBB00ABD16D /* SocketAnyEvent.swift in Sources */,
 				101B9D121F077856006EA33F /* commentViewController.swift in Sources */,
 				1046ADA91F0E744100A233D3 /* FinalTravelPlanVC.swift in Sources */,
+				103EA6251F2611D6007439F7 /* otherUserProfileVC.swift in Sources */,
 				106DDC1E1F061EBB00ABD16D /* WebSocket.swift in Sources */,
 				106DDC0E1F061EBB00ABD16D /* SocketEnginePollable.swift in Sources */,
 				106DDC0D1F061EBB00ABD16D /* SocketEnginePacketType.swift in Sources */,

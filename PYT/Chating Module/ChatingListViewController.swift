@@ -91,6 +91,9 @@ class ChatingListViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        
+        
+        
         bottomShadow.gradientLayer.colors = [UIColor.black.withAlphaComponent(0.15).cgColor, UIColor.clear.cgColor]
         bottomShadow.gradientLayer.gradient = GradientPoint.bottomTop.draw()
 

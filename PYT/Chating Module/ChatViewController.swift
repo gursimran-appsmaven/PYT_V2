@@ -300,7 +300,7 @@ class ChatViewController: JSQMessagesViewController {
         let prmDic: NSDictionary = ["userId":my_UserId, "senderId": other_UserId, "placeId": locationId, "placeType": location_Type]
         
         
-        ////print("Parameter=\(parameterString)")
+        print("Parameter=\(prmDic)")
         
         let isConnectedInternet = CommonFunctionsClass.sharedInstance().isConnectedToNetwork()
         
@@ -1132,7 +1132,8 @@ extension ChatViewController
             self.addPhotoMediaMessage()
             
 
-            
+            thumbUrl = ""
+            largeUrl = ""
             
             
             if text == "" || text == " " || text == "\n" {
