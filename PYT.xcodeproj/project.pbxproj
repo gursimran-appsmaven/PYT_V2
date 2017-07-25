@@ -71,6 +71,8 @@
 		106DDC361F06202100ABD16D /* ApiServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 106DDC351F06202100ABD16D /* ApiServices.swift */; };
 		106DDC381F062D4700ABD16D /* SettingApiClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 106DDC371F062D4700ABD16D /* SettingApiClass.swift */; };
 		106DDC3A1F06813A00ABD16D /* changePasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 106DDC391F06813A00ABD16D /* changePasswordViewController.swift */; };
+		1086B2A61F20CB7200AB1C69 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1086B2A51F20CB7200AB1C69 /* QuartzCore.framework */; };
+		1086B2A81F20CB7B00AB1C69 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1086B2A71F20CB7B00AB1C69 /* AVFoundation.framework */; };
 		1089A5A81EF3EAFC006197FE /* ForgotPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1089A5A41EF3EAFC006197FE /* ForgotPasswordViewController.swift */; };
 		1089A5A91EF3EAFC006197FE /* signupProfilePictureViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1089A5A51EF3EAFC006197FE /* signupProfilePictureViewController.swift */; };
 		1089A5AA1EF3EAFC006197FE /* SignUpScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1089A5A61EF3EAFC006197FE /* SignUpScreenViewController.swift */; };
@@ -191,6 +193,8 @@
 		106DDC351F06202100ABD16D /* ApiServices.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApiServices.swift; sourceTree = "<group>"; };
 		106DDC371F062D4700ABD16D /* SettingApiClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingApiClass.swift; sourceTree = "<group>"; };
 		106DDC391F06813A00ABD16D /* changePasswordViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = changePasswordViewController.swift; sourceTree = "<group>"; };
+		1086B2A51F20CB7200AB1C69 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		1086B2A71F20CB7B00AB1C69 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		1089A5A41EF3EAFC006197FE /* ForgotPasswordViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ForgotPasswordViewController.swift; path = LoginSignupClasses/ForgotPasswordViewController.swift; sourceTree = "<group>"; };
 		1089A5A51EF3EAFC006197FE /* signupProfilePictureViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = signupProfilePictureViewController.swift; path = LoginSignupClasses/signupProfilePictureViewController.swift; sourceTree = "<group>"; };
 		1089A5A61EF3EAFC006197FE /* SignUpScreenViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SignUpScreenViewController.swift; path = LoginSignupClasses/SignUpScreenViewController.swift; sourceTree = "<group>"; };
@@ -234,6 +238,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1086B2A81F20CB7B00AB1C69 /* AVFoundation.framework in Frameworks */,
+				1086B2A61F20CB7200AB1C69 /* QuartzCore.framework in Frameworks */,
 				3560C2CC3CCBA85BAE977F76 /* Pods_PYT.framework in Frameworks */,
 				104182961EF26AEC00078527 /* FBSDKCoreKit.framework in Frameworks */,
 				104182981EF26AEC00078527 /* FBSDKShareKit.framework in Frameworks */,
@@ -547,6 +553,8 @@
 		C173BD451CB783A2EC98F3B2 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				1086B2A71F20CB7B00AB1C69 /* AVFoundation.framework */,
+				1086B2A51F20CB7200AB1C69 /* QuartzCore.framework */,
 				1513D63A44D48DD66BDE374E /* Pods_PYT.framework */,
 				E7F872540E6E55EA79995C4E /* Pods_PYTTests.framework */,
 				DF1CBD5A76A6F2CFB3117474 /* Pods_PYTUITests.framework */,

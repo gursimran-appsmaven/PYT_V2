@@ -11,6 +11,8 @@ import SDWebImage
 import MBProgressHUD
 import HMSegmentedControl
 
+import QuartzCore
+import AVFoundation
 
 
 //class mainHomeViewController: UIViewController  {
@@ -134,6 +136,11 @@ class mainHomeViewController: UIViewController, SDWebImageManagerDelegate, apiCl
     var longTapedView = UIView()
     var storyVisible = Bool()
     @IBOutlet weak var contentTop: NSLayoutConstraint!
+    
+    
+    var player = AVPlayer()
+
+    
     
      func scrollViewDidScroll(_ scrollView: UIScrollView) {
 //        if(scrollView.contentOffset.y > 70 )
@@ -4369,7 +4376,7 @@ extension mainHomeViewController: UICollectionViewDelegate, UICollectionViewData
                     arrImg2 = (self.arrayOfimages1[collectionView.tag] as AnyObject).value(forKey: "thumbnails") as! NSArray
                     
                     
-                    let imageName2 = arrImg2[indexPath.row] as! String
+                    let imageName2 = arrImg2[indexPath.row] as? String ?? ""
                     
                     ///image of that place
                     
@@ -4427,10 +4434,169 @@ extension mainHomeViewController: UICollectionViewDelegate, UICollectionViewData
     }
     
     
+    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+        if(!scrollView.isDecelerating)
+        {
+            var cells: [Any] = imagesTableView.visibleCells
+            var indexPaths: [Any]? = imagesTableView.indexPathsForVisibleRows
+            let cellCount: Int = cells.count
+            if cellCount == 0 {
+                return
+            }
+            // Check the visibility of the first cell
+            checkVisibilityOf(cells[0] as! cellClassTableViewCell, for: indexPaths?[0] as! IndexPath)
+            if cellCount == 1 {
+                return
+            }
+            // Check the visibility of the last cell
+            if let _ = cells.last as? cellClassTableViewCell
+            {
+                checkVisibilityOf(cells.last as! cellClassTableViewCell, for: indexPaths?.last as! IndexPath)
+                if cellCount == 2 {
+                    return
+                }
+            }
+            else
+            {
+                return
+            }
+            // All of the rest of the cells are visible: Loop through the 2nd through n-1 cells
+            for i in 1..<cellCount - 1 {
+                
+                var cellsCV: [Any] = (cells[i] as! cellClassTableViewCell).imagesCollectionView.visibleCells
+                var indexPathsCV: [Any]? = ((cells[i] as! cellClassTableViewCell).imagesCollectionView).indexPathsForVisibleItems
+                let cellCountCV: Int = cellsCV.count
+
+                if cellCountCV == 0 {
+                    return
+                }
+                // Check the visibility of the first cell
+                if let _ = cellsCV[0] as? collectionViewCellClassFeed
+                {
+                    checkVisibilityOfCollectioView(cellsCV[0] as! collectionViewCellClassFeed,cellTable: cells[i] as! cellClassTableViewCell, for: indexPathsCV?[0] as! IndexPath, indexPathTable: indexPaths?[i] as! IndexPath)
+                    if cellCountCV == 1 {
+                        return
+                    }
+                }
+                else
+                {
+                    return
+                }
+
+                               // Check the visibility of the last cell
+                if let _ = cellsCV.last as? collectionViewCellClassFeed
+                {
+                    checkVisibilityOfCollectioView(cellsCV.last as! collectionViewCellClassFeed,cellTable: cells[i] as! cellClassTableViewCell, for: indexPathsCV?.last as! IndexPath, indexPathTable: indexPaths?[i] as! IndexPath)
+                    if cellCountCV == 2 {
+                        return
+                    }
+                }
+                else
+                {
+                    return
+                }
+
+                                // All of the rest of the cells are visible: Loop through the 2nd through n-1 cells
+                for i in 1..<cellCountCV - 1 {
+                }
+                print(cellCountCV)
+               // (cells[i] as AnyObject).notifyCellVisible(withIsCompletelyVisible: true)
+            }
+        }
+        
+    }
     
-    
-    
-    
+    func checkVisibilityOf(_ cell: cellClassTableViewCell, for indexPath: IndexPath) {
+        var cellRect: CGRect = imagesTableView.rectForRow(at: indexPath)
+        cellRect = imagesTableView.convert(cellRect, to: imagesTableView.superview)
+        let completelyVisible: Bool = imagesTableView.frame.contains(cellRect)
+        
+        if(completelyVisible)
+        {
+            var cellsCV: [Any] = (cell ).imagesCollectionView.visibleCells
+            var indexPathsCV: [Any]? = ((cell ).imagesCollectionView).indexPathsForVisibleItems
+            let cellCountCV: Int = cellsCV.count
+            
+            if cellCountCV == 0 {
+                return
+            }
+            // Check the visibility of the first cell
+            if let _ = cellsCV[0] as? collectionViewCellClassFeed
+            {
+                checkVisibilityOfCollectioView(cellsCV[0] as! collectionViewCellClassFeed,cellTable: cell, for: indexPathsCV?[0] as! IndexPath, indexPathTable: indexPath )
+                if cellCountCV == 1 {
+                    return
+                }
+            }
+            else
+            {
+                return
+            }
+
+                       // Check the visibility of the last cell
+            if let _ = cellsCV.last as? collectionViewCellClassFeed
+            {
+                checkVisibilityOfCollectioView(cellsCV.last as! collectionViewCellClassFeed,cellTable: cell, for: indexPathsCV?.last as! IndexPath, indexPathTable: indexPath )
+                if cellCountCV == 2 {
+                    return
+                }
+            }
+            else
+            {
+                return
+            }
+
+            // All of the rest of the cells are visible: Loop through the 2nd through n-1 cells
+            for i in 1..<cellCountCV - 1 {
+            }
+
+        }
+       // cell.notifyVisible(withIsCompletelyVisible: completelyVisible)
+    }
+    func checkVisibilityOfCollectioView(_ cell: collectionViewCellClassFeed,cellTable: cellClassTableViewCell, for indexPath: IndexPath, indexPathTable: IndexPath) {
+        let theAttributes:UICollectionViewLayoutAttributes! = cellTable.imagesCollectionView.layoutAttributesForItem(at: indexPath)
+        let cellRect:CGRect!  = cellTable.imagesCollectionView.convert(theAttributes.frame, to: cellTable.imagesCollectionView.superview)
+        
+//        cellRect = cellTable.imagesCollectionView.convert(cellRect, to: cellTable.imagesCollectionView.superview)
+        let completelyVisible: Bool = cellTable.imagesCollectionView.frame.contains(cellRect)
+        
+        let playerLayer = AVPlayerLayer(player: player)
+        
+        if(completelyVisible)
+        {
+            print(indexPath)
+            print(indexPathTable)
+            
+            var arrImg2 = NSArray()
+            print(self.arrayOfimages1[indexPathTable.row])
+            let sourceTpye = (self.arrayOfimages1[indexPathTable.row] as AnyObject).value(forKey: "sourceType") as! NSArray
+            if(sourceTpye[indexPath.row] as! NSNumber == 4)
+            {
+                arrImg2 = (self.arrayOfimages1[indexPathTable.row] as AnyObject).value(forKey: "thumbnails") as! NSArray
+                
+                print(arrImg2)
+                
+                let urlVideo = arrImg2[indexPath.row] as? String ?? ""
+                
+                let myURL = URL(string: urlVideo)
+                
+                player = AVPlayer(url:myURL!)
+
+                
+                playerLayer.frame = cell.contentView.bounds
+                cell.contentView.layer.addSublayer(playerLayer)
+                
+                player.play()
+            }
+        }
+        else
+        {
+            player.pause()
+            playerLayer.removeFromSuperlayer()
+        }
+        // cell.notifyVisible(withIsCompletelyVisible: completelyVisible)
+    }
+
     
     
     // MARK: UICollectionViewDelegateFlowLayout
